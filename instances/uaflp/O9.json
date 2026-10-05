@@ -1,0 +1,106 @@
+{
+ "name": "O9",
+ "n": 9,
+ "W": 12.0,
+ "H": 13.0,
+ "areas": [
+  16.0,
+  16.0,
+  16.0,
+  36.0,
+  36.0,
+  9.0,
+  9.0,
+  9.0,
+  9.0
+ ],
+ "weights": [
+  [
+   1,
+   4,
+   5.0
+  ],
+  [
+   1,
+   5,
+   5.0
+  ],
+  [
+   1,
+   9,
+   1.0
+  ],
+  [
+   2,
+   4,
+   3.0
+  ],
+  [
+   2,
+   5,
+   3.0
+  ],
+  [
+   2,
+   9,
+   1.0
+  ],
+  [
+   3,
+   4,
+   2.0
+  ],
+  [
+   3,
+   5,
+   2.0
+  ],
+  [
+   3,
+   9,
+   1.0
+  ],
+  [
+   4,
+   6,
+   4.0
+  ],
+  [
+   4,
+   7,
+   4.0
+  ],
+  [
+   5,
+   6,
+   3.0
+  ],
+  [
+   5,
+   9,
+   4.0
+  ],
+  [
+   6,
+   9,
+   2.0
+  ],
+  [
+   7,
+   9,
+   1.0
+  ]
+ ],
+ "shape": {
+  "type": "Rmax",
+  "value": 4
+ },
+ "objective": "sum_{i<j} w_ij * (|cx_i-cx_j| + |cy_i-cy_j|), c = rectangle centroid",
+ "provenance": {
+  "status": "indirectly_verified",
+  "data": "gym-flp commit efbd8b0 continuous.json (no public original table found)",
+  "verification": "Replaying Konak et al. 2006 Table 3 FBS solution 7-8|4-1-2|3-6-9-5 with bays along the 13-long side gives 241.06, equal to the paper (tests/test_replay.py)",
+  "geometry": "Goncalves & Resende 2015 Table 8 p.19",
+  "origin": "Meller, Narayanan & Vance 1998"
+ }
+}
