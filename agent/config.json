@@ -1,0 +1,24 @@
+{
+  "llm": {
+    "provider": "anthropic",
+    "model": "TO_CONFIRM",
+    "temperature": null,
+    "max_tokens": 16000,
+    "timeout_s": 600
+  },
+  "experiment": {
+    "cases": ["fork14", "pump14"],
+    "self_check_settings": [false, true],
+    "repeats": 5,
+    "confidence_threshold": 3,
+    "max_format_retries": 2,
+    "run_oneshot_control": true,
+    "selfcheck_workers": 4
+  },
+  "fork14_layout": {
+    "floor": null,
+    "shape": null,
+    "x_min_dist_m": null,
+    "solver_cmd": null
+  }
+}

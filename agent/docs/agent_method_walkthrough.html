@@ -1,0 +1,763 @@
+<title>需求理解 Agent 设计</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;800&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: engineering notebook. Left = step index (like a drawing sheet's title block), right = one step at a time. Ink on paper, black/white only. */
+:root{
+  --paper:#fafaf8; --ink:#151515; --muted:#5b5c5e; --rule:#d6d6d2; --fill:#ececea; --fill2:#dcdcd8; --chip:#151515; --chipfg:#fafaf8;
+  --g-A:#151515; --g-E:#4a4a4a; --g-I:#8a8a8a; --g-O:#c4c4c1; --g-U:transparent; --g-fgdark:#fafaf8; --g-fglight:#151515;
+  --f-display:"Noto Serif SC","Songti SC","SimSun",serif;
+  --f-body:"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#131313; --ink:#ebebe8; --muted:#a3a3a0; --rule:#3a3a38; --fill:#1f1f1e; --fill2:#2c2c2a; --chip:#ebebe8; --chipfg:#131313;
+  --g-A:#ebebe8; --g-E:#b5b5b2; --g-I:#7b7b78; --g-O:#454543; --g-fgdark:#131313; --g-fglight:#ebebe8; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#131313; --ink:#ebebe8; --muted:#a3a3a0; --rule:#3a3a38; --fill:#1f1f1e; --fill2:#2c2c2a; --chip:#ebebe8; --chipfg:#131313;
+  --g-A:#ebebe8; --g-E:#b5b5b2; --g-I:#7b7b78; --g-O:#454543; --g-fgdark:#131313; --g-fglight:#ebebe8; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:15.5px;line-height:1.75;margin:0}
+.wrap{display:grid;grid-template-columns:250px minmax(0,1fr);gap:40px;max-width:1180px;margin:0 auto;
+  padding-block:28px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+nav.idx{position:sticky;top:calc(env(safe-area-inset-top,0px) + 20px);align-self:start;border:1.5px solid var(--ink)}
+nav.idx .head{padding:12px 14px;border-bottom:1.5px solid var(--ink)}
+nav.idx .head b{font-family:var(--f-display);font-size:18px;display:block;line-height:1.3}
+nav.idx .head span{font-size:12px;color:var(--muted)}
+nav.idx ol{list-style:none;margin:0;padding:0}
+nav.idx li{border-bottom:1px solid var(--rule)}
+nav.idx li:last-child{border-bottom:0}
+nav.idx a{display:grid;grid-template-columns:30px 1fr;gap:6px;padding:7px 12px;color:var(--ink);text-decoration:none;font-size:13.5px;line-height:1.45}
+nav.idx a .n{font-family:var(--f-mono);font-size:12px;color:var(--muted);padding-top:1px}
+nav.idx a[aria-current="true"]{background:var(--chip);color:var(--chipfg)}
+nav.idx a[aria-current="true"] .n{color:var(--chipfg)}
+nav.idx a:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.modebar{display:flex;gap:8px;flex-wrap:wrap;padding:10px 12px;border-top:1.5px solid var(--ink)}
+button{font:inherit;font-size:13px;border:1.5px solid var(--ink);background:var(--paper);color:var(--ink);padding:5px 12px;cursor:pointer}
+button:hover{background:var(--fill)}
+button[aria-pressed="true"]{background:var(--chip);color:var(--chipfg)}
+main{min-width:0}
+section.step{min-width:0}
+.allmode section.step{padding-bottom:48px;margin-bottom:48px;border-bottom:1.5px solid var(--ink)}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase}
+h1,h2{font-family:var(--f-display);font-weight:800;text-wrap:balance;line-height:1.3;margin:4px 0 6px}
+h1{font-size:30px} h2{font-size:26px}
+h3{font-size:16.5px;margin:30px 0 8px;font-weight:700;display:flex;gap:10px;align-items:baseline}
+h3 .tag{font-family:var(--f-mono);font-size:11px;font-weight:600;border:1px solid var(--ink);padding:0 6px;letter-spacing:.04em}
+p{margin:0 0 4px;max-width:68ch}
+.en{display:block;color:var(--muted);font-size:13.5px;line-height:1.55;margin:2px 0 14px;max-width:72ch}
+li .en{margin-bottom:6px}
+ul.plain,ol.plain{padding-left:20px;margin:6px 0 14px;max-width:70ch}
+ul.plain li,ol.plain li{margin:6px 0 2px}
+.src{font-family:var(--f-mono);font-size:12px;border:1px solid var(--ink);padding:1px 7px;white-space:nowrap}
+.demo{display:inline-block;font-family:var(--f-mono);font-size:11px;background:var(--chip);color:var(--chipfg);padding:1px 7px;letter-spacing:.04em;margin-right:6px}
+.box{border:1.5px solid var(--ink);padding:14px 16px;margin:14px 0 18px;max-width:780px}
+.box.soft{border-color:var(--rule);background:var(--fill)}
+.why{border-left:4px solid var(--ink);padding:4px 0 4px 14px;margin:14px 0 18px;max-width:760px}
+.why b.k{font-family:var(--f-mono);font-size:12px;letter-spacing:.06em;display:block;margin-bottom:4px}
+.scroll{overflow-x:auto;margin:10px 0 18px;max-width:100%}
+table{border-collapse:collapse;font-variant-numeric:tabular-nums}
+table.t{font-size:14px;min-width:100%}
+table.t th,table.t td{border:1px solid var(--rule);padding:6px 10px;text-align:left;vertical-align:top}
+table.t th{background:var(--fill);font-weight:600}
+table.t td.num,table.t th.num{text-align:right;font-family:var(--f-mono);font-size:13px}
+.mono{font-family:var(--f-mono);font-size:13.5px}
+pre{font-family:var(--f-mono);font-size:13px;line-height:1.6;background:var(--fill);border:1px solid var(--rule);padding:12px 14px;overflow-x:auto;margin:10px 0 16px;max-width:100%}
+.formula{font-family:var(--f-mono);font-size:14.5px;background:var(--fill);border-left:4px solid var(--ink);padding:10px 14px;margin:10px 0 14px;overflow-x:auto;white-space:pre}
+/* relation matrix */
+table.rel{font-family:var(--f-mono);font-size:12.5px}
+table.rel th,table.rel td{border:1px solid var(--rule);width:30px;height:28px;text-align:center;padding:0}
+table.rel th.rh{text-align:left;padding:0 8px;width:auto;white-space:nowrap;font-family:var(--f-body);font-weight:500;font-size:12.5px}
+table.rel th{background:var(--fill);font-weight:600}
+table.rel td.sum{font-weight:600;width:44px;background:var(--fill)}
+.g-A{background:var(--g-A);color:var(--g-fgdark)}
+.g-E{background:var(--g-E);color:var(--g-fgdark)}
+.g-I{background:var(--g-I);color:var(--g-fgdark)}
+.g-O{background:var(--g-O);color:var(--g-fglight)}
+.g-U{color:var(--muted)}
+.g-X{background:repeating-linear-gradient(45deg,var(--fill2) 0 3px,var(--paper) 3px 6px);font-weight:600}
+.g-d{color:var(--rule)}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:12.5px;margin:6px 0 14px;align-items:center}
+.legend span.sw{display:inline-block;width:18px;height:14px;border:1px solid var(--rule);vertical-align:-2px;margin-right:4px}
+/* flow diagram */
+.flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:14px 0 8px}
+.lane{border:1.5px solid var(--ink);min-width:0}
+.lane .lh{padding:6px 10px;border-bottom:1.5px solid var(--ink);font-weight:700;font-size:13.5px;display:flex;justify-content:space-between;gap:6px}
+.lane .lh i{font-style:normal;font-family:var(--f-mono);font-size:11px;color:var(--muted)}
+.node{padding:6px 10px;border-bottom:1px solid var(--rule);font-size:13px;line-height:1.45;display:grid;grid-template-columns:22px 1fr;gap:4px}
+.node:last-child{border-bottom:0}
+.node .c{font-family:var(--f-mono)}
+.node.now{background:var(--chip);color:var(--chipfg)}
+.node.wait{background:var(--fill)}
+.inputs{border:1.5px dashed var(--ink);padding:8px 12px;font-size:13.5px;margin-top:6px}
+.navbtns{display:flex;justify-content:space-between;gap:12px;margin-top:34px;padding-top:16px;border-top:1px solid var(--rule)}
+.navbtns button{min-width:120px}
+.allmode .navbtns{display:none}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:14px;margin:8px 0 14px}
+.kv dt{font-family:var(--f-mono);font-weight:600}
+.kv dd{margin:0}
+a{color:var(--ink)}
+@media (max-width:860px){
+  .wrap{grid-template-columns:minmax(0,1fr);gap:20px}
+  nav.idx{position:static}
+  nav.idx ol{display:flex;overflow-x:auto}
+  nav.idx li{border-bottom:0;border-right:1px solid var(--rule);flex:0 0 auto}
+  nav.idx a{grid-template-columns:auto;padding:8px 12px;white-space:nowrap}
+  nav.idx a .t{display:none}
+  .flow{grid-template-columns:minmax(0,1fr)}
+  h1{font-size:25px} h2{font-size:22px}
+}
+@media (prefers-reduced-motion:no-preference){section.step{animation:in .18s ease-out}}
+@keyframes in{from{opacity:.4}to{opacity:1}}
+</style>
+
+<div class="wrap" id="wrap">
+<nav class="idx" aria-label="步骤目录">
+  <div class="head"><b>需求理解 Agent</b><span>ME5001A · 设计过程逐步讲解</span></div>
+  <ol id="toc"></ol>
+  <div class="modebar">
+    <button id="modeStep" aria-pressed="true">逐步阅读</button>
+    <button id="modeAll" aria-pressed="false">整页阅读</button>
+  </div>
+</nav>
+
+<main id="main">
+
+<!-- ============ S0 ============ -->
+<section class="step" id="s0" data-title="总览">
+<div class="eyebrow">Step 0 · Overview</div>
+<h1>这个 Agent 要做什么，整体长什么样</h1>
+<span class="en">What this agent does, and the whole picture.</span>
+
+<p>一句话：把工厂的文字说明，变成求解器能直接读的输入。</p>
+<span class="en">In one sentence: turn a factory's text description into input the solver can read directly.</span>
+<p>LLM（Large Language Model，大语言模型）只负责"读懂需求"；坐标、尺寸由求解器算；结果由独立检查器复核。</p>
+<span class="en">The LLM (Large Language Model) only reads and understands the requirements. The solver computes positions and sizes. An independent checker verifies the result.</span>
+
+<div class="inputs"><b>输入 / Input</b>：空厂房图 · 面积表 · 工艺说明（文字）· 规范条文（文字）</div>
+<div class="flow" role="img" aria-label="四个阶段的数据流">
+  <div class="lane"><div class="lh">A 需求结构化<i>Structure</i></div>
+    <div class="node now"><span class="c">①</span>数值隔离</div>
+    <div class="node now"><span class="c">②</span>关系整理 Agent</div>
+    <div class="node now"><span class="c">③</span>置信度自检（可开关）</div>
+    <div class="node"><span class="c">④</span>规则整理 Agent</div>
+    <div class="node now"><span class="c">⑤</span>格式校验</div></div>
+  <div class="lane"><div class="lh">B 求解<i>Solve</i></div>
+    <div class="node now"><span class="c">⑥</span>编译</div>
+    <div class="node wait"><span class="c">⑦</span>两阶段求解器（已有）</div>
+    <div class="node"><span class="c">⑧</span>无解时放宽 E/I/O</div></div>
+  <div class="lane"><div class="lh">C 检查<i>Check</i></div>
+    <div class="node"><span class="c">⑨</span>独立检查器</div>
+    <div class="node"><span class="c">⑩</span>违规分流</div></div>
+  <div class="lane"><div class="lh">D 评估<i>Evaluate</i></div>
+    <div class="node now"><span class="c">⑪</span>关系表 vs 人工标准</div>
+    <div class="node"><span class="c">⑫</span>布局 vs 专家方案</div></div>
+</div>
+<div class="legend">
+  <span><span class="sw" style="background:var(--chip)"></span>本阶段，代码已写好并通过测试 / this stage, code written and tested</span>
+  <span><span class="sw" style="background:var(--fill)"></span>本阶段，等求解器代码 / this stage, waiting for solver code</span>
+  <span><span class="sw"></span>后续阶段 / later</span>
+</div>
+
+<h3>设计是怎么一步步定下来的 / How the design was decided</h3>
+<ol class="plain">
+<li>先定 LLM 放在哪里：只做入口翻译，不算几何。（第 2 步）<span class="en">Where the LLM goes: input translation only, no geometry. (Step 2)</span></li>
+<li>再定 LLM 输出什么：SLP 关系等级，不是数字。（第 3 步）<span class="en">What it outputs: SLP closeness grades, not numbers. (Step 3)</span></li>
+<li>然后逐个节点补上"怎么保证可靠"：①②③⑤。（第 4–7 步）<span class="en">Then make each node reliable: ① ② ③ ⑤. (Steps 4–7)</span></li>
+<li>把等级翻译成求解器的目标和约束：⑥。（第 8 步）<span class="en">Translate grades into the solver's objective and constraints: ⑥. (Step 8)</span></li>
+<li>最后定怎么证明它有用：⑪ 和实验设计。（第 10–11 步）<span class="en">Finally, how to prove it works: ⑪ and the experiment design. (Steps 10–11)</span></li>
+</ol>
+<p>第 1 步先讲数据，后面所有例子都用这份数据。</p>
+<span class="en">Step 1 explains the data first. Every later example uses it.</span>
+</section>
+
+<!-- ============ S1 ============ -->
+<section class="step" id="s1" data-title="先看数据">
+<div class="eyebrow">Step 1 · Data</div>
+<h2>先看数据：两个教材算例和"标准答案"</h2>
+<span class="en">Data first: two textbook cases and their answer keys.</span>
+
+<p>为什么用教材算例：书里有设计者手工做好的"综合关系表"，可以直接当人工标准答案（gold），不用再找人标注。</p>
+<span class="en">Why textbook cases: the book already has a relation chart made by hand. We use it as the answer key (gold), so no one needs to label data.</span>
+
+<h3>fork14 · 电瓶叉车总装厂 <span class="tag">有面积，可跑端到端</span></h3>
+<span class="en">fork14 · battery forklift assembly plant. Has areas, so it can run end to end.</span>
+<p>尺寸来自戢守峰《现代设施规划与物流分析》表 6-2（p.107），单位 m。面积 = 长 × 宽。</p>
+<span class="en">Sizes from Ji Shoufeng, Table 6-2 (p.107), in metres. Area = length × width.</span>
+<div class="scroll"><table class="t"><tr><th class="num">#</th><th>作业单位</th><th class="num">长 × 宽 /m</th><th class="num">面积 /m²</th></tr><tr><td class="num">1</td><td>原材料库</td><td class="num">72 × 36</td><td class="num">2,592</td></tr><tr><td class="num">2</td><td>油料库</td><td class="num">36 × 36</td><td class="num">1,296</td></tr><tr><td class="num">3</td><td>标准件外购件库</td><td class="num">48 × 36</td><td class="num">1,728</td></tr><tr><td class="num">4</td><td>机加工车间</td><td class="num">72 × 36</td><td class="num">2,592</td></tr><tr><td class="num">5</td><td>热处理车间</td><td class="num">90 × 30</td><td class="num">2,700</td></tr><tr><td class="num">6</td><td>焊接车间</td><td class="num">90 × 30</td><td class="num">2,700</td></tr><tr><td class="num">7</td><td>变速器车间</td><td class="num">72 × 36</td><td class="num">2,592</td></tr><tr><td class="num">8</td><td>总装车间</td><td class="num">180 × 96</td><td class="num">17,280</td></tr><tr><td class="num">9</td><td>工具车间</td><td class="num">60 × 24</td><td class="num">1,440</td></tr><tr><td class="num">10</td><td>油漆车间</td><td class="num">48 × 30</td><td class="num">1,440</td></tr><tr><td class="num">11</td><td>试车车间</td><td class="num">48 × 48</td><td class="num">2,304</td></tr><tr><td class="num">12</td><td>成品库</td><td class="num">100 × 50</td><td class="num">5,000</td></tr><tr><td class="num">13</td><td>办公服务楼</td><td class="num">300 × 60</td><td class="num">18,000</td></tr><tr><td class="num">14</td><td>车库</td><td class="num">80 × 60</td><td class="num">4,800</td></tr><tr><th></th><th>合计</th><th></th><th class="num">66,464</th></tr></table></div>
+
+<h3>fork14 的标准答案：14 × 14 综合关系表 <span class="tag">方庆琯 表 6-16 p.141</span></h3>
+<span class="en">fork14 answer key: the 14 × 14 relation chart (Fang Qingguan, Table 6-16, p.141).</span>
+<p>表是对称的（1–4 和 4–1 是同一对）。最右一列"合计"按书中分值算：A=4，E=3，I=2，O=1，U=0，X=−1。</p>
+<span class="en">The chart is symmetric (1–4 and 4–1 are the same pair). The "Sum" column uses the book's scores: A=4, E=3, I=2, O=1, U=0, X=−1.</span>
+<div class="legend">
+  <span><span class="sw g-A"></span>A</span><span><span class="sw g-E"></span>E</span><span><span class="sw g-I"></span>I</span>
+  <span><span class="sw g-O"></span>O</span><span><span class="sw"></span>U</span><span><span class="sw g-X"></span>X</span>
+</div>
+<div class="scroll"><table class="rel" aria-label="fork14 综合关系表"><tr><th class="rh">单位</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>合计</th></tr><tr><th class="rh">1 原材料库</th><td class="g-d">—</td><td class="g-I">I</td><td class="g-I">I</td><td class="g-E">E</td><td class="g-E">E</td><td class="g-E">E</td><td class="g-U">U</td><td class="g-U">U</td><td class="g-I">I</td><td class="g-U">U</td><td class="g-U">U</td><td class="g-U">U</td><td class="g-U">U</td><td class="g-I">I</td><td class="sum">17</td></tr><tr><th class="rh">2 油料库</th><td class="g-I">I</td><td class="g-d">—</td><td class="g-I">I</td><td class="g-U">U</td><td class="g-X">X</td><td class="g-X">X</td><td class="g-U">U</td><td class="g-U">U</td><td class="g-U">U</td><td class="g-E">E</td><td class="g-O">O</td><td class="g-U">U</td><td class="g-X">X</td><td class="g-I">I</td><td class="sum">7</td></tr><tr><th class="rh">3 标准件外购件库</th><td class="g-I">I</td><td class="g-I">I</td><td class="g-d">—</td><td class="g-U">U</td><td class="g-U">U</td><td class="g-U">U</td><td class="g-I">I</td><td class="g-E">E</td><td class="g-U">U</td><td class="g-U">U</td><td class="g-U">U</td><td class="g-U">U</td><td class="g-U">U</td><td class="g-I">I</td><td class="sum">11</td></tr><tr><th class="rh">4 机加工车间</th><td class="g-E">E</td><td class="g-U">U</td><td class="g-U">U</td><td class="g-d">—</td><td class="g-A">A</td><td class="g-O">O</td><td class="g-E">E</td><td class="g-I">I</td><td class="g-I">I</td><td class="g-U">U</td><td class="g-O">O</td><td class="g-U">U</td><td class="g-I">I</td><td class="g-U">U</td><td class="sum">18</td></tr><tr><th class="rh">5 热处理车间</th><td class="g-E">E</td><td class="g-X">X</td><td class="g-U">U</td><td class="g-A">A</td><td class="g-d">—</td><td class="g-U">U</td><td class="g-U">U</td><td class="g-U">U</td><td class="g-E">E</td><td class="g-X">X</td><td class="g-U">U</td><td class="g-U">U</td><td class="g-X">X</td><td class="g-U">U</td><td class="sum">7</td></tr><tr><th class="rh">6 焊接车间</th><td class="g-E">E</td><td class="g-X">X</td><td class="g-U">U</td><td class="g-O">O</td><td class="g-U">U</td><td class="g-d">—</td><td class="g-U">U</td><td class="g-U">U</td><td class="g-U">U</td><td class="g-U">U</td><td class="g-U">U</td><td class="g-U">U</td><td class="g-X">X</td><td class="g-O">O</td><td class="sum">3</td></tr><tr><th class="rh">7 变速器车间</th><td class="g-U">U</td><td class="g-U">U</td><td class="g-I">I</td><td class="g-E">E</td><td class="g-U">U</td><td class="g-U">U</td><td class="g-d">—</td><td class="g-E">E</td><td class="g-U">U</td><td class="g-U">U</td><td class="g-I">I</td><td class="g-U">U</td><td class="g-I">I</td><td class="g-O">O</td><td class="sum">13</td></tr><tr><th class="rh">8 总装车间</th><td class="g-U">U</td><td class="g-U">U</td><td class="g-E">E</td><td class="g-I">I</td><td class="g-U">U</td><td class="g-U">U</td><td class="g-E">E</td><td class="g-d">—</td><td class="g-I">I</td><td class="g-E">E</td><td class="g-A">A</td><td class="g-U">U</td><td class="g-I">I</td><td class="g-I">I</td><td class="sum">21</td></tr><tr><th class="rh">9 工具车间</th><td class="g-I">I</td><td class="g-U">U</td><td class="g-U">U</td><td class="g-I">I</td><td class="g-E">E</td><td class="g-U">U</td><td class="g-U">U</td><td class="g-I">I</td><td class="g-d">—</td><td class="g-U">U</td><td class="g-U">U</td><td class="g-U">U</td><td class="g-O">O</td><td class="g-U">U</td><td class="sum">10</td></tr><tr><th class="rh">10 油漆车间</th><td class="g-U">U</td><td class="g-E">E</td><td class="g-U">U</td><td class="g-U">U</td><td class="g-X">X</td><td class="g-U">U</td><td class="g-U">U</td><td class="g-E">E</td><td class="g-U">U</td><td class="g-d">—</td><td class="g-U">U</td><td class="g-U">U</td><td class="g-X">X</td><td class="g-U">U</td><td class="sum">4</td></tr><tr><th class="rh">11 试车车间</th><td class="g-U">U</td><td class="g-O">O</td><td class="g-U">U</td><td class="g-O">O</td><td class="g-U">U</td><td class="g-U">U</td><td class="g-I">I</td><td class="g-A">A</td><td class="g-U">U</td><td class="g-U">U</td><td class="g-d">—</td><td class="g-A">A</td><td class="g-O">O</td><td class="g-U">U</td><td class="sum">13</td></tr><tr><th class="rh">12 成品库</th><td class="g-U">U</td><td class="g-U">U</td><td class="g-U">U</td><td class="g-U">U</td><td class="g-U">U</td><td class="g-U">U</td><td class="g-U">U</td><td class="g-U">U</td><td class="g-U">U</td><td class="g-U">U</td><td class="g-A">A</td><td class="g-d">—</td><td class="g-O">O</td><td class="g-I">I</td><td class="sum">7</td></tr><tr><th class="rh">13 办公服务楼</th><td class="g-U">U</td><td class="g-X">X</td><td class="g-U">U</td><td class="g-I">I</td><td class="g-X">X</td><td class="g-X">X</td><td class="g-I">I</td><td class="g-I">I</td><td class="g-O">O</td><td class="g-X">X</td><td class="g-O">O</td><td class="g-O">O</td><td class="g-d">—</td><td class="g-I">I</td><td class="sum">7</td></tr><tr><th class="rh">14 车库</th><td class="g-I">I</td><td class="g-I">I</td><td class="g-I">I</td><td class="g-U">U</td><td class="g-U">U</td><td class="g-O">O</td><td class="g-O">O</td><td class="g-I">I</td><td class="g-U">U</td><td class="g-U">U</td><td class="g-U">U</td><td class="g-I">I</td><td class="g-I">I</td><td class="g-d">—</td><td class="sum">14</td></tr></table></div>
+
+<p>核对第 1 行（原材料库）：</p>
+<span class="en">Check row 1 (raw material store):</span>
+<div class="formula">2I + 3I + 4E + 5E + 6E + 9I + 14I   （其余 6 个都是 U，记 0）
+= 2 + 2 + 3 + 3 + 3 + 2 + 2 = 17   ✓ 与书中"综合接近程度"一致</div>
+<p>14 行全部和书上一致，脚本 <span class="mono">eval/check_gold.py</span> 自动核对。</p>
+<span class="en">All 14 rows match the book. The script eval/check_gold.py checks this automatically.</span>
+
+<h3>一共多少对？各等级多少？</h3>
+<span class="en">How many pairs, and how many of each grade?</span>
+<div class="formula">对数 = n(n−1)/2 = 14 × 13 / 2 = 91
+
+A 3 · E 9 · I 18 · O 8 · U 46 · X 7    合计 91</div>
+<p>一半以上（46/91 = 50.5%）是 U。这一点后面很重要：全部猜 U 也能"对一半"。</p>
+<span class="en">More than half (46/91 = 50.5%) are U. This matters later: guessing U for everything is already "half right".</span>
+
+<h3>pump14 · 液压泵装配车间 <span class="tag">只有关系，没有面积</span></h3>
+<span class="en">pump14 · hydraulic pump assembly shop. Relations only, no areas.</span>
+<ul class="plain">
+<li>14 个单位，同样 91 对；书中没给面积，所以只测关系推断，不跑布局。<span class="en">14 units, 91 pairs. The book gives no areas, so we only test relations, not layout.</span></li>
+<li>4–6 这一对书上自相矛盾（第 4 行合计要求 O，第 6 行合计要求 U），评估时排除，按 90 对算。<span class="en">Pair 4–6 contradicts itself in the book, so we leave it out and score 90 pairs.</span></li>
+<li>U 更多：90 对里 66 对是 U（73.3%）。<span class="en">Even more U: 66 of 90 pairs (73.3%).</span></li>
+<li>第 10 行还有一处待对原书（10–11、10–12 两格），见第 12 步。<span class="en">Row 10 still needs a check against the book (cells 10–11, 10–12). See Step 12.</span></li>
+</ul>
+</section>
+
+<!-- ============ S2 ============ -->
+<section class="step" id="s2" data-title="决定 1：LLM 放哪">
+<div class="eyebrow">Step 2 · Decision 1</div>
+<h2>LLM 放在哪里：只做入口翻译</h2>
+<span class="en">Where the LLM goes: translation at the input only.</span>
+
+<p>有两种做法：</p>
+<span class="en">There are two options:</span>
+<div class="scroll"><table class="t">
+<tr><th></th><th>做法 (a) LLM 直接出布局</th><th>做法 (b) LLM 翻译需求，求解器算几何</th></tr>
+<tr><td>LLM 输出</td><td>每个区域的坐标和尺寸</td><td>关系等级 + 规则（结构化）</td></tr>
+<tr><td>面积、不重叠</td><td>靠 LLM 自己算，可能出错</td><td>求解器保证，检查器复核</td></tr>
+<tr><td>能不能复核</td><td>只能看结果</td><td>每一对关系都有理由，可逐条查</td></tr>
+</table></div>
+<span class="en">(a) the LLM outputs coordinates and sizes itself. (b) the LLM translates requirements; the solver computes geometry. In (b), areas and non-overlap are guaranteed by the solver, and every relation has a reason we can check.</span>
+
+<div class="why"><b class="k">为什么选 (b) / WHY (b)</b>
+<p>1. 文献证据：Disselkamp 等（2024, NordDesign）测了 ChatGPT 在工厂规划中的 42 个用例：信息检索和量纲计算强，画布局弱。（见项目文档 02 号综述）</p>
+<span class="en">Evidence: Disselkamp et al. (2024, NordDesign) tested ChatGPT on 42 factory-planning tasks. It was good at finding information and unit calculations, weak at drawing layouts.</span>
+<p>2. 我们已经有很强的求解器：实验一里，它在 O7、vC10a 上达到已证明的最优，在 AB20、SC30、Du62 上刷新已知最好解。没有理由让 LLM 重做几何。</p>
+<span class="en">We already have a strong solver: in Experiment 1 it reached the proven optimum on O7 and vC10a and set new best results on AB20, SC30, Du62. No reason to let an LLM redo the geometry.</span>
+<p>3. 你定的定位：LLM 替代的是"人工理解需求"这一步。</p>
+<span class="en">Your own framing: the LLM replaces the human step of understanding requirements.</span>
+</div>
+
+<h3>那 LLM 到底要交给求解器什么？</h3>
+<span class="en">So what exactly must the LLM hand to the solver?</span>
+<p>看求解器读的算例文件（GitHub Wsamme/FLP 的 <span class="mono">instances/uaflp/*.json</span>）：</p>
+<span class="en">Look at the instance file the solver reads (instances/uaflp/*.json in GitHub Wsamme/FLP):</span>
+<pre>{ "name": "O7", "n": 7, "W": 8.54, "H": 13.0,
+  "areas":   [16, 16, 16, 36, 9, 9, 9],        ← 面积表直接有
+  "weights": [[1, 4, 5.0], [1, 7, 1.0], ...],   ← 需要有人"判断"出来
+  "shape":   {"type": "Rmax", "value": 4} }</pre>
+<p>面积、厂房尺寸都是现成的数字。唯一需要"判断"的是 <span class="mono">weights</span>：哪两个区域该靠近、有多重要。这就是 LLM 的工作。</p>
+<span class="en">Areas and floor size are already numbers. The only thing that needs judgement is weights: which two areas should be close, and how much it matters. That is the LLM's job.</span>
+</section>
+
+<!-- ============ S3 ============ -->
+<section class="step" id="s3" data-title="决定 2：输出什么">
+<div class="eyebrow">Step 3 · Decision 2</div>
+<h2>LLM 输出什么：SLP 关系等级</h2>
+<span class="en">What the LLM outputs: SLP closeness grades.</span>
+
+<p>SLP（Systematic Layout Planning，系统布置设计，Muther 提出）的人工流程是：</p>
+<span class="en">The manual SLP (Systematic Layout Planning, by Muther) process is:</span>
+<div class="formula">物流分析（从至表）+ 非物流关系  →  综合关系表（A/E/I/O/U/X）  →  布置方案
+                                   ↑ 设计师凭经验判断的这一步，由 Agent 替代</div>
+<span class="en">Flow analysis + non-flow relations → relation chart (A/E/I/O/U/X) → layout. The agent replaces the middle step, which a designer does by judgement.</span>
+
+<div class="scroll"><table class="t">
+<tr><th>等级</th><th>中文含义</th><th>英文（Muther SLP）</th><th class="num">教材分值</th><th class="num">编译后的权重</th></tr>
+<tr><td class="mono g-A">A</td><td>绝对必要靠近</td><td>Absolutely necessary</td><td class="num">4</td><td class="num">4</td></tr>
+<tr><td class="mono g-E">E</td><td>特别重要</td><td>Especially important</td><td class="num">3</td><td class="num">3</td></tr>
+<tr><td class="mono g-I">I</td><td>重要</td><td>Important</td><td class="num">2</td><td class="num">2</td></tr>
+<tr><td class="mono g-O">O</td><td>一般</td><td>Ordinary closeness</td><td class="num">1</td><td class="num">1</td></tr>
+<tr><td class="mono">U</td><td>不重要</td><td>Unimportant</td><td class="num">0</td><td class="num">0</td></tr>
+<tr><td class="mono g-X">X</td><td>不希望靠近</td><td>Not desirable</td><td class="num">−1</td><td class="num">硬约束（第 8 步）</td></tr>
+</table></div>
+
+<div class="why"><b class="k">为什么输出等级，不输出数字 / WHY GRADES</b>
+<p>1. 文字说明里只有定性信息（"原材料先送机加工"），没有流量数字。让 LLM 写数字就是让它编数字。</p>
+<span class="en">Text only gives qualitative facts. Asking the LLM for numbers means asking it to invent them.</span>
+<p>2. 关系表是设计师本来就会看、会审的东西。Agent 的输出能直接拿给专家检查。</p>
+<span class="en">Designers already read and review relation charts, so the agent's output can be checked by an expert directly.</span>
+<p>3. 经典算法 CORELAP（1967）、ALDEP（1967）的输入本来就是关系表，不是流量。（见项目文档 10 号）</p>
+<span class="en">Classic methods CORELAP and ALDEP (1967) take a relation chart as input, not flows.</span>
+<p>4. 有现成的标准答案可以评估（第 1 步的 gold 表）。</p>
+<span class="en">There is a ready answer key to score against (the gold chart from Step 1).</span>
+</div>
+</section>
+
+<!-- ============ S4 ============ -->
+<section class="step" id="s4" data-title="① 数值隔离">
+<div class="eyebrow">Step 4 · Node ①</div>
+<h2>① 数值隔离：数字不进提示词</h2>
+<span class="en">① Number isolation: no numbers in the prompt.</span>
+<p><span class="src">来源 OptiMUS（ICML 2024）</span></p>
+
+<div class="scroll"><table class="t">
+<tr><th>进提示词（LLM 能看到）</th><th>不进提示词（直接给编译 ⑥）</th></tr>
+<tr><td>区域编号和名称<br>区域功能的文字描述<br>工艺流程的文字描述<br>产品是什么</td>
+<td>面积、长宽（如 72×36）<br>物流强度数字（如 1–4: 0.3）<br>任何 A/E/I/O/U/X 字母（这两个算例的）</td></tr>
+</table></div>
+<span class="en">In the prompt: unit IDs and names, what each unit does, the process in words, the product. Not in the prompt: areas and sizes, flow numbers, any grade letters for these cases.</span>
+
+<div class="why"><b class="k">为什么 / WHY</b>
+<p>1. 面积不需要"理解"。让数字经过 LLM 抄一遍，只会多出抄错的机会。OptiMUS 也是把数值数据和给模型看的文字分开。</p>
+<span class="en">Areas need no understanding. Passing numbers through the LLM only adds chances to copy them wrong. OptiMUS also keeps numeric data apart from the text the model sees.</span>
+<p>2. 物流强度和关系等级高度相关（流量大 → 等级高）。给了数字等于泄题，测不出 LLM 真正的理解能力。</p>
+<span class="en">Flow numbers are strongly tied to the grades (big flow → high grade). Giving them away leaks the answer.</span>
+</div>
+
+<h3>实际发给模型的内容（节选）<span class="tag">真实提示词</span></h3>
+<span class="en">What the model actually receives (excerpt, real prompt):</span>
+<pre># 工厂说明
+……
+## 3. 工艺流程（物料走向）
+1. 原材料库向机加工车间、热处理车间、焊接车间和工具车间供应原材料。
+2. 机加工车间加工出的零件，一部分送热处理车间，一部分送变速器车间，一部分直接送总装车间。
+……
+# 作业单位清单（共 14 个）
+- [1] 原材料库
+- [2] 油料库
+……
+请给出全部 91 对的等级。</pre>
+
+<h3>怎么保证真的没泄题</h3>
+<span class="en">How we make sure nothing leaks:</span>
+<ul class="plain">
+<li>运行前自动检查 brief：不能有小数（流量）、不能有单独的等级字母、不能有"必须相邻""物流强度"等词。<span class="en">Before each run, the brief is checked automatically: no decimals, no single grade letters, no phrases like "must be adjacent".</span></li>
+<li>测试里检查提示词不含 "72×36" 这类尺寸、不含面积数。<span class="en">A test checks that the prompt has no sizes like "72×36" and no area values.</span></li>
+<li>最后一关是人：两份 brief 要你审过才跑。<span class="en">The last check is human: you approve both briefs before any run.</span></li>
+</ul>
+</section>
+
+<!-- ============ S5 ============ -->
+<section class="step" id="s5" data-title="② 关系 Agent">
+<div class="eyebrow">Step 5 · Node ②</div>
+<h2>② 关系整理 Agent：每对一行，带理由</h2>
+<span class="en">② Relation agent: one line per pair, with a reason.</span>
+<p><span class="src">SLP 等级 · Muther</span> <span class="src">每对一行 · Holodeck（CVPR 2024）</span> <span class="src">一个 Agent 只做一件事 · Co-Layout（AAAI 2026）</span></p>
+
+<h3>输出格式</h3>
+<pre>{"pairs": [
+  {"i": 1, "name_i": "原材料库", "j": 4, "name_j": "机加工车间",
+   "grade": "E", "reason": "原材料直接供给机加工", "confidence": 4},
+  …  共 91 条，只列 i &lt; j
+]}</pre>
+
+<div class="why"><b class="k">每个字段为什么在这里 / WHY EACH FIELD</b>
+<p><b>只做关系，不管几何</b>：一个 Agent 只做一件事，任务越窄越不容易出错，出错也好定位。</p>
+<span class="en">Relations only, no geometry: one agent, one job. A narrow task fails less and is easier to debug.</span>
+<p><b>91 对全部写出，包括 U</b>：如果允许跳过，就分不清"模型认为是 U"还是"模型漏了"。全部写出，漏了就能被 ⑤ 抓到。</p>
+<span class="en">All 91 pairs, including U: if skipping were allowed, we could not tell "the model thinks U" from "the model forgot". Listing all lets ⑤ catch omissions.</span>
+<p><b>名称和编号都写</b>：两个互相印证。编号写错时，可以用名称发现。</p>
+<span class="en">Both name and ID: they cross-check each other, so a wrong ID can be caught by the name.</span>
+<p><b>reason（理由）</b>：错了能看出为什么错，这是第 10 步错误分析的材料。</p>
+<span class="en">reason: when it is wrong, we can see why. This feeds the error analysis in Step 10.</span>
+<p><b>confidence（1–5）</b>：给 ③ 自检用，低分的再问一次。</p>
+<span class="en">confidence (1–5): used by ③. Low-confidence pairs are asked again.</span>
+</div>
+
+<h3>贯穿例子：取 4 个单位、6 对 <span class="tag">演示</span></h3>
+<span class="en">Running example: 4 units, 6 pairs (demo).</span>
+<p>从 fork14 取 1 原材料库、2 油料库、4 机加工车间、5 热处理车间。下面是<b>为了讲解编的假想输出</b>，不是实验结果。</p>
+<span class="en">Take units 1, 2, 4, 5 from fork14. Below is a made-up output for teaching only. It is not an experiment result.</span>
+<div class="scroll"><table class="t">
+<tr><th>对</th><th>grade</th><th class="num">confidence</th><th>reason</th></tr>
+<tr><td class="mono">1–2</td><td class="mono">U</td><td class="num">4</td><td>说明中两库之间没有物料往来</td></tr>
+<tr><td class="mono">1–4</td><td class="mono">E</td><td class="num">5</td><td>原材料直接供给机加工</td></tr>
+<tr><td class="mono">1–5</td><td class="mono">E</td><td class="num">4</td><td>原材料供给热处理</td></tr>
+<tr><td class="mono">2–4</td><td class="mono">U</td><td class="num">5</td><td>说明中没有油料送机加工</td></tr>
+<tr><td class="mono">2–5</td><td class="mono">X</td><td class="num">4</td><td>油料易燃，热处理有高温炉</td></tr>
+<tr><td class="mono">4–5</td><td class="mono">E</td><td class="num"><b>3</b></td><td>机加工零件送热处理</td></tr>
+</table></div>
+<p>注意 2–5 的理由用到了 brief 第 4 节的书外常识（"油料易燃""高温炉"）。这类内容会在 README 里单独列出。</p>
+<span class="en">Note: the reason for 2–5 uses the outside common-sense lines in Section 4 of the brief. These are listed separately in the README.</span>
+</section>
+
+<!-- ============ S6 ============ -->
+<section class="step" id="s6" data-title="③ 置信度自检">
+<div class="eyebrow">Step 6 · Node ③</div>
+<h2>③ 置信度自检：低分的对单独再问一次</h2>
+<span class="en">③ Confidence self-check: ask again, one pair at a time, when confidence is low.</span>
+<p><span class="src">来源 OptiMUS 逐条自检</span></p>
+
+<div class="formula">规则：confidence ≤ 3  →  只给这一对的两个单位 + brief，重新判断（每对一次调用）
+开关：config 里 self_check = true / false，两种都跑</div>
+<span class="en">Rule: if confidence ≤ 3, ask again with only this pair and the brief (one call per pair). Switch: self_check = true / false; we run both.</span>
+
+<h3>例子：4–5 的 confidence = 3，触发自检 <span class="tag">演示</span></h3>
+<span class="en">Example: pair 4–5 has confidence 3, so it is checked again (demo).</span>
+<pre>发给模型：
+  需要复核的一对：[4] 机加工车间 与 [5] 热处理车间
+  你之前的判断：等级 E，理由「机加工零件送热处理」，置信度 3。
+  请独立重新判断这一对，确认或修改。
+
+假想回复：
+  {"i": 4, "j": 5, "grade": "A", "reason": "加工后的零件直接进热处理，工序紧密衔接", "confidence": 4}</pre>
+<p>结果：4–5 从 E 改成 A。其他 5 对 confidence ≥ 4，不动。</p>
+<span class="en">Result: 4–5 changes from E to A. The other 5 pairs have confidence ≥ 4 and stay.</span>
+
+<div class="why"><b class="k">为什么要做成开关 / WHY A SWITCH</b>
+<p>1. 一次问 91 对时，模型注意力分散；单独问一对，上下文更集中。这是自检可能有用的原因。</p>
+<span class="en">With 91 pairs at once, attention is spread. One pair alone gives a focused context. That is why it might help.</span>
+<p>2. 但自检也可能把对的改错。OptiMUS 没有单独测过这一步的效果，所以我们不假设它有用，而是开/关各跑 5 次，用数字说话。</p>
+<span class="en">But it can also change right answers into wrong ones. OptiMUS did not test this step alone, so we do not assume it helps. We run it on and off, 5 times each, and let the numbers decide.</span>
+<p>3. 代价：每个低分对多一次调用，token 和时间都记在 meta.json 里。</p>
+<span class="en">Cost: one extra call per low-confidence pair. Tokens and time are logged in meta.json.</span>
+</div>
+<p>如果复核的回复连续 2 次解析不了，就保留原判断，并记为 recheck_failed。</p>
+<span class="en">If the recheck reply cannot be parsed twice in a row, we keep the original and log recheck_failed.</span>
+</section>
+
+<!-- ============ S7 ============ -->
+<section class="step" id="s7" data-title="⑤ 格式校验">
+<div class="eyebrow">Step 7 · Node ⑤</div>
+<h2>⑤ 格式校验：错了就把错误原文发回去</h2>
+<span class="en">⑤ Format validation: send the exact errors back.</span>
+<p><span class="src">名称纠错 · Holodeck</span> <span class="src">解析失败重试 · Co-Layout</span> <span class="src">报错回传 · OptiMUS</span></p>
+
+<h3>检查清单（每条都有测试）</h3>
+<span class="en">Checklist (each one has a test):</span>
+<div class="scroll"><table class="t">
+<tr><th>检查</th><th>不通过时</th></tr>
+<tr><td>JSON 能解析</td><td>报错回传</td></tr>
+<tr><td>编号在区域表里</td><td>报错回传</td></tr>
+<tr><td>名称写错</td><td>按编辑距离对到最近的合法名称，记录这次纠正</td></tr>
+<tr><td>编号和名称指向不同单位</td><td>报错回传（不猜）</td></tr>
+<tr><td>i &gt; j</td><td>自动交换成 i &lt; j，记录</td></tr>
+<tr><td>grade 只能是 A/E/I/O/U/X</td><td>报错回传</td></tr>
+<tr><td>confidence 是 1–5 整数，reason 不为空</td><td>报错回传</td></tr>
+<tr><td>不重复，91 对齐全</td><td>报错回传，列出缺哪些对</td></tr>
+</table></div>
+
+<h3>编辑距离怎么算</h3>
+<span class="en">How edit distance works:</span>
+<p>编辑距离（Levenshtein distance）= 把一个字符串改成另一个，最少要几次"插入 / 删除 / 替换一个字"。</p>
+<span class="en">Edit distance = the fewest single-character inserts, deletes, or swaps to turn one string into another.</span>
+<div class="formula">"油料仓库" → 删去"仓" → "油料库"            距离 = 1
+"热处里车间" → "里"换成"理" → "热处理车间"     距离 = 1
+"油料仓库" vs "原材料库"：至少要改 2 个字      距离 ≥ 2  → 选距离最小的"油料库"</div>
+
+<h3>回传循环</h3>
+<span class="en">The feedback loop:</span>
+<pre>第 0 次：模型输出 → 校验
+  不通过 → 把错误原文发回："缺少 1 对: 2-3"
+第 1 次：模型重写完整 JSON → 校验
+  不通过 → 再发回
+第 2 次：模型重写 → 校验
+  还不通过 → 这次运行记为 FAILED</pre>
+
+<div class="why"><b class="k">为什么失败不能补 U / WHY NEVER FILL WITH U</b>
+<p>fork14 里 46/91 = 50.5% 的对本来就是 U。如果模型漏了 20 对、我们悄悄补 U，平均能白拿 20 × 0.505 ≈ 10 对"正确"。这会让分数虚高，所以宁可记失败，并在结果表里报失败次数。</p>
+<span class="en">In fork14, 50.5% of pairs are U. If 20 pairs were missing and we quietly filled them with U, about 20 × 0.505 ≈ 10 would be "correct" for free. That inflates the score, so we record a failure and report the failure count.</span>
+</div>
+</section>
+
+<!-- ============ S8 ============ -->
+<section class="step" id="s8" data-title="⑥ 编译">
+<div class="eyebrow">Step 8 · Node ⑥</div>
+<h2>⑥ 编译：等级 → 权重矩阵 + 硬约束</h2>
+<span class="en">⑥ Compile: grades → weight matrix + hard constraints.</span>
+<p><span class="src">权重 A4 E3 I2 O1 U0 · 教材</span> <span class="src">X → 最小间距硬约束</span></p>
+
+<h3>用自检后的例子编译 <span class="tag">演示</span></h3>
+<span class="en">Compile the example after self-check (demo).</span>
+<p>自检后的 6 对：1–2 U，1–4 E，1–5 E，2–4 U，2–5 X，4–5 A。按 A=4、E=3、I=2、O=1、U=0 换成权重，X 不进权重：</p>
+<span class="en">After self-check: 1–2 U, 1–4 E, 1–5 E, 2–4 U, 2–5 X, 4–5 A. Map to weights; X does not go into the weights.</span>
+<div class="formula">         1   2   4   5
+W =  1 [ 0   0   3   3 ]
+     2 [ 0   0   0   0 ]     ← 2–5 是 X：权重记 0，另写成约束
+     4 [ 3   0   0   4 ]
+     5 [ 3   0   4   0 ]</div>
+<p>写进算例文件（格式和 Wsamme/FLP 的算例一致，多一个 <span class="mono">min_separation</span> 键）：</p>
+<span class="en">Written into the instance file (same format as Wsamme/FLP, plus one extra key min_separation):</span>
+<pre>"areas":          [2592, 1296, 2592, 2700],      ← 直接来自面积表，不经过 LLM
+"weights":        [[1,4,3], [1,5,3], [4,5,4]],
+"min_separation": [[2,5,D]]                       ← D 待你定</pre>
+
+<h3>目标函数，代入一项</h3>
+<span class="en">The objective, with one term worked out.</span>
+<div class="formula">min  Σ(i&lt;j)  w_ij × ( |cx_i − cx_j| + |cy_i − cy_j| )      c = 矩形中心</div>
+<span class="en">Minimise the sum over pairs of weight × rectilinear distance between rectangle centres.</span>
+<p>假设机加工车间（72×36）放在左下角 (0, 0)，热处理车间（90×30）紧贴在它右边 (72, 0)：</p>
+<span class="en">Say the machining shop (72×36) sits at (0, 0) and the heat-treatment shop (90×30) sits right next to it at (72, 0):</span>
+<div class="formula">中心 c₄ = (0 + 72/2, 0 + 36/2) = (36, 18)
+中心 c₅ = (72 + 90/2, 0 + 30/2) = (117, 15)
+距离 d₄₅ = |36 − 117| + |18 − 15| = 81 + 3 = 84
+这一项 = w₄₅ × d₄₅ = 4 × 84 = 336</div>
+
+<h3>X 为什么写成硬约束，不写成 −1</h3>
+<span class="en">Why X is a hard constraint, not a weight of −1.</span>
+<p>如果 X 记 −1 放进目标函数，意思是"两者每远 1 米，成本减 1"。它只是一个很弱的偏好，会被别的关系压过：</p>
+<span class="en">If X were −1 in the objective, it would mean "each metre apart lowers the cost by 1". That is a weak preference, and other relations can outweigh it:</span>
+<div class="formula">油料库(2) 与 油漆车间(10) 是 E（每米 3），与 热处理车间(5) 是 X（每米 −1）。
+若把油料库同时向两者靠近 10 m：
+  成本变化 = −3 × 10（E 变近，省）+ 1 × 10（X 变近，罚）= −30 + 10 = −20  &lt; 0
+→ 求解器会接受：易燃的油料库被拉到高温炉旁边。</div>
+<span class="en">Oil store (2) is E with the paint shop (10) and X with heat treatment (5). Moving the oil store 10 m closer to both changes the cost by −30 + 10 = −20. The solver accepts it, and the flammable store ends up next to the furnace.</span>
+<p>写成硬约束后，不管省多少成本，都不允许靠得比 D 更近。两个矩形在 x 方向或 y 方向至少隔开 D：</p>
+<span class="en">As a hard constraint, it is never allowed, no matter how much cost it saves. The two rectangles must be at least D apart in x or in y:</span>
+<div class="formula">|cx_i − cx_j| ≥ (w_i + w_j)/2 + D     或     |cy_i − cy_j| ≥ (h_i + h_j)/2 + D</div>
+<p>老方法 ALDEP 用 X = −1024 这样的大负数，让它"实际上不可违反"（经蔡临宁 p.105 转引，见项目文档 10 号）；我们直接写成真正的约束。</p>
+<span class="en">The old ALDEP method used X = −1024 so it was "almost never" broken. We write a real constraint instead.</span>
+<p>X = −1 只在第 1 步核对教材行合计时用，不进目标函数。</p>
+<span class="en">X = −1 is used only to check the book's row sums in Step 1. It is not in the objective.</span>
+</section>
+
+<!-- ============ S9 ============ -->
+<section class="step" id="s9" data-title="⑦–⑩ 求解与检查">
+<div class="eyebrow">Step 9 · Nodes ⑦–⑩</div>
+<h2>⑦–⑩ 求解与检查</h2>
+<span class="en">⑦–⑩ Solve and check.</span>
+
+<h3>⑦ 两阶段求解器 <span class="tag">实验一已有，等代码</span></h3>
+<span class="en">⑦ Two-stage solver (from Experiment 1, waiting for the code).</span>
+<p>第一阶段：切割树 + SA（Simulated Annealing，模拟退火）找大致排布；第二阶段：序列对 + SA 细调相对位置；每个候选用 SOCP（Second-Order Cone Programming，二阶锥规划）算精确的尺寸和位置。</p>
+<span class="en">Stage 1: slicing tree + SA (Simulated Annealing) for a rough arrangement. Stage 2: sequence pair + SA to refine. Each candidate gets exact sizes and positions from SOCP (Second-Order Cone Programming).</span>
+<p>代码在 Mac 的 <span class="mono">08_research/benchmark_v1/</span>，拿到后先确认它支不支持最小间距约束。不支持就先停下来告诉你，不改求解器核心代码。</p>
+<span class="en">The code is on the Mac in 08_research/benchmark_v1/. Once I have it, I first check whether it supports minimum-distance constraints. If not, I stop and tell you; I won't change the solver's core.</span>
+
+<h3>⑧ 无解时怎么放宽 <span class="tag">后续</span></h3>
+<p>只放宽 E、I、O；A、X 和硬规则不动。因为 A 和 X 是关系表里最强的两句话，放宽就改变了设计意图。</p>
+<span class="en">Relax only E, I, O. Keep A, X, and hard rules, because A and X are the strongest statements in the chart. Relaxing them changes the design intent.</span>
+
+<h3>⑨ 独立检查器 <span class="tag">已有几何部分</span></h3>
+<p>和求解器不共享代码。现在能查：面积、长宽比、出界、重叠（Wsamme/FLP 的 <span class="mono">flp/evaluate.py</span>）。还要加一项：X 对的实际间距 ≥ D。</p>
+<span class="en">Shares no code with the solver. It already checks area, aspect ratio, out-of-bounds, and overlap. We still need to add: actual gap of each X pair ≥ D.</span>
+
+<h3>⑩ 违规分流 <span class="tag">后续</span></h3>
+<div class="scroll"><table class="t">
+<tr><th>违规类型</th><th>送回哪里</th></tr>
+<tr><td>已编码但没满足</td><td>回求解器 ⑦</td></tr>
+<tr><td>漏编或错编</td><td>回规则 Agent ④</td></tr>
+<tr><td>全局规则（如防火分区）</td><td>加成约束</td></tr>
+</table></div>
+
+<div class="why"><b class="k">端到端打分的一条规则 / ONE SCORING RULE</b>
+<p>fork14 的布局一律用 <b>gold 关系表的权重</b>算目标值，不用 Agent 自己的输出给自己打分。否则一张错的关系表也能给自己打高分。</p>
+<span class="en">The fork14 layout is always scored with the gold weights, never the agent's own. Otherwise a wrong chart could give itself a high score.</span>
+<p>可选：用 gold 表直接编译求解一次，作为"关系完全正确时"的上限，看 Agent 的错误让布局差了多少。</p>
+<span class="en">Optional: solve once with the gold chart as an upper reference, to see how much the agent's mistakes cost the layout.</span>
+</div>
+</section>
+
+<!-- ============ S10 ============ -->
+<section class="step" id="s10" data-title="⑪ 评估指标">
+<div class="eyebrow">Step 10 · Node ⑪</div>
+<h2>⑪ 评估：和标准答案逐对比</h2>
+<span class="en">⑪ Evaluation: compare with the answer key, pair by pair.</span>
+
+<h3>例子：6 对，自检前后 <span class="tag">演示</span></h3>
+<span class="en">Example: 6 pairs, before and after self-check (demo).</span>
+<div class="scroll"><table class="t">
+<tr><th>对</th><th>gold（书）</th><th>自检前</th><th>自检后</th><th>错误类型</th></tr>
+<tr><td class="mono">1–2</td><td class="mono">I</td><td class="mono">U ✗</td><td class="mono">U ✗</td><td>有关系判成 U</td></tr>
+<tr><td class="mono">1–4</td><td class="mono">E</td><td class="mono">E ✓</td><td class="mono">E ✓</td><td></td></tr>
+<tr><td class="mono">1–5</td><td class="mono">E</td><td class="mono">E ✓</td><td class="mono">E ✓</td><td></td></tr>
+<tr><td class="mono">2–4</td><td class="mono">U</td><td class="mono">U ✓</td><td class="mono">U ✓</td><td></td></tr>
+<tr><td class="mono">2–5</td><td class="mono">X</td><td class="mono">X ✓</td><td class="mono">X ✓</td><td></td></tr>
+<tr><td class="mono">4–5</td><td class="mono">A</td><td class="mono">E ✗</td><td class="mono">A ✓</td><td>自检前：等级偏低</td></tr>
+</table></div>
+
+<h3>1. 完全一致率</h3>
+<div class="formula">等级完全相同的对数 / 总对数
+自检前 = 4/6 = 0.667        自检后 = 5/6 = 0.833</div>
+
+<h3>2. 相差一级以内</h3>
+<p>顺序 A &gt; E &gt; I &gt; O &gt; U；X 必须完全一致。</p>
+<span class="en">Order A > E > I > O > U. X must match exactly.</span>
+<div class="formula">1–2：I → U 隔了 O，差 2 级 ✗        4–5（自检前）：A → E 差 1 级 ✓
+自检前 = 5/6 = 0.833        自检后 = 5/6 = 0.833</div>
+
+<h3>3. 非 U 召回率和精确率</h3>
+<span class="en">Recall and precision on non-U pairs.</span>
+<div class="formula">gold 里非 U 的对：1–2, 1–4, 1–5, 2–5, 4–5          共 5 对
+预测里非 U 的对：1–4, 1–5, 2–5, 4–5                共 4 对，全在上面
+召回率 = 4 / 5 = 0.80        精确率 = 4 / 4 = 1.00</div>
+<p>这一项专门防"全判 U 也得高分"：全判 U 时召回率 = 0。</p>
+<span class="en">This stops "all U" from looking good: all U gives recall = 0.</span>
+
+<h3>4. X 召回率</h3>
+<div class="formula">gold 里的 X：2–5（1 对），预测也是 X → 1/1 = 1.00</div>
+<p>安全隔离漏判最危险，所以单独报。fork14 里有 7 对 X，pump14 里有 2 对。</p>
+<span class="en">Missing a safety separation is the most dangerous error, so it is reported alone. fork14 has 7 X pairs, pump14 has 2.</span>
+
+<h3>5. Cohen's kappa（κ，扣除"碰巧猜对"后的一致程度）</h3>
+<span class="en">Cohen's kappa: agreement after removing agreement by chance.</span>
+<div class="formula">κ = (p_o − p_e) / (1 − p_e)
+p_o = 实际一致率
+p_e = 按两边各等级比例，随机碰对的概率 = Σ_k (gold 中 k 的个数 × 预测中 k 的个数) / N²</div>
+<p>自检后的混淆矩阵（行 = gold，列 = 预测，N = 6）：</p>
+<span class="en">Confusion matrix after self-check (rows = gold, columns = predicted, N = 6):</span>
+<div class="scroll"><table class="rel" aria-label="混淆矩阵"><tr><th class="rh">gold ＼ 预测</th><th>A</th><th>E</th><th>I</th><th>O</th><th>U</th><th>X</th><th>行合计</th></tr><tr><th class="rh">A</th><td class="sum">1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="sum">1</td></tr><tr><th class="rh">E</th><td>0</td><td class="sum">2</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="sum">2</td></tr><tr><th class="rh">I</th><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td class="sum">1</td></tr><tr><th class="rh">O</th><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="sum">0</td></tr><tr><th class="rh">U</th><td>0</td><td>0</td><td>0</td><td>0</td><td class="sum">1</td><td>0</td><td class="sum">1</td></tr><tr><th class="rh">X</th><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="sum">1</td><td class="sum">1</td></tr><tr><th class="rh">列合计</th><td class="sum">1</td><td class="sum">2</td><td class="sum">0</td><td class="sum">0</td><td class="sum">2</td><td class="sum">1</td><td class="sum">6</td></tr></table></div>
+<div class="formula">p_o = 5/6 = 0.8333
+p_e = (A 1×1 + E 2×2 + I 1×0 + O 0×0 + U 1×2 + X 1×1) / 36 = (1 + 4 + 0 + 0 + 2 + 1) / 36 = 8/36 = 0.2222
+κ  = (0.8333 − 0.2222) / (1 − 0.2222) = 0.6111 / 0.7778 = 0.786
+
+自检前：p_o = 4/6 = 0.6667，预测列合计 A0 E3 I0 O0 U2 X1
+p_e = (1×0 + 2×3 + 1×0 + 0 + 1×2 + 1×1) / 36 = 9/36 = 0.25
+κ  = (0.6667 − 0.25) / 0.75 = 0.556</div>
+
+<p><b>线性加权 κ</b>：把等级按 A, E, I, O, U, X 排成 0–5，错得越远罚得越多，罚分 = |行号 − 列号| / 5。（X 排在 U 后面是我们的口径，按教材分值顺序 A4 … X−1。）</p>
+<span class="en">Linear-weighted kappa: grades in order A, E, I, O, U, X get positions 0–5. The penalty is |row − col| / 5, so bigger misses cost more. (Putting X after U is our choice, following the book's score order.)</span>
+<div class="formula">κ_w = 1 − (实际罚分 / 随机罚分)
+实际罚分 = 只有 1–2：I(2) → U(4)，罚 |2 − 4| / 5 = 0.4，占 1/6 → 0.4 / 6 = 0.0667
+随机罚分 = Σ 罚分 × 行合计 × 列合计 / 36，按 gold 行 A, E, I, U, X 分别为
+          3.0 + 4.4 + 2.2 + 2.2 + 3.0 = 14.8  → 14.8 / 36 = 0.4111
+κ_w = 1 − 0.0667 / 0.4111 = 0.838（自检前 0.743）</div>
+
+<h3>为什么一定要有"全 U 基线"</h3>
+<span class="en">Why we need the "all U" baseline.</span>
+<p>在完整的 fork14 上，所有 91 对都猜 U（真实数字，不是演示）：</p>
+<span class="en">On full fork14, guessing U for all 91 pairs (real numbers, not a demo):</span>
+<div class="formula">完全一致率 = 46/91 = 0.505
+p_o = 46/91；预测全是 U，所以 p_e = (46 × 91) / 91² = 46/91
+κ = (46/91 − 46/91) / (1 − 46/91) = 0
+pump14：完全一致率 = 66/90 = 0.733，κ = 0</div>
+<p>所以只看一致率会被骗：pump14 什么都不懂也有 73.3%。Agent 必须在 κ 和非 U 召回率上明显高于 0 才算有用。</p>
+<span class="en">So agreement alone can mislead: pump14 gives 73.3% with no understanding at all. The agent must clearly beat 0 on kappa and non-U recall.</span>
+
+<h3>6. 错误分类</h3>
+<span class="en">Error types.</span>
+<p>六类：等级偏高、等级偏低、漏判 X、误判 X、有关系判成 U、U 判成有关系。每类给 2–3 个例子并附模型理由。思路借鉴 OptiMUS 的错误分析。</p>
+<span class="en">Six types: grade too high, too low, missed X, false X, related pair judged U, U judged related. Each type gets 2–3 examples with the model's reason, following OptiMUS's error analysis.</span>
+</section>
+
+<!-- ============ S11 ============ -->
+<section class="step" id="s11" data-title="实验设计">
+<div class="eyebrow">Step 11 · Experiment</div>
+<h2>实验设计：跑什么、比什么、记什么</h2>
+<span class="en">Experiment design: what to run, compare, and record.</span>
+
+<div class="scroll"><table class="t">
+<tr><th>设置</th><th>含义</th><th class="num">fork14</th><th class="num">pump14</th></tr>
+<tr><td>全 U 基线</td><td>不调模型，全判 U</td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td>一次性提示</td><td>不要理由、不要自检，直接出整张表</td><td class="num">5 次</td><td class="num">5 次</td></tr>
+<tr><td>逐对 + 理由，自检关</td><td>节点 ② + ⑤</td><td class="num">5 次</td><td class="num">5 次</td></tr>
+<tr><td>逐对 + 理由，自检开</td><td>节点 ② + ③ + ⑤</td><td class="num">5 次</td><td class="num">5 次</td></tr>
+</table></div>
+<span class="en">Settings: all-U baseline (no model); one-shot prompt (no reasons, no self-check); pair + reason with self-check off; with self-check on. 5 runs each, both cases: 30 model runs in total.</span>
+<div class="formula">模型运行次数 = 2 个算例 × 3 种设置 × 5 次 = 30</div>
+
+<div class="why"><b class="k">每组对比回答一个问题 / EACH COMPARISON ANSWERS ONE QUESTION</b>
+<p>全 U vs 其余：模型到底有没有理解？</p>
+<span class="en">All U vs the rest: does the model understand anything?</span>
+<p>一次性提示 vs 逐对 + 理由：要求写理由、格式更严，有没有用？</p>
+<span class="en">One-shot vs pair + reason: do reasons and a stricter format help?</span>
+<p>自检关 vs 自检开：③ 有没有用？</p>
+<span class="en">Self-check off vs on: does ③ help?</span>
+</div>
+
+<h3>为什么重复 5 次、温度怎么定</h3>
+<p>同一个提示词，模型每次的回答可能不一样。重复 5 次报均值 ± 标准差，看随机性有多大。</p>
+<span class="en">The same prompt can give different answers each time. 5 runs give mean ± standard deviation to show how much it varies.</span>
+<p>原计划温度 0，但新版 Claude 模型（如 Sonnet 5.5）传非默认 temperature 会直接报 400 错误（官方迁移指南，2026-10-21 查）。所以用默认采样，随机性靠重复次数来量。</p>
+<span class="en">We planned temperature 0, but newer Claude models (e.g. Sonnet 5.5) return a 400 error for non-default temperature (official migration guide, checked 2026-10-21). So we use default sampling and measure randomness with repeats.</span>
+
+<h3>每次运行记录什么</h3>
+<dl class="kv">
+<dt>state_1</dt><dd>实际发出的提示词</dd>
+<dt>state_2</dt><dd>模型回复 + 每次校验的错误与纠正</dd>
+<dt>state_3</dt><dd>自检前后对比（自检开时）</dd>
+<dt>state_4</dt><dd>最终关系表</dd>
+<dt>meta</dt><dd>模型名、温度、日期、token 用量、耗时、每次调用</dd>
+</dl>
+<span class="en">Each run saves the prompt, the replies and validation log, the self-check log, the final chart, and meta (model, temperature, date, tokens, time). Any step can be re-run alone, as in OptiMUS's staged saving.</span>
+
+<h3>防泄题的四道关</h3>
+<ol class="plain">
+<li>gold 只能被 <span class="mono">eval/</span> 读；测试自动检查 <span class="mono">agent/</span> 代码里没有读 gold。<span class="en">Only eval/ may read gold. A test checks that agent/ code never does.</span></li>
+<li>brief 自动查小数、等级字母、禁用词。<span class="en">Briefs are scanned for decimals, grade letters, and banned phrases.</span></li>
+<li>不放这两个算例的 few-shot 示例。<span class="en">No few-shot examples from these two cases.</span></li>
+<li>brief 由你人工审核后才跑。<span class="en">You approve the briefs before any run.</span></li>
+</ol>
+</section>
+
+<!-- ============ S12 ============ -->
+<section class="step" id="s12" data-title="现状与来源">
+<div class="eyebrow">Step 12 · Status &amp; sources</div>
+<h2>现在做到哪了，还差什么</h2>
+<span class="en">Where we are, and what is still missing.</span>
+
+<div class="scroll"><table class="t">
+<tr><th>项</th><th>状态</th></tr>
+<tr><td>gold 核对</td><td>fork14 通过（14 行全对）；pump14 部分核对</td></tr>
+<tr><td>代码 ①②③⑤⑥⑪ + 测试</td><td>已写好，18 个测试通过，离线替身跑通全流程</td></tr>
+<tr><td>真实模型运行</td><td><b>还没跑</b>，本页所有"演示"数字都不是结果</td></tr>
+<tr><td>⑦ 求解器接入</td><td>等 Mac 上的 benchmark_v1 代码</td></tr>
+</table></div>
+<span class="en">Gold check: fork14 passes, pump14 partly checked. Code and 18 tests are done; the pipeline runs with an offline stub. No real model run yet; every "demo" number on this page is not a result. Solver hookup waits for the benchmark_v1 code.</span>
+
+<h3>跑真实结果前需要你定的 / Needed from you before real runs</h3>
+<ol class="plain">
+<li>两份 brief 审核通过（或告诉我改哪里）。<span class="en">Approve the two briefs, or say what to change.</span></li>
+<li>模型（建议 Sonnet 5.5，默认温度）和 API key 的给法。<span class="en">Model (suggest Sonnet 5.5, default temperature) and how to provide the API key.</span></li>
+<li>pump14 第 10 行对原书 p.168：10–11、10–12 是 U U 还是 O I。<span class="en">Check pump14 row 10 against the book (p.168): are 10–11, 10–12 "U U" or "O I"?</span></li>
+<li>求解器代码 benchmark_v1；fork14 的厂区边界、形状规则、X 的最小净距 D。<span class="en">Solver code benchmark_v1; fork14 site boundary, shape rule, and X minimum gap D.</span></li>
+</ol>
+
+<h3>设计来源 / Design sources</h3>
+<div class="scroll"><table class="t">
+<tr><th>节点</th><th>借鉴</th><th>论文</th></tr>
+<tr><td>①③⑤ 报错回传、⑪ 错误分析</td><td>数值不进提示词；逐条自检；报错回传</td><td>OptiMUS, ICML 2024 · <a href="https://ICML.cc/virtual/2024/poster/33771" target="_blank" rel="noopener">ICML</a> · <a href="https://ar5iv.labs.arxiv.org/html/2402.10172" target="_blank" rel="noopener">arXiv 2402.10172</a></td></tr>
+<tr><td>② 格式、⑤ 名称纠错</td><td>一行一对；编辑距离纠名</td><td>Holodeck, CVPR 2024 · <a href="https://openaccess.thecvf.com/content/CVPR2024/papers/Yang_Holodeck_Language_Guided_Generation_of_3D_Embodied_AI_Environments_CVPR_2024_paper.pdf" target="_blank" rel="noopener">CVF PDF</a></td></tr>
+<tr><td>② 分工、⑤ 重试</td><td>一个 Agent 只做一件事；JSON 解析失败重试</td><td>Co-Layout, AAAI 2026 · <a href="https://ojs.aaai.org/index.php/AAAI/article/view/38452" target="_blank" rel="noopener">AAAI</a> · <a href="https://arxiv.org/pdf/2511.12474" target="_blank" rel="noopener">arXiv 2511.12474</a></td></tr>
+<tr><td>实验二（后续）</td><td>每题一份"设计手册"，逐条约束打分</td><td>CANDO（Cooperative Agentic Network for Layout Design Optimization）+ ALPS-Bench（Asset Layout Planning and Synthesis Benchmark），NeurIPS 2026 · <a href="https://arxiv.org/html/2610.10044" target="_blank" rel="noopener">arXiv 2610.10044</a></td></tr>
+<tr><td>② 等级、⑥ 权重</td><td>A/E/I/O/U/X；A4 E3 I2 O1 U0</td><td>Muther《Systematic Layout Planning》；方庆琯《现代物流设施与规划》第 3 版</td></tr>
+</table></div>
+</section>
+
+<div class="navbtns"><button id="prev">← 上一步</button><button id="next">下一步 →</button></div>
+</main>
+</div>
+
+<script>
+(function(){
+  var steps=[].slice.call(document.querySelectorAll('section.step'));
+  var toc=document.getElementById('toc'), wrap=document.getElementById('wrap');
+  var prev=document.getElementById('prev'), next=document.getElementById('next');
+  var bStep=document.getElementById('modeStep'), bAll=document.getElementById('modeAll');
+  var cur=0, all=false;
+  steps.forEach(function(s,i){
+    var li=document.createElement('li'), a=document.createElement('a');
+    a.href='#'+s.id; a.innerHTML='<span class="n">'+String(i).padStart(2,'0')+'</span><span class="t">'+s.dataset.title+'</span>';
+    a.addEventListener('click',function(e){ if(!all){e.preventDefault(); show(i,true);} });
+    li.appendChild(a); toc.appendChild(li);
+  });
+  var links=[].slice.call(toc.querySelectorAll('a'));
+  function show(i,scroll){
+    cur=Math.max(0,Math.min(steps.length-1,i));
+    steps.forEach(function(s,k){ s.hidden = !all && k!==cur; });
+    links.forEach(function(a,k){ a.setAttribute('aria-current', (!all && k===cur)?'true':'false'); });
+    prev.disabled = cur===0; next.disabled = cur===steps.length-1;
+    if(!all){ try{ history.replaceState(null,'','#'+steps[cur].id); }catch(e){} if(scroll) window.scrollTo(0,0); }
+  }
+  function setMode(a){
+    all=a; wrap.classList.toggle('allmode',a);
+    bAll.setAttribute('aria-pressed',a); bStep.setAttribute('aria-pressed',!a);
+    try{ localStorage.setItem('agentWalkMode', a?'all':'step'); }catch(e){}
+    show(cur,false);
+  }
+  prev.addEventListener('click',function(){show(cur-1,true)});
+  next.addEventListener('click',function(){show(cur+1,true)});
+  bStep.addEventListener('click',function(){setMode(false)});
+  bAll.addEventListener('click',function(){setMode(true)});
+  document.addEventListener('keydown',function(e){
+    if(all||e.target.closest('input,textarea')) return;
+    if(e.key==='ArrowRight') show(cur+1,true);
+    if(e.key==='ArrowLeft') show(cur-1,true);
+  });
+  var h=(location.hash||'').slice(1), idx=steps.findIndex(function(s){return s.id===h});
+  var m='step'; try{ m=localStorage.getItem('agentWalkMode')||'step'; }catch(e){}
+  cur = idx>=0? idx : 0;
+  setMode(m==='all');
+})();
+</script>

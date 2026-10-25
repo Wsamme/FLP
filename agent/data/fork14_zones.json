@@ -1,0 +1,105 @@
+{
+ "case": "fork14",
+ "unit": "m",
+ "source": "戢守峰《现代设施规划与物流分析》表6-2（p.107）",
+ "zones": [
+  {
+   "id": 1,
+   "name": "原材料库",
+   "length": 72,
+   "width": 36,
+   "area": 2592
+  },
+  {
+   "id": 2,
+   "name": "油料库",
+   "length": 36,
+   "width": 36,
+   "area": 1296
+  },
+  {
+   "id": 3,
+   "name": "标准件外购件库",
+   "length": 48,
+   "width": 36,
+   "area": 1728
+  },
+  {
+   "id": 4,
+   "name": "机加工车间",
+   "length": 72,
+   "width": 36,
+   "area": 2592
+  },
+  {
+   "id": 5,
+   "name": "热处理车间",
+   "length": 90,
+   "width": 30,
+   "area": 2700
+  },
+  {
+   "id": 6,
+   "name": "焊接车间",
+   "length": 90,
+   "width": 30,
+   "area": 2700
+  },
+  {
+   "id": 7,
+   "name": "变速器车间",
+   "length": 72,
+   "width": 36,
+   "area": 2592
+  },
+  {
+   "id": 8,
+   "name": "总装车间",
+   "length": 180,
+   "width": 96,
+   "area": 17280
+  },
+  {
+   "id": 9,
+   "name": "工具车间",
+   "length": 60,
+   "width": 24,
+   "area": 1440
+  },
+  {
+   "id": 10,
+   "name": "油漆车间",
+   "length": 48,
+   "width": 30,
+   "area": 1440
+  },
+  {
+   "id": 11,
+   "name": "试车车间",
+   "length": 48,
+   "width": 48,
+   "area": 2304
+  },
+  {
+   "id": 12,
+   "name": "成品库",
+   "length": 100,
+   "width": 50,
+   "area": 5000
+  },
+  {
+   "id": 13,
+   "name": "办公服务楼",
+   "length": 300,
+   "width": 60,
+   "area": 18000
+  },
+  {
+   "id": 14,
+   "name": "车库",
+   "length": 80,
+   "width": 60,
+   "area": 4800
+  }
+ ]
+}

@@ -1,0 +1,126 @@
+<title>Agent 流程 Notebook</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: a lab notebook printout. Left = section index; right = one section of cells at a time (In [n] → code → output). Black and white only. */
+:root{
+  --paper:#fafaf8; --ink:#151515; --muted:#5b5c5e; --rule:#d6d6d2; --fill:#efefec; --codebg:#f3f3f0; --chip:#151515; --chipfg:#fafaf8;
+  --f-display:"Noto Serif SC","Songti SC",serif;
+  --f-body:"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#131313; --ink:#ebebe8; --muted:#a3a3a0; --rule:#3a3a38; --fill:#1f1f1e; --codebg:#1b1b1a; --chip:#ebebe8; --chipfg:#131313; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#131313; --ink:#ebebe8; --muted:#a3a3a0; --rule:#3a3a38; --fill:#1f1f1e; --codebg:#1b1b1a; --chip:#ebebe8; --chipfg:#131313; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.7;margin:0}
+.wrap{display:grid;grid-template-columns:230px minmax(0,1fr);gap:36px;max-width:1240px;margin:0 auto;
+  padding-block:24px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+nav.idx{position:sticky;top:calc(env(safe-area-inset-top,0px) + 18px);align-self:start;border:1.5px solid var(--ink)}
+nav.idx .head{padding:12px 14px;border-bottom:1.5px solid var(--ink)}
+nav.idx .head b{font-family:var(--f-display);font-size:17px;display:block;line-height:1.35}
+nav.idx .head span{font-size:12px;color:var(--muted)}
+nav.idx ol{list-style:none;margin:0;padding:0}
+nav.idx li{border-bottom:1px solid var(--rule)}
+nav.idx li:last-child{border-bottom:0}
+nav.idx a{display:grid;grid-template-columns:26px 1fr;gap:6px;padding:7px 12px;color:var(--ink);text-decoration:none;font-size:13.5px;line-height:1.45}
+nav.idx a .n{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+nav.idx a[aria-current="true"]{background:var(--chip);color:var(--chipfg)}
+nav.idx a[aria-current="true"] .n{color:var(--chipfg)}
+.modebar{display:flex;gap:8px;flex-wrap:wrap;padding:10px 12px;border-top:1.5px solid var(--ink)}
+button{font:inherit;font-size:13px;border:1.5px solid var(--ink);background:var(--paper);color:var(--ink);padding:5px 12px;cursor:pointer}
+button:hover{background:var(--fill)}
+button[aria-pressed="true"]{background:var(--chip);color:var(--chipfg)}
+button:focus-visible,nav.idx a:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+button:disabled{opacity:.35;cursor:default}
+main{min-width:0}
+.banner{border:1.5px solid var(--ink);padding:8px 12px;font-size:13px;margin-bottom:18px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.banner b{font-family:var(--f-mono);font-size:11px;background:var(--chip);color:var(--chipfg);padding:1px 7px;letter-spacing:.05em}
+.allmode section.step{padding-bottom:36px;margin-bottom:36px;border-bottom:1.5px solid var(--ink)}
+.md{max-width:78ch}
+.md h1{font-family:var(--f-display);font-size:26px;line-height:1.35;margin:0 0 10px;text-wrap:balance}
+.md h2{font-family:var(--f-display);font-size:23px;line-height:1.35;margin:4px 0 8px;text-wrap:balance}
+.md h3{font-size:16px;margin:22px 0 6px}
+.md p{margin:0 0 10px}
+.md code{font-family:var(--f-mono);font-size:13px;background:var(--fill);padding:0 4px}
+.md table{border-collapse:collapse;font-size:13px;margin:10px 0;display:block;overflow-x:auto;max-width:100%}
+.md th,.md td{border:1px solid var(--rule);padding:4px 10px;text-align:left}
+.md th{background:var(--fill)}
+.cell{margin:18px 0 22px;border-left:3px solid var(--ink);padding-left:14px;min-width:0}
+.ch{display:flex;gap:10px;align-items:baseline;margin-bottom:4px}
+.in{font-family:var(--f-mono);font-size:12px;color:var(--muted);white-space:nowrap}
+.cl{font-weight:700;font-size:14.5px}
+pre{font-family:var(--f-mono);font-size:12.5px;line-height:1.55;margin:6px 0;padding:10px 12px;overflow-x:auto;max-width:100%;white-space:pre}
+pre.code{background:var(--codebg);border:1px solid var(--rule)}
+pre.out{background:var(--paper);border:1px dashed var(--rule);color:var(--ink)}
+pre.err{border-color:var(--ink)}
+.df{overflow-x:auto;max-width:100%;margin:6px 0}
+.df table{border-collapse:collapse;font-size:12.5px;font-variant-numeric:tabular-nums;font-family:var(--f-mono)}
+.df th,.df td{border:1px solid var(--rule);padding:3px 8px;text-align:right;vertical-align:top}
+.df td{white-space:nowrap}
+.df th{background:var(--fill);font-weight:600}
+.df thead tr:nth-child(2) th{background:var(--paper)}
+.img{overflow-x:auto;max-width:100%;margin:6px 0;background:#fff;border:1px solid var(--rule)}
+.img img{display:block;max-width:100%;height:auto}
+.navbtns{display:flex;justify-content:space-between;gap:12px;margin-top:30px;padding-top:14px;border-top:1px solid var(--rule)}
+.allmode .navbtns{display:none}
+@media (max-width:860px){
+  .wrap{grid-template-columns:minmax(0,1fr);gap:18px}
+  nav.idx{position:static}
+  nav.idx ol{display:flex;overflow-x:auto}
+  nav.idx li{border-bottom:0;border-right:1px solid var(--rule);flex:0 0 auto}
+  nav.idx a{grid-template-columns:auto auto;white-space:nowrap}
+}
+</style>
+
+<div class="wrap" id="wrap">
+<nav class="idx" aria-label="章节">
+  <div class="head"><b>Agent 流程 Notebook</b><span>fork14 端到端 · 代码 → 结果</span></div>
+  <ol id="toc"></ol>
+  <div class="modebar">
+    <button id="modeStep" aria-pressed="true">逐节</button>
+    <button id="modeAll" aria-pressed="false">整页</button>
+  </div>
+</nav>
+<main>
+<div class="banner"><b>STAND-IN</b><span>模型位置是关键词规则替身，不是 LLM；替身之后的代码和计算都是真实运行的。<br>The model slot is a keyword-rule stand-in, not an LLM. Everything after it is real code, really run.</span></div>
+{{SECTIONS}}
+<div class="navbtns"><button id="prev">← 上一节</button><button id="next">下一节 →</button></div>
+</main>
+</div>
+<script>
+(function(){
+  var steps=[].slice.call(document.querySelectorAll('section.step'));
+  var toc=document.getElementById('toc'), wrap=document.getElementById('wrap');
+  var prev=document.getElementById('prev'), next=document.getElementById('next');
+  var bS=document.getElementById('modeStep'), bA=document.getElementById('modeAll');
+  var cur=0, all=false;
+  steps.forEach(function(s,i){
+    var li=document.createElement('li'), a=document.createElement('a');
+    a.href='#'+s.id; a.innerHTML='<span class="n">'+i+'</span><span class="t"></span>';
+    a.querySelector('.t').textContent=s.dataset.title;
+    a.addEventListener('click',function(e){ if(!all){e.preventDefault(); show(i,true);} });
+    li.appendChild(a); toc.appendChild(li);
+  });
+  var links=[].slice.call(toc.querySelectorAll('a'));
+  function show(i,scroll){
+    cur=Math.max(0,Math.min(steps.length-1,i));
+    steps.forEach(function(s,k){ s.hidden=!all && k!==cur; });
+    links.forEach(function(a,k){ a.setAttribute('aria-current',(!all&&k===cur)?'true':'false'); });
+    prev.disabled=cur===0; next.disabled=cur===steps.length-1;
+    if(!all){ try{history.replaceState(null,'','#'+steps[cur].id);}catch(e){} if(scroll) window.scrollTo(0,0); }
+  }
+  function setMode(a){ all=a; wrap.classList.toggle('allmode',a); bA.setAttribute('aria-pressed',a); bS.setAttribute('aria-pressed',!a);
+    try{localStorage.setItem('nbMode',a?'all':'step');}catch(e){} show(cur,false); }
+  prev.onclick=function(){show(cur-1,true)}; next.onclick=function(){show(cur+1,true)};
+  bS.onclick=function(){setMode(false)}; bA.onclick=function(){setMode(true)};
+  document.addEventListener('keydown',function(e){ if(all) return;
+    if(e.key==='ArrowRight') show(cur+1,true); if(e.key==='ArrowLeft') show(cur-1,true); });
+  var h=(location.hash||'').slice(1), idx=steps.findIndex(function(s){return s.id===h});
+  var m='step'; try{m=localStorage.getItem('nbMode')||'step';}catch(e){}
+  cur=idx>=0?idx:0; setMode(m==='all');
+})();
+</script>

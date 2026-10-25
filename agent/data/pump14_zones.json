@@ -1,0 +1,76 @@
+{
+ "case": "pump14",
+ "source": "方庆琯 §6.6；书中未给出面积",
+ "zones": [
+  {
+   "id": 1,
+   "name": "清洗组",
+   "area": null
+  },
+  {
+   "id": 2,
+   "name": "零件暂存区",
+   "area": null
+  },
+  {
+   "id": 3,
+   "name": "零件仓库",
+   "area": null
+  },
+  {
+   "id": 4,
+   "name": "清洗泵暂存区",
+   "area": null
+  },
+  {
+   "id": 5,
+   "name": "货车泵装配单元线",
+   "area": null
+  },
+  {
+   "id": 6,
+   "name": "货车泵性能测试区",
+   "area": null
+  },
+  {
+   "id": 7,
+   "name": "轿车泵装配单元线",
+   "area": null
+  },
+  {
+   "id": 8,
+   "name": "轿车泵性能测试区",
+   "area": null
+  },
+  {
+   "id": 9,
+   "name": "工位器具室",
+   "area": null
+  },
+  {
+   "id": 10,
+   "name": "货车泵待测噪声区",
+   "area": null
+  },
+  {
+   "id": 11,
+   "name": "轿车泵待测噪声区",
+   "area": null
+  },
+  {
+   "id": 12,
+   "name": "噪声测试区",
+   "area": null
+  },
+  {
+   "id": 13,
+   "name": "包装区",
+   "area": null
+  },
+  {
+   "id": 14,
+   "name": "成品库",
+   "area": null
+  }
+ ]
+}

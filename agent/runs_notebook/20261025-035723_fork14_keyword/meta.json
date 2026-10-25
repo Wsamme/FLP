@@ -1,0 +1,24 @@
+{
+ "provider": "keyword",
+ "model": "keyword-rule",
+ "case": "fork14",
+ "seed": 0,
+ "time_limit": 30,
+ "floor": {
+  "W": 310,
+  "H": 285
+ },
+ "shape": {
+  "type": "Rmax",
+  "value": 5
+ },
+ "x_min_dist": null,
+ "solver_dir": "/home/claude/solver_v2",
+ "llm_totals": {
+  "n_calls": 3,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "seconds": 0.001
+ },
+ "date": "2026-10-25 03:58:24"
+}
