@@ -1,0 +1,437 @@
+<title>5001A 进展汇总</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700;800&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: an audit binder. Left = chapter tabs; right = one chapter at a time. Every number carries its source tag. Black and white only. */
+:root{
+  --paper:#fafaf8; --ink:#151515; --muted:#5b5c5e; --rule:#d6d6d2; --fill:#ececea; --chip:#151515; --chipfg:#fafaf8;
+  --f-display:"Noto Serif SC","Songti SC",serif;
+  --f-body:"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#131313; --ink:#ebebe8; --muted:#a3a3a0; --rule:#3a3a38; --fill:#1f1f1e; --chip:#ebebe8; --chipfg:#131313; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#131313; --ink:#ebebe8; --muted:#a3a3a0; --rule:#3a3a38; --fill:#1f1f1e; --chip:#ebebe8; --chipfg:#131313; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.72;margin:0}
+.wrap{display:grid;grid-template-columns:240px minmax(0,1fr);gap:38px;max-width:1200px;margin:0 auto;
+  padding-block:24px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+nav.idx{position:sticky;top:calc(env(safe-area-inset-top,0px) + 18px);align-self:start;border:1.5px solid var(--ink)}
+nav.idx .head{padding:12px 14px;border-bottom:1.5px solid var(--ink)}
+nav.idx .head b{font-family:var(--f-display);font-size:18px;display:block;line-height:1.3}
+nav.idx .head span{font-size:12px;color:var(--muted)}
+nav.idx ol{list-style:none;margin:0;padding:0}
+nav.idx li{border-bottom:1px solid var(--rule)}
+nav.idx li:last-child{border-bottom:0}
+nav.idx a{display:grid;grid-template-columns:24px 1fr;gap:6px;padding:7px 12px;color:var(--ink);text-decoration:none;font-size:13.5px;line-height:1.45}
+nav.idx a .n{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+nav.idx a[aria-current="true"]{background:var(--chip);color:var(--chipfg)}
+nav.idx a[aria-current="true"] .n{color:var(--chipfg)}
+.modebar{display:flex;gap:8px;flex-wrap:wrap;padding:10px 12px;border-top:1.5px solid var(--ink)}
+button{font:inherit;font-size:13px;border:1.5px solid var(--ink);background:var(--paper);color:var(--ink);padding:5px 12px;cursor:pointer}
+button:hover{background:var(--fill)}
+button[aria-pressed="true"]{background:var(--chip);color:var(--chipfg)}
+button:disabled{opacity:.35;cursor:default}
+button:focus-visible,nav.idx a:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+main{min-width:0}
+.allmode section.step{padding-bottom:40px;margin-bottom:40px;border-bottom:1.5px solid var(--ink)}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase}
+h1,h2{font-family:var(--f-display);font-weight:800;line-height:1.3;margin:4px 0 6px;text-wrap:balance}
+h1{font-size:29px} h2{font-size:25px}
+h3{font-size:16px;margin:26px 0 8px;font-weight:700}
+p{margin:0 0 4px;max-width:70ch}
+.en{display:block;color:var(--muted);font-size:13.5px;line-height:1.55;margin:2px 0 12px;max-width:74ch}
+li .en{margin-bottom:4px}
+ul.plain,ol.plain{padding-left:20px;margin:6px 0 14px;max-width:74ch}
+ul.plain li,ol.plain li{margin:6px 0 2px}
+.scroll{overflow-x:auto;margin:10px 0 16px;max-width:100%}
+table.t{border-collapse:collapse;font-size:13.5px;font-variant-numeric:tabular-nums;min-width:100%}
+table.t th,table.t td{border:1px solid var(--rule);padding:5px 9px;text-align:left;vertical-align:top}
+table.t th{background:var(--fill);font-weight:600}
+table.t td.n,table.t th.n{text-align:right;font-family:var(--f-mono);font-size:12.5px;white-space:nowrap}
+table.t tr.us td{font-weight:700}
+.src{font-family:var(--f-mono);font-size:11.5px;border:1px solid var(--ink);padding:0 6px;white-space:nowrap}
+.ok{font-family:var(--f-mono);font-size:11px;background:var(--chip);color:var(--chipfg);padding:1px 6px;white-space:nowrap}
+.miss{font-family:var(--f-mono);font-size:11px;border:1.5px dashed var(--ink);padding:0 6px;white-space:nowrap}
+.box{border:1.5px solid var(--ink);padding:12px 16px;margin:12px 0 18px;max-width:820px}
+.box h3{margin-top:0}
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:14px 0 18px}
+.kpi{border:1.5px solid var(--ink);padding:10px 12px;min-width:0}
+.kpi b{display:block;font-family:var(--f-display);font-size:17px;margin-bottom:4px}
+.kpi span{font-size:13px;color:var(--muted)}
+.chk{counter-reset:c;list-style:none;padding:0;margin:8px 0;max-width:860px}
+.chk li{counter-increment:c;border-top:1px solid var(--rule);padding:10px 0 8px 46px;position:relative}
+.chk li::before{content:counter(c);position:absolute;left:0;top:10px;font-family:var(--f-mono);font-size:13px;width:30px;text-align:right}
+.chk .lvl{font-family:var(--f-mono);font-size:11px;padding:1px 6px;margin-right:6px;white-space:nowrap}
+.lvl.d{background:var(--chip);color:var(--chipfg)}
+.lvl.f{border:1.5px solid var(--ink)}
+.lvl.w{border:1px dashed var(--ink)}
+.mono{font-family:var(--f-mono);font-size:13px}
+.navbtns{display:flex;justify-content:space-between;gap:12px;margin-top:30px;padding-top:14px;border-top:1px solid var(--rule)}
+.allmode .navbtns{display:none}
+a{color:var(--ink)}
+@media (max-width:860px){
+  .wrap{grid-template-columns:minmax(0,1fr);gap:18px}
+  nav.idx{position:static}
+  nav.idx ol{display:flex;overflow-x:auto}
+  nav.idx li{border-bottom:0;border-right:1px solid var(--rule);flex:0 0 auto}
+  nav.idx a{grid-template-columns:auto auto;white-space:nowrap}
+  .kpis{grid-template-columns:minmax(0,1fr)}
+  h1{font-size:24px} h2{font-size:21px}
+}
+</style>
+
+<div class="wrap" id="wrap">
+<nav class="idx" aria-label="章节">
+  <div class="head"><b>5001A 进展汇总</b><span>截至 2026-10-26 · 供报告核对</span></div>
+  <ol id="toc"></ol>
+  <div class="modebar"><button id="modeStep" aria-pressed="true">逐章</button><button id="modeAll" aria-pressed="false">整页</button></div>
+</nav>
+<main>
+
+<!-- 0 -->
+<section class="step" id="c0" data-title="总览">
+<div class="eyebrow">Overview</div>
+<h1>5001A 现在做到哪了</h1>
+<span class="en">Where ME5001A stands now.</span>
+
+<div class="kpis">
+  <div class="kpi"><b>实验一：求解器横评</b><span>9 种方法 × 5 个公开基准 × 10 个种子已跑完；主表数字已用原始数据逐条复算，全部一致。</span></div>
+  <div class="kpi"><b>自研方法（两阶段）</b><span>5 个基准平均成本都最低；O7、vC10a 到最优，AB20、SC30、Du62 超过已发表值。但第二阶段只在 SC30、O7 上有明显作用。</span></div>
+  <div class="kpi"><b>Agent（第一阶段）</b><span>代码和 notebook 跑通，fork14 端到端可出布局；还没接真实 LLM，没有 Agent 结果。</span></div>
+</div>
+<span class="en">Experiment 1: 9 methods × 5 benchmarks × 10 seeds done; the main table was recomputed from raw data and matches. Our two-stage method has the lowest mean cost on all five, but Stage 2 clearly helps only on SC30 and O7. The agent runs end to end, but no real LLM yet.</span>
+
+<h3>这份汇总怎么来的 / How this summary was built</h3>
+<ul class="plain">
+<li>项目文档 09–22 号、你 Mac 上的 <span class="mono">~/FLP</span> 工作副本（原始运行结果）、<span class="mono">08_research/</span>（论文源文件和 benchmark_v1）、项目记忆。<span class="en">Project docs 09–22, the <span class="mono">~/FLP</span> working copy on your Mac (raw run results), <span class="mono">08_research/</span> (paper sources and benchmark_v1), and project memory.</span></li>
+<li>每个数字后面标了来源；标 <span class="ok">已复算</span> 的是我今天用原始数据重新算过、和论文表一致的；标 <span class="miss">缺原始数据</span> 的只能引用文档。<span class="en">Every number has a source tag. "已复算" = recomputed today from raw data and matches the paper table. "缺原始数据" = only a document summary exists.</span></li>
+</ul>
+
+<h3>最需要你先看的三件事 / Read these three first</h3>
+<ol class="plain">
+<li><b>两套"对比实验"并存</b>：论文表里是 Construct / Swap / GA / SA / CRO / MINLP / Ours；10-12 定下的是 CORELAP / CRAFT / MIP / CP-SAT / PPO / Ours。后者的原始数据和代码已经找不到了（第 6 章）。<span class="en">Two different comparison sets exist. The raw data and code of the second (six-method) one are lost (Ch. 6).</span></li>
+<li><b>vC10a "已证明最优"</b>只有文档记录，证明脚本和日志找不到（第 7 章）。<span class="en">The vC10a optimality proof survives only as a note; scripts and logs are missing (Ch. 7).</span></li>
+<li><b>论文正文大部分章节还是空的</b>，写好的实验章节没有接进 main.tex（第 9 章）。<span class="en">Most report sections are still empty, and the finished experiments section is not included in main.tex (Ch. 9).</span></li>
+</ol>
+</section>
+
+<!-- 1 -->
+<section class="step" id="c1" data-title="时间线">
+<div class="eyebrow">Timeline</div>
+<h2>做过什么：时间线</h2>
+<span class="en">What was done, in order.</span>
+<div class="scroll"><table class="t">
+<tr><th>日期</th><th>做了什么</th><th>来源</th></tr>
+<tr><td class="n">09-14</td><td>项目文件夹盘点；收敛为"最小可完成任务 + 阶梯延伸"</td><td><span class="src">文档 09</span> <span class="src">记忆</span></td></tr>
+<tr><td class="n">10-04/05</td><td>公开 UA-FLP 实例逐格审计、已知最好值复核、本地基准跑通</td><td><span class="src">文档 11 15 17</span></td></tr>
+<tr><td class="n">10-05</td><td>复现 Konak 2006 柔性条带 MIP：O9 证明最优 241.06（α=4），并发现论文约束 (11) 印刷问题</td><td><span class="src">文档 18</span></td></tr>
+<tr><td class="n">10-05</td><td>早期算法矩阵测试（QAP 25 例 + UA-FLP，贪心/交换/SA/RoTS/GA/CP-SAT/PPO）</td><td><span class="src">文档 14</span></td></tr>
+<tr><td class="n">10-06</td><td>FBS + SA 五实例测试；修正 AB20 数据口径</td><td><span class="src">文档 19</span></td></tr>
+<tr><td class="n">10-07</td><td>复现 Jeong &amp; Chae 2026（CRO + 切片树）：O7、vC10a 一致，AB20 平均差 ≤ 0.85%，Du62 更好，SC30 未复现</td><td><span class="src">文档 20</span></td></tr>
+<tr><td class="n">10-11/12</td><td>benchmark v1：9 种方法 × 5 实例 × 10 种子，加消融、统计检验、记录表</td><td><span class="src">paper/benchmark_v1</span> <span class="src">文档 21</span></td></tr>
+<tr><td class="n">10-12</td><td>vC10a 用序列对 MINLP 证明全局最优 18,522.789593</td><td><span class="src">文档 21</span></td></tr>
+<tr><td class="n">10-12</td><td>六方法对比（CORELAP / CRAFT / MIP / CP-SAT / PPO / Ours），120 次运行</td><td><span class="src">文档 22</span></td></tr>
+<tr><td class="n">10-14</td><td>定稿：只做两个实验（公开基准横评 + 真实工厂新算例）</td><td><span class="src">记忆</span></td></tr>
+<tr><td class="n">10-21</td><td>真实项目数据到手（2D CAD 平面 + 3D）；Agent 第一阶段开工</td><td><span class="src">记忆</span></td></tr>
+<tr><td class="n">10-25</td><td>Agent notebook 跑通 fork14 端到端（模型位置为关键词替身）</td><td><span class="src">GitHub agent/</span></td></tr>
+<tr><td class="n">10-26</td><td>代码、结果、论文 benchmark 章节上传 GitHub 分支 agent-stage1；本汇总</td><td><span class="src">GitHub</span></td></tr>
+</table></div>
+</section>
+
+<!-- 2 -->
+<section class="step" id="c2" data-title="实验一：基准与协议">
+<div class="eyebrow">Experiment 1 · Setup</div>
+<h2>实验一：基准和测试规则</h2>
+<span class="en">Experiment 1: benchmarks and protocol.</span>
+
+<div class="scroll"><table class="t">
+<tr><th>实例</th><th class="n">部门数 n</th><th>厂房 W×H</th><th class="n">长宽比上限 α</th><th class="n">填充率</th><th class="n">有流量的对</th><th class="n">每次时限</th><th>考什么</th></tr>
+<tr><td>O7</td><td class="n">7</td><td class="mono">8.54 × 13</td><td class="n">4</td><td class="n">99.98%</td><td class="n">10</td><td class="n">20 s</td><td>有已证明最优，检验正确性</td></tr>
+<tr><td>vC10a</td><td class="n">10</td><td class="mono">25 × 51</td><td class="n">5</td><td class="n">100%</td><td class="n">12</td><td class="n">20 s</td><td>细长厂房</td></tr>
+<tr><td>AB20</td><td class="n">20</td><td class="mono">30 × 20</td><td class="n">4</td><td class="n">100%</td><td class="n">62</td><td class="n">60 s</td><td>唯一不对称流量</td></tr>
+<tr><td>SC30</td><td class="n">30</td><td class="mono">15 × 12</td><td class="n">5</td><td class="n">90.56%</td><td class="n">50</td><td class="n">60 s</td><td>厂房有空地</td></tr>
+<tr><td>Du62</td><td class="n">62</td><td class="mono">117.124²</td><td class="n">4</td><td class="n">100%</td><td class="n">1182</td><td class="n">150 s</td><td>最大规模</td></tr>
+</table></div>
+<p><span class="src">paper/benchmark_v1/tables/tab_setup.tex</span></p>
+
+<h3>测试规则 / Protocol</h3>
+<ul class="plain">
+<li>所有随机方法用同样的时限，种子 0–9 各跑一次；构造法和精确模型各跑一次。<span class="en">Same time budget for every stochastic method; seeds 0–9. Construction and exact models run once.</span></li>
+<li>方法不自己报成本：每个布局都交给独立检查器（容差 10⁻⁶）重算成本、检查面积 / 长宽比 / 出界 / 重叠。538 个布局最后又全部复查一遍。<span class="en">No method reports its own cost. An independent checker (tolerance 10⁻⁶) recomputes cost and checks every constraint. All 538 stored layouts were re-checked at the end.</span></li>
+<li>机器：随机方法在一台 4 核 Linux（aarch64）虚拟机上，3 个并行；精确模型在另一台 2 核 Xeon 上。<span class="en">Stochastic methods ran on a 4-core Linux (aarch64) VM; exact models on a 2-core Xeon.</span></li>
+<li>代码版本用 MD5 记录（<span class="mono">bench/CODE_MD5_v2.txt</span>）；今天核对：GitHub 上传的代码与该清单一致。<span class="en">Code version is fixed by MD5 checksums; the uploaded code matches the list.</span></li>
+</ul>
+<p><span class="src">paper/benchmark_v1/sections/experiments.tex §Protocol</span></p>
+
+<h3>参加对比的 9 种方法 / The 9 methods</h3>
+<div class="scroll"><table class="t">
+<tr><th>方法</th><th>是什么</th></tr>
+<tr><td>Construct</td><td>确定性构造法：按流量贪心定序（CORELAP 式规则），放进柔性条带</td></tr>
+<tr><td>Swap</td><td>CRAFT 式两两交换，局部最优后随机重启</td></tr>
+<tr><td>GA</td><td>遗传算法，无局部搜索</td></tr>
+<tr><td>SA</td><td>模拟退火（三种移动）</td></tr>
+<tr><td>CRO</td><td>Jeong &amp; Chae 2026 珊瑚礁优化的复现（7×7 网格，论文 Table 5 参数）</td></tr>
+<tr><td>SA / CRO + polish</td><td>公平性对照：把 SA / CRO 的最终布局交给我们第二阶段的 SOCP 解一次</td></tr>
+<tr><td>MINLP</td><td>精确凸 MINLP，SCIP 10，300 s</td></tr>
+<tr class="us"><td>Ours</td><td>两阶段：切片树退火 → 序列对搜索 + SOCP 精确几何</td></tr>
+</table></div>
+<p>另外跑了两个受限精确模型（固定形状 MIP、网格 CP-SAT），在所有实例上都没找到可行解，论文里不报。<span class="en">Two restricted exact models (fixed-shape MIP, grid CP-SAT) found no feasible layout on any instance and are not reported.</span></p>
+</section>
+
+<!-- 3 -->
+<section class="step" id="c3" data-title="实验一：主结果">
+<div class="eyebrow">Experiment 1 · Results</div>
+<h2>主结果：和参考值的平均差距</h2>
+<span class="en">Main result: mean gap to the reference value (%). Lower is better; negative = better than the reference.</span>
+<p>差距 = 100 ×（成本 − 参考值）/ 参考值，10 个种子取平均。参考值：O7 131.6531（已证明最优）、vC10a 18,522.79、AB20 5,021.17、SC30 3,343.47、Du62 3,635,307.30。</p>
+<span class="en">Gap = 100 × (cost − ref) / ref, mean over 10 seeds.</span>
+<div class="scroll"><table class="t">
+<tr><th>方法</th><th class="n">O7</th><th class="n">vC10a</th><th class="n">AB20</th><th class="n">SC30</th><th class="n">Du62</th><th>复核</th></tr>
+<tr><td>Construct</td><td class="n">14.747</td><td class="n">52.91</td><td class="n">75.74</td><td class="n">195.51</td><td class="n">28.85</td><td><span class="ok">已复算</span></td></tr>
+<tr><td>Swap</td><td class="n">0.027</td><td class="n">1.52</td><td class="n">11.00</td><td class="n">35.62</td><td class="n">10.69（1/10 可行）</td><td><span class="ok">已复算</span></td></tr>
+<tr><td>GA</td><td class="n">4.667</td><td class="n">18.81</td><td class="n">23.82</td><td class="n">53.28</td><td class="n">2.75</td><td><span class="ok">已复算</span></td></tr>
+<tr><td>SA</td><td class="n">0.027</td><td class="n">0.00</td><td class="n">0.44</td><td class="n">9.07</td><td class="n">0.85</td><td><span class="ok">已复算</span></td></tr>
+<tr><td>SA + polish</td><td class="n">0.003</td><td class="n">0.00</td><td class="n">0.44</td><td class="n">5.70</td><td class="n">0.85</td><td><span class="miss">缺原始数据</span></td></tr>
+<tr><td>CRO</td><td class="n">0.027</td><td class="n">0.00</td><td class="n">5.37</td><td class="n">28.96</td><td class="n">1.80</td><td><span class="ok">已复算</span></td></tr>
+<tr><td>CRO + polish</td><td class="n">0.003</td><td class="n">0.00</td><td class="n">5.37</td><td class="n">23.41</td><td class="n">1.79</td><td><span class="miss">缺原始数据</span></td></tr>
+<tr><td>MINLP（300 s）</td><td class="n">0.000</td><td class="n">21.10</td><td class="n">无可行解</td><td class="n">201.30</td><td class="n">无可行解</td><td><span class="miss">缺原始数据</span></td></tr>
+<tr class="us"><td>Ours</td><td class="n">0.000</td><td class="n">0.00</td><td class="n">−0.01</td><td class="n">1.93</td><td class="n">0.07</td><td><span class="ok">已复算</span></td></tr>
+</table></div>
+<p><span class="src">paper/benchmark_v1/tables/tab_main.tex</span> <span class="src">results/bench, results/bench2</span></p>
+
+<p>Ours 的最好一次：O7 0.000%、vC10a 0.00%、AB20 −1.43%、SC30 −1.26%、Du62 −0.16%。10 次全部可行。</p>
+<span class="en">Ours, best run: 0.000, 0.00, −1.43, −1.26, −0.16 %. All 10 runs feasible on every instance.</span>
+
+<div class="box"><h3>今天的复算 / Today's recomputation</h3>
+<p>用 Mac 上 <span class="mono">results/bench</span> 和 <span class="mono">results/bench2</span> 的每次运行文件重新算了最好值、平均值、标准差：Construct、Swap、GA、SA、CRO、Ours 以及 5 个消融变体，<b>全部与论文表一致</b>。论文表在 vC10a 和部分 SA / CRO 行用的是 bench2 的重跑结果（vC10a 在 bench 里是修正 w₉,₁₀ 之前的旧数据）。</p>
+<span class="en">Recomputed from every run file: all rows of Construct, Swap, GA, SA, CRO, Ours and the 5 ablation variants match the paper. The paper uses the bench2 re-runs for vC10a and some SA/CRO rows (bench has vC10a before the w₉,₁₀ fix).</span>
+<p>无法复算的：两个 polish 行和 MINLP 行，原始文件不在 Mac 上。</p>
+<span class="en">Not recomputable: the two polish rows and MINLP (raw files are not on the Mac).</span>
+</div>
+</section>
+
+<!-- 4 -->
+<section class="step" id="c4" data-title="已发表值与记录">
+<div class="eyebrow">Records</div>
+<h2>和已发表最好值比</h2>
+<span class="en">Against the best published values.</span>
+<div class="scroll"><table class="t">
+<tr><th>实例</th><th class="n">已发表</th><th>来源与可比性</th><th class="n">我们的记录</th><th class="n">差</th><th>原始布局</th></tr>
+<tr><td>O7</td><td class="n">131.6531381</td><td>MINLPLib，已证明最优</td><td class="n">131.6532</td><td class="n">0.000%</td><td><span class="ok">在 bench2</span></td></tr>
+<tr><td>vC10a</td><td class="n">18,522.79</td><td>J&amp;C T.6，精确面积，可比（w₉,₁₀=59.2）</td><td class="n">18,522.79</td><td class="n">0.00%</td><td><span class="ok">在 bench2</span></td></tr>
+<tr><td rowspan="2">AB20</td><td class="n">4,927.27</td><td>J&amp;C：部门 10、14 长宽比 4.008 &gt; 4，不可行</td><td class="n" rowspan="2">4,861.35</td><td class="n">−1.34%</td><td rowspan="2"><span class="ok">在 bench2（Elite pool 1，已复算）</span></td></tr>
+<tr><td class="n">5,021.17</td><td>G&amp;R T.12：面积外逼近，有条件可比</td><td class="n">−3.18%</td></tr>
+<tr><td>SC30</td><td class="n">3,343.47</td><td>J&amp;C T.6：切片布局 + 17 个空块，我们模型更宽松</td><td class="n">3,279.66</td><td class="n">−1.91%</td><td><span class="miss">缺</span></td></tr>
+<tr><td rowspan="2">Du62</td><td class="n">3,635,307.30</td><td>K&amp;C 经 J&amp;C 转引，厂房未确认</td><td class="n" rowspan="2">3,615,501.31</td><td class="n">−0.54%</td><td rowspan="2"><span class="miss">缺</span></td></tr>
+<tr><td class="n">3,672,799.99</td><td>J&amp;C T.6，117.124 正方形，可比</td><td class="n">−1.56%</td></tr>
+</table></div>
+<p><span class="src">paper/benchmark_v1/tables/tab_records.tex</span></p>
+<ul class="plain">
+<li>SC30 和 Du62 的记录来自更长的单独运行（最长 900 s），不是协议内结果；这两份布局文件现在找不到。协议内最好：SC30 3,301.27（Ours），Du62 3,623,751.81（SA + polish）。<span class="en">The SC30 and Du62 records come from longer separate runs (up to 900 s), not the protocol; their layout files are missing. Best protocol runs: SC30 3,301.27 (Ours), Du62 3,623,751.81 (SA + polish).</span></li>
+<li>AB20 的 4,861.35 来自协议内的"Elite pool 1"变体（60 s），原始文件在，今天已复算。<span class="en">AB20 4,861.35 comes from the protocol variant "Elite pool 1" (60 s); raw file present and recomputed.</span></li>
+</ul>
+</section>
+
+<!-- 5 -->
+<section class="step" id="c5" data-title="自研方法">
+<div class="eyebrow">Our method</div>
+<h2>自研方法：两阶段，哪一段在起作用</h2>
+<span class="en">Our two-stage method, and which stage does the work.</span>
+<ol class="plain">
+<li><b>第一阶段</b>：切片树编码上的模拟退火，用一半时间，保留最多 4 个精英布局。<span class="en">Stage 1: slicing-tree annealing for half the budget, keeping up to 4 elite layouts.</span></li>
+<li><b>第二阶段</b>：把精英布局转成序列对，在序列对上搜索；每个序列对用 SOCP（二阶锥规划，Clarabel 求解）算精确尺寸和位置。若剩余时间不够 3000 次 SOCP，只做一次"抛光"。<span class="en">Stage 2: convert elites to sequence pairs and search; each pair is solved exactly by an SOCP (Clarabel). If fewer than 3000 solves fit, do a single polish.</span></li>
+</ol>
+
+<h3>消融结果（10 个种子平均） / Ablation (mean of 10 seeds)</h3>
+<div class="scroll"><table class="t">
+<tr><th>变体</th><th class="n">AB20</th><th class="n">SC30</th><th class="n">Du62</th></tr>
+<tr class="us"><td>Ours（完整）</td><td class="n">5,020.81</td><td class="n">3,407.85</td><td class="n">3,637,888.92</td></tr>
+<tr><td>只用第一阶段</td><td class="n">5,000.64</td><td class="n">3,577.69</td><td class="n">3,636,299.54</td></tr>
+<tr><td>第一阶段 + 一次抛光</td><td class="n">5,004.52</td><td class="n">3,498.23</td><td class="n">3,636,281.42</td></tr>
+<tr><td>去掉第一阶段</td><td class="n">5,639.86</td><td class="n">3,690.44</td><td class="n">0/10 可行</td></tr>
+</table></div>
+<p><span class="src">tab_ablation.tex</span> <span class="ok">已复算</span></p>
+
+<div class="box"><h3>能说什么、不能说什么 / What the data supports</h3>
+<p><b>能说</b>：5 个实例上平均成本都最低（vC10a 与 SA、CRO 持平）；第一阶段必不可少（去掉后差 10–12%，Du62 无可行解）；在 SC30 上第二阶段明显有用（平均 3,407.85 vs 只第一阶段 3,577.69）。</p>
+<span class="en">Supported: lowest mean cost on all five (tied on vC10a); Stage 1 is necessary; Stage 2 clearly helps on SC30.</span>
+<p><b>要谨慎</b>：AB20 和 Du62 上"只用第一阶段"的平均值反而略低；与 SA 的差异只在 O7、SC30 上统计显著（Mann–Whitney + Holm：SC30 p = 2.3×10⁻³，AB20 p = 1，Du62 p = 0.069）。普通 SA 在 Du62 和 AB20 上也已超过 J&amp;C 的值。</p>
+<span class="en">Careful: on AB20 and Du62, Stage 1 alone has a slightly lower mean; vs SA the difference is significant only on O7 and SC30. Plain SA also beats J&C's values on AB20 and Du62.</span>
+<p><b>必须写明</b>：第一阶段参数在 AB20、SC30 上调过，第二阶段温度在 SC30 上调过，它们也是测试实例；基线用默认参数。Ours 的运行在修复时间检查之前完成，最大超时 4.28 s（2.9%，Du62，只第一阶段变体）。</p>
+<span class="en">Must state: Stage-1 parameters were tuned on AB20/SC30 and Stage-2 on SC30 (also test instances); baselines use defaults. Max overrun 4.28 s (2.9%, Du62, Stage-1-only variant).</span>
+</div>
+<p><span class="src">tab_stats.tex</span> <span class="src">experiments.tex §Methods, §Protocol</span> <span class="src">文档 21</span></p>
+</section>
+
+<!-- 6 -->
+<section class="step" id="c6" data-title="六方法对比">
+<div class="eyebrow">Six-method comparison</div>
+<h2>10-12 的六方法对比</h2>
+<span class="en">The six-method comparison of 10-12.</span>
+<p>按 10-12 的决定，换成"有论文出处的经典 + 新方法"：CORELAP、CRAFT、MIP、CP-SAT、PPO、Ours。2 核云端机器，比你的 Mac 约慢 1.7 倍。</p>
+<span class="en">Per the 10-12 decision: CORELAP, CRAFT, MIP, CP-SAT, PPO, Ours, on a 2-core cloud machine (~1.7× slower than your Mac).</span>
+<div class="scroll"><table class="t">
+<tr><th>方法</th><th class="n">O7</th><th class="n">vC10a</th><th class="n">AB20</th><th class="n">SC30</th><th class="n">Du62</th></tr>
+<tr><td>CORELAP（&lt;15 s）</td><td class="n">14.75</td><td class="n">81.65</td><td class="n">不可行</td><td class="n">89.49</td><td class="n">33.56</td></tr>
+<tr><td>CRAFT（≤1 s）</td><td class="n">12.59</td><td class="n">54.16</td><td class="n">不可行</td><td class="n">125.84</td><td class="n">8.41</td></tr>
+<tr><td>MIP（全时限）</td><td class="n">10.67</td><td class="n">35.88</td><td class="n">无解</td><td class="n">248.97</td><td class="n">无解</td></tr>
+<tr><td>CP-SAT</td><td class="n">无解</td><td class="n">无解</td><td class="n">无解</td><td class="n">无解</td><td class="n">无解</td></tr>
+<tr><td>PPO（最好 / 平均）</td><td class="n">3.74 / 5.46</td><td class="n">42.97 / 57.79</td><td class="n">7/10 可行，91.54 / 113.21</td><td class="n">0/10 可行</td><td class="n">0/10 可行</td></tr>
+<tr class="us"><td>Ours（最好 / 平均）</td><td class="n">0.00 / 0.00</td><td class="n">0.00 / 0.83</td><td class="n">−1.13 / 0.69</td><td class="n">0.45 / 2.78</td><td class="n">−0.16 / 0.00</td></tr>
+</table></div>
+<p><span class="src">文档 22</span> <span class="miss">缺原始数据</span> <span class="miss">缺代码</span></p>
+<div class="box"><h3>问题 / Problem</h3>
+<p>这组实验的运行文件（results/campaign）、CORELAP / CRAFT / PPO 的实现、图表都在当时的云端环境里，那个环境已经不在了。Mac 和 GitHub 上都找不到，只剩文档 22 的汇总。</p>
+<span class="en">The run files, the CORELAP/CRAFT/PPO code, and the figures lived in a cloud environment that no longer exists. Only the doc-22 summary is left.</span>
+<p>要在报告里用这组结果，需要重跑；要么报告改用第 3 章那组（数据齐全、已复算）。</p>
+<span class="en">To use these results in the report, re-run them; or use the Chapter 3 set, which is complete and verified.</span>
+</div>
+</section>
+
+<!-- 7 -->
+<section class="step" id="c7" data-title="vC10a 最优性证明">
+<div class="eyebrow">Optimality proof</div>
+<h2>vC10a 全局最优的证明</h2>
+<span class="en">Proof that 18,522.79 is optimal on vC10a.</span>
+<ul class="plain">
+<li>方法：精确的序列对 MINLP（三角约束、精确凸面积、长宽比 ≤ 5、对称破除），把目标上限设为 18,522.789593，SCIP 10 证明不可行，即不存在更便宜的布局。<span class="en">An exact sequence-pair MINLP with the objective capped at 18,522.789593; SCIP 10 proved it infeasible, so no cheaper layout exists.</span></li>
+<li>完整问题 6,732 s；另按"7 在 9 下方 / 7 在 9 左侧"分两种情况各证一次（2,339 s + 8,593 s），作为第二份独立证明。<span class="en">Full problem 6,732 s; a second proof split into two cases (2,339 s + 8,593 s).</span></li>
+<li>模型先在 O7 上验证：上限略低于已知最优 → 不可行；略高 → 找到 131.6531378。<span class="en">Validated on O7 first.</span></li>
+</ul>
+<p><span class="src">文档 21</span> <span class="miss">缺证明脚本 certify/</span> <span class="miss">缺 SCIP 日志</span></p>
+<p>论文记录表（tab_records）里 vC10a 写的是"8 种方法打平"，没有提这个证明。若报告要写"已证明最优"，需要把脚本找回来或重跑一次（约 2–5 小时）。</p>
+<span class="en">The paper's records table says "tie of 8 methods" and does not mention the proof. To claim "proven optimal", recover or re-run the proof (about 2–5 h).</span>
+</section>
+
+<!-- 8 -->
+<section class="step" id="c8" data-title="Agent 第一阶段">
+<div class="eyebrow">Agent · stage 1</div>
+<h2>Agent 第一阶段</h2>
+<span class="en">Agent, stage 1.</span>
+<p>定位：LLM 只替代"人工理解需求"，把文字整理成求解器能读的关系表；坐标和尺寸由实验一的求解器算。</p>
+<span class="en">The LLM only replaces the human step of reading requirements; the Experiment-1 solver computes geometry.</span>
+<div class="scroll"><table class="t">
+<tr><th>节点</th><th>内容</th><th>状态</th></tr>
+<tr><td>① 数值隔离</td><td>面积等数字不进提示词（OptiMUS）</td><td>完成</td></tr>
+<tr><td>② 关系 Agent</td><td>91 对逐对给 A/E/I/O/U/X + 理由 + 置信度（SLP、Holodeck、Co-Layout）</td><td>完成</td></tr>
+<tr><td>③ 自检</td><td>置信度 ≤ 3 的对单独再问（OptiMUS），可开关</td><td>完成</td></tr>
+<tr><td>⑤ 格式校验</td><td>编辑距离纠名、报错回传、最多重试 2 次，失败不补 U</td><td>完成</td></tr>
+<tr><td>⑥ 编译</td><td>A4 E3 I2 O1 U0 → 权重；X → 最小间距列表</td><td>完成</td></tr>
+<tr><td>⑦ 求解</td><td>接实验一 Ours（代码未改）</td><td>完成；<b>求解器不支持最小间距</b></td></tr>
+<tr><td>⑪ 评估</td><td>和教材标准关系表逐对比，7 项指标</td><td>完成</td></tr>
+<tr><td>真实 LLM</td><td>—</td><td><b>未跑</b>（无 API key；10-25 决定移到 10-27 之后）</td></tr>
+</table></div>
+<h3>已有的真实数字 / Real numbers so far</h3>
+<ul class="plain">
+<li>教材标准关系表核对：fork14 14 行合计与书一致；面积合计 66,464 m²。<span class="en">fork14 answer key: all 14 row sums match; total area 66,464 m².</span></li>
+<li>全 U 基线：fork14 一致率 0.505，pump14 0.733，κ = 0。<span class="en">All-U baseline: 0.505 / 0.733, kappa 0.</span></li>
+<li>用书中关系表求解 fork14（310×285 m，α≤5，30 s，1 个种子）：可行、零违规，目标值 6929.3。<span class="en">Solving fork14 with the book's chart: feasible, zero violations, objective 6929.3.</span></li>
+</ul>
+<p>notebook 里关键词替身的分数（κ 0.233 等）不是 Agent 结果，不能引用。</p>
+<span class="en">The keyword stand-in's scores in the notebook are not agent results.</span>
+<p><span class="src">GitHub agent/</span> <span class="src">agent/notebooks/agent_pipeline.html</span></p>
+</section>
+
+<!-- 9 -->
+<section class="step" id="c9" data-title="报告现状">
+<div class="eyebrow">Report status</div>
+<h2>论文源文件现状（08_research/main.tex）</h2>
+<span class="en">State of the report source.</span>
+<div class="scroll"><table class="t">
+<tr><th>章节文件</th><th>现状</th></tr>
+<tr><td>00_abstract</td><td>空</td></tr>
+<tr><td>01_introduction</td><td>空</td></tr>
+<tr><td>02_related_work</td><td>两段引言</td></tr>
+<tr><td>03_problem</td><td>空</td></tr>
+<tr><td>04_method</td><td>基准实例表、测试流程、AB20 算例、问题分类与方法选择</td></tr>
+<tr><td>05_experiments</td><td><b>空</b>；写好的实验章节在 <span class="mono">benchmark_v1/sections/experiments.tex</span>，还没 \input 进来</td></tr>
+<tr><td>06_discussion、07_conclusion</td><td>空</td></tr>
+</table></div>
+<p>当前 main.pdf 共 5 页，编译于 10-12。截止：11 月第一个周末。</p>
+<span class="en">main.pdf is 5 pages, built on 10-12. Deadline: first weekend of November.</span>
+</section>
+
+<!-- 10 -->
+<section class="step" id="c10" data-title="核对清单">
+<div class="eyebrow">Checklist</div>
+<h2>核对清单</h2>
+<span class="en">Checklist.</span>
+<p><span class="lvl d mono">需决定</span>要你拍板 <span class="lvl f mono">需补</span>缺数据或缺文件 <span class="lvl w mono">改措辞</span>正文表述要改</p>
+<ol class="chk">
+<li><span class="lvl d mono">需决定</span>报告用哪一组对比：第 3 章 9 方法（数据齐全、已复算），还是第 6 章 6 方法（缺数据和代码，要重跑）。<span class="en">Which comparison goes in the report: the verified 9-method set, or the 6-method set (needs a re-run)?</span></li>
+<li><span class="lvl d mono">需决定</span>两组机器不同（4 核 VM vs 2 核云端），数字不能混用；同一张表里只用一组。<span class="en">The two sets ran on different machines; never mix their numbers in one table.</span></li>
+<li><span class="lvl f mono">需补</span>vC10a 最优性证明：脚本和日志找回或重跑，否则只写"8 种方法打平于已发表最好值"。<span class="en">vC10a proof: recover or re-run, otherwise only claim a tie with the published best.</span></li>
+<li><span class="lvl f mono">需补</span>SC30 3,279.66、Du62 3,615,501.31 两个记录布局文件缺失；要引用就得重跑长时运行并存档。<span class="en">The SC30 and Du62 record layouts are missing; re-run and archive before citing.</span></li>
+<li><span class="lvl f mono">需补</span>polish 行和 MINLP 行的原始结果不在 Mac 上，无法复算。<span class="en">Raw results for the polish and MINLP rows are not on the Mac.</span></li>
+<li><span class="lvl w mono">改措辞</span>04_method 写"O7 and vC10a have reported optimal values [jeong2026]"：O7 的最优来自 MINLPLib，vC10a 的最优性是我们自己证的。引用要分开。<span class="en">Cite O7's optimum to MINLPLib and vC10a's to our own proof, not to [jeong2026].</span></li>
+<li><span class="lvl w mono">改措辞</span>04_method 的 Table 1 写 AB20 厂房 2.00×3.00，benchmark_v1 的表写 30×20。两者成本相同（缩放 1/10 并旋转），但全文要统一一种并注明。<span class="en">AB20 floor appears as 2×3 in one table and 30×20 in another; pick one and note the scaling.</span></li>
+<li><span class="lvl w mono">改措辞</span>04_method 写"taking five representative instances from each category"：实际是 3 类共 5 个实例。<span class="en">"Five instances from each category" should read five instances in total across three categories.</span></li>
+<li><span class="lvl w mono">改措辞</span>方法贡献要按第 5 章的"能说 / 要谨慎 / 必须写明"写；不要写"第二阶段在所有实例上都有提升"。<span class="en">Word the method's contribution as in Ch. 5; do not claim Stage 2 helps everywhere.</span></li>
+<li><span class="lvl w mono">改措辞</span>文档 21 写"Ours 在 Du62 最多超时 2.9%"：这个最大值是"只第一阶段"变体；完整 Ours 最大超时 3.3 s（2.2%）。<span class="en">The 2.9% overrun is the Stage-1-only variant; full Ours peaks at 3.3 s (2.2%).</span></li>
+<li><span class="lvl f mono">需补</span>报告 05_experiments 还是空的；benchmark_v1 的实验章节可直接 \input（README 已写好方法）。<span class="en">05_experiments is empty; the benchmark_v1 section can be input directly.</span></li>
+<li><span class="lvl d mono">需决定</span>Agent：X 约束怎么处理（改求解器 / 求解后检查 / 只报间距）、形状规则（书中固定尺寸 / 调小 α）、X 最小净距 D。<span class="en">Agent: X handling, shape rule, and minimum gap D.</span></li>
+<li><span class="lvl f mono">需补</span>pump14 第 10 行对原书 p.168。<span class="en">pump14 row 10: check against the book.</span></li>
+<li><span class="lvl f mono">需补</span>文档 18 说 Konak 2006 复现在 GitHub 分支 baseline/konak2006，但 GitHub 上没有这个分支；代码要找回。<span class="en">Doc 18 cites a GitHub branch baseline/konak2006 that does not exist.</span></li>
+<li><span class="lvl f mono">需补</span>Mac 的 ~/FLP 一直没提交过 git（只有 10-05 的初始提交）；今天已把工作副本上传到 GitHub 分支 agent-stage1，main 还没合并。<span class="en">~/FLP on the Mac was never committed after 10-05; today's upload is on branch agent-stage1, not merged into main.</span></li>
+</ol>
+</section>
+
+<!-- 11 -->
+<section class="step" id="c11" data-title="文件在哪">
+<div class="eyebrow">Where things are</div>
+<h2>文件在哪</h2>
+<span class="en">Where every artifact lives.</span>
+<div class="scroll"><table class="t">
+<tr><th>内容</th><th>位置</th><th>状态</th></tr>
+<tr><td>基准实例、检查器、FBS 解码（10-05 初版）</td><td>GitHub Wsamme/FLP main</td><td>公开</td></tr>
+<tr><td>求解器 + 基线代码（10-11/12，与 MD5 清单一致）</td><td>GitHub 分支 agent-stage1：<span class="mono">bench/ baselines/</span></td><td>今天上传</td></tr>
+<tr><td>新增实例 vC10a、SC30、Du62；docs、tests 更新</td><td>同上：<span class="mono">instances/ docs/ tests/</span></td><td>今天上传</td></tr>
+<tr><td>每次运行的原始结果（bench、bench2、CRO 复现）</td><td>同上：<span class="mono">results/</span></td><td>今天上传</td></tr>
+<tr><td>论文实验章节（表、图、数字宏、生成脚本）</td><td>同上：<span class="mono">paper/benchmark_v1/</span>；Mac：08_research/benchmark_v1</td><td>今天上传</td></tr>
+<tr><td>Agent 代码、notebook、两份过程 HTML</td><td>同上：<span class="mono">agent/</span></td><td>10-26 上传</td></tr>
+<tr><td>本汇总</td><td>同上：<span class="mono">docs/summary_20261026.html</span></td><td>今天上传</td></tr>
+<tr><td>论文源文件 main.tex 和 sections</td><td>Mac：08_research/</td><td>未上传（你的报告正文）</td></tr>
+<tr><td>六方法对比数据和代码、vC10a 证明脚本、长时记录布局、polish / MINLP 结果</td><td>当时的云端环境</td><td><b>已丢失</b>，只有文档 21、22 的汇总</td></tr>
+</table></div>
+</section>
+
+<div class="navbtns"><button id="prev">← 上一章</button><button id="next">下一章 →</button></div>
+</main>
+</div>
+<script>
+(function(){
+  var steps=[].slice.call(document.querySelectorAll('section.step'));
+  var toc=document.getElementById('toc'), wrap=document.getElementById('wrap');
+  var prev=document.getElementById('prev'), next=document.getElementById('next');
+  var bS=document.getElementById('modeStep'), bA=document.getElementById('modeAll');
+  var cur=0, all=false;
+  steps.forEach(function(s,i){
+    var li=document.createElement('li'), a=document.createElement('a');
+    a.href='#'+s.id; a.innerHTML='<span class="n">'+i+'</span><span class="t"></span>';
+    a.querySelector('.t').textContent=s.dataset.title;
+    a.addEventListener('click',function(e){ if(!all){e.preventDefault(); show(i,true);} });
+    li.appendChild(a); toc.appendChild(li);
+  });
+  var links=[].slice.call(toc.querySelectorAll('a'));
+  function show(i,scroll){
+    cur=Math.max(0,Math.min(steps.length-1,i));
+    steps.forEach(function(s,k){ s.hidden=!all && k!==cur; });
+    links.forEach(function(a,k){ a.setAttribute('aria-current',(!all&&k===cur)?'true':'false'); });
+    prev.disabled=cur===0; next.disabled=cur===steps.length-1;
+    if(!all){ try{history.replaceState(null,'','#'+steps[cur].id);}catch(e){} if(scroll) window.scrollTo(0,0); }
+  }
+  function setMode(a){ all=a; wrap.classList.toggle('allmode',a); bA.setAttribute('aria-pressed',a); bS.setAttribute('aria-pressed',!a);
+    try{localStorage.setItem('sumMode',a?'all':'step');}catch(e){} show(cur,false); }
+  prev.onclick=function(){show(cur-1,true)}; next.onclick=function(){show(cur+1,true)};
+  bS.onclick=function(){setMode(false)}; bA.onclick=function(){setMode(true)};
+  document.addEventListener('keydown',function(e){ if(all) return;
+    if(e.key==='ArrowRight') show(cur+1,true); if(e.key==='ArrowLeft') show(cur-1,true); });
+  var h=(location.hash||'').slice(1), idx=steps.findIndex(function(s){return s.id===h});
+  var m='step'; try{m=localStorage.getItem('sumMode')||'step';}catch(e){}
+  cur=idx>=0?idx:0; setMode(m==='all');
+})();
+</script>

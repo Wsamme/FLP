@@ -4,19 +4,23 @@
 UA-FLP only (QAP moves to an appendix at most). Static, single floor, rectangular departments,
 objective = sum of pair weight x rectilinear centroid distance.
 
-## Instance set (frozen)
-| Role | Instance | Why |
-|---|---|---|
-| Anchor | O9 | Known optimal FBS value 241.06 (Konak et al. 2006) reproduced by our evaluator |
-| Medium | vC10s | Minimum-side constraint; values reported by all three baselines |
-| Hard | AB20 (Armour–Buffa weighted, Mendeley) | Asymmetric flows, 100 % fill, most literature values |
-| Hard | SC35 (flows corrected from Qi Liu 2004) | Largest classic instance in the set (n = 35) |
-| Spare | O7, Ba12 | Verified, used for sanity checks |
+## Instance set (frozen, updated 2026-10-07)
+The ME5001A report uses five instances, chosen so that each tests a different feature
+(Jeong & Chae 2026, Tables 2–4).
 
-Excluded: O8 (incomplete flows, no original table), Ba14 (published optimum cannot be replayed on available data),
-Du62 (not needed), gym-flp AB20 (missing cost matrix, shifted row).
+| Instance | n | Floor W x H | Shape | Feature | File status |
+|---|---|---|---|---|---|
+| O7 | 7 | 8.54 x 13 | Rmax 4 | small; optimum reported | verified |
+| vC10a | 10 | 25 x 51 | Rmax 5 | elongated floor (2:1) | verified (pair 9–10 = 59.2, see file note) |
+| AB20 | 20 | 30 x 20 (report: 2 x 3 form) | Rmax 4 | asymmetric flow | verified |
+| SC30 | 30 | 15 x 12 | Rmax 5 | 17 units of empty space | flows verified against Liu 2004 |
+| Du62 | 62 | 117.124 x 117.124 (square) | Rmax 4 | largest; floor size open in the source, Jeong & Chae report results on this square | candidate |
 
-"Hard" is defined by: larger n, 100 % fill (no slack), asymmetric flow, tight shape constraint.
+Kept in `instances/uaflp/` but not used in the report: O9 (evaluator anchor, Konak et al. 2006
+optimum 241.06 replayed in `tests/test_replay.py`), vC10s, SC35, Ba12.
+
+Decision record: 2026-10-05 set (O9, vC10s, AB20, SC35; spares O7, Ba12) replaced on 2026-10-07
+by the five instances above, to match the report. Du62 uses the 117.124 square, the floor on which Jeong & Chae report their Du62 results.
 
 ## Baselines (published methods, reproduced faithfully)
 | Method | Paper | Acceptance |

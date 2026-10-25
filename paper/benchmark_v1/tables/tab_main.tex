@@ -1,0 +1,73 @@
+\begin{table}[tbp]
+\centering
+\caption{Results under the common protocol (10 seeds per stochastic method; one run for the deterministic
+construction heuristic and one 300~s run for the exact convex MINLP). SA/CRO + polish: one Stage-2 SOCP solve
+applied to the final layout of each SA/CRO run (polish time, at most \bxPolishTimeMaxSAPolish~s and
+\bxPolishTimeMaxCROPolish~s, not included in the budget). Feas.: runs with a feasible layout / runs.
+Costs are those of the independent evaluator, over feasible runs only; std is the sample standard deviation.
+Gaps are $100\,(\text{cost}-\text{ref})/\text{ref}$ for the best run and for the mean; the O7 reference is the
+proven optimum \bxRefOsevenFull. Bold: lowest mean among the methods with 10 runs.}
+\label{tab:bx-main}
+\footnotesize
+\renewcommand{\arraystretch}{0.92}
+\begin{tabular}{lrrrrr}
+\toprule
+Method & Feas. & Best & Mean $\pm$ std & Gap best (\%) & Gap mean (\%)\\
+\midrule
+\multicolumn{6}{l}{\textit{O7} (reference 131.6531, budget 20~s)}\\
+\quad Construct & 1/1 & 151.0684 & 151.0684 & 14.747 & 14.747 \\
+\quad Swap & 10/10 & 131.6892 & 131.6892 $\pm$ 0.0000 & 0.027 & 0.027 \\
+\quad GA & 10/10 & 131.6892 & 137.7969 $\pm$ 3.7760 & 0.027 & 4.667 \\
+\quad SA & 10/10 & 131.6892 & 131.6892 $\pm$ 0.0000 & 0.027 & 0.027 \\
+\quad SA + polish & 10/10 & 131.6532 & 131.6565 $\pm$ 0.0030 & 0.000 & 0.003 \\
+\quad CRO & 10/10 & 131.6892 & 131.6892 $\pm$ 0.0000 & 0.027 & 0.027 \\
+\quad CRO + polish & 10/10 & 131.6532 & 131.6570 $\pm$ 0.0020 & 0.000 & 0.003 \\
+\quad MINLP & 1/1 & 131.6531 & 131.6531 & 0.000 & 0.000 \\
+\quad Ours & 10/10 & 131.6532 & \textbf{131.6532} $\pm$ 0.0000 & 0.000 & 0.000 \\
+\addlinespace
+\multicolumn{6}{l}{\textit{vC10a} (reference 18{,}522.79, budget 20~s)}\\
+\quad Construct & 1/1 & 28{,}322.56 & 28{,}322.56 & 52.91 & 52.91 \\
+\quad Swap & 10/10 & 18{,}522.79 & 18{,}804.48 $\pm$ 356.46 & 0.00 & 1.52 \\
+\quad GA & 10/10 & 19{,}670.20 & 22{,}007.37 $\pm$ 1{,}956.26 & 6.19 & 18.81 \\
+\quad SA & 10/10 & 18{,}522.79 & \textbf{18{,}522.79} $\pm$ 0.00 & 0.00 & 0.00 \\
+\quad SA + polish & 10/10 & 18{,}522.79 & \textbf{18{,}522.79} $\pm$ 0.00 & 0.00 & 0.00 \\
+\quad CRO & 10/10 & 18{,}522.79 & \textbf{18{,}522.79} $\pm$ 0.00 & 0.00 & 0.00 \\
+\quad CRO + polish & 10/10 & 18{,}522.79 & \textbf{18{,}522.79} $\pm$ 0.00 & 0.00 & 0.00 \\
+\quad MINLP & 1/1 & 22{,}430.69 & 22{,}430.69 & 21.10 & 21.10 \\
+\quad Ours & 10/10 & 18{,}522.79 & \textbf{18{,}522.79} $\pm$ 0.00 & 0.00 & 0.00 \\
+\addlinespace
+\multicolumn{6}{l}{\textit{AB20} (reference 5{,}021.17, budget 60~s)}\\
+\quad Construct & 1/1 & 8{,}824.29 & 8{,}824.29 & 75.74 & 75.74 \\
+\quad Swap & 10/10 & 5{,}495.96 & 5{,}573.29 $\pm$ 56.65 & 9.46 & 11.00 \\
+\quad GA & 10/10 & 5{,}537.01 & 6{,}216.97 $\pm$ 519.12 & 10.27 & 23.82 \\
+\quad SA & 10/10 & 4{,}926.92 & 5{,}043.20 $\pm$ 68.24 & $-$1.88 & 0.44 \\
+\quad SA + polish & 10/10 & 4{,}926.92 & 5{,}043.20 $\pm$ 68.24 & $-$1.88 & 0.44 \\
+\quad CRO & 10/10 & 5{,}123.24 & 5{,}291.01 $\pm$ 125.85 & 2.03 & 5.37 \\
+\quad CRO + polish & 10/10 & 5{,}123.24 & 5{,}291.01 $\pm$ 125.85 & 2.03 & 5.37 \\
+\quad MINLP & 0/1 & -- & -- & -- & -- \\
+\quad Ours & 10/10 & 4{,}949.54 & \textbf{5{,}020.81} $\pm$ 47.79 & $-$1.43 & $-$0.01 \\
+\addlinespace
+\multicolumn{6}{l}{\textit{SC30} (reference 3{,}343.47, budget 60~s)}\\
+\quad Construct & 1/1 & 9{,}880.40 & 9{,}880.40 & 195.51 & 195.51 \\
+\quad Swap & 10/10 & 4{,}386.11 & 4{,}534.38 $\pm$ 136.84 & 31.18 & 35.62 \\
+\quad GA & 10/10 & 4{,}632.73 & 5{,}124.95 $\pm$ 291.64 & 38.56 & 53.28 \\
+\quad SA & 10/10 & 3{,}469.66 & 3{,}646.64 $\pm$ 142.30 & 3.77 & 9.07 \\
+\quad SA + polish & 10/10 & 3{,}381.58 & 3{,}534.20 $\pm$ 108.68 & 1.14 & 5.70 \\
+\quad CRO & 10/10 & 3{,}734.94 & 4{,}311.81 $\pm$ 301.61 & 11.71 & 28.96 \\
+\quad CRO + polish & 10/10 & 3{,}528.51 & 4{,}126.31 $\pm$ 300.51 & 5.53 & 23.41 \\
+\quad MINLP & 1/1 & 10{,}073.72 & 10{,}073.72 & 201.30 & 201.30 \\
+\quad Ours & 10/10 & 3{,}301.27 & \textbf{3{,}407.85} $\pm$ 69.18 & $-$1.26 & 1.93 \\
+\addlinespace
+\multicolumn{6}{l}{\textit{Du62} (reference 3{,}635{,}307.30, budget 150~s)}\\
+\quad Construct & 1/1 & 4{,}684{,}133.69 & 4{,}684{,}133.69 & 28.85 & 28.85 \\
+\quad Swap & 1/10 & 4{,}023{,}859.84 & 4{,}023{,}859.84 & 10.69 & 10.69 \\
+\quad GA & 10/10 & 3{,}696{,}431.38 & 3{,}735{,}359.99 $\pm$ 23{,}459.65 & 1.68 & 2.75 \\
+\quad SA & 10/10 & 3{,}623{,}772.52 & 3{,}666{,}052.33 $\pm$ 26{,}524.87 & $-$0.32 & 0.85 \\
+\quad SA + polish & 10/10 & 3{,}623{,}751.81 & 3{,}666{,}030.22 $\pm$ 26{,}533.57 & $-$0.32 & 0.85 \\
+\quad CRO & 10/10 & 3{,}678{,}297.88 & 3{,}700{,}566.61 $\pm$ 17{,}186.34 & 1.18 & 1.80 \\
+\quad CRO + polish & 10/10 & 3{,}678{,}291.91 & 3{,}700{,}540.99 $\pm$ 17{,}198.82 & 1.18 & 1.79 \\
+\quad MINLP & 0/1 & -- & -- & -- & -- \\
+\quad Ours & 10/10 & 3{,}629{,}508.93 & \textbf{3{,}637{,}888.92} $\pm$ 5{,}454.26 & $-$0.16 & 0.07 \\
+\bottomrule
+\end{tabular}
+\end{table}

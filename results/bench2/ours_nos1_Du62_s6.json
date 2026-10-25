@@ -1,0 +1,1 @@
+{"method": "ours_nos1", "instance": "Du62", "seed": 6, "time_limit": 150.0, "wall": 150.0, "meta": {"random_sp_tries": 3576, "error": "no feasible random sequence pair", "trace": []}, "error": null, "cost": null, "feasible": false, "violations": ["no layout"], "rects": null}

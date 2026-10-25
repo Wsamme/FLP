@@ -1,0 +1,26 @@
+\begin{table}[tbp]
+\centering
+\caption{Two-sided Mann--Whitney U tests of the full method against each other method (10 runs each, unpaired),
+Holm-adjusted within each instance over the eight comparisons. Each cell: adjusted $p$-value and, in brackets,
+the effect size $A_{12}=P(\text{ours}<\text{other})+\tfrac12P(\text{tie})$ (values above 0.5 favour our method).
+Bold: adjusted $p<0.05$. tie: all 20 costs equal within $10^{-6}$ relative. n/a: fewer than two feasible runs.
+The $p$-values use the exact distribution when there are no ties and the normal approximation otherwise.}
+\label{tab:bx-stats}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lccccc}
+\toprule
+Ours vs & O7 & vC10a & AB20 & SC30 & Du62\\
+\midrule
+Swap & $\mathbf{7.8\cdot10^{-4}}$ (1.00) & $\mathbf{1.3\cdot10^{-3}}$ (1.00) & $\mathbf{1.5\cdot10^{-3}}$ (1.00) & $\mathbf{1.5\cdot10^{-3}}$ (1.00) & n/a \\
+GA & $\mathbf{7.8\cdot10^{-4}}$ (1.00) & $\mathbf{1.3\cdot10^{-3}}$ (1.00) & $\mathbf{1.5\cdot10^{-3}}$ (1.00) & $\mathbf{1.5\cdot10^{-3}}$ (1.00) & $\mathbf{1.3\cdot10^{-3}}$ (1.00) \\
+SA & $\mathbf{7.6\cdot10^{-4}}$ (1.00) & tie & 1 (0.61) & $\mathbf{2.3\cdot10^{-3}}$ (0.95) & 0.069 (0.82) \\
+SA + polish & $\mathbf{7.8\cdot10^{-4}}$ (1.00) & tie & 1 (0.61) & \textbf{0.023} (0.84) & 0.069 (0.82) \\
+CRO & $\mathbf{7.8\cdot10^{-4}}$ (1.00) & tie & $\mathbf{1.5\cdot10^{-3}}$ (1.00) & $\mathbf{1.5\cdot10^{-3}}$ (1.00) & $\mathbf{1.3\cdot10^{-3}}$ (1.00) \\
+CRO + polish & $\mathbf{7.8\cdot10^{-4}}$ (1.00) & tie & $\mathbf{1.5\cdot10^{-3}}$ (1.00) & $\mathbf{1.5\cdot10^{-3}}$ (1.00) & $\mathbf{1.3\cdot10^{-3}}$ (1.00) \\
+\midrule
+Stage 1 only & $\mathbf{7.8\cdot10^{-4}}$ (1.00) & tie & 1 (0.39) & $\mathbf{1.8\cdot10^{-3}}$ (0.97) & 1 (0.42) \\
+Stage 1 + polish & $\mathbf{7.8\cdot10^{-4}}$ (1.00) & tie & 1 (0.41) & \textbf{0.023} (0.83) & 1 (0.41) \\
+\bottomrule
+\end{tabular}
+\end{table}

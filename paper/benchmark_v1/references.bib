@@ -1,0 +1,159 @@
+% ==================================================================
+% references.bib -- benchmark section (paper/sections/experiments.tex)
+%
+% Classic BibTeX field names (journal; misc entries with howpublished) so the file works with
+% both BibTeX (main_standalone.tex) and biblatex + biber (the main paper).
+% Keys follow the main paper's references.bib where the entry already exists there.
+%
+% Verification status (2026-10-11):
+%   jeong2026, meller1998, vancamp1992, armour1963, liu2007, dunker2003:
+%       copied unchanged from the main paper's references.bib (08_research/references.bib).
+%   goncalves2015: checked on RePEc/IDEAS (EJOR 246(1):86-107, doi 10.1016/j.ejor.2015.04.029);
+%       also listed in project doc reference/16.
+%   kang2017: checked on Crossref (doi 10.1016/j.eswa.2017.02.047): Kang S., Chae J.,
+%       Expert Syst. Appl. 79:269-281, 2017.
+%   murata1996: authors, journal, volume, issue, pages, year checked on dblp; DOI NOT confirmed (omitted).
+%   goulart2024: checked on arXiv (2405.12762).
+%   minlplib_o7, westerlund2001: read on https://www.minlplib.org/o7.html (2026-10-12): primal bound
+%       131.6531381; reference "Westerlund, Tapio and Lundqvist, Kurt, Alpha-ECP, Version 5.01 ...",
+%       Technical Report 01-178-A, Process Design Laboratory, Abo Akademi University, 2001.
+%   ortools, cpsat: from the official "How to cite OR-Tools" page; version set to the one installed
+%       in the container that ran the exact models (9.15).
+% NOT included (could not confirm details; not cited in the text):
+%   Hou (2019) -- O7/SC30 values in tab_records.tex are marked "full reference not verified".
+%   Lee & Moore (1967) CORELAP, Tong (1991) flexible bay structure, Buffa, Armour & Vollmann (1964).
+% ==================================================================
+
+@article{jeong2026,
+  author  = {Jeong, D. and Chae, J.},
+  title   = {Coral Reefs Optimization for Unequal Area Facility Layout with Slicing Tree Structure},
+  journal = {Journal of Engineering Research},
+  year    = {2026},
+  volume  = {14},
+  pages   = {1016--1028},
+  doi     = {10.1016/j.jer.2025.05.001},
+}
+
+@article{goncalves2015,
+  author  = {Gon{\c{c}}alves, Jos{\'e} Fernando and Resende, Mauricio G. C.},
+  title   = {A Biased Random-Key Genetic Algorithm for the Unequal Area Facility Layout Problem},
+  journal = {European Journal of Operational Research},
+  year    = {2015},
+  volume  = {246},
+  number  = {1},
+  pages   = {86--107},
+  doi     = {10.1016/j.ejor.2015.04.029},
+}
+
+@article{kang2017,
+  author  = {Kang, Sumin and Chae, Junjae},
+  title   = {Harmony Search for the Layout Design of an Unequal Area Facility},
+  journal = {Expert Systems with Applications},
+  year    = {2017},
+  volume  = {79},
+  pages   = {269--281},
+  doi     = {10.1016/j.eswa.2017.02.047},
+}
+
+@article{meller1998,
+  author  = {Meller, R. D. and Narayanan, V. and Vance, P. H.},
+  title   = {Optimal Facility Layout Design},
+  journal = {Operations Research Letters},
+  year    = {1998},
+  volume  = {23},
+  number  = {3--5},
+  pages   = {117--127},
+  doi     = {10.1016/S0167-6377(98)00024-8},
+}
+
+@article{vancamp1992,
+  author  = {van Camp, D. J. and Carter, M. W. and Vannelli, A.},
+  title   = {A Nonlinear Optimization Approach for Solving Facility Layout Problems},
+  journal = {European Journal of Operational Research},
+  year    = {1992},
+  volume  = {57},
+  number  = {2},
+  pages   = {174--189},
+  doi     = {10.1016/0377-2217(92)90041-7},
+}
+
+@article{armour1963,
+  author  = {Armour, G. C. and Buffa, E. S.},
+  title   = {A Heuristic Algorithm and Simulation Approach to Relative Location of Facilities},
+  journal = {Management Science},
+  year    = {1963},
+  volume  = {9},
+  number  = {2},
+  pages   = {294--309},
+  doi     = {10.1287/mnsc.9.2.294},
+}
+
+@article{liu2007,
+  author  = {Liu, Q. and Meller, R. D.},
+  title   = {A Sequence-Pair Representation and {MIP}-Model-Based Heuristic for the Facility Layout Problem with Rectangular Departments},
+  journal = {IIE Transactions},
+  year    = {2007},
+  volume  = {39},
+  number  = {4},
+  pages   = {377--394},
+  doi     = {10.1080/07408170600844108},
+}
+
+% dunker2003: pages (3479--3500) left out, as in the main paper's file (pending a check)
+@article{dunker2003,
+  author  = {Dunker, T. and Radons, G. and Westk{\"a}mper, E.},
+  title   = {A Coevolutionary Algorithm for a Facility Layout Problem},
+  journal = {International Journal of Production Research},
+  year    = {2003},
+  volume  = {41},
+  number  = {15},
+  doi     = {10.1080/0020754031000118125},
+}
+
+@article{murata1996,
+  author  = {Murata, Hiroshi and Fujiyoshi, Kunihiro and Nakatake, Shigetoshi and Kajitani, Yoji},
+  title   = {{VLSI} Module Placement Based on Rectangle-Packing by the Sequence-Pair},
+  journal = {IEEE Transactions on Computer-Aided Design of Integrated Circuits and Systems},
+  year    = {1996},
+  volume  = {15},
+  number  = {12},
+  pages   = {1518--1524},
+}
+
+@misc{goulart2024,
+  author       = {Goulart, Paul J. and Chen, Yuwen},
+  title        = {Clarabel: An Interior-Point Solver for Conic Programs with Quadratic Objectives},
+  year         = {2024},
+  howpublished = {arXiv:2405.12762},
+  eprint       = {2405.12762},
+  eprinttype   = {arxiv},
+}
+
+@misc{ortools,
+  author       = {Perron, Laurent and Furnon, Vincent},
+  title        = {{OR-Tools}, version 9.15},
+  organization = {Google},
+  howpublished = {\url{https://developers.google.com/optimization/}},
+}
+
+@misc{cpsat,
+  author       = {Perron, Laurent and Didier, Fr{\'e}d{\'e}ric},
+  title        = {{CP-SAT}, version 9.15},
+  organization = {Google},
+  howpublished = {\url{https://developers.google.com/optimization/cp/cp_solver/}},
+}
+
+@misc{minlplib_o7,
+  author       = {{MINLPLib}},
+  title        = {Instance o7},
+  howpublished = {\url{https://www.minlplib.org/o7.html}},
+  note         = {Accessed 2026-10-12},
+}
+
+@techreport{westerlund2001,
+  author      = {Westerlund, Tapio and Lundqvist, Kurt},
+  title       = {Alpha-{ECP}, Version 5.01: An Interactive {MINLP}-Solver Based on the Extended Cutting Plane Method},
+  institution = {Process Design Laboratory, {\AA}bo Akademi University},
+  number      = {01-178-A},
+  year        = {2001},
+}

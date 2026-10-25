@@ -1,0 +1,44 @@
+% Standalone build of the benchmark section (pdfLaTeX or XeLaTeX + BibTeX).
+%   pdflatex main_standalone && bibtex main_standalone && pdflatex main_standalone && pdflatex main_standalone
+% Package set is a subset of the main paper's preamble.tex (booktabs, threeparttable, siunitx-free tables,
+% cleveref, enumitem, caption), so sections/experiments.tex can be \input there unchanged
+% (set \newcommand{\bxdir}{benchmark_v1/} first; the main paper uses biblatex, which reads references.bib as is).
+\documentclass[11pt,a4paper]{article}
+\usepackage[a4paper,margin=25mm]{geometry}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{mathptmx}
+  \usepackage{courier}
+\fi
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs,multirow,array,threeparttable}
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf,skip=6pt}
+\usepackage{enumitem}
+\setlist{itemsep=2pt,topsep=4pt,parsep=0pt}
+\usepackage{url}
+\usepackage[section]{placeins}
+\usepackage[hidelinks]{hyperref}
+\usepackage[capitalise,noabbrev,nameinlink]{cleveref}
+
+\title{Unequal-Area Facility Layout: Computational Study (benchmark v1)}
+\author{}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+% In the main paper the method is Section "Method" (label sec:method). Stub for the standalone build:
+\section{Method}
+\label{sec:method}
+The two-stage method (slicing-tree annealing, then sequence-pair search with exact SOCP geometry) is described
+in the method section of the main paper.
+
+\input{sections/experiments}
+
+\bibliographystyle{ieeetr}
+\bibliography{references}
+\end{document}

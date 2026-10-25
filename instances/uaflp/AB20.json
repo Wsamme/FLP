@@ -347,6 +347,7 @@
   "data": "Mendeley Data DOI 10.17632/bv3zywjyyj.1 (CC BY 4.0) AB20_Armour_Buffa.csv; areas Chae & Jeong 2026 Table 4",
   "note": "gym-flp AB20 unusable: no cost matrix and row-1 flows shifted one column. Floor 2x3 in some papers is the ratio of 30x20.",
   "geometry": "Goncalves & Resende 2015 Table 8",
-  "origin": "Armour & Buffa 1963"
+  "origin": "Armour & Buffa 1963",
+  "paper_form": "The ME5001A report lists AB20 as in Jeong & Chae 2026 Table 2: floor 2 x 3, areas / 100, flows x 10 (ChenHang-GitHub Kang13 file). That form is this instance scaled by 1/10 and rotated; costs are identical."
  }
 }

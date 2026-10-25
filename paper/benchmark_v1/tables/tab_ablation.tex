@@ -1,0 +1,49 @@
+\begin{table}[tbp]
+\centering
+\caption{Ablation of the two-stage method (10 seeds, same budgets as \cref{tab:bx-main}). Stage 1 only: slicing-tree
+annealing for the whole budget; Stage 1 + polish: one SOCP solve on the final Stage-1 layout; No Stage 1:
+Stage 2 started from a random feasible sequence pair; Elite pool 1: Stage 2 from the best Stage-1 layout only;
+Uniform partner: Stage-2 move partner chosen uniformly ($p_{\text{near}}=0$). The last three variants were run
+on AB20, SC30 and Du62 only. Bold: lowest mean per instance among variants with all runs feasible.}
+\label{tab:bx-ablation}
+\small
+\begin{tabular}{lrrrr}
+\toprule
+Variant & Feas. & Best & Mean $\pm$ std & Gap mean (\%)\\
+\midrule
+\multicolumn{5}{l}{\textit{O7} (budget 20~s)}\\
+\quad Ours (full) & 10/10 & 131.65 & \textbf{131.65} $\pm$ 0.00 & 0.00 \\
+\quad Stage 1 + polish & 10/10 & 131.65 & 131.66 $\pm$ 0.00 & 0.00 \\
+\quad Stage 1 only & 10/10 & 131.69 & 131.69 $\pm$ 0.00 & 0.03 \\
+\addlinespace
+\multicolumn{5}{l}{\textit{vC10a} (budget 20~s)}\\
+\quad Ours (full) & 10/10 & 18{,}522.79 & \textbf{18{,}522.79} $\pm$ 0.00 & 0.00 \\
+\quad Stage 1 + polish & 10/10 & 18{,}522.79 & \textbf{18{,}522.79} $\pm$ 0.00 & 0.00 \\
+\quad Stage 1 only & 10/10 & 18{,}522.79 & \textbf{18{,}522.79} $\pm$ 0.00 & 0.00 \\
+\addlinespace
+\multicolumn{5}{l}{\textit{AB20} (budget 60~s)}\\
+\quad Ours (full) & 10/10 & 4{,}949.54 & 5{,}020.81 $\pm$ 47.79 & $-$0.01 \\
+\quad Elite pool 1 & 10/10 & 4{,}861.35 & 5{,}008.76 $\pm$ 73.04 & $-$0.25 \\
+\quad Uniform partner & 10/10 & 4{,}949.54 & 5{,}022.71 $\pm$ 54.48 & 0.03 \\
+\quad Stage 1 + polish & 10/10 & 4{,}926.92 & 5{,}004.52 $\pm$ 66.91 & $-$0.33 \\
+\quad Stage 1 only & 10/10 & 4{,}926.92 & \textbf{5{,}000.64} $\pm$ 61.49 & $-$0.41 \\
+\quad No Stage 1 & 10/10 & 5{,}313.70 & 5{,}639.86 $\pm$ 273.43 & 12.32 \\
+\addlinespace
+\multicolumn{5}{l}{\textit{SC30} (budget 60~s)}\\
+\quad Ours (full) & 10/10 & 3{,}301.27 & \textbf{3{,}407.85} $\pm$ 69.18 & 1.93 \\
+\quad Elite pool 1 & 10/10 & 3{,}332.69 & 3{,}411.51 $\pm$ 51.91 & 2.04 \\
+\quad Uniform partner & 10/10 & 3{,}367.91 & 3{,}426.57 $\pm$ 44.31 & 2.49 \\
+\quad Stage 1 + polish & 10/10 & 3{,}372.80 & 3{,}498.23 $\pm$ 70.07 & 4.63 \\
+\quad Stage 1 only & 10/10 & 3{,}475.55 & 3{,}577.69 $\pm$ 87.12 & 7.01 \\
+\quad No Stage 1 & 10/10 & 3{,}308.88 & 3{,}690.44 $\pm$ 269.44 & 10.38 \\
+\addlinespace
+\multicolumn{5}{l}{\textit{Du62} (budget 150~s)}\\
+\quad Ours (full) & 10/10 & 3{,}629{,}508.93 & 3{,}637{,}888.92 $\pm$ 5{,}454.26 & 0.07 \\
+\quad Elite pool 1 & 10/10 & 3{,}629{,}508.93 & 3{,}637{,}888.92 $\pm$ 5{,}454.26 & 0.07 \\
+\quad Uniform partner & 10/10 & 3{,}629{,}508.93 & 3{,}637{,}888.92 $\pm$ 5{,}454.26 & 0.07 \\
+\quad Stage 1 + polish & 10/10 & 3{,}626{,}553.92 & \textbf{3{,}636{,}281.42} $\pm$ 5{,}794.02 & 0.03 \\
+\quad Stage 1 only & 10/10 & 3{,}626{,}598.70 & 3{,}636{,}299.54 $\pm$ 5{,}794.90 & 0.03 \\
+\quad No Stage 1 & 0/10 & -- & -- & -- \\
+\bottomrule
+\end{tabular}
+\end{table}

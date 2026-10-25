@@ -1,0 +1,339 @@
+% ==================================================================
+% experiments.tex -- computational study on five UA-FLP benchmark instances
+%
+% Every number is a macro from numbers.tex (written by make_tables.py from the result files).
+% Paths: \bxdir is the folder that holds tables/ and figures/ (empty when compiled from paper/).
+% In the main paper set e.g. \newcommand{\bxdir}{benchmark_v1/} before \input-ing this file.
+% ==================================================================
+\providecommand{\bxdir}{}
+\input{\bxdir numbers}
+
+\section{Computational experiments}
+\label{sec:bx}
+
+This section compares the two-stage method with five heuristic baselines and an exact convex MINLP on five
+unequal-area facility layout (UA-FLP) instances from the literature. All methods solve the same model:
+rectangular departments with exact areas, a maximum aspect ratio $\alpha$, a fixed rectangular floor, no
+overlap, and the objective $\sum_{i<j} w_{ij}\,(|x_i-x_j|+|y_i-y_j|)$ on department centroids.
+
+\subsection{Test instances}
+\label{sec:bx-instances}
+
+\Cref{tab:bx-setup} lists the instances. O7, vC10a, AB20 and Du62 fill the floor completely (Du62 up to
+rounding of the floor side), so every feasible layout is a partition of the floor. SC30 leaves
+\bxFreeSCthirty\,\% of the floor free; empty space is allowed in our model.
+The floors and aspect limits are those used by Jeong and Chae~\cite{jeong2026}; for Du62 we use the
+$117.124\times117.124$ square on which they report their results. O7 is also instance \texttt{o7} of
+MINLPLib~\cite{minlplib_o7}, which takes it from Westerlund and Lundqvist~\cite{westerlund2001}; MINLPLib lists
+the global optimum \bxRefOsevenFull, with dual bounds of SCIP and BARON equal to this value. Two data details
+matter for the comparison with published values. First, vC10a uses $w_{9,10}=59.2$; this is the value under which
+the layout reported in~\cite{jeong2026} has cost 18{,}522.79. Second, the AB20 flow matrix is the one of the Kang
+and Chae data file, which equals the matrix of Armour and Buffa~\cite{armour1963} multiplied by 10 (with the area
+and floor scaled accordingly).
+
+\input{\bxdir tables/tab_setup}
+
+\subsection{Methods and settings}
+\label{sec:bx-methods}
+
+All stochastic baselines, and Stage~1 of our method, work on the slicing-tree (STS) encoding
+of Kang and Chae~\cite{kang2017} and Jeong and Chae~\cite{jeong2026}: a department sequence, a cut order and
+a cut code per cut. Cuts split the current rectangle in proportion to the areas of the two parts, so areas are
+exact. For SC30 the free area is split into 17 dummy blocks of equal area, without flow and without a shape
+limit, as in the Kang and Chae data file. The STS methods use the same static penalty
+$\pi=0.05\,(\sum_{i<j}w_{ij})(W+H)$ per unit of aspect excess, and they return the best layout that meets
+the aspect limit exactly. Slicing layouts cannot represent every layout; on O7 the optimal layout is not a slicing
+layout.
+
+\begin{description}[leftmargin=0pt]
+\item[Construct.] A deterministic construction heuristic. Departments are ordered greedily by flow to the
+departments already ordered (a CORELAP-style rule on the flow matrix), then placed in a flexible bay
+structure. All bay counts $k=1,\dots,n$ and both bay orientations are tried; the best layout that meets the
+aspect limit is returned. One run per instance.
+\item[Swap.] CRAFT-style pairwise exchange~\cite{armour1963} on the STS sequence: steepest descent over all
+pairwise swaps, restarted from a random genome at each local optimum.
+\item[GA.] A genetic algorithm without local search: population 50, two elites, binary tournament, PMX on
+the sequence and the cut order, one-point crossover on the cut codes, mutation probability 0.2.
+\item[SA.] Simulated annealing with three move types; the start temperature accepts a median worsening move
+with probability 0.75, and the temperature falls geometrically in elapsed time to $10^{-4}$ of its start value.
+\item[CRO.] Our reproduction of the coral reefs optimisation of Jeong and Chae~\cite{jeong2026} (grid
+$7\times7$, parameters of their Table~5, duplicate larvae rejected). The paper's stopping rule is replaced by the
+common time budget. Run to the paper's stopping rule, our reproduction reaches the published best value on O7 in
+\bxCroFullOsevenHits{} runs and on vC10a in \bxCroFullvCtenaHits{} runs; on AB20 ($7\times7$) its mean is
+\bxCroFullOurMeanABtwenty{} against the published \bxCroFullPaperMeanABtwenty, on Du62 its mean is
+\bxCroFullOurMeanDusixtytwo{} against \bxCroFullPaperMeanDusixtytwo, and on SC30 it is not reproduced
+(mean \bxCroFullOurMeanSCthirty{} against \bxCroFullPaperMeanSCthirty). ``CRO'' below always means our
+reproduction.
+\item[SA + polish, CRO + polish.] A fairness control: the final layout of each SA and CRO run is converted
+into a sequence pair and solved once by the Stage-2 SOCP of our method (the same model and margins). The SOCP
+cannot make a layout worse; if it gives no gain beyond $10^{-8}$ relative, the original layout is kept. The polish
+took at most \bxPolishTimeMaxSAPolish~s (SA) and \bxPolishTimeMaxCROPolish~s (CRO) per run and is not counted in
+the budget. These rows separate the gain from the SOCP geometry from the gain from a better search.
+\item[MINLP.] An exact convex mixed-integer nonlinear model solved by SCIP~10 (one thread, 300~s): continuous
+positions and sizes, the area constraint $h_i\ge A_i/w_i$ (convex), linear aspect constraints, four binaries per
+department pair with big-$M$ disjunctions, and absolute-value distances. Its optimum is the UA-FLP optimum (up to
+the solver feasibility tolerance $10^{-7}$), and its dual bound is a valid lower bound.
+\item[Ours.] The two-stage method of \cref{sec:method}. Stage~1 is slicing-tree annealing for half of the
+budget and keeps an elite pool of up to four layouts. Stage~2 converts each elite layout into a sequence
+pair~\cite{murata1996,liu2007} and searches over sequence pairs; each sequence pair is evaluated by a convex
+second-order cone program (SOCP) solved by Clarabel~\cite{goulart2024}. If fewer than 3000 SOCP solves fit in the
+remaining time, Stage~1 continues to the end of the budget and Stage~2 is a single SOCP solve (polish).
+\end{description}
+
+We also ran two restricted exact models, one run of 300~s each: a MIP in which every department chooses one of at
+most nine fixed exact-area shapes (SCIP through OR-Tools~\cite{ortools}), and a CP-SAT model~\cite{cpsat} on an
+integer grid. Both are infeasible by construction on the full floors (no tiling with so few shapes; grid rounding
+leaves fewer cells than the areas need on O7 and Du62), and neither found a feasible layout on any instance. We do
+not report them further.
+
+The parameters of Swap, GA, SA and CRO are our own choices or the published ones and were not tuned on these
+instances. The Stage-1 cycle length and temperatures of our method were tuned on AB20 and SC30, and the Stage-2
+temperatures on SC30; both are test instances (\cref{sec:bx-threats}).
+
+\subsection{Protocol}
+\label{sec:bx-protocol}
+
+\paragraph{Budgets and seeds.} Every stochastic method gets the same wall-clock budget per run
+(\cref{tab:bx-setup}): \bxBudgetOseven~s for O7 and vC10a, \bxBudgetABtwenty~s for AB20 and SC30, and
+\bxBudgetDusixtytwo~s for Du62. Each stochastic method is run with seeds 0--9. The construction heuristic and
+the exact models are run once.
+
+\paragraph{Machines.} All stochastic methods, including all runs of our method and its variants, ran on the same
+machine: a Linux (aarch64) virtual machine with 4 cores, Python 3.10.12, NumPy 2.2.6 and Numba 0.68.0, with three
+runs in parallel, each as a separate process. The exact models (MINLP, MIP, CP-SAT) ran on a different machine with 2 cores
+(Intel Xeon, 2.8~GHz), one run at a time. The polish of the SA and CRO layouts was applied afterwards to the stored
+layouts, and its time is recorded separately.
+
+\paragraph{Budget overruns.} The runs of our method and its variants were made before a fix of the time check
+in Stage~1 and can exceed the budget. The largest overrun is \bxOverOursMaxSOseven~s (\bxOverOursMaxPctOseven\,\%) on
+O7, \bxOverOursMaxSvCtena~s (\bxOverOursMaxPctvCtena\,\%) on vC10a, \bxOverOursMaxSABtwenty~s
+(\bxOverOursMaxPctABtwenty\,\%) on AB20, \bxOverOursMaxSSCthirty~s (\bxOverOursMaxPctSCthirty\,\%) on SC30 and
+\bxOverOursMaxSDusixtytwo~s (\bxOverOursMaxPctDusixtytwo\,\%) on Du62. The baselines exceed the budget by at most
+\bxOverBaseMaxS~s.
+
+\paragraph{Independent checker and tolerance.} No method reports its own cost. After each run, the layout is
+checked by an independent evaluator, which recomputes the cost from the rectangles and checks every constraint
+with tolerance $\varepsilon=10^{-6}$: $w_ih_i\ge A_i(1-\varepsilon)$, aspect ratio at most $\alpha+\varepsilon$,
+containment in the floor up to $\varepsilon$, and no pairwise overlap larger than $\varepsilon$ in both
+directions. A run counts as feasible only if the evaluator accepts its layout. A second, separate verification
+script re-checked all stored layouts: layouts produced by a solver (SOCP, MINLP) meet the limits to about $10^{-7}$,
+and slicing layouts are exact to about $10^{-9}$. All \bxNlayouts{} stored layouts of the protocol were checked
+again at the end; stored and recomputed cost and feasibility agree for every file. The code of each round of
+runs is identified by MD5 checksums, and the test suite of the evaluator and models passed
+(\bxTestsPassed{} tests passed, \bxTestsXfail{} expected failures).
+
+\paragraph{Smoke tests.} Before the main runs, every heuristic was run for a few seconds on O7, vC10a and AB20, and
+all produced feasible layouts. The construction heuristic first had no feasible layout on AB20 with vertical bays
+only, which is why horizontal bays were added. The MINLP model was validated on O7 with a 3600~s run: SCIP proved
+optimality at \bxMinlpOsevenProofT~s with value \bxMinlpOsevenProofVal, which matches the MINLPLib optimum up to the
+solver tolerance.
+
+\paragraph{Reference values and statistics.} Gaps are $100\,(\text{cost}-\text{ref})/\text{ref}$ with the
+reference values in \cref{tab:bx-main}: O7 \bxRefOsevenFull{} (proven optimum, MINLPLib~\cite{minlplib_o7});
+vC10a \bxRefvCtena{} and SC30 \bxRefSCthirty{} from Jeong and Chae~\cite[Table~6]{jeong2026}; AB20 \bxRefABtwenty{}
+from Gon\c{c}alves and Resende~\cite[Table~12]{goncalves2015}; Du62 \bxRefDusixtytwo{} from Kang and
+Chae~\cite{kang2017} as listed in~\cite[Table~6]{jeong2026}. \Cref{sec:bx-records} discusses how far each value is
+comparable. To compare methods we use two-sided Mann--Whitney U tests on the ten costs per method (the seeds are
+independent random streams, so the samples are unpaired), with Holm's correction over the comparisons within an
+instance.
+
+\subsection{Results}
+\label{sec:bx-results}
+
+\Cref{tab:bx-main} gives the results, \cref{fig:bx-gap} shows the gap of every run, and \cref{tab:bx-stats} gives
+the tests.
+
+\input{\bxdir tables/tab_main}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{\bxdir figures/fig_gap_box}
+\caption{Gap of each run to the reference value (symmetric log scale; linear between $-1$ and $1$\,\%).
+Boxes show quartiles and whiskers the range over the feasible runs; every run is also drawn as a point.
+Construct and MINLP are single runs; ``0/1'': no feasible layout. Annotation above a box: number of feasible
+runs when it is below 10. References: O7, the proven optimum (MINLPLib~\cite{minlplib_o7}); vC10a, SC30 from
+Jeong and Chae~\cite{jeong2026}; AB20 from Gon\c{c}alves and Resende~\cite{goncalves2015}; Du62 from Kang and
+Chae~\cite{kang2017} as cited in~\cite{jeong2026}. The polish rows are in \cref{tab:bx-main}.}
+\label{fig:bx-gap}
+\end{figure}
+
+\input{\bxdir tables/tab_stats}
+
+\paragraph{Feasibility.} All heuristics found feasible layouts in every run, with one exception: Swap found a
+feasible layout on Du62 in only \bxNfeasSwapDusixtytwo{} of \bxNrunsSwapDusixtytwo{} runs. The MINLP found the
+optimum of O7 (\bxMinlpOsevenCostTen, first reached after \bxMinlpOsevenTfirstOpt~s) but could not prove it within
+300~s (gap \bxMinlpGapOseven\,\%). On vC10a and SC30 its best layouts are far from the others (\bxMinlpIncumbentvCtena{}
+and \bxMinlpIncumbentSCthirty), and on AB20 and Du62 it found no feasible layout. Its lower bounds after 300~s are
+weak (for example \bxMinlpBoundABtwenty{} on AB20).
+
+\paragraph{Solution quality.} Our method has the lowest mean cost on all five instances; on vC10a, SA, CRO and their
+polished versions have the same mean (every run of these methods ends at the published layout,
+\bxBestOursvCtena). On O7 every run of our method reaches the optimum up to our area safety margin, while Swap, SA
+and CRO end at the best slicing layout 131.69 in every run; one polish of their layouts closes most of this gap (mean gap
+\bxGapMeanThreeSAPolishOseven\,\% for SA + polish against \bxGapMeanThreeOursOseven\,\% for our method,
+\cref{tab:bx-main}). Against the strongest baseline, SA, the difference is significant on SC30 (adjusted
+$p=\bxPholmSASCthirty$) but not on AB20 (adjusted $p=\bxPholmSAABtwenty$) or Du62 (adjusted $p=\bxPholmSADusixtytwo$);
+the same holds against SA + polish (\cref{tab:bx-stats}). Against Swap, GA, CRO and CRO + polish, the differences are
+significant on every instance where the costs differ. The construction heuristic is between
+\bxGapMeanConstructOseven\,\% (O7) and \bxGapMeanConstructSCthirty\,\% (SC30) above the references.
+
+\paragraph{The polish control.} One SOCP solve improves the SA layouts on O7 and SC30 in every run (median
+reduction \bxPolishMedRedSAPolishSCthirty\,\% on SC30) and changes almost nothing on the full floors (AB20: an
+improvement in \bxPolishNimpSAPolishABtwenty{} of 10 runs; Du62: median \bxPolishMedRedSAPolishDusixtytwo\,\%).
+On SC30, SA + polish has mean gap \bxGapMeanSAPolishSCthirty\,\%, against \bxGapMeanSASCthirty\,\% for SA and
+\bxGapMeanOursSCthirty\,\% for our method. So part of our advantage on SC30 comes from the SOCP geometry itself, and
+part from the search.
+
+\paragraph{Anytime behaviour.} \Cref{fig:bx-conv} shows the median best feasible cost over time. Our method has
+a feasible layout early and improves steadily. SA has a feasible layout in most runs only in the last part of the
+budget, and then improves fast. At the end of the budget its median gap is \bxGapMedianSAABtwenty\,\% on AB20,
+\bxGapMedianSASCthirty\,\% on SC30 and \bxGapMedianSADusixtytwo\,\% on Du62, against
+\bxGapMedianOursABtwenty\,\%, \bxGapMedianOursSCthirty\,\% and \bxGapMedianOursDusixtytwo\,\% for our method.
+Swap and GA are not shown because their runs were made with a code version that did not record the anytime trace.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{\bxdir figures/fig_convergence}
+\caption{Anytime behaviour: gap of the best feasible cost found so far, median over 10 seeds (line) and
+interquartile range (band; drawn once all 10 runs have a feasible layout). The median is drawn once more than
+half of the runs have a feasible layout. Dashed line: reference value (AB20 \bxRefABtwenty, SC30
+\bxRefSCthirty, Du62 \bxRefDusixtytwo). The marker shows the median at the end of the budget.
+Swap and GA have no recorded traces in this data version and are not shown. The MINLP incumbent would be drawn as
+a separate step line, but it has no feasible layout on AB20 and Du62, and on SC30 its incumbent stays above the
+plotted range. Upper parts of the curves are cut off.}
+\label{fig:bx-conv}
+\end{figure}
+
+\paragraph{Cost of Stage~2.} The SOCP that evaluates one sequence pair took on average
+\bxSocpMsOseven~ms on O7, \bxSocpMsABtwenty~ms on AB20, \bxSocpMsSCthirty~ms on SC30 and
+\bxSocpMsDusixtytwo~ms on Du62. On the full floors many changed sequence pairs have no feasible geometry:
+\bxSocpInfPctABtwenty\,\% of the SOCPs were infeasible on AB20, against \bxSocpInfPctSCthirty\,\% on SC30,
+which has free area. On Du62 the budget rule applied in all \bxPolishOnlyDusixtytwo{} runs, so Stage~2 was a
+single polish there. As a consequence, the full method and the two Stage-2 ablations
+(\cref{sec:bx-ablation}) gave identical results on Du62 in every seed.
+
+\subsection{Best layouts and published values}
+\label{sec:bx-records}
+
+\Cref{fig:bx-layouts} shows the best layout of our method for each instance and \cref{tab:bx-records} compares
+these layouts with the best published values. The best layouts come from longer, separately configured runs (up
+to \bxRecMaxTL~s, with other settings of the time split and the elite pool); they are not protocol results. The
+column ``Best protocol run'' gives the lowest cost over all protocol runs of all methods. All layouts were checked
+again by the evaluator.
+
+\input{\bxdir tables/tab_records}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{\bxdir figures/fig_layouts}
+\caption{Best layouts of our method (record runs, not protocol runs), drawn to scale within each panel (thick
+outline: floor). Numbers are department indices; lines join the centroids of the department pairs with the largest
+flows (top 15\,\% of the pairs with non-zero flow, at least 5 and at most 40; 25 for Du62), with line width growing
+with the flow. White areas in SC30 are free floor. Costs: O7 \bxRecBestOsevenSeven, vC10a \bxRecBestvCtena, AB20
+\bxRecBestABtwenty, SC30 \bxRecBestSCthirty, Du62 \bxRecBestDusixtytwo.}
+\label{fig:bx-layouts}
+\end{figure}
+
+Published values were obtained under different rules, so we compare only where the rules match, and we
+report the others as they are.
+\begin{itemize}
+\item \textbf{O7: no record is possible.} The instance is solved to proven optimality (\bxRefOsevenFull).
+The value 131.69 of Jeong and Chae~\cite{jeong2026} is the best slicing layout. The value 131.56 of
+Gon\c{c}alves and Resende~\cite{goncalves2015} lies below the proven optimum, so their layout cannot meet every area
+exactly; it uses a tangent outer approximation of the area constraint. Our layout costs \bxRecBestOsevenSeven, which
+is the optimum up to our area safety margin (relative difference $\bxRecOsevenRelGap$).
+\item \textbf{vC10a.} Our best layout is the published layout of~\cite{jeong2026} and has the same cost,
+\bxRecBestvCtena. In the protocol runs it is reached by \bxProtBestNtiedvCtena{} methods (a tie, not a record).
+\item \textbf{AB20.} Our best layout (\bxRecBestABtwenty) is \bxDeltaABtwentyGR\,\% below the value of
+Gon\c{c}alves and Resende~\cite{goncalves2015}, which uses the area outer approximation and a flow-matrix version
+that is not recorded. The lower published value 4{,}927.27~\cite{jeong2026} belongs to a layout in which two
+departments have aspect ratio 4.008, above $\alpha=4$, so it is not feasible under the strict limit. The plain SA
+baseline also goes below that value (best \bxBestSAABtwenty). No published AB20 value that we know is both
+exact-area and strictly feasible.
+\item \textbf{SC30.} Our best layout (\bxRecBestSCthirty) is \bxDeltaSCthirtyJC\,\% below the best value of
+Jeong and Chae~\cite{jeong2026}. The comparison is in our favour: their layouts are slicing layouts that fill the
+free area with dummy blocks, while our model allows non-slicing layouts and free space anywhere. Every layout of
+theirs is feasible for us, but not the other way round.
+\item \textbf{Du62.} Our best layout (\bxRecBestDusixtytwo, one long Stage-1 anneal and one SOCP polish) is
+\bxDeltaDusixtytwoJC\,\% below the value of Jeong and Chae~\cite{jeong2026} on the same square floor, and
+\bxDeltaDusixtytwoKC\,\% below the value cited for Kang and Chae~\cite{kang2017}. That value is a secondary citation,
+and its floor is not confirmed. The plain SA baseline also goes below both values in a protocol run (best
+\bxBestSADusixtytwo, \bxDeltaDusixtytwoJCsa\,\% and \bxDeltaDusixtytwoKCsa\,\% below them), so the improvement over
+the literature on Du62 comes from slicing-tree annealing, not from Stage~2.
+\end{itemize}
+
+\subsection{Ablation}
+\label{sec:bx-ablation}
+
+\Cref{tab:bx-ablation} and \cref{fig:bx-ablation} compare the full method with five variants under the same
+protocol, and \cref{fig:bx-stage2} shows how much Stage~2 lowers the cost within each run.
+
+\input{\bxdir tables/tab_ablation}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{\bxdir figures/fig_ablation}
+\caption{Ablation on AB20, SC30 and Du62: mean gap ($\pm$ one standard deviation, 10 seeds) and best gap of the
+full method and five variants. References as in \cref{fig:bx-gap}. Note the different horizontal scales.}
+\label{fig:bx-ablation}
+\end{figure}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.6\linewidth]{\bxdir figures/fig_stage2}
+\caption{Cost reduction by Stage~2 within each run, $100\,(c_1-c)/c_1$, where $c_1$ is the best Stage-1 cost
+of the run and $c$ the final cost. Triangles: Stage~1 + polish (one SOCP solve on the final Stage-1 layout);
+circles: full method (Stage~1 for half of the budget, then Stage~2). Bars: medians. Symmetric log scale, linear
+below $10^{-3}$\,\%. On Du62 the full method also reduces to a polish (budget rule).}
+\label{fig:bx-stage2}
+\end{figure}
+
+\paragraph{Stage~1 is needed.} Without Stage~1, Stage~2 starts from a random feasible sequence pair. The mean gap
+rises to \bxGapMeanOursNoSoneABtwenty\,\% on AB20 and \bxGapMeanOursNoSoneSCthirty\,\% on SC30, and on Du62 no
+random feasible sequence pair was found in any run (\bxNfeasOursNoSoneDusixtytwo/\bxNrunsOursNoSoneDusixtytwo).
+
+\paragraph{Stage~2 matters on SC30 and O7 only.} On SC30 a single polish lowers the cost by a median of
+\bxStageTwoMedRedOursStwoSCthirty\,\% and the full Stage~2 by \bxStageTwoMedRedOursSCthirty\,\%
+(\cref{fig:bx-stage2}); the mean gap falls from \bxGapMeanOursSoneSCthirty\,\% (Stage~1 only) to
+\bxGapMeanOursStwoSCthirty\,\% (polish) and \bxGapMeanOursSCthirty\,\% (full). The full method is significantly better
+than both variants on SC30 (adjusted $p=\bxPholmOursSoneSCthirty$ and $\bxPholmOursStwoSCthirty$,
+\cref{tab:bx-stats}). On O7 a single polish already turns the best slicing layout into the optimal non-slicing
+layout. On the full floors the effect is small or absent. On vC10a and AB20 the polish lowers the cost by less than
+$10^{-5}$\,\% in every run, because a fixed sequence pair on a full floor fixes the geometry. On AB20 the Stage-2
+search lowers the cost by a median of \bxStageTwoMedRedOursABtwenty\,\% relative to the Stage-1 result at half time,
+but the full method (mean \bxMeanOursABtwenty) is not better than Stage~1 alone run for the whole budget (mean
+\bxMeanOursSoneABtwenty; adjusted $p=\bxPholmOursSoneABtwenty$). On Du62 Stage~2 is a single polish.
+
+\paragraph{Elite pool and neighbour moves.} With an elite pool of size one, the mean is
+\bxMeanOursNoEliteABtwenty{} on AB20 and \bxMeanOursNoEliteSCthirty{} on SC30, against \bxMeanOursABtwenty{}
+and \bxMeanOursSCthirty{} for the full method; with uniform partner choice it is \bxMeanOursUnifABtwenty{} and
+\bxMeanOursUnifSCthirty. These differences are within one standard deviation, so ten seeds do not show an effect
+of either component. The best AB20 layout of all protocol runs (\bxBestOursNoEliteABtwenty) was found by the
+variant with elite pool one.
+
+\subsection{Threats to validity}
+\label{sec:bx-threats}
+
+\begin{itemize}
+\item \textbf{Tuning on test instances.} The Stage-1 parameters of our method were tuned on AB20 and SC30, and the
+Stage-2 temperatures on SC30; these are benchmark instances. The baselines were not tuned. The best layouts in
+\cref{tab:bx-records} come from longer runs with other settings and are not protocol results.
+\item \textbf{Wall-clock budgets.} Budgets are in seconds on one machine. Results depend on the machine and on
+the load from the other two parallel runs, and runs are not bit-reproducible. The runs of our method overran the
+budget by up to \bxOverOursMaxPctDusixtytwo\,\% on Du62 (\cref{sec:bx-protocol}); the baselines did not. The exact
+models ran on a different machine with two cores.
+\item \textbf{Baselines.} Swap, GA and SA are our own implementations on the STS encoding, with parameters
+chosen by us; GA has no local search. CRO is our reproduction, run under the common budget instead of the
+paper's stopping rule and with a static penalty on SC30; it does not reproduce the published SC30 results even
+with the full stopping rule. Stronger baselines may exist.
+\item \textbf{Exact model.} The MINLP got one 300~s run per instance; with more time or a stronger formulation it
+may do better, as the 3600~s O7 run shows.
+\item \textbf{Reference values.} Several published values use other area rules, other data versions or an
+unconfirmed floor (\cref{tab:bx-records}); gaps to them are indicative only. The reference values were checked
+against our literature notes, not against the original papers in this study.
+\item \textbf{Sample size.} Ten seeds per method and instance give limited power; the AB20 and Du62 differences
+to SA and most ablation differences are not significant.
+\item \textbf{Tolerance.} The evaluator accepts violations up to $10^{-6}$. Solver-based layouts (SOCP, MINLP) meet
+the limits to about $10^{-7}$ (the best AB20 layout has a largest residual of order $10^{-10}$, since a full floor
+leaves no room for a safety margin); slicing layouts are exact to about $10^{-9}$.
+\end{itemize}
