@@ -28,19 +28,26 @@ import numpy as np
 from scipy.optimize import minimize
 from bench.socp import from_problem, reduce_relations
 
+MAXIT_SCALED = 2000
 OUT = 0.1          # at most 10 % of a department's width / height outside the floor in Stage 1
 
 
 class Stage1:
-    def __init__(self, prob):
+    def __init__(self, prob, scaled=False):
         self.n = n = prob.n
-        self.A = np.asarray(prob.areas, float)
+        # [ours] optional numerical scaling for SLSQP: lengths in units of L = max(W, H), objective divided by
+        # sum c_ij L^2.  The model is the same (positions scale by 1/L, the objective by a constant).  Used only
+        # when the unscaled solve stops on a numerical failure (Du62: exit 8 after ~5 iterations), because SLSQP's
+        # path, hence the local optimum it reaches, depends on the scaling.
+        self.L = L = max(float(prob.W), float(prob.H)) if scaled else 1.0
+        self.A = np.asarray(prob.areas, float) / L ** 2
         self.beta = np.where(prob.alpha > 0, prob.alpha, 1e3)
-        self.W, self.H = float(prob.W), float(prob.H)
+        self.W, self.H = float(prob.W) / L, float(prob.H) / L
         iu = np.triu_indices(n, 1)
         self.pi, self.pj = iu
-        self.c = np.asarray(prob.Wt, float)[iu]
-        self.csum = self.c.sum()
+        self.csum = np.asarray(prob.Wt, float)[iu].sum()
+        self.cs = self.csum if scaled else 1.0
+        self.c = np.asarray(prob.Wt, float)[iu] / self.cs
         # linear constraints  G z <= g  (containment, aspect)
         rows, g = [], []
         I = np.eye(n)
@@ -59,12 +66,13 @@ class Stage1:
     def start(self):
         n = self.n
         t = 2 * np.pi * np.arange(n) / n
-        return np.concatenate([100 * np.cos(t), 100 * np.sin(t), 2 * np.sqrt(self.A * self.beta),
+        R = 100 / self.L                         # the paper's radius 100, in scaled units
+        return np.concatenate([R * np.cos(t), R * np.sin(t), 2 * np.sqrt(self.A * self.beta),
                                2 * np.sqrt(self.A / self.beta)])
 
     def solve(self, a, maxiter=500):
         n, pi, pj, c = self.n, self.pi, self.pj, self.c
-        K = a * self.csum
+        K = a * self.csum / (self.cs * self.L ** 2)   # Eq. 18, K = a sum c_ij (objective divided by cs L^2)
 
         def fg(z):
             x, y, w, h = z[:n], z[n:2 * n], z[2 * n:3 * n], z[3 * n:]
@@ -106,13 +114,16 @@ def relations(z, n):
 
 def solve(prob, seed, time_limit, log=print):
     t0 = time.time(); rng = np.random.default_rng(seed)
-    S1 = Stage1(prob); S2 = from_problem(prob)
-    best = np.inf; best_R = None; trace = []; trials = 0; feas = 0; s1_fail = 0; t1 = t2 = 0.0
+    S1 = Stage1(prob); S1s = None; S2 = from_problem(prob)
+    best = np.inf; best_R = None; trace = []; trials = 0; feas = 0; s1_fail = 0; t1 = t2 = 0.0; rescaled = 0
     alphas = []
     while time.time() - t0 < time_limit:
         a = float(rng.uniform(0.01, 2.0))
         ta = time.time()
         z, r = S1.solve(a)
+        if r.status == 8:                        # numerical failure of SLSQP: retry on the scaled model
+            S1s = S1s or Stage1(prob, scaled=True)
+            z, r = S1s.solve(a, maxiter=MAXIT_SCALED); rescaled += 1
         t1 += time.time() - ta; trials += 1
         if not np.all(np.isfinite(z)):
             s1_fail += 1; continue
@@ -127,7 +138,7 @@ def solve(prob, seed, time_limit, log=print):
                 best = out["cost"]; best_R = out["rects"]; alphas.append(a)
                 trace.append([round(time.time() - t0, 4), float(best)])
     trace.append([round(time.time() - t0, 4), float(best) if np.isfinite(best) else None])
-    meta = dict(trace=trace, trials=trials, stage2_feasible=feas, stage1_failed=s1_fail,
+    meta = dict(trace=trace, trials=trials, rescaled=rescaled, stage2_feasible=feas, stage1_failed=s1_fail,
                 t_stage1=round(t1, 2), t_stage2=round(t2, 2), best_alpha=alphas[-1] if alphas else None,
                 own_cost=float(best), feasible_found=bool(np.isfinite(best)))
     return {"rects": None if best_R is None else np.asarray(best_R).tolist(), "meta": meta}
