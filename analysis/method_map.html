@@ -80,6 +80,26 @@ svg.abl .ax{stroke:var(--rule)} svg.abl .zero{stroke:var(--ink);stroke-dasharray
 svg.abl .bar{fill:var(--ink)} svg.abl .bar.full{fill:var(--paper);stroke:var(--ink);stroke-width:2}
 svg.abl .val{font-family:var(--f-mono);font-size:11px}
 svg.abl .na{font-family:var(--f-mono);font-size:11px;fill:var(--muted)}
+.vrow{display:grid;grid-template-columns:150px minmax(0,1.3fr) 92px minmax(0,1.2fr);border-top:1px solid var(--rule);align-items:stretch}
+.vrow:last-of-type{border-bottom:1px solid var(--rule)}
+.vrow>div{padding:10px 12px;min-width:0}
+.vyear{font-family:var(--f-display);font-size:26px;line-height:1.1}
+.vyear small{display:block;font-family:var(--f-body);font-size:12.5px;font-weight:700;margin-top:4px;line-height:1.35}
+.vyear em{display:block;font-style:normal;font-family:var(--f-mono);font-size:11px;color:var(--muted);margin-top:2px}
+.vwhat{font-size:13.5px}
+.vwhat .en{display:block;color:var(--muted);font-size:12.5px;margin-top:2px}
+.verdict{display:flex;align-items:center;justify-content:center}
+.verdict span{font-weight:700;font-size:13px;padding:4px 10px;border:1.5px solid var(--ink);white-space:nowrap}
+.verdict .ch{background:var(--ink);color:var(--paper)}
+.verdict .mo{background:repeating-linear-gradient(45deg,var(--fill) 0 3px,var(--paper) 3px 7px)}
+.vhit{font-size:13.5px}
+.vhit b{font-family:var(--f-mono);font-size:12px;border:1px solid var(--ink);padding:0 5px;margin-right:4px}
+.vhit .act{display:block;margin-top:4px}
+.vhead{font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;color:var(--muted);text-transform:uppercase}
+.imp{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:10px}
+.imp div{border:1.5px solid var(--ink);padding:10px 12px;font-size:13px;min-width:0}
+.imp div b{display:block;font-size:14px;margin-bottom:3px}
+@media (max-width:860px){.vrow{grid-template-columns:minmax(0,1fr)} .verdict{justify-content:flex-start} .imp{grid-template-columns:minmax(0,1fr)} .vhead-row{display:none}}
 .foot{margin-top:18px;font-size:12px;color:var(--muted);max-width:90ch}
 @media (max-width:760px){.reads{grid-template-columns:minmax(0,1fr)} .arrow{transform:rotate(90deg);width:100%;flex-basis:100%;height:22px}}
 </style>
@@ -95,11 +115,12 @@ svg.abl .na{font-family:var(--f-mono);font-size:11px;fill:var(--muted)}
   <button role="tab" aria-selected="false" data-t="t2">② 方法流程</button>
   <button role="tab" aria-selected="false" data-t="t3">③ 各方法在哪赢、在哪输</button>
   <button role="tab" aria-selected="false" data-t="t4">④ 消融：哪一步真有用</button>
+  <button role="tab" aria-selected="false" data-t="t5">⑤ 近期文献：支持还是推翻</button>
 </div>
 
 <!-- TAB 1 -->
 <section id="t1" class="tab">
-  <p class="lede">从左往右读。<b>点任何一个方块</b>，会高亮它从哪来、推出了什么。<span class="en">Read left to right. Click any box to highlight where it comes from and what it leads to.</span></p>
+  <p class="lede">从左往右读。<b>点任何一个方块</b>，会高亮它从哪来、推出了什么。近十年文献怎么支持或推翻这些结论，见 ⑤。<span class="en">Read left to right. Click any box to highlight where it comes from and what it leads to.</span></p>
   <div class="legend">
     <span><i class="sw lit"></i>文献 / Literature</span>
     <span><i class="sw dat"></i>我们的实验数据 / Our data</span>
@@ -161,6 +182,60 @@ svg.abl .na{font-family:var(--f-mono);font-size:11px;fill:var(--muted)}
     <div class="read"><b>精英池、近邻移动测不出作用</b>三个实例上差别都在波动范围内。<span class="en">Elite pool and neighbour moves: no measurable effect.</span></div>
   </div>
   <p class="foot">数据：bench2 原始运行文件（每个变体 10 个种子）重算，与论文 tab_ablation 一致。O7、vC10a 上各变体差别 ≤ 0.03%，未画出。</p>
+</section>
+<!-- TAB 5 -->
+<section id="t5" class="tab" hidden>
+  <p class="lede">图谱里的老文献（1963–2007）多是"表示方法"的原始出处，引用老的是正常的。但<b>"精确方法能做到多大"和"两阶段是不是新"这两件事，近十年的文献改变了说法</b>。每篇标出它对我们哪一条结论是支持、修正还是挑战。<span class="en">Old papers are mostly the origins of representations. But recent work changes two claims: how far exact methods reach, and whether our two-stage idea is new.</span></p>
+  <div class="legend">
+    <span><i class="sw" style="background:var(--paper)"></i>支持 / Supports</span>
+    <span><i class="sw" style="background:repeating-linear-gradient(45deg,var(--fill) 0 3px,var(--paper) 3px 7px)"></i>修正 / Modifies</span>
+    <span><i class="sw dat"></i>挑战 / Challenges</span>
+  </div>
+  <div class="vrow vhead-row"><div class="vhead">文献</div><div class="vhead">它说了什么</div><div class="vhead">对我们</div><div class="vhead">碰到我们哪一条 → 要做什么</div></div>
+  <div class="vrow"><div class="vyear">2012<small>Bozer &amp; Wang</small><em>EJOR 218(2)</em></div>
+    <div class="vwhat">图对（graph-pair）表示 + MIP 的启发式，是序列对 + MIP 路线的后续。<span class="en">Graph-pair representation + MIP heuristic.</span></div>
+    <div class="verdict"><span class="mo">修正</span></div>
+    <div class="vhit"><b>D4</b>序列对不是唯一选择。<span class="act">→ 相关工作里和 Liu &amp; Meller 2007 一起写。</span></div></div>
+  <div class="vrow"><div class="vyear">2016<small>Anjos &amp; Vieira</small><em>Optimization Letters 10</em></div>
+    <div class="vwhat">两阶段：先用非线性近似模型定"谁在谁旁边"，再用<b>精确凸优化模型</b>定最终布局；在文献实例和最多 100 个部门的新实例上，结果有竞争力、常常更好。<span class="en">Two stages: an approximation fixes relative positions, an exact convex model fixes the final layout; up to 100 departments.</span></div>
+    <div class="verdict"><span class="ch">挑战</span></div>
+    <div class="vhit"><b>D2</b><b>D5</b>"先定拓扑、再精确凸优化几何"不是我们首创。<span class="act">→ 报告必须引用并写清区别：我们第一阶段是切片树搜索，第二阶段在序列对上继续搜索（他们第一阶段是一个近似模型）。最好补一组对比。</span></div></div>
+  <div class="vrow"><div class="vyear">2017<small>Huchette, Dey &amp; Vielma</small><em>arXiv 1602.07760</em></div>
+    <div class="vwhat">给布局问题写出更强的混合整数公式，"能解以前解不了的实例"。<span class="en">Stronger MIP formulations solve previously unsolved instances.</span></div>
+    <div class="verdict"><span class="mo">修正</span></div>
+    <div class="vhit"><b>F1</b><b>F2</b>"精确法只到 9–14 个部门"是 2003–2006 年公式的水平，公式在变强。我们 300 s MINLP 的失败只代表我们自己的公式。<span class="act">→ R1 改成"在我们的公式和时限下"；可以用他们的公式做更强的精确基线或证明工具。</span></div></div>
+  <div class="vrow"><div class="vyear">2017<small>Anjos &amp; Vieira</small><em>EJOR 261(1) · 综述</em></div>
+    <div class="vwhat">多数布局问题是 NP-hard，全局最优常常算不出来；但混合整数和锥优化能对多种变体给出全局最优或很紧的下界。<span class="en">Most variants are NP-hard, yet MILP and conic optimisation give global optima or tight bounds for several.</span></div>
+    <div class="verdict"><span class="">支持</span></div>
+    <div class="vhit"><b>D2</b>精确数学用来给界、证最优，而不是做全局搜索。<span class="act">→ 报告里除了我们的解（上界），可以加下界，报真实差距。</span></div></div>
+  <div class="vrow"><div class="vyear">2025<small>Ekstedt, Salman &amp; Damaschke</small><em>Comput. Ind. Eng. 203</em></div>
+    <div class="vwhat">固定形状、多边形资源的分支定界：<b>48 小时内只证到 8 个资源</b>的最优。<span class="en">Branch and bound with fixed shapes: optimal only up to 8 resources within 48 h.</span></div>
+    <div class="verdict"><span class="">支持</span></div>
+    <div class="vhit"><b>F1</b><b>D1</b>到 2025 年，精确法在带复杂几何的布局上规模仍然很小。<span class="act">→ 论证"全局搜索用启发式"，用这篇比用 2003 年的更有力。</span></div></div>
+  <div class="vrow"><div class="vyear">2025<small>Gibson &amp; Dhakal</small><em>arXiv 2512.18034</em></div>
+    <div class="vwhat">离散布局：冲突驱动子句学习（CDCL）很快找到可行解，作为提示交给 CP-SAT，加速精确优化。<span class="en">CDCL finds feasible layouts fast; passed as hints, they speed up CP-SAT.</span></div>
+    <div class="verdict"><span class="mo">修正</span></div>
+    <div class="vhit"><b>R1</b>网格 CP-SAT 不是没用，缺的是好起点。我们 10-05 的测试也看到：用 FBS 初解当提示，CP-SAT 在 SC30 上从差 300% 以上降到 21%（文档 14）。<span class="act">→ 真实工厂（柱网、离散位置）可以试"第一阶段结果 → CP-SAT 热启动"。</span></div></div>
+  <div class="vrow"><div class="vyear">2025<small>Heinbach 等</small><em>Production Engineering</em></div>
+    <div class="vwhat">PPO 智能体能用到没见过的实例上，物流成本比随机基线好 35–60%。<span class="en">PPO generalises to unseen instances, 35–60% better than a random baseline.</span></div>
+    <div class="verdict"><span class="">支持</span></div>
+    <div class="vhit"><b>D1</b>比的是随机基线，不是最好的元启发式；我们自己的 PPO 在 SC30、Du62 上 0/10 可行（文档 22）。<span class="act">→ 不改变：核心搜索暂不用强化学习。</span></div></div>
+  <div class="vrow"><div class="vyear">2025<small>Nikhil N S 等</small><em>arXiv 2509.18054</em></div>
+    <div class="vwhat">知识图谱 + LLM 给布局问题选算法：30–40 个部门、带长宽比的不等面积问题，推荐 BRKGA-LP / GA-LP。<span class="en">KG + LLM algorithm selection recommends BRKGA-LP / GA-LP for 30–40 departments with aspect limits.</span></div>
+    <div class="verdict"><span class="mo">修正</span></div>
+    <div class="vhit"><b>D1</b><b>Agent</b>支持"元启发式 + 数学规划"的混合路线，也支持 LLM 只放在入口。但我们只引用了 BRKGA-LP（G&amp;R 2015）的已发表值，没跑它。<span class="act">→ 把 BRKGA-LP 补成对比基线。</span></div></div>
+  <div class="vrow"><div class="vyear">2026<small>Jeong &amp; Chae</small><em>J. Eng. Research 14</em></div>
+    <div class="vwhat">珊瑚礁优化 + 切片树，报了 5 个基准的最好值。<span class="en">CRO + slicing tree, best values on our 5 benchmarks.</span></div>
+    <div class="verdict"><span class="">支持</span></div>
+    <div class="vhit"><b>D3</b>切片树编码是当前元启发式的主流表示；我们复现了它，并在 AB20、SC30、Du62 上超过了它。</div></div>
+  <h3 style="margin:22px 0 4px;font-size:16px">因此要加的 4 个改进项 / 4 resulting action items</h3>
+  <div class="imp">
+    <div><b>I1 · 对比 Anjos &amp; Vieira 2016</b>引用并写清区别；能拿到实例和结果的话，补一组对比。</div>
+    <div><b>I2 · 更强的精确基线</b>用 Huchette 等的公式做下界或证明，报真实差距。</div>
+    <div><b>I3 · CP-SAT 热启动</b>真实工厂离散化后，用第一阶段结果当提示。</div>
+    <div><b>I4 · 补跑 BRKGA-LP</b>目前只有它的已发表值，没有同协议的运行。</div>
+  </div>
+  <p class="foot">核实范围：以上内容来自各文献的摘要或出版页（Ekstedt 2025 来自 Chalmers 出版页；Anjos &amp; Vieira 2016 来自 Springer 页面；Huchette 2017、Gibson 2025、Nikhil 2025 来自 arXiv；Bozer &amp; Wang 2012 来自 RePEc 目录）。全文多在付费墙后，具体数字表没读到。Heinbach 2025 的数字来自项目文档 02，今天出版页打不开，未重新核实。</p>
 </section>
 </div>
 
@@ -315,11 +390,11 @@ Object.keys(A).forEach(function(k, j){
 var tabs = [].slice.call(document.querySelectorAll(".tabs button"));
 function show(id){
   tabs.forEach(function(b){ b.setAttribute("aria-selected", b.dataset.t === id); });
-  ["t1","t2","t3","t4"].forEach(function(t){ document.getElementById(t).hidden = t !== id; });
+  ["t1","t2","t3","t4","t5"].forEach(function(t){ document.getElementById(t).hidden = t !== id; });
   if (id === "t1") setTimeout(draw, 0);
   try { history.replaceState(null, "", "#" + id); } catch(e){}
 }
 tabs.forEach(function(b){ b.addEventListener("click", function(){ show(b.dataset.t); }); });
-var h0 = (location.hash || "").slice(1); if (["t1","t2","t3","t4"].indexOf(h0) >= 0) show(h0);
+var h0 = (location.hash || "").slice(1); if (["t1","t2","t3","t4","t5"].indexOf(h0) >= 0) show(h0);
 })();
 </script>
