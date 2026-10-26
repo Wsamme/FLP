@@ -1,0 +1,1 @@
+{"method": "av16", "instance": "Du62", "seed": 6, "time_limit": 150, "wall": 150.01, "meta": {"trace": [[150.0096, null]], "trials": 468, "stage2_feasible": 0, "stage1_failed": 0, "t_stage1": 127.03, "t_stage2": 22.64, "best_alpha": null, "own_cost": Infinity, "feasible_found": false}, "error": null, "cost": null, "feasible": false, "violations": ["no layout"], "rects": null}

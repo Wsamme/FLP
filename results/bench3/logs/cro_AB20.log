@@ -1,0 +1,10 @@
+cro          AB20   seed  0 cost 5228.201750105745 feasible True wall 60.0s -> results/bench3/cro_AB20_s0.json
+cro          AB20   seed  1 cost 5213.403886024633 feasible True wall 60.0s -> results/bench3/cro_AB20_s1.json
+cro          AB20   seed  2 cost 5345.743063901821 feasible True wall 60.0s -> results/bench3/cro_AB20_s2.json
+cro          AB20   seed  3 cost 5442.13580772637 feasible True wall 60.0s -> results/bench3/cro_AB20_s3.json
+cro          AB20   seed  4 cost 5457.655857351001 feasible True wall 60.0s -> results/bench3/cro_AB20_s4.json
+cro          AB20   seed  5 cost 5445.134090695348 feasible True wall 60.0s -> results/bench3/cro_AB20_s5.json
+cro          AB20   seed  6 cost 5424.594477054494 feasible True wall 60.0s -> results/bench3/cro_AB20_s6.json
+cro          AB20   seed  7 cost 5424.620104802403 feasible True wall 60.0s -> results/bench3/cro_AB20_s7.json
+cro          AB20   seed  8 cost 5123.23553030303 feasible True wall 60.0s -> results/bench3/cro_AB20_s8.json
+cro          AB20   seed  9 cost 5385.321400905895 feasible True wall 60.0s -> results/bench3/cro_AB20_s9.json

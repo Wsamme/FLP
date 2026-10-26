@@ -1,0 +1,10 @@
+av16         SC30   seed  0 cost 4443.2329007853195 feasible True wall 60.4s -> results/bench3/av16_SC30_s0.json
+av16         SC30   seed  1 cost 5039.456695587727 feasible True wall 60.9s -> results/bench3/av16_SC30_s1.json
+av16         SC30   seed  2 cost 5232.30358750128 feasible True wall 60.7s -> results/bench3/av16_SC30_s2.json
+av16         SC30   seed  3 cost 5092.254099785116 feasible True wall 60.1s -> results/bench3/av16_SC30_s3.json
+av16         SC30   seed  4 cost 5432.186264772831 feasible True wall 60.8s -> results/bench3/av16_SC30_s4.json
+av16         SC30   seed  5 cost 4605.20561105738 feasible True wall 60.6s -> results/bench3/av16_SC30_s5.json
+av16         SC30   seed  6 cost 5253.770901573108 feasible True wall 60.6s -> results/bench3/av16_SC30_s6.json
+av16         SC30   seed  7 cost 5181.377933254073 feasible True wall 60.0s -> results/bench3/av16_SC30_s7.json
+av16         SC30   seed  8 cost 5017.747263559545 feasible True wall 60.5s -> results/bench3/av16_SC30_s8.json
+av16         SC30   seed  9 cost 5233.833515094094 feasible True wall 60.1s -> results/bench3/av16_SC30_s9.json

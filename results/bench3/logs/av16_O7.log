@@ -1,0 +1,10 @@
+av16         O7     seed  0 cost 137.8451122246879 feasible True wall 20.1s -> results/bench3/av16_O7_s0.json
+av16         O7     seed  1 cost 137.8451122246879 feasible True wall 20.0s -> results/bench3/av16_O7_s1.json
+av16         O7     seed  2 cost 137.8451122246879 feasible True wall 20.0s -> results/bench3/av16_O7_s2.json
+av16         O7     seed  3 cost 137.83705174939547 feasible True wall 20.0s -> results/bench3/av16_O7_s3.json
+av16         O7     seed  4 cost 137.83705174939547 feasible True wall 20.0s -> results/bench3/av16_O7_s4.json
+av16         O7     seed  5 cost 137.8451122246879 feasible True wall 20.0s -> results/bench3/av16_O7_s5.json
+av16         O7     seed  6 cost 137.8451122246879 feasible True wall 20.0s -> results/bench3/av16_O7_s6.json
+av16         O7     seed  7 cost 137.8451122246879 feasible True wall 20.0s -> results/bench3/av16_O7_s7.json
+av16         O7     seed  8 cost 137.8451122246879 feasible True wall 20.0s -> results/bench3/av16_O7_s8.json
+av16         O7     seed  9 cost 137.8451122246879 feasible True wall 20.0s -> results/bench3/av16_O7_s9.json

@@ -1,0 +1,293 @@
+  [S1] cycle 1 t=0.2s cost 5228.7052
+  [S1] cycle 2 t=0.4s cost 5225.6979
+  [S1] cycle 5 t=1.1s cost 5137.1548
+  [S1] cycle 6 t=1.3s cost 5101.0534
+  [S1] cycle 58 t=15.4s cost 4992.2095
+  SOCP 12 ms: 2560 solves < 3000 -> Stage 1 continues, Stage 2 = polish only
+  [S1] cycle 1 t=0.3s cost 4992.2095
+ours         AB20   seed  0 cost 4992.209413384746 feasible True wall 59.6s -> results/bench3/ours_AB20_s0.json
+  [S1] cycle 1 t=0.3s cost 5244.1095
+  [S1] cycle 2 t=0.6s cost 5220.7371
+  [S1] cycle 3 t=0.8s cost 5156.4435
+  [S1] cycle 7 t=2.0s cost 5152.4854
+  [S1] cycle 13 t=3.8s cost 5102.6843
+  [S1] cycle 14 t=4.1s cost 5062.1574
+  [S1] cycle 18 t=4.9s cost 5056.6092
+  [S1] cycle 31 t=8.5s cost 5024.9112
+  SOCP 10 ms: 2906 solves < 3000 -> Stage 1 continues, Stage 2 = polish only
+  [S1] cycle 1 t=0.3s cost 5024.9112
+  [S1] cycle 34 t=8.9s cost 4964.6786
+ours         AB20   seed  1 cost 4964.678186691812 feasible True wall 59.7s -> results/bench3/ours_AB20_s1.json
+  [S1] cycle 1 t=0.2s cost 5268.4064
+  [S1] cycle 3 t=0.7s cost 5220.3669
+  [S1] cycle 4 t=1.0s cost 5208.4108
+  [S1] cycle 9 t=2.9s cost 5097.5272
+  [S1] cycle 22 t=6.8s cost 5074.3152
+  Stage 2 from stage1_elite0 (cost 5074.3152), 7 s
+  [S2] t=3.0s ev=744 cost 5074.3152
+  [S2] t=4.8s ev=1202 cost 5074.3151
+  [S2] done: 2158 steps, 1760 SOCP solves (1166 infeasible), 3.7 ms/solve
+  Stage 2 from stage1_elite1 (cost 5097.5272), 7 s
+  [S2] t=0.1s ev=1774 cost 5097.5272
+  [S2] t=2.0s ev=2125 cost 5097.5272
+  [S2] t=5.6s ev=2926 cost 5097.5267
+  [S2] t=5.6s ev=2932 cost 5097.5251
+  [S2] done: 1702 steps, 3232 SOCP solves (2135 infeasible), 4.1 ms/solve
+  Stage 2 from stage1_elite2 (cost 5208.4108), 7 s
+  [S2] t=0.1s ev=3244 cost 5208.4107
+  [S2] t=0.1s ev=3253 cost 5207.8908
+  [S2] t=0.2s ev=3276 cost 5207.8907
+  [S2] t=3.2s ev=3834 cost 5207.8906
+  [S2] t=3.7s ev=3914 cost 5207.8906
+  [S2] done: 1707 steps, 4700 SOCP solves (3071 infeasible), 4.2 ms/solve
+  Stage 2 from stage1_elite3 (cost 5213.5948), 7 s
+  [S2] t=3.1s ev=5345 cost 5213.5948
+  [S2] t=4.3s ev=5545 cost 5213.5948
+  [S2] done: 1701 steps, 6156 SOCP solves (3969 infeasible), 4.3 ms/solve
+ours         AB20   seed  2 cost 5074.315061647661 feasible True wall 60.0s -> results/bench3/ours_AB20_s2.json
+  [S1] cycle 1 t=0.4s cost 5647.3292
+  [S1] cycle 2 t=0.7s cost 5524.7034
+  [S1] cycle 5 t=1.8s cost 5471.4464
+  [S1] cycle 8 t=2.7s cost 5292.3815
+  [S1] cycle 9 t=3.0s cost 5261.2457
+  [S1] cycle 10 t=3.2s cost 5239.6651
+  [S1] cycle 13 t=4.1s cost 5237.8475
+  [S1] cycle 19 t=5.7s cost 5232.0261
+  [S1] cycle 21 t=6.2s cost 5164.7364
+  Stage 2 from stage1_elite0 (cost 5164.7364), 7 s
+  [S2] t=0.5s ev=63 cost 5164.7364
+  [S2] t=1.9s ev=341 cost 5161.9942
+  [S2] done: 1535 steps, 1353 SOCP solves (771 infeasible), 4.9 ms/solve
+  Stage 2 from stage1_elite1 (cost 5232.0261), 7 s
+  [S2] t=3.4s ev=2067 cost 5232.0261
+  [S2] t=4.8s ev=2371 cost 5219.7816
+  [S2] t=5.3s ev=2500 cost 5219.7816
+  [S2] t=5.8s ev=2601 cost 5219.7816
+  [S2] t=6.4s ev=2729 cost 5190.7422
+  [S2] done: 1958 steps, 2994 SOCP solves (1880 infeasible), 4.4 ms/solve
+  Stage 2 from stage1_elite2 (cost 5237.8475), 7 s
+  [S2] t=1.0s ev=3160 cost 5237.8475
+  [S2] t=1.2s ev=3200 cost 5237.8475
+  [S2] t=1.8s ev=3297 cost 5221.4100
+  [S2] t=2.1s ev=3357 cost 5215.4262
+  [S2] t=2.4s ev=3418 cost 5215.4262
+  [S2] t=3.8s ev=3693 cost 5215.4262
+  [S2] t=4.1s ev=3740 cost 5192.9624
+  [S2] t=4.4s ev=3800 cost 5192.9623
+  [S2] t=4.9s ev=3905 cost 5192.9623
+  [S2] t=5.1s ev=3944 cost 5188.6967
+  [S2] done: 1633 steps, 4305 SOCP solves (2573 infeasible), 4.6 ms/solve
+  Stage 2 from stage1_elite3 (cost 5239.6651), 7 s
+  [S2] t=1.2s ev=4485 cost 5155.0173
+  [S2] t=1.4s ev=4527 cost 5155.0171
+  [S2] t=1.5s ev=4540 cost 5150.7736
+  [S2] t=3.2s ev=4903 cost 5139.5371
+  [S2] t=3.3s ev=4911 cost 5139.5371
+  [S2] t=3.5s ev=4947 cost 5139.5371
+  [S2] t=3.7s ev=5013 cost 5139.5371
+  [S2] done: 1790 steps, 5828 SOCP solves (3597 infeasible), 4.5 ms/solve
+ours         AB20   seed  3 cost 5139.537054011721 feasible True wall 60.0s -> results/bench3/ours_AB20_s3.json
+  [S1] cycle 1 t=0.2s cost 5415.4468
+  [S1] cycle 2 t=0.6s cost 5414.3931
+  [S1] cycle 6 t=1.7s cost 5227.5285
+  [S1] cycle 13 t=3.6s cost 5216.3331
+  [S1] cycle 14 t=3.8s cost 5138.4746
+  [S1] cycle 36 t=9.6s cost 5114.7823
+  [S1] cycle 41 t=10.9s cost 5084.8687
+  [S1] cycle 50 t=13.4s cost 5053.0995
+  [S1] cycle 68 t=18.4s cost 5017.3405
+  Stage 2 from stage1_elite0 (cost 5017.3405), 7 s
+  [S2] t=0.3s ev=66 cost 5017.3405
+  [S2] t=0.4s ev=75 cost 5017.3405
+  [S2] t=0.9s ev=128 cost 5017.3404
+  [S2] t=0.9s ev=129 cost 4987.4323
+  [S2] t=0.9s ev=140 cost 4987.4323
+  [S2] t=5.1s ev=940 cost 4973.6048
+  [S2] t=5.7s ev=1018 cost 4973.6048
+  [S2] t=7.0s ev=1218 cost 4973.6048
+  [S2] done: 1506 steps, 1314 SOCP solves (853 infeasible), 5.0 ms/solve
+  Stage 2 from stage1_elite1 (cost 5053.0995), 7 s
+  [S2] t=1.0s ev=1485 cost 5037.1532
+  [S2] t=1.1s ev=1499 cost 5037.1532
+  [S2] t=1.4s ev=1555 cost 5037.1532
+  [S2] t=1.9s ev=1644 cost 5029.1861
+  [S2] t=3.2s ev=1877 cost 5029.1861
+  [S2] t=3.6s ev=1941 cost 5029.1861
+  [S2] t=3.8s ev=1976 cost 5029.1861
+  [S2] done: 2398 steps, 2707 SOCP solves (1722 infeasible), 4.8 ms/solve
+  Stage 2 from stage1_elite2 (cost 5084.8687), 7 s
+  [S2] t=3.1s ev=3344 cost 5084.8652
+  [S2] t=3.2s ev=3353 cost 5084.8651
+  [S2] t=3.5s ev=3423 cost 5084.8650
+  [S2] t=6.9s ev=4065 cost 5084.8637
+  [S2] done: 1666 steps, 4160 SOCP solves (2761 infeasible), 4.7 ms/solve
+  Stage 2 from stage1_elite3 (cost 5114.7823), 7 s
+  [S2] t=0.2s ev=4187 cost 5114.7823
+  [S2] t=0.7s ev=4289 cost 5114.7820
+  [S2] t=4.0s ev=5018 cost 5090.0562
+  [S2] t=5.1s ev=5284 cost 5089.9000
+  [S2] t=5.2s ev=5314 cost 5089.9000
+  [S2] t=5.7s ev=5415 cost 5089.8999
+  [S2] t=7.1s ev=5697 cost 5086.2083
+  [S2] done: 1826 steps, 5761 SOCP solves (3819 infeasible), 4.6 ms/solve
+ours         AB20   seed  4 cost 4973.6047872479185 feasible True wall 60.0s -> results/bench3/ours_AB20_s4.json
+  [S1] cycle 1 t=0.4s cost 5412.2054
+  [S1] cycle 3 t=0.9s cost 5298.9840
+  [S1] cycle 5 t=1.5s cost 5277.0716
+  [S1] cycle 16 t=4.6s cost 5043.4994
+  Stage 2 from stage1_elite0 (cost 5043.4994), 7 s
+  [S2] t=0.2s ev=25 cost 5040.7138
+  [S2] t=0.7s ev=120 cost 5027.4558
+  [S2] t=1.8s ev=321 cost 5027.4558
+  [S2] t=3.5s ev=644 cost 5027.4558
+  [S2] done: 1860 steps, 1530 SOCP solves (1058 infeasible), 4.3 ms/solve
+  Stage 2 from stage1_elite1 (cost 5277.0716), 7 s
+  [S2] t=0.2s ev=1557 cost 5277.0716
+  [S2] t=2.9s ev=2048 cost 5276.0837
+  [S2] t=3.0s ev=2076 cost 5268.1414
+  [S2] t=3.5s ev=2194 cost 5268.1414
+  [S2] t=4.2s ev=2341 cost 5268.1414
+  [S2] t=5.7s ev=2608 cost 5268.1414
+  [S2] done: 1721 steps, 2980 SOCP solves (1991 infeasible), 4.4 ms/solve
+  Stage 2 from stage1_elite2 (cost 5298.9840), 7 s
+  [S2] done: 1698 steps, 4431 SOCP solves (2896 infeasible), 4.4 ms/solve
+  Stage 2 from stage1_elite3 (cost 5330.6238), 7 s
+  [S2] t=0.3s ev=4483 cost 5330.6238
+  [S2] t=4.6s ev=5345 cost 5330.6238
+  [S2] done: 1694 steps, 5822 SOCP solves (3802 infeasible), 4.5 ms/solve
+ours         AB20   seed  5 cost 5027.45578549977 feasible True wall 60.0s -> results/bench3/ours_AB20_s5.json
+  [S1] cycle 1 t=0.3s cost 5708.7639
+  [S1] cycle 4 t=1.1s cost 5297.9589
+  [S1] cycle 7 t=1.8s cost 5190.8698
+  [S1] cycle 18 t=4.9s cost 5188.7282
+  Stage 2 from stage1_elite0 (cost 5188.7282), 7 s
+  [S2] t=7.4s ev=1338 cost 5185.9836
+  [S2] done: 1506 steps, 1352 SOCP solves (824 infeasible), 4.8 ms/solve
+  Stage 2 from stage1_elite1 (cost 5190.8698), 7 s
+  [S2] done: 1779 steps, 2917 SOCP solves (1889 infeasible), 4.5 ms/solve
+  Stage 2 from stage1_elite2 (cost 5297.9589), 7 s
+  [S2] t=0.3s ev=2981 cost 5296.9649
+  [S2] t=0.3s ev=2989 cost 5296.9649
+  [S2] t=0.8s ev=3088 cost 5296.1032
+  [S2] t=1.0s ev=3114 cost 5293.3976
+  [S2] done: 1752 steps, 4430 SOCP solves (2844 infeasible), 4.4 ms/solve
+  Stage 2 from stage1_elite3 (cost 5354.5055), 7 s
+  [S2] t=0.6s ev=4551 cost 5319.1645
+  [S2] t=0.6s ev=4560 cost 5279.8815
+  [S2] t=0.6s ev=4561 cost 5255.4300
+  [S2] t=1.2s ev=4685 cost 5249.1720
+  [S2] t=1.3s ev=4721 cost 5192.6858
+  [S2] t=1.7s ev=4793 cost 5123.8567
+  [S2] t=2.6s ev=4951 cost 5116.1592
+  [S2] t=3.8s ev=5202 cost 5116.1592
+  [S2] t=4.6s ev=5319 cost 5116.1592
+  [S2] t=6.0s ev=5641 cost 5116.1592
+  [S2] done: 1869 steps, 5910 SOCP solves (3743 infeasible), 4.4 ms/solve
+ours         AB20   seed  6 cost 5116.1591976645705 feasible True wall 60.0s -> results/bench3/ours_AB20_s6.json
+  [S1] cycle 1 t=0.4s cost 5659.1133
+  [S1] cycle 4 t=1.3s cost 5328.5493
+  [S1] cycle 5 t=1.5s cost 5086.6523
+  [S1] cycle 11 t=3.0s cost 5084.7760
+  Stage 2 from stage1_elite0 (cost 5084.7760), 7 s
+  [S2] t=0.0s ev=4 cost 5084.7760
+  [S2] t=5.5s ev=1214 cost 5084.7760
+  [S2] done: 2024 steps, 1707 SOCP solves (1136 infeasible), 3.8 ms/solve
+  Stage 2 from stage1_elite1 (cost 5086.6523), 7 s
+  [S2] t=0.0s ev=1715 cost 5051.0623
+  [S2] t=0.2s ev=1743 cost 5051.0622
+  [S2] t=1.7s ev=2087 cost 5051.0622
+  [S2] t=3.2s ev=2389 cost 5051.0622
+  [S2] t=6.1s ev=2932 cost 5051.0622
+  [S2] t=6.3s ev=2968 cost 5051.0622
+  [S2] t=7.0s ev=3078 cost 5050.8433
+  [S2] t=7.2s ev=3116 cost 5050.8433
+  [S2] done: 1696 steps, 3162 SOCP solves (2168 infeasible), 4.1 ms/solve
+  Stage 2 from stage1_elite2 (cost 5195.7416), 7 s
+  [S2] done: 1691 steps, 4570 SOCP solves (3096 infeasible), 4.3 ms/solve
+  Stage 2 from stage1_elite3 (cost 5230.8499), 7 s
+  [S2] t=0.0s ev=4575 cost 5208.6961
+  [S2] t=0.1s ev=4590 cost 5208.6961
+  [S2] done: 1535 steps, 5889 SOCP solves (3909 infeasible), 4.5 ms/solve
+ours         AB20   seed  7 cost 5050.843307722738 feasible True wall 60.0s -> results/bench3/ours_AB20_s7.json
+  [S1] cycle 1 t=0.3s cost 5503.8324
+  [S1] cycle 4 t=1.2s cost 5328.9908
+  [S1] cycle 7 t=2.1s cost 5303.7013
+  [S1] cycle 23 t=6.3s cost 5254.4116
+  [S1] cycle 25 t=6.9s cost 5205.7729
+  [S1] cycle 88 t=24.1s cost 5123.7160
+  Stage 2 from stage1_elite0 (cost 5123.7160), 7 s
+  [S2] t=0.2s ev=41 cost 5114.0925
+  [S2] t=1.0s ev=187 cost 5114.0924
+  [S2] t=4.0s ev=685 cost 5114.0924
+  [S2] done: 1629 steps, 1368 SOCP solves (906 infeasible), 4.8 ms/solve
+  Stage 2 from stage1_elite1 (cost 5205.7729), 7 s
+  [S2] t=2.4s ev=1808 cost 5191.3726
+  [S2] t=3.1s ev=1903 cost 5191.3726
+  [S2] t=3.2s ev=1920 cost 5175.1800
+  [S2] t=3.2s ev=1937 cost 5165.5297
+  [S2] t=3.4s ev=1972 cost 5165.5289
+  [S2] t=3.8s ev=2054 cost 5097.7362
+  [S2] t=5.1s ev=2264 cost 5094.5611
+  [S2] t=5.6s ev=2367 cost 5062.8528
+  [S2] t=5.7s ev=2394 cost 5062.8528
+  [S2] t=6.6s ev=2589 cost 5062.8527
+  [S2] done: 1607 steps, 2756 SOCP solves (1746 infeasible), 4.8 ms/solve
+  Stage 2 from stage1_elite2 (cost 5254.4116), 7 s
+  [S2] t=1.1s ev=2998 cost 5232.2422
+  [S2] t=2.3s ev=3216 cost 5144.3157
+  [S2] t=2.6s ev=3269 cost 5144.3157
+  [S2] t=2.9s ev=3344 cost 5139.0103
+  [S2] t=3.1s ev=3393 cost 5135.6165
+  [S2] t=3.3s ev=3432 cost 5094.3678
+  [S2] t=3.3s ev=3445 cost 5094.3678
+  [S2] t=4.6s ev=3738 cost 5090.7106
+  [S2] t=4.6s ev=3742 cost 5077.3913
+  [S2] t=4.7s ev=3766 cost 5077.3913
+  [S2] t=4.8s ev=3788 cost 5077.3912
+  [S2] t=5.3s ev=3893 cost 5077.3909
+  [S2] t=5.6s ev=3939 cost 5043.6009
+  [S2] t=5.8s ev=3985 cost 5043.6006
+  [S2] t=6.2s ev=4061 cost 5043.6005
+  [S2] t=6.9s ev=4200 cost 5043.6004
+  [S2] done: 1715 steps, 4312 SOCP solves (2664 infeasible), 4.6 ms/solve
+  Stage 2 from stage1_elite3 (cost 5303.7013), 7 s
+  [S2] t=1.2s ev=4530 cost 5284.0777
+  [S2] t=1.3s ev=4536 cost 5284.0777
+  [S2] t=1.9s ev=4643 cost 5277.4584
+  [S2] t=2.2s ev=4702 cost 5241.8464
+  [S2] t=2.3s ev=4719 cost 5235.3072
+  [S2] t=2.6s ev=4764 cost 5231.1548
+  [S2] t=2.8s ev=4797 cost 5148.3020
+  [S2] t=3.1s ev=4877 cost 5138.4751
+  [S2] t=3.2s ev=4890 cost 5094.5612
+  [S2] t=3.7s ev=4983 cost 5062.8527
+  [S2] t=4.1s ev=5079 cost 5062.8527
+  [S2] t=6.6s ev=5552 cost 5062.8527
+  [S2] done: 1565 steps, 5699 SOCP solves (3519 infeasible), 4.6 ms/solve
+ours         AB20   seed  8 cost 5043.600402945216 feasible True wall 60.0s -> results/bench3/ours_AB20_s8.json
+  [S1] cycle 1 t=0.2s cost 5488.9626
+  [S1] cycle 3 t=0.7s cost 5475.5961
+  [S1] cycle 4 t=0.9s cost 5381.2038
+  [S1] cycle 9 t=2.3s cost 5360.1752
+  [S1] cycle 10 t=2.5s cost 5309.1456
+  [S1] cycle 11 t=2.8s cost 5261.5218
+  [S1] cycle 23 t=5.7s cost 5254.1445
+  [S1] cycle 60 t=15.0s cost 5120.2881
+  [S1] cycle 61 t=15.3s cost 5074.7012
+  Stage 2 from stage1_elite0 (cost 5074.7012), 7 s
+  [S2] t=0.2s ev=46 cost 5074.7010
+  [S2] t=0.3s ev=64 cost 5074.3152
+  [S2] t=1.0s ev=184 cost 5074.3152
+  [S2] t=1.9s ev=365 cost 5074.3152
+  [S2] t=1.9s ev=381 cost 5074.3152
+  [S2] t=2.1s ev=418 cost 5074.3151
+  [S2] done: 1800 steps, 1568 SOCP solves (1048 infeasible), 4.2 ms/solve
+  Stage 2 from stage1_elite1 (cost 5120.2881), 7 s
+  [S2] t=0.1s ev=1582 cost 5120.2881
+  [S2] done: 1911 steps, 3131 SOCP solves (2082 infeasible), 4.2 ms/solve
+  Stage 2 from stage1_elite2 (cost 5254.1445), 7 s
+  [S2] done: 1522 steps, 4460 SOCP solves (2976 infeasible), 4.4 ms/solve
+  Stage 2 from stage1_elite3 (cost 5261.5218), 7 s
+  [S2] t=0.1s ev=4471 cost 5261.5217
+  [S2] done: 1563 steps, 5716 SOCP solves (3829 infeasible), 4.6 ms/solve
+ours         AB20   seed  9 cost 5074.315063840424 feasible True wall 60.0s -> results/bench3/ours_AB20_s9.json

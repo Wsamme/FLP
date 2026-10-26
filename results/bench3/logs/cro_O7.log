@@ -1,0 +1,10 @@
+cro          O7     seed  0 cost 131.68917674172118 feasible True wall 20.0s -> results/bench3/cro_O7_s0.json
+cro          O7     seed  1 cost 131.68917674172118 feasible True wall 20.0s -> results/bench3/cro_O7_s1.json
+cro          O7     seed  2 cost 131.68917674172118 feasible True wall 20.0s -> results/bench3/cro_O7_s2.json
+cro          O7     seed  3 cost 131.68917674172118 feasible True wall 20.0s -> results/bench3/cro_O7_s3.json
+cro          O7     seed  4 cost 131.6891767417212 feasible True wall 20.0s -> results/bench3/cro_O7_s4.json
+cro          O7     seed  5 cost 131.6891767417212 feasible True wall 20.0s -> results/bench3/cro_O7_s5.json
+cro          O7     seed  6 cost 131.68917674172118 feasible True wall 20.0s -> results/bench3/cro_O7_s6.json
+cro          O7     seed  7 cost 131.68917674172118 feasible True wall 20.0s -> results/bench3/cro_O7_s7.json
+cro          O7     seed  8 cost 131.68917674172118 feasible True wall 20.0s -> results/bench3/cro_O7_s8.json
+cro          O7     seed  9 cost 131.6891767417212 feasible True wall 20.0s -> results/bench3/cro_O7_s9.json

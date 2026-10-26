@@ -1,0 +1,10 @@
+cro          Du62   seed  0 cost 3707427.1316489787 feasible True wall 150.0s -> results/bench3/cro_Du62_s0.json
+cro          Du62   seed  1 cost 3694322.4628849453 feasible True wall 150.0s -> results/bench3/cro_Du62_s1.json
+cro          Du62   seed  2 cost 3687817.715719695 feasible True wall 150.0s -> results/bench3/cro_Du62_s2.json
+cro          Du62   seed  3 cost 3711572.7546936483 feasible True wall 150.0s -> results/bench3/cro_Du62_s3.json
+cro          Du62   seed  4 cost 3728137.1259052036 feasible True wall 150.0s -> results/bench3/cro_Du62_s4.json
+cro          Du62   seed  5 cost 3724986.2612869823 feasible True wall 150.0s -> results/bench3/cro_Du62_s5.json
+cro          Du62   seed  6 cost 3678297.8832187373 feasible True wall 150.0s -> results/bench3/cro_Du62_s6.json
+cro          Du62   seed  7 cost 3686483.4894489013 feasible True wall 150.0s -> results/bench3/cro_Du62_s7.json
+cro          Du62   seed  8 cost 3697943.08855165 feasible True wall 150.0s -> results/bench3/cro_Du62_s8.json
+cro          Du62   seed  9 cost 3679470.481388177 feasible True wall 150.0s -> results/bench3/cro_Du62_s9.json

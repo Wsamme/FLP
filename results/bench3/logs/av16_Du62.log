@@ -1,0 +1,10 @@
+av16         Du62   seed  0 cost None feasible False wall 155.6s -> results/bench3/av16_Du62_s0.json
+av16         Du62   seed  1 cost None feasible False wall 153.8s -> results/bench3/av16_Du62_s1.json
+av16         Du62   seed  2 cost 4029256.7755403593 feasible True wall 152.4s -> results/bench3/av16_Du62_s2.json
+av16         Du62   seed  3 cost None feasible False wall 160.3s -> results/bench3/av16_Du62_s3.json
+av16         Du62   seed  4 cost 3975563.0596518163 feasible True wall 153.2s -> results/bench3/av16_Du62_s4.json
+av16         Du62   seed  5 cost 3941897.491098311 feasible True wall 156.7s -> results/bench3/av16_Du62_s5.json
+av16         Du62   seed  6 cost None feasible False wall 157.5s -> results/bench3/av16_Du62_s6.json
+av16         Du62   seed  7 cost 3981184.8180754804 feasible True wall 158.5s -> results/bench3/av16_Du62_s7.json
+av16         Du62   seed  8 cost 3969787.879902238 feasible True wall 154.5s -> results/bench3/av16_Du62_s8.json
+av16         Du62   seed  9 cost None feasible False wall 150.5s -> results/bench3/av16_Du62_s9.json

@@ -1,0 +1,10 @@
+lsa          SC30   seed  0 cost 4280.122459246276 feasible True wall 60.0s -> results/bench3/lsa_SC30_s0.json
+lsa          SC30   seed  1 cost 4324.679041828782 feasible True wall 60.0s -> results/bench3/lsa_SC30_s1.json
+lsa          SC30   seed  2 cost 4150.74447360002 feasible True wall 60.0s -> results/bench3/lsa_SC30_s2.json
+lsa          SC30   seed  3 cost 4110.506491232693 feasible True wall 60.0s -> results/bench3/lsa_SC30_s3.json
+lsa          SC30   seed  4 cost 3999.2913671608494 feasible True wall 60.0s -> results/bench3/lsa_SC30_s4.json
+lsa          SC30   seed  5 cost 4421.148353020029 feasible True wall 60.0s -> results/bench3/lsa_SC30_s5.json
+lsa          SC30   seed  6 cost 4123.8561811442805 feasible True wall 60.0s -> results/bench3/lsa_SC30_s6.json
+lsa          SC30   seed  7 cost 4162.340129778213 feasible True wall 60.0s -> results/bench3/lsa_SC30_s7.json
+lsa          SC30   seed  8 cost 4508.418595367422 feasible True wall 60.0s -> results/bench3/lsa_SC30_s8.json
+lsa          SC30   seed  9 cost 4044.294410174907 feasible True wall 60.0s -> results/bench3/lsa_SC30_s9.json

@@ -1,0 +1,144 @@
+  [S1] cycle 1 t=0.1s cost 133.3679
+  [S1] cycle 2 t=0.1s cost 131.6892
+  SOCP 3 ms: 2887 solves < 3000 -> Stage 1 continues, Stage 2 = polish only
+  [S1] cycle 1 t=0.1s cost 131.6892
+ours         O7     seed  0 cost 131.65317808144633 feasible True wall 19.5s -> results/bench3/ours_O7_s0.json
+  [S1] cycle 1 t=0.0s cost 131.6892
+  Stage 2 from stage1_elite0 (cost 131.6892), 3 s
+  [S2] t=0.0s ev=24 cost 131.6532
+  [S2] t=0.2s ev=143 cost 131.6532
+  [S2] done: 47787 steps, 1589 SOCP solves (1129 infeasible), 0.7 ms/solve
+  Stage 2 from stage1_elite1 (cost 134.1970), 3 s
+  [S2] t=0.0s ev=1604 cost 134.1667
+  [S2] t=0.1s ev=1653 cost 134.1667
+  [S2] t=0.2s ev=1761 cost 134.1667
+  [S2] done: 10220 steps, 3944 SOCP solves (2348 infeasible), 0.8 ms/solve
+  Stage 2 from stage1_elite2 (cost 134.7157), 3 s
+  [S2] t=0.1s ev=3992 cost 131.6532
+  [S2] done: 48632 steps, 5558 SOCP solves (3487 infeasible), 0.8 ms/solve
+ours         O7     seed  1 cost 131.65317793290353 feasible True wall 20.0s -> results/bench3/ours_O7_s1.json
+  [S1] cycle 1 t=0.1s cost 131.6892
+  Stage 2 from stage1_elite0 (cost 131.6892), 3 s
+  [S2] t=0.0s ev=18 cost 131.6532
+  [S2] t=0.7s ev=564 cost 131.6532
+  [S2] done: 48284 steps, 1625 SOCP solves (1152 infeasible), 0.8 ms/solve
+  Stage 2 from stage1_elite1 (cost 134.1970), 3 s
+  [S2] t=0.0s ev=1634 cost 134.1667
+  [S2] t=0.3s ev=1811 cost 134.1667
+  [S2] t=1.1s ev=2414 cost 134.1667
+  [S2] t=1.2s ev=2467 cost 134.1667
+  [S2] done: 13091 steps, 4024 SOCP solves (2417 infeasible), 0.8 ms/solve
+  Stage 2 from stage1_elite2 (cost 135.1546), 3 s
+  [S2] t=0.0s ev=4063 cost 131.6580
+  [S2] t=0.3s ev=4286 cost 131.6532
+  [S2] t=0.3s ev=4303 cost 131.6532
+  [S2] t=0.5s ev=4460 cost 131.6532
+  [S2] t=1.2s ev=5014 cost 131.6532
+  [S2] done: 38790 steps, 5662 SOCP solves (3576 infeasible), 0.8 ms/solve
+ours         O7     seed  2 cost 131.65317793221794 feasible True wall 20.0s -> results/bench3/ours_O7_s2.json
+  [S1] cycle 1 t=0.1s cost 131.6892
+  Stage 2 from stage1_elite0 (cost 131.6892), 5 s
+  [S2] t=0.0s ev=13 cost 131.6532
+  [S2] done: 96814 steps, 1720 SOCP solves (1225 infeasible), 0.8 ms/solve
+  Stage 2 from stage1_elite1 (cost 134.1970), 5 s
+  [S2] t=0.4s ev=1998 cost 134.1667
+  [S2] t=0.5s ev=2026 cost 134.1667
+  [S2] done: 30807 steps, 4602 SOCP solves (2735 infeasible), 0.9 ms/solve
+ours         O7     seed  3 cost 131.65317793221794 feasible True wall 20.0s -> results/bench3/ours_O7_s3.json
+  [S1] cycle 1 t=0.0s cost 131.6892
+  Stage 2 from stage1_elite0 (cost 131.6892), 3 s
+  [S2] t=0.0s ev=42 cost 131.6532
+  [S2] t=0.1s ev=129 cost 131.6532
+  [S2] done: 41853 steps, 1573 SOCP solves (1115 infeasible), 0.8 ms/solve
+  Stage 2 from stage1_elite1 (cost 134.1970), 3 s
+  [S2] t=0.1s ev=1685 cost 134.1667
+  [S2] t=0.1s ev=1699 cost 134.1667
+  [S2] t=0.2s ev=1740 cost 134.1667
+  [S2] t=0.4s ev=1891 cost 134.1667
+  [S2] t=0.4s ev=1895 cost 134.1667
+  [S2] t=0.5s ev=1949 cost 134.1667
+  [S2] done: 11160 steps, 3949 SOCP solves (2360 infeasible), 0.8 ms/solve
+  Stage 2 from stage1_elite2 (cost 135.1546), 3 s
+  [S2] t=0.1s ev=4015 cost 131.6604
+  [S2] t=0.1s ev=4021 cost 131.6532
+  [S2] t=0.2s ev=4099 cost 131.6532
+  [S2] t=0.5s ev=4300 cost 131.6532
+  [S2] done: 42130 steps, 5559 SOCP solves (3508 infeasible), 0.8 ms/solve
+ours         O7     seed  4 cost 131.65317793221794 feasible True wall 20.0s -> results/bench3/ours_O7_s4.json
+  [S1] cycle 1 t=0.1s cost 131.6892
+  Stage 2 from stage1_elite0 (cost 131.6892), 5 s
+  [S2] t=0.5s ev=368 cost 131.6532
+  [S2] done: 104893 steps, 1690 SOCP solves (1204 infeasible), 0.8 ms/solve
+  Stage 2 from stage1_elite1 (cost 134.1970), 5 s
+  [S2] t=0.0s ev=1693 cost 134.1667
+  [S2] t=0.0s ev=1714 cost 134.1667
+  [S2] t=0.8s ev=2360 cost 134.1667
+  [S2] done: 45778 steps, 4492 SOCP solves (2679 infeasible), 0.8 ms/solve
+ours         O7     seed  5 cost 131.65317793290353 feasible True wall 20.0s -> results/bench3/ours_O7_s5.json
+  [S1] cycle 1 t=0.1s cost 131.6892
+  Stage 2 from stage1_elite0 (cost 131.6892), 5 s
+  [S2] t=0.0s ev=6 cost 131.6604
+  [S2] t=0.1s ev=49 cost 131.6580
+  [S2] t=0.2s ev=175 cost 131.6532
+  [S2] t=0.5s ev=390 cost 131.6532
+  [S2] done: 82831 steps, 1665 SOCP solves (1187 infeasible), 0.9 ms/solve
+  Stage 2 from stage1_elite1 (cost 134.1970), 5 s
+  [S2] t=0.0s ev=1676 cost 134.1667
+  [S2] t=0.1s ev=1749 cost 134.1667
+  [S2] done: 34745 steps, 4509 SOCP solves (2674 infeasible), 0.8 ms/solve
+ours         O7     seed  6 cost 131.65317793290353 feasible True wall 20.0s -> results/bench3/ours_O7_s6.json
+  [S1] cycle 1 t=0.1s cost 134.1970
+  [S1] cycle 4 t=0.2s cost 131.6892
+  Stage 2 from stage1_elite0 (cost 131.6892), 2 s
+  [S2] t=0.0s ev=35 cost 131.6604
+  [S2] t=0.1s ev=89 cost 131.6532
+  [S2] t=1.1s ev=914 cost 131.6532
+  [S2] done: 31720 steps, 1485 SOCP solves (1056 infeasible), 0.7 ms/solve
+  Stage 2 from stage1_elite1 (cost 133.3679), 2 s
+  [S2] t=0.0s ev=1492 cost 131.6532
+  [S2] t=0.1s ev=1527 cost 131.6532
+  [S2] t=0.1s ev=1561 cost 131.6532
+  [S2] t=0.5s ev=1835 cost 131.6532
+  [S2] done: 55119 steps, 2010 SOCP solves (1414 infeasible), 0.7 ms/solve
+  Stage 2 from stage1_elite2 (cost 134.1970), 2 s
+  [S2] t=0.2s ev=2098 cost 134.1667
+  [S2] t=0.8s ev=2513 cost 134.1667
+  [S2] t=0.8s ev=2575 cost 134.1667
+  [S2] done: 3884 steps, 3729 SOCP solves (2266 infeasible), 0.8 ms/solve
+  Stage 2 from stage1_elite3 (cost 136.2498), 2 s
+  [S2] t=0.1s ev=3792 cost 136.2253
+  [S2] t=0.1s ev=3810 cost 134.1667
+  [S2] t=0.3s ev=3898 cost 134.1667
+  [S2] done: 5067 steps, 5615 SOCP solves (3237 infeasible), 0.8 ms/solve
+ours         O7     seed  7 cost 131.65317793355837 feasible True wall 20.0s -> results/bench3/ours_O7_s7.json
+  [S1] cycle 1 t=0.0s cost 131.6892
+  Stage 2 from stage1_elite0 (cost 131.6892), 3 s
+  [S2] t=0.3s ev=181 cost 131.6532
+  [S2] done: 43123 steps, 1587 SOCP solves (1126 infeasible), 0.8 ms/solve
+  Stage 2 from stage1_elite1 (cost 133.3679), 3 s
+  [S2] t=0.1s ev=1639 cost 131.6580
+  [S2] t=0.1s ev=1668 cost 131.6580
+  [S2] t=0.2s ev=1774 cost 131.6532
+  [S2] t=0.3s ev=1887 cost 131.6532
+  [S2] t=0.4s ev=1929 cost 131.6532
+  [S2] done: 32014 steps, 3168 SOCP solves (2242 infeasible), 0.8 ms/solve
+  Stage 2 from stage1_elite2 (cost 134.1970), 3 s
+  [S2] t=0.0s ev=3172 cost 134.1667
+  [S2] t=0.2s ev=3267 cost 134.1667
+  [S2] done: 9887 steps, 5381 SOCP solves (3392 infeasible), 0.8 ms/solve
+ours         O7     seed  8 cost 131.65317793283282 feasible True wall 20.0s -> results/bench3/ours_O7_s8.json
+  [S1] cycle 1 t=0.1s cost 131.6892
+  Stage 2 from stage1_elite0 (cost 131.6892), 3 s
+  [S2] t=0.2s ev=127 cost 131.6532
+  [S2] t=0.8s ev=554 cost 131.6532
+  [S2] done: 44595 steps, 1534 SOCP solves (1088 infeasible), 0.8 ms/solve
+  Stage 2 from stage1_elite1 (cost 133.3679), 3 s
+  [S2] t=0.0s ev=1546 cost 131.6532
+  [S2] t=0.9s ev=2207 cost 131.6532
+  [S2] done: 47219 steps, 3109 SOCP solves (2208 infeasible), 0.8 ms/solve
+  Stage 2 from stage1_elite2 (cost 134.1970), 3 s
+  [S2] t=0.0s ev=3112 cost 134.1667
+  [S2] t=0.2s ev=3227 cost 134.1667
+  [S2] t=0.3s ev=3352 cost 134.1667
+  [S2] done: 9725 steps, 5390 SOCP solves (3382 infeasible), 0.8 ms/solve
+ours         O7     seed  9 cost 131.65317793221794 feasible True wall 20.0s -> results/bench3/ours_O7_s9.json

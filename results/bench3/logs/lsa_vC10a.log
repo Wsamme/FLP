@@ -1,0 +1,10 @@
+lsa          vC10a  seed  0 cost 21463.068825957893 feasible True wall 20.0s -> results/bench3/lsa_vC10a_s0.json
+lsa          vC10a  seed  1 cost 21463.068825957896 feasible True wall 20.0s -> results/bench3/lsa_vC10a_s1.json
+lsa          vC10a  seed  2 cost 21463.068825957896 feasible True wall 20.0s -> results/bench3/lsa_vC10a_s2.json
+lsa          vC10a  seed  3 cost 21463.068825957893 feasible True wall 20.0s -> results/bench3/lsa_vC10a_s3.json
+lsa          vC10a  seed  4 cost 21463.068825957896 feasible True wall 20.0s -> results/bench3/lsa_vC10a_s4.json
+lsa          vC10a  seed  5 cost 21463.068825957893 feasible True wall 20.0s -> results/bench3/lsa_vC10a_s5.json
+lsa          vC10a  seed  6 cost 21463.068825957893 feasible True wall 20.0s -> results/bench3/lsa_vC10a_s6.json
+lsa          vC10a  seed  7 cost 21463.068825957896 feasible True wall 20.0s -> results/bench3/lsa_vC10a_s7.json
+lsa          vC10a  seed  8 cost 21463.068825957893 feasible True wall 20.0s -> results/bench3/lsa_vC10a_s8.json
+lsa          vC10a  seed  9 cost 20878.8 feasible True wall 20.0s -> results/bench3/lsa_vC10a_s9.json

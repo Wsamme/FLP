@@ -1,0 +1,10 @@
+av16         vC10a  seed  0 cost 23489.52035777494 feasible True wall 20.0s -> results/bench3/av16_vC10a_s0.json
+av16         vC10a  seed  1 cost 23489.520357776135 feasible True wall 20.0s -> results/bench3/av16_vC10a_s1.json
+av16         vC10a  seed  2 cost 23489.52035777593 feasible True wall 20.0s -> results/bench3/av16_vC10a_s2.json
+av16         vC10a  seed  3 cost 24157.640491078288 feasible True wall 20.1s -> results/bench3/av16_vC10a_s3.json
+av16         vC10a  seed  4 cost 23489.52035777494 feasible True wall 20.1s -> results/bench3/av16_vC10a_s4.json
+av16         vC10a  seed  5 cost 24127.581137536697 feasible True wall 20.1s -> results/bench3/av16_vC10a_s5.json
+av16         vC10a  seed  6 cost 24127.581137529545 feasible True wall 20.0s -> results/bench3/av16_vC10a_s6.json
+av16         vC10a  seed  7 cost 23489.52035777494 feasible True wall 20.0s -> results/bench3/av16_vC10a_s7.json
+av16         vC10a  seed  8 cost 24159.03685679838 feasible True wall 20.0s -> results/bench3/av16_vC10a_s8.json
+av16         vC10a  seed  9 cost 24127.581137529545 feasible True wall 20.0s -> results/bench3/av16_vC10a_s9.json

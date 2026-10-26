@@ -1,0 +1,80 @@
+  [S1] cycle 1 t=3.7s cost 3670031.7680
+  [S1] cycle 2 t=7.1s cost 3660806.8560
+  [S1] cycle 3 t=10.8s cost 3645796.1589
+  SOCP 103 ms: 715 solves < 3000 -> Stage 1 continues, Stage 2 = polish only
+  [S1] cycle 1 t=3.2s cost 3643159.2591
+  [S1] cycle 21 t=71.1s cost 3633155.4793
+ours         Du62   seed  0 cost 3633129.5633636974 feasible True wall 150.6s -> results/bench3/ours_Du62_s0.json
+  [S1] cycle 1 t=3.6s cost 3658385.3793
+  [S1] cycle 2 t=7.1s cost 3656359.3281
+  [S1] cycle 3 t=10.1s cost 3655853.0034
+  [S1] cycle 5 t=16.4s cost 3648132.6457
+  [S1] cycle 12 t=38.5s cost 3645036.2622
+  [S1] cycle 18 t=57.6s cost 3640904.3550
+  SOCP 51 ms: 1409 solves < 3000 -> Stage 1 continues, Stage 2 = polish only
+  [S1] cycle 1 t=3.0s cost 3640904.3550
+  [S1] cycle 10 t=32.0s cost 3638301.5221
+  [S1] cycle 15 t=48.3s cost 3635230.3050
+ours         Du62   seed  1 cost 3635208.3812189302 feasible True wall 149.6s -> results/bench3/ours_Du62_s1.json
+  [S1] cycle 1 t=3.3s cost 3651173.8012
+  [S1] cycle 4 t=12.8s cost 3639269.1950
+  SOCP 71 ms: 1052 solves < 3000 -> Stage 1 continues, Stage 2 = polish only
+  [S1] cycle 1 t=3.5s cost 3639269.1950
+  [S1] cycle 7 t=22.8s cost 3638784.8183
+ours         Du62   seed  2 cost 3638771.5819173856 feasible True wall 151.4s -> results/bench3/ours_Du62_s2.json
+  [S1] cycle 1 t=3.4s cost 3653056.6434
+  [S1] cycle 2 t=6.6s cost 3647121.4466
+  [S1] cycle 5 t=16.9s cost 3640871.8831
+  [S1] cycle 11 t=36.8s cost 3639866.0657
+  [S1] cycle 15 t=50.1s cost 3637665.0305
+  [S1] cycle 23 t=78.8s cost 3629662.8104
+  SOCP 103 ms: 692 solves < 3000 -> Stage 1 continues, Stage 2 = polish only
+  [S1] cycle 1 t=3.2s cost 3629662.8104
+ours         Du62   seed  3 cost 3629654.3547274387 feasible True wall 151.2s -> results/bench3/ours_Du62_s3.json
+  [S1] cycle 1 t=3.3s cost 3645247.9642
+  [S1] cycle 2 t=6.3s cost 3640551.0088
+  [S1] cycle 15 t=50.5s cost 3636130.1075
+  SOCP 101 ms: 720 solves < 3000 -> Stage 1 continues, Stage 2 = polish only
+  [S1] cycle 1 t=3.1s cost 3636130.1075
+ours         Du62   seed  4 cost 3636118.5375688695 feasible True wall 151.6s -> results/bench3/ours_Du62_s4.json
+  [S1] cycle 1 t=3.4s cost 3659778.2355
+  [S1] cycle 4 t=13.3s cost 3649440.2131
+  [S1] cycle 7 t=22.7s cost 3646042.2285
+  [S1] cycle 22 t=76.2s cost 3644764.8783
+  SOCP 55 ms: 1353 solves < 3000 -> Stage 1 continues, Stage 2 = polish only
+  [S1] cycle 1 t=3.4s cost 3644764.8783
+  [S1] cycle 3 t=10.6s cost 3639458.2947
+  [S1] cycle 18 t=68.8s cost 3639081.5447
+ours         Du62   seed  5 cost 3639074.6477535805 feasible True wall 152.6s -> results/bench3/ours_Du62_s5.json
+  [S1] cycle 1 t=2.9s cost 3665394.3258
+  [S1] cycle 2 t=5.8s cost 3659083.9511
+  [S1] cycle 3 t=9.3s cost 3657201.1619
+  [S1] cycle 5 t=16.9s cost 3650065.4046
+  [S1] cycle 12 t=41.2s cost 3646233.1500
+  [S1] cycle 16 t=56.6s cost 3629615.5909
+  SOCP 86 ms: 841 solves < 3000 -> Stage 1 continues, Stage 2 = polish only
+  [S1] cycle 1 t=3.5s cost 3629615.5909
+ours         Du62   seed  6 cost 3629609.7571229674 feasible True wall 149.7s -> results/bench3/ours_Du62_s6.json
+  [S1] cycle 1 t=3.4s cost 3674960.6527
+  [S1] cycle 2 t=6.9s cost 3653786.9261
+  [S1] cycle 4 t=13.4s cost 3652627.4305
+  [S1] cycle 5 t=16.5s cost 3652133.6628
+  [S1] cycle 22 t=78.0s cost 3649187.7763
+  SOCP 138 ms: 520 solves < 3000 -> Stage 1 continues, Stage 2 = polish only
+  [S1] cycle 1 t=3.5s cost 3649187.7763
+  [S1] cycle 8 t=29.3s cost 3641660.9433
+ours         Du62   seed  7 cost 3641595.3809080007 feasible True wall 150.8s -> results/bench3/ours_Du62_s7.json
+  [S1] cycle 1 t=3.4s cost 3655887.5116
+  [S1] cycle 2 t=6.9s cost 3649612.1420
+  [S1] cycle 4 t=14.4s cost 3648945.3353
+  SOCP 90 ms: 814 solves < 3000 -> Stage 1 continues, Stage 2 = polish only
+  [S1] cycle 1 t=4.3s cost 3648945.3353
+  [S1] cycle 10 t=36.1s cost 3644156.6270
+ours         Du62   seed  8 cost 3644151.0697947107 feasible True wall 150.5s -> results/bench3/ours_Du62_s8.json
+  [S1] cycle 1 t=4.0s cost 3668441.0656
+  [S1] cycle 2 t=7.4s cost 3637345.6006
+  [S1] cycle 7 t=26.4s cost 3634840.2040
+  SOCP 73 ms: 996 solves < 3000 -> Stage 1 continues, Stage 2 = polish only
+  [S1] cycle 1 t=3.4s cost 3634840.2040
+  [S1] cycle 6 t=21.4s cost 3629514.7703
+ours         Du62   seed  9 cost 3629508.929286569 feasible True wall 151.9s -> results/bench3/ours_Du62_s9.json

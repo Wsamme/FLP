@@ -1,0 +1,10 @@
+hs           Du62   seed  0 cost 4013473.149418962 feasible True wall 150.0s -> results/bench3/hs_Du62_s0.json
+hs           Du62   seed  1 cost 3997091.188881522 feasible True wall 150.0s -> results/bench3/hs_Du62_s1.json
+hs           Du62   seed  2 cost 4020465.1204451304 feasible True wall 150.0s -> results/bench3/hs_Du62_s2.json
+hs           Du62   seed  3 cost 4786923.309140967 feasible False wall 150.0s -> results/bench3/hs_Du62_s3.json
+hs           Du62   seed  4 cost 4020815.8500163816 feasible True wall 150.0s -> results/bench3/hs_Du62_s4.json
+hs           Du62   seed  5 cost 4053530.4336931724 feasible True wall 150.0s -> results/bench3/hs_Du62_s5.json
+hs           Du62   seed  6 cost 4016522.996477419 feasible True wall 150.0s -> results/bench3/hs_Du62_s6.json
+hs           Du62   seed  7 cost 3964516.6331705353 feasible True wall 150.0s -> results/bench3/hs_Du62_s7.json
+hs           Du62   seed  8 cost 4708703.252135939 feasible False wall 150.0s -> results/bench3/hs_Du62_s8.json
+hs           Du62   seed  9 cost 4036219.867102682 feasible True wall 150.0s -> results/bench3/hs_Du62_s9.json
