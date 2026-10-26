@@ -9,13 +9,13 @@ is the last facility of its bay; brk[n-1] = 1).  Each bay spans the full floor l
 [ours] Orientation: the paper does not say whether bays run along W or H.  Every solution is decoded in
 both orientations and the better one (lower penalised fitness) is used -- a choice that can only help LSA
 (on a square floor, Du62, the two orientations are mirror images, so only one is decoded).
-[ours] Empty floor area: the paper does not say.  As for every slicing/bay baseline in this benchmark,
-the dummy view of the problem is used (SC30: the free area split into 17 zero-flow, shape-free blocks,
-bench.common.DUMMIES); bays then fill the floor.  Only the n real departments are returned.  (O7's free
-area is 0.02 %, left as a strip.)
+[ours] Empty floor area (O7, SC30): the paper does not say.  Default: every area is scaled by
+W H / sum A so that the bays fill the floor (each department gets at least its area); this gave LSA its
+best SC30 results in the pilot (alternatives: zero-flow dummy blocks, or a free strip; see LSA_EMPTY).
 
 Fitness (Eq. 9, improved penalty, k = 1):  f = sum f_ij d_ij + D_inf^k * V_worst, D_inf = number of
-facilities violating the aspect limit, V_worst = worst cost among the feasible solutions seen so far.
+facilities violating the aspect limit, V_worst = worst cost among the feasible solutions [ours, default:
+of the current outer iteration; alternative: all seen so far -- see LSA_VARIANT].
 
 Initial solution (Algorithm 3): facilities sorted by area (ascending), random two-point swap, then bays
 are formed greedily: from the current index, the longest run of the remaining facilities that forms a
@@ -50,17 +50,21 @@ G = 1000
 COOL = 0.99
 EPS = float(__import__("os").environ.get("LSA_EPS", 0.1))   # [ours] 0.1; env only for diagnostics
 CHUNK = 256
-# Readings of two points the paper leaves open (environment LSA_VARIANT = "<reward><vworst>", default "00"):
+# Readings of points the paper leaves open.  Defaults = the readings that gave LSA its best results in a
+# 3-seed pilot on SC30 and Du62 (scratch runs, 2026-10-26): reward as printed (Eq. 10), V_worst over the
+# current outer iteration, free area by stretching.  Pilot means: Du62 3,670,410 (vs 3,677,581 with "00");
+# SC30 4,115 to 4,301 stretched vs 4,300 to 5,083 with dummy blocks.
+# Environment LSA_VARIANT = "<reward><vworst>", default "01":
 #   reward 0: Eq. 10 as printed, reward 1/f(ns);  1: relative improvement (f(s) - f(ns)) / f(s)
 #             ("a reward Q is assigned based on the degree of improvement it achieves", Sec. 4.2)
 #   vworst 0: worst cost among all feasible solutions seen;  1: among those of the current outer iteration
 import os as _os
-_V = _os.environ.get("LSA_VARIANT", "00")
+_V = _os.environ.get("LSA_VARIANT", "01")
 REWARD, VWORST = int(_V[0]), int(_V[1])
-# Free floor area (paper silent), environment LSA_EMPTY: "dummy" (default; zero-flow blocks as for the other
-# slicing/bay baselines), "stretch" (all areas scaled by W H / sum A so the bays fill the floor), "strip"
+# Free floor area (paper silent), environment LSA_EMPTY: "stretch" (default; all areas scaled by W H / sum A
+# so the bays fill the floor), "dummy" (zero-flow blocks as for the slicing baselines), "strip"
 # (exact areas, free area left as one strip after the last bay).
-EMPTY = _os.environ.get("LSA_EMPTY", "dummy")
+EMPTY = _os.environ.get("LSA_EMPTY", "stretch")
 PENSCALE = float(_os.environ.get("LSA_PENSCALE", 1.0))   # diagnostics only: multiplier on V_worst
 
 
