@@ -48,7 +48,7 @@ from numba import njit
 
 G = 1000
 COOL = 0.99
-EPS = 0.1
+EPS = float(__import__("os").environ.get("LSA_EPS", 0.1))   # [ours] 0.1; env only for diagnostics
 CHUNK = 256
 # Readings of two points the paper leaves open (environment LSA_VARIANT = "<reward><vworst>", default "00"):
 #   reward 0: Eq. 10 as printed, reward 1/f(ns);  1: relative improvement (f(s) - f(ns)) / f(s)
@@ -57,6 +57,10 @@ CHUNK = 256
 import os as _os
 _V = _os.environ.get("LSA_VARIANT", "00")
 REWARD, VWORST = int(_V[0]), int(_V[1])
+# Free floor area (paper silent), environment LSA_EMPTY: "dummy" (default; zero-flow blocks as for the other
+# slicing/bay baselines), "stretch" (all areas scaled by W H / sum A so the bays fill the floor), "strip"
+# (exact areas, free area left as one strip after the last bay).
+EMPTY = _os.environ.get("LSA_EMPTY", "dummy")
 
 
 @njit(cache=True)
@@ -356,8 +360,15 @@ def greedy_init(fp, A, W, H, alpha, o, max_tries, out_s, out_b):
 def solve(prob, seed, time_limit, log=print):
     t0w = time.time()
     seed_nb(int(seed)); rng = np.random.default_rng(seed)
-    n = int(prob.n_d); A = np.ascontiguousarray(prob.areas_d, float); al = np.ascontiguousarray(prob.alpha_d, float)
-    W, H = float(prob.W), float(prob.H); Wt = np.asarray(prob.Wt_d, float)
+    W, H = float(prob.W), float(prob.H)
+    if EMPTY == "dummy":
+        n = int(prob.n_d); A = np.ascontiguousarray(prob.areas_d, float); al = np.ascontiguousarray(prob.alpha_d, float)
+        Wt = np.asarray(prob.Wt_d, float)
+    else:
+        n = int(prob.n); A = np.ascontiguousarray(prob.areas, float); al = np.ascontiguousarray(prob.alpha, float)
+        Wt = np.asarray(prob.Wt, float)
+        if EMPTY == "stretch":                     # every area scaled by W H / sum A: bays fill the floor
+            A = A * (W * H / A.sum())
     iu = np.triu_indices(n, 1); m = Wt[iu] > 0
     pi = np.ascontiguousarray(iu[0][m]).astype(np.int64); pj = np.ascontiguousarray(iu[1][m]).astype(np.int64)
     pw = np.ascontiguousarray(Wt[iu][m], float)
@@ -408,7 +419,7 @@ def solve(prob, seed, time_limit, log=print):
     trace.append([round(time.time() - t0w, 4), float(gstate[0]) if np.isfinite(gstate[0]) else None])
     meta = dict(trace=trace, T0=float(T0), init=init, evaluations=int(stats[0]), accepted=int(stats[1]),
                 op_counts=[int(x) for x in stats[2:]], own_cost=float(gstate[0]), V_worst=float(vw[0]),
-                outer_iterations_reached=int(g_last + 1), orientation=int(gstate[1]), variant=_V,
+                outer_iterations_reached=int(g_last + 1), orientation=int(gstate[1]), variant=_V, empty=EMPTY,
                 feasible_found=bool(np.isfinite(gstate[0])))
     if not np.isfinite(gstate[0]):
         gs, gb, oo = s, b, o
