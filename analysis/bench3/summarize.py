@@ -17,7 +17,10 @@ from scipy.stats import mannwhitneyu
 INST = ["O7", "vC10a", "AB20", "SC30", "Du62"]
 REF = {"O7": 131.6531381, "vC10a": 18522.79, "AB20": 5021.17, "SC30": 3343.47, "Du62": 3635307.30}
 LABEL = {"ours": "Ours", "lsa": "LSA (Lin 2024)", "av16": "Two-stage (Anjos & Vieira 2016)",
-         "hs": "HS (Kang & Chae 2017)", "cro": "CRO (Jeong & Chae 2026)"}
+         "hs": "HS (Kang & Chae 2017)", "cro": "CRO (Jeong & Chae 2026)",
+         "lsa+p": "LSA + SOCP polish", "hs+p": "HS + SOCP polish", "cro+p": "CRO + SOCP polish"}
+POLISH = ["lsa", "hs", "cro"]     # post-hoc: each stored feasible layout re-solved once with our exact SOCP
+                                  # on its own relative positions (as "SA + polish" in Experiment 1)
 
 
 def load(d):
@@ -26,6 +29,31 @@ def load(d):
         r = json.load(open(fn))
         R[(r["method"], r["instance"])].append(r)
     return R
+
+
+def polish_runs(R):
+    """Adds pseudo-methods m+p: every feasible layout of m polished by one SOCP with its own relations
+    (bench.socp.rects_to_sp -> Stage2.solve_sp); kept only if feasible for the checker and cheaper."""
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+    from bench.common import problem
+    from bench.socp import from_problem, rects_to_sp
+    from flp.evaluate import evaluate
+    for k in INST:
+        P = problem(k); S2 = from_problem(P)
+        for m in POLISH:
+            for r in R.get((m, k), []):
+                if not r["feasible"]:
+                    continue
+                Rm = np.array(r["rects"])[:P.n]
+                c0 = r["cost"]; c1 = c0
+                sp_ = rects_to_sp(Rm)
+                if sp_ is not None:
+                    o = S2.solve_sp(*sp_)
+                    if o["rects"] is not None and np.isfinite(o["cost"]):
+                        ev = evaluate(P.inst, [tuple(x) for x in o["rects"]])
+                        if ev["feasible"] and ev["cost"] < c0 * (1 - 1e-8):
+                            c1 = ev["cost"]
+                R[(m + "+p", k)].append(dict(cost=c1, feasible=True, wall=r["wall"]))
 
 
 def holm(raw):
@@ -39,7 +67,8 @@ def main():
     ap = argparse.ArgumentParser(); ap.add_argument("--dir", default="results/bench3")
     a = ap.parse_args()
     R = load(a.dir)
-    methods = [m for m in ["ours", "lsa", "av16", "hs", "cro"] if any((m, k) in R for k in INST)]
+    polish_runs(R)
+    methods = [m for m in ["ours", "lsa", "lsa+p", "av16", "hs", "hs+p", "cro", "cro+p"] if any((m, k) in R for k in INST)]
     S = {}
     for m in methods:
         for k in INST:
