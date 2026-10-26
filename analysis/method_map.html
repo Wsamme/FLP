@@ -1,0 +1,325 @@
+<title>方法来源图谱</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700;800&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: a lineage board. Four columns read left to right (sources → findings → design decisions → result); one view per tab. Black and white only. */
+:root{
+  --paper:#fafaf8; --ink:#151515; --muted:#66676a; --rule:#d4d4d0; --fill:#ecece9; --dim:.16;
+  --f-display:"Noto Serif SC","Songti SC",serif;
+  --f-body:"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--paper:#131313;--ink:#ebebe8;--muted:#a2a29f;--rule:#3a3a38;--fill:#202020;color-scheme:dark}}
+:root[data-theme="dark"]{--paper:#131313;--ink:#ebebe8;--muted:#a2a29f;--rule:#3a3a38;--fill:#202020;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:14.5px;line-height:1.6;margin:0}
+.wrap{max-width:1320px;margin:0 auto;padding-block:22px 60px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header h1{font-family:var(--f-display);font-size:28px;margin:0 0 2px;line-height:1.3}
+header p{margin:0;color:var(--muted);font-size:13.5px}
+.tabs{display:flex;gap:0;flex-wrap:wrap;border-bottom:1.5px solid var(--ink);margin:18px 0 16px}
+.tabs button{font:inherit;font-size:14px;border:1.5px solid var(--ink);border-bottom:0;background:var(--paper);color:var(--ink);padding:7px 14px;margin-right:-1.5px;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--paper)}
+.tabs button:focus-visible,.node:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.lede{max-width:80ch;margin:0 0 12px}
+.lede .en{display:block;color:var(--muted);font-size:13px}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12.5px;margin:0 0 12px;align-items:center}
+.sw{display:inline-block;width:22px;height:14px;vertical-align:-2px;margin-right:5px;border:1.5px solid var(--ink)}
+.sw.lit{background:var(--paper)} .sw.dat{background:var(--ink)} .sw.dec{border-width:3px;background:var(--paper)} .sw.res{background:repeating-linear-gradient(45deg,var(--ink) 0 2px,var(--paper) 2px 6px)}
+/* board */
+.boardwrap{overflow-x:auto;max-width:100%}
+.board{position:relative;display:grid;grid-template-columns:repeat(4,minmax(200px,1fr));column-gap:70px;min-width:1040px;padding:6px 0}
+.col{display:flex;flex-direction:column;gap:9px;position:relative;z-index:1;justify-content:center;padding-top:28px}
+.colhead{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);position:absolute;top:0;left:0}
+.node{border:1.5px solid var(--ink);background:var(--paper);padding:7px 10px;cursor:pointer;transition:opacity .15s;text-align:left;font:inherit;color:inherit;width:100%}
+.node b{display:block;font-size:13.5px;line-height:1.35}
+.node span{display:block;font-family:var(--f-mono);font-size:11.5px;color:var(--muted);margin-top:2px;line-height:1.35}
+.node.dat{background:var(--ink);color:var(--paper)} .node.dat span{color:var(--paper);opacity:.75}
+.node.dec{border-width:3px}
+.node.res{border-width:3px;background:repeating-linear-gradient(45deg,var(--fill) 0 3px,var(--paper) 3px 8px)}
+.node.res b{font-family:var(--f-display);font-size:16px}
+.board.focus .node{opacity:var(--dim)} .board.focus .node.on{opacity:1}
+svg.edges{position:absolute;inset:0;width:100%;height:100%;z-index:0;overflow:visible;pointer-events:none}
+svg.edges path{fill:none;stroke:var(--ink);stroke-width:1.1;opacity:.35}
+svg.edges path.lit{stroke-dasharray:4 3}
+.board.focus svg.edges path{opacity:.06} .board.focus svg.edges path.on{opacity:1;stroke-width:2}
+.detail{border:1.5px solid var(--ink);padding:12px 16px;margin-top:14px;min-height:92px;max-width:900px}
+.detail h3{margin:0 0 4px;font-size:16px}
+.detail p{margin:0 0 4px}
+.detail .en{color:var(--muted);font-size:13px}
+.detail .src{font-family:var(--f-mono);font-size:12px;margin-top:6px;color:var(--muted)}
+.hint{font-size:12.5px;color:var(--muted)}
+/* flow */
+.flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:0;margin:8px 0 6px}
+.fbox{border:1.5px solid var(--ink);padding:10px 12px;min-width:150px;flex:1 1 150px;background:var(--paper)}
+.fbox.key{border-width:3px}
+.fbox h4{margin:0 0 4px;font-size:14.5px}
+.fbox p{margin:0;font-size:12.5px;color:var(--muted);line-height:1.5}
+.fbox .tag{display:inline-block;font-family:var(--f-mono);font-size:11px;border:1px solid var(--ink);padding:0 5px;margin:4px 4px 0 0;color:var(--ink)}
+.arrow{display:flex;align-items:center;justify-content:center;width:28px;font-size:18px;flex:0 0 28px}
+.branch{border:1.5px dashed var(--ink);padding:9px 12px;margin:10px 0 0;max-width:760px;font-size:13px}
+/* charts */
+.chart{overflow-x:auto;max-width:100%;margin:8px 0 4px}
+table.heat{border-collapse:collapse;font-family:var(--f-mono);font-size:12.5px;font-variant-numeric:tabular-nums}
+table.heat th,table.heat td{border:1px solid var(--rule);padding:7px 10px;text-align:right;white-space:nowrap}
+table.heat th{background:var(--fill);font-family:var(--f-body);font-weight:600;text-align:center}
+table.heat th.rh{text-align:left}
+table.heat tr.us th,table.heat tr.us td{font-weight:700;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink)}
+.h0{background:var(--paper);color:var(--ink)} .h1{background:#d9d9d6;color:#151515} .h2{background:#a9a9a6;color:#151515}
+.h3{background:#6e6e6b;color:#fafaf8} .h4{background:#3a3a38;color:#fafaf8} .h5{background:#151515;color:#fafaf8}
+.hx{background:repeating-linear-gradient(45deg,var(--rule) 0 3px,var(--paper) 3px 7px);color:var(--ink)}
+.scale{display:flex;flex-wrap:wrap;gap:6px;font-size:12px;margin:6px 0 10px;align-items:center}
+.scale i{display:inline-block;width:26px;height:14px;border:1px solid var(--rule);vertical-align:-3px;margin-right:4px}
+.reads{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:12px}
+.read{border-top:3px solid var(--ink);padding-top:6px;font-size:13.5px;min-width:0}
+.read b{display:block;margin-bottom:2px}
+.read .en{color:var(--muted);font-size:12.5px;display:block}
+svg.abl text{fill:var(--ink);font-family:var(--f-body);font-size:12px}
+svg.abl .ax{stroke:var(--rule)} svg.abl .zero{stroke:var(--ink);stroke-dasharray:3 3}
+svg.abl .bar{fill:var(--ink)} svg.abl .bar.full{fill:var(--paper);stroke:var(--ink);stroke-width:2}
+svg.abl .val{font-family:var(--f-mono);font-size:11px}
+svg.abl .na{font-family:var(--f-mono);font-size:11px;fill:var(--muted)}
+.foot{margin-top:18px;font-size:12px;color:var(--muted);max-width:90ch}
+@media (max-width:760px){.reads{grid-template-columns:minmax(0,1fr)} .arrow{transform:rotate(90deg);width:100%;flex-basis:100%;height:22px}}
+</style>
+
+<div class="wrap">
+<header>
+  <h1>我们的方法从哪来</h1>
+  <p>文献和实验 → 发现 → 设计决定 → 结果 · Where our two-stage method comes from</p>
+</header>
+
+<div class="tabs" role="tablist">
+  <button role="tab" aria-selected="true" data-t="t1">① 来源图谱</button>
+  <button role="tab" aria-selected="false" data-t="t2">② 方法流程</button>
+  <button role="tab" aria-selected="false" data-t="t3">③ 各方法在哪赢、在哪输</button>
+  <button role="tab" aria-selected="false" data-t="t4">④ 消融：哪一步真有用</button>
+</div>
+
+<!-- TAB 1 -->
+<section id="t1" class="tab">
+  <p class="lede">从左往右读。<b>点任何一个方块</b>，会高亮它从哪来、推出了什么。<span class="en">Read left to right. Click any box to highlight where it comes from and what it leads to.</span></p>
+  <div class="legend">
+    <span><i class="sw lit"></i>文献 / Literature</span>
+    <span><i class="sw dat"></i>我们的实验数据 / Our data</span>
+    <span><i class="sw dec"></i>设计决定 / Design decision</span>
+    <span><i class="sw res"></i>结果 / Result</span>
+    <span class="hint">虚线 = 来自文献；实线 = 来自数据</span>
+  </div>
+  <div class="boardwrap"><div class="board" id="board">
+    <svg class="edges" id="edges" aria-hidden="true"></svg>
+    <div class="col" id="c0"><div class="colhead">来源 Sources</div></div>
+    <div class="col" id="c1"><div class="colhead">发现 Findings</div></div>
+    <div class="col" id="c2"><div class="colhead">设计决定 Decisions</div></div>
+    <div class="col" id="c3"><div class="colhead">结果 Result</div></div>
+  </div></div>
+  <div class="detail" id="detail" aria-live="polite"><h3>点一个方块看说明</h3><p class="hint">Click a box for details.</p></div>
+</section>
+
+<!-- TAB 2 -->
+<section id="t2" class="tab" hidden>
+  <p class="lede">两段式：第一段快速找"谁挨着谁"，第二段把"谁挨着谁"固定下来、精确算尺寸位置。<span class="en">Stage 1 quickly finds who sits next to whom; Stage 2 fixes that and computes exact sizes and positions.</span></p>
+  <div class="flow">
+    <div class="fbox"><h4>输入</h4><p>厂房 W×H、各部门面积、长宽比上限、流量表</p></div>
+    <div class="arrow">→</div>
+    <div class="fbox key"><h4>第一阶段 · 切片树 + SA</h4><p>用一半时间。每一刀按面积比例切，天然铺满、不重叠。保留最好的 4 个布局。</p><span class="tag">D3</span><span class="tag">Kang &amp; Chae / J&amp;C</span></div>
+    <div class="arrow">→</div>
+    <div class="fbox"><h4>转成序列对</h4><p>把布局里的"左右 / 上下"关系写成两个排列，保证不会变差。</p><span class="tag">D6</span><span class="tag">Murata 1996</span></div>
+    <div class="arrow">→</div>
+    <div class="fbox key"><h4>第二阶段 · 序列对 + SA</h4><p>换一下关系 → 解一次 SOCP 精确算尺寸位置 → 好就留下。可以得到非切片布局。</p><span class="tag">D4</span><span class="tag">D5</span><span class="tag">Liu &amp; Meller 2007</span></div>
+    <div class="arrow">→</div>
+    <div class="fbox"><h4>独立检查器</h4><p>重算成本，查面积、长宽比、出界、重叠（容差 10⁻⁶）</p></div>
+  </div>
+  <div class="branch"><b>预算规则（D7）</b>：先测一次 SOCP 要多久。剩下的时间解不到 3000 次（Du62：每次约 58 ms），第二阶段就只"抛光"一次，时间留给第一阶段。
+    <span class="hint" style="display:block">Budget rule: if fewer than 3000 SOCP solves fit (Du62 ≈ 58 ms each), Stage 2 is a single polish.</span></div>
+</section>
+
+<!-- TAB 3 -->
+<section id="t3" class="tab" hidden>
+  <p class="lede">格子越黑 = 离参考值越远（越差）。10 次运行的平均差距。<span class="en">Darker = further from the reference (worse). Mean gap over 10 runs.</span></p>
+  <div class="scale">
+    <span><i class="h0"></i>≤ 0.1%</span><span><i class="h1"></i>0.1–1%</span><span><i class="h2"></i>1–5%</span>
+    <span><i class="h3"></i>5–20%</span><span><i class="h4"></i>20–100%</span><span><i class="h5"></i>&gt; 100%</span><span><i class="hx"></i>无可行解</span>
+  </div>
+  <div class="chart" id="heat"></div>
+  <div class="reads">
+    <div class="read"><b>有空地的 SC30 最能拉开差距</b>所有切片类方法都 ≥ 9%，只有 Ours 到 1.93%。<span class="en">SC30 (free space) separates methods: slicing methods ≥ 9%, Ours 1.93%.</span></div>
+    <div class="read"><b>精确方法：小的能证最优，大的时限内失败</b>O7 到最优；vC10a 21%、SC30 201%，AB20、Du62 无解。<span class="en">Exact: optimal on O7, fails on larger ones within 300 s.</span></div>
+    <div class="read"><b>简单方法在大实例上崩</b>交换法在 Du62 只有 1/10 可行；构造法在 SC30 差 195%。<span class="en">Simple methods break at scale: Swap 1/10 feasible on Du62.</span></div>
+  </div>
+  <p class="foot">数据：实验一原始运行文件重算，与论文 tab_main 40 格一致；MINLP 行取自论文表（300 s，原始文件缺）。参考值：O7 131.6531（已证最优）、vC10a 18,522.79、AB20 5,021.17、SC30 3,343.47、Du62 3,635,307.30。</p>
+</section>
+
+<!-- TAB 4 -->
+<section id="t4" class="tab" hidden>
+  <p class="lede">每次去掉或换掉一个部件，看平均差距怎么变。空心条 = 完整方法。<span class="en">Remove or change one part at a time. Hollow bar = full method.</span></p>
+  <div class="chart"><svg class="abl" id="abl" role="img" aria-label="消融条形图"></svg></div>
+  <div class="reads">
+    <div class="read"><b>第一阶段必不可少</b>去掉后 AB20 差 12.32%、SC30 10.38%、Du62 一次可行都没有。<span class="en">Stage 1 is essential.</span></div>
+    <div class="read"><b>第二阶段只在 SC30 明显有用</b>SC30：完整 1.93% vs 只第一阶段 7.01%。AB20、Du62 上只第一阶段反而略好。<span class="en">Stage 2 clearly helps only on SC30.</span></div>
+    <div class="read"><b>精英池、近邻移动测不出作用</b>三个实例上差别都在波动范围内。<span class="en">Elite pool and neighbour moves: no measurable effect.</span></div>
+  </div>
+  <p class="foot">数据：bench2 原始运行文件（每个变体 10 个种子）重算，与论文 tab_ablation 一致。O7、vC10a 上各变体差别 ≤ 0.03%，未画出。</p>
+</section>
+</div>
+
+<script>
+(function(){
+// ---------------- lineage data ----------------
+var N = [
+ // sources
+ {id:"S0",c:0,t:"dat",b:"实验一（我们）",s:"9 方法 × 5 实例 × 10 种子",d:"统一时限、独立检查器复核每个布局。下面所有黑底方块都来自这组运行。",e:"Our Experiment 1: 9 methods × 5 instances × 10 seeds, every layout re-checked.",src:"results/bench, bench2；论文 tab_main"},
+ {id:"S1",c:0,t:"lit",b:"Sherali 2003 · Konak 2006",s:"精确 MIP",d:"强化 MIP 公式与柔性条带 MIP；精确法能处理的规模有限。",e:"Exact MIP formulations; limited size.",src:"项目文档 02；我们复现 Konak 2006（文档 18）"},
+ {id:"S2",c:0,t:"lit",b:"Pérez-Gosende 2021",s:"综述 232 篇",d:"2010–2020 年文献里元启发式占绝对主导。",e:"Review of 232 papers: metaheuristics dominate.",src:"项目文档 02"},
+ {id:"S3",c:0,t:"lit",b:"MINLPLib o7",s:"O7 已证最优 131.6531",d:"O7 的全局最优值，SCIP 与 BARON 的下界都等于它。",e:"Proven global optimum of O7.",src:"论文 experiments.tex"},
+ {id:"S4",c:0,t:"lit",b:"Kang & Chae 2017 · Jeong & Chae 2026",s:"切片树编码 + CRO",d:"部门序列 + 切割顺序 + 切割方向；每刀按面积比例切。",e:"Slicing-tree encoding; area-proportional cuts.",src:"论文 experiments.tex；我们复现 CRO（文档 20）"},
+ {id:"S5",c:0,t:"lit",b:"Murata 1996",s:"序列对（VLSI）",d:"两个排列表示任意两块之间的左右 / 上下关系。",e:"Sequence pair from VLSI placement.",src:"论文 experiments.tex"},
+ {id:"S6",c:0,t:"lit",b:"Liu 2004 · Liu & Meller 2007",s:"序列对 + MIP",d:"在序列对上搜索，用 MIP 求位置和尺寸。我们第二阶段的直接前身。",e:"Sequence-pair search + MIP for geometry; the direct ancestor of our Stage 2.",src:"references.bib liu2004, liu2007；04_method 表 2"},
+ {id:"S7",c:0,t:"lit",b:"Gonçalves & Resende 2015",s:"BRKGA + LP，面积外逼近",d:"解码后用 LP 微调；面积用切线外逼近，可能略低于真实面积。",e:"BRKGA + LP; area by tangent outer approximation.",src:"项目文档 16；论文 tab_records"},
+ {id:"S8",c:0,t:"lit",b:"Goulart 2024 · Clarabel",s:"锥规划求解器",d:"内点法求解二阶锥规划（SOCP）。",e:"Interior-point SOCP solver.",src:"论文 experiments.tex"},
+ {id:"S9",c:0,t:"lit",b:"Armour & Buffa 1963 · Lee & Moore 1967",s:"CRAFT 交换 · CORELAP 构造",d:"经典改进法与构造法，我们的 Swap 和 Construct 基线按它们的思路写。",e:"Classic improvement and construction heuristics.",src:"论文 experiments.tex；项目文档 10"},
+ // findings
+ {id:"F1",c:1,t:"lit",b:"精确法只到约 9–14 个部门",s:"文献",d:"文献公认的精确法规模上限。",e:"Exact methods reach about 9–14 departments.",src:"项目文档 02"},
+ {id:"F2",c:1,t:"dat",b:"300 s 内精确 MINLP 失败",s:"vC10a +21%｜SC30 +201%｜AB20、Du62 无解",d:"统一时限下，精确凸 MINLP 只在 O7 上到最优。",e:"Within 300 s the exact MINLP is optimal only on O7.",src:"论文 tab_main"},
+ {id:"F3",c:1,t:"dat",b:"小实例能证最优",s:"O7 2,322 s｜vC10a 约 1.9 h",d:"给足时间，精确模型能证明最优，可以用来检验启发式。",e:"With enough time, exact models certify optimality.",src:"numbers.tex；文档 21"},
+ {id:"F4",c:1,t:"dat",b:"切片树：天然可行",s:"SA、CRO 5 个实例都 10/10 可行",d:"面积按比例、铺满、不重叠自动成立，只需用罚分管长宽比。",e:"Slicing trees are feasible by construction except aspect ratio.",src:"tab_main；本页③"},
+ {id:"F5",c:1,t:"dat",b:"切片树有天花板",s:"O7：所有切片方法停在 131.6892",d:"O7 的最优布局不是切片布局，切片类方法再怎么搜都到不了。",e:"O7's optimum is non-slicing; all slicing methods stop at 131.6892.",src:"原始运行文件"},
+ {id:"F6",c:1,t:"dat",b:"有空地时切片树弱",s:"SC30：SA 9.07%｜CRO 28.96%",d:"空地要用虚拟块填，切片结构受限更严重。",e:"With free space, slicing is weak.",src:"tab_main"},
+ {id:"F7",c:1,t:"lit",b:"序列对能表示所有矩形布局",s:"包括非切片",d:"任意不重叠的矩形布局都能写成一个序列对。",e:"Any rectangular layout has a sequence pair.",src:"Murata 1996；Liu & Meller 2007"},
+ {id:"F8",c:1,t:"lit",b:"关系固定后几何是凸问题",s:"面积用旋转锥精确表示",d:"左右上下关系固定后，最小成本的尺寸位置是一个 SOCP；面积约束 w·h ≥ A 写成旋转二阶锥，没有近似（G&R 用外逼近）。",e:"With relations fixed, geometry is a convex SOCP with exact area.",src:"bench/socp.py；Liu & Meller 2007；G&R 2015"},
+ {id:"F9",c:1,t:"dat",b:"一次 SOCP 就有收益",s:"O7 → 131.6532｜SA 在 SC30 平均 −3.08%",d:"把切片布局交给 SOCP 解一次：O7 直接到最优；SC30 上 SA 平均成本降 3.08%。",e:"One SOCP solve reaches O7's optimum and cuts SA's SC30 cost by 3.08%.",src:"method_walkthrough 第 6、7 格"},
+ {id:"F10",c:1,t:"dat",b:"随机序列对起点很差",s:"AB20 +12.32%｜Du62 0/10 可行",d:"第二阶段如果不从好的起点开始，结果很差。",e:"Stage 2 from a random start is poor.",src:"消融 ours_nos1"},
+ {id:"F11",c:1,t:"dat",b:"SA 比 GA、CRO 稳",s:"AB20：SA 0.44%｜GA 23.82%｜CRO 5.37%",d:"同样的切片树编码，SA 的平均结果最好、波动最小。",e:"On the same encoding, SA is best and steadiest.",src:"tab_main"},
+ {id:"F12",c:1,t:"dat",b:"简单方法在大实例上崩",s:"Swap Du62 1/10 可行｜构造法 SC30 195%",d:"纯局部交换和一次性构造不够用。",e:"Pure local swap and one-shot construction break at scale.",src:"tab_main"},
+ {id:"F13",c:1,t:"dat",b:"Du62 的 SOCP 太慢",s:"约 58 ms / 次",d:"62 个部门时一次 SOCP 约 58 ms，时限内只能解几百次。",e:"About 58 ms per SOCP on Du62.",src:"bench2 meta socp_ms"},
+ // decisions
+ {id:"D1",c:2,t:"dec",b:"D1 全局搜索用启发式",s:"不用全局精确模型",d:"取：启发式在时限内可行。避：精确模型在时限内失败。",e:"Use heuristics for the global search.",src:""},
+ {id:"D2",c:2,t:"dec",b:"D2 精确数学留两个用处",s:"给定拓扑求几何｜小实例证最优",d:"取：精确数学的精确性。避：把它用在全局搜索上。",e:"Exact math for geometry and certificates only.",src:""},
+ {id:"D3",c:2,t:"dec",b:"D3 第一阶段：切片树 + SA",s:"一半时间，保留 4 个好布局",d:"取：切片树的天然可行 + SA 的稳。避：GA、纯交换、构造法。",e:"Stage 1: slicing tree + SA.",src:"bench/ours_core.py"},
+ {id:"D4",c:2,t:"dec",b:"D4 第二阶段：序列对搜索",s:"能走出切片结构",d:"取：序列对能表示非切片布局。避：切片树的天花板。",e:"Stage 2: search over sequence pairs.",src:"bench/ours_core.py"},
+ {id:"D5",c:2,t:"dec",b:"D5 每一步用 SOCP 算几何",s:"面积精确",d:"取：凸问题可精确求解。避：面积外逼近（可能不可行）。",e:"Each step solved exactly by SOCP.",src:"bench/socp.py"},
+ {id:"D6",c:2,t:"dec",b:"D6 第二阶段从第一阶段结果开始",s:"转成序列对，保证不变差",d:"避：随机起点。",e:"Start Stage 2 from Stage-1 layouts.",src:"rects_to_sp"},
+ {id:"D7",c:2,t:"dec",b:"D7 预算规则",s:"解不到 3000 次就只抛光",d:"SOCP 太慢时，把时间留给第一阶段。",e:"Polish only when SOCP is too slow.",src:"bench/methods/ours.py"},
+ // result
+ {id:"R1",c:3,t:"res",b:"两阶段方法",s:"5 个实例平均都最低",d:"O7、vC10a 到最优；AB20、SC30、Du62 超过已发表值。如实说明：第二阶段主要在 SC30 起作用；精英池、近邻移动测不出作用。",e:"Lowest mean on all five instances; Stage 2 matters mainly on SC30.",src:"tab_main；tab_ablation；本页③④"}
+];
+var E = [["S1","F1"],["S2","F1"],["S0","F2"],["S0","F3"],["S3","F3"],["S0","F4"],["S4","F4"],["S0","F5"],["S0","F6"],["S4","F6"],
+ ["S5","F7"],["S6","F7"],["S6","F8"],["S7","F8"],["S8","F8"],["S0","F9"],["S0","F10"],["S0","F11"],["S0","F12"],["S9","F12"],["S0","F13"],
+ ["F1","D1"],["F2","D1"],["F3","D2"],["F8","D2"],["F4","D3"],["F11","D3"],["F12","D3"],["F5","D4"],["F6","D4"],["F7","D4"],
+ ["F8","D5"],["F9","D5"],["F10","D6"],["F13","D7"],
+ ["D1","R1"],["D2","R1"],["D3","R1"],["D4","R1"],["D5","R1"],["D6","R1"],["D7","R1"]];
+var byId = {}; N.forEach(function(n){byId[n.id]=n;});
+var board = document.getElementById("board"), svg = document.getElementById("edges"), det = document.getElementById("detail");
+N.forEach(function(n){
+  var el = document.createElement("button"); el.className = "node " + n.t; el.id = "n_" + n.id; el.type = "button";
+  var b = document.createElement("b"); b.textContent = n.b; var s = document.createElement("span"); s.textContent = n.s;
+  el.appendChild(b); el.appendChild(s);
+  el.addEventListener("click", function(){ select(n.id); });
+  document.getElementById("c" + n.c).appendChild(el);
+});
+var paths = [];
+function draw(){
+  var br = board.getBoundingClientRect();
+  svg.setAttribute("viewBox", "0 0 " + br.width + " " + br.height);
+  while (svg.firstChild) svg.removeChild(svg.firstChild);
+  paths = [];
+  E.forEach(function(e){
+    var a = document.getElementById("n_" + e[0]).getBoundingClientRect(), b = document.getElementById("n_" + e[1]).getBoundingClientRect();
+    var x1 = a.right - br.left, y1 = a.top + a.height/2 - br.top, x2 = b.left - br.left, y2 = b.top + b.height/2 - br.top, mx = (x1 + x2)/2;
+    var p = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    p.setAttribute("d", "M" + x1 + "," + y1 + " C" + mx + "," + y1 + " " + mx + "," + y2 + " " + x2 + "," + y2);
+    if (byId[e[0]].t === "lit") p.setAttribute("class", "lit");
+    p.dataset.a = e[0]; p.dataset.b = e[1]; svg.appendChild(p); paths.push(p);
+  });
+  if (cur) select(cur, true);
+}
+var cur = null;
+function reach(id, dir){   // dir 0: upstream, 1: downstream
+  var seen = {}, st = [id];
+  while (st.length){ var x = st.pop(); if (seen[x]) continue; seen[x] = 1;
+    E.forEach(function(e){ if (dir === 0 && e[1] === x) st.push(e[0]); if (dir === 1 && e[0] === x) st.push(e[1]); }); }
+  return seen;
+}
+function select(id, keep){
+  if (!keep && cur === id){ cur = null; board.classList.remove("focus"); document.querySelectorAll(".node.on").forEach(function(x){x.classList.remove("on")}); paths.forEach(function(p){p.classList.remove("on")}); return; }
+  cur = id; var up = reach(id, 0), dn = reach(id, 1), on = {};
+  Object.keys(up).forEach(function(k){on[k]=1}); Object.keys(dn).forEach(function(k){on[k]=1});
+  board.classList.add("focus");
+  N.forEach(function(n){ document.getElementById("n_" + n.id).classList.toggle("on", !!on[n.id]); });
+  paths.forEach(function(p){ var a = p.dataset.a, b = p.dataset.b; p.classList.toggle("on", (up[a] && up[b]) || (dn[a] && dn[b])); });
+  var n = byId[id];
+  det.innerHTML = "";
+  var h = document.createElement("h3"); h.textContent = n.b; det.appendChild(h);
+  var s = document.createElement("p"); s.style.fontFamily = "var(--f-mono)"; s.style.fontSize = "12.5px"; s.textContent = n.s; det.appendChild(s);
+  var p1 = document.createElement("p"); p1.textContent = n.d; det.appendChild(p1);
+  var p2 = document.createElement("p"); p2.className = "en"; p2.textContent = n.e; det.appendChild(p2);
+  if (n.src){ var p3 = document.createElement("p"); p3.className = "src"; p3.textContent = "出处：" + n.src; det.appendChild(p3); }
+}
+window.addEventListener("resize", draw);
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
+setTimeout(draw, 50); draw();
+
+// ---------------- heatmap ----------------
+var M = ["O7","vC10a","AB20","SC30","Du62"];
+var H = [
+ ["Construct（构造法）",[14.747,52.907,75.742,195.513,28.851]],
+ ["Swap（交换法）",[0.027,1.521,10.996,35.619,"10.69*"]],
+ ["GA",[4.667,18.812,23.815,53.282,2.752]],
+ ["SA（切片树）",[0.027,0.000,0.439,9.068,0.846]],
+ ["SA + 一次 SOCP",[0.003,0.000,0.439,5.704,0.845]],
+ ["CRO（J&C 2026 复现）",[0.027,0.000,5.374,28.962,1.795]],
+ ["精确 MINLP（300 s）",[0.000,21.10,null,201.30,null]],
+ ["Ours",[0.000,0.000,-0.007,1.926,0.071]]
+];
+function cls(v){ if (v === null) return "hx"; var x = parseFloat(v); if (x <= 0.1) return "h0"; if (x <= 1) return "h1"; if (x <= 5) return "h2"; if (x <= 20) return "h3"; if (x <= 100) return "h4"; return "h5"; }
+var t = document.createElement("table"); t.className = "heat";
+var hr = t.insertRow(); var th0 = document.createElement("th"); th0.className = "rh"; th0.textContent = "方法 \\ 实例"; hr.appendChild(th0);
+var feat = {"O7":"满铺·小","vC10a":"满铺·细长","AB20":"不对称流量","SC30":"有空地","Du62":"62 个部门"};
+M.forEach(function(m){ var th = document.createElement("th"); th.innerHTML = m + "<br><span style='font-weight:400;font-size:11px'>" + feat[m] + "</span>"; hr.appendChild(th); });
+H.forEach(function(r){
+  var tr = t.insertRow(); if (r[0] === "Ours") tr.className = "us";
+  var th = document.createElement("th"); th.className = "rh"; th.textContent = r[0]; tr.appendChild(th);
+  r[1].forEach(function(v){ var td = tr.insertCell(); td.className = cls(v);
+    td.textContent = v === null ? "无解" : (typeof v === "string" ? v.replace("*", "% 1/10可行") : (v < 0 ? "−" + Math.abs(v).toFixed(2) : v.toFixed(v < 1 ? 3 : 2)) + "%"); });
+});
+document.getElementById("heat").appendChild(t);
+
+// ---------------- ablation chart ----------------
+var A = {
+ "AB20":[["Ours（完整）",-0.01,1],["精英池 = 1",-0.25],["均匀邻居",0.03],["第一阶段 + 一次 SOCP",-0.33],["只第一阶段",-0.41],["去掉第一阶段",12.32]],
+ "SC30":[["Ours（完整）",1.93,1],["精英池 = 1",2.04],["均匀邻居",2.49],["第一阶段 + 一次 SOCP",4.63],["只第一阶段",7.01],["去掉第一阶段",10.38]],
+ "Du62":[["Ours（完整）",0.07,1],["精英池 = 1",0.07],["均匀邻居",0.07],["第一阶段 + 一次 SOCP",0.03],["只第一阶段",0.03],["去掉第一阶段",null]]
+};
+var svgA = document.getElementById("abl"), NS = "http://www.w3.org/2000/svg";
+var labW = 150, panW = 250, gap = 34, rowH = 24, top = 30, W = labW + 3 * panW + 2 * gap + 10, Hh = top + 6 * rowH + 30;
+svgA.setAttribute("viewBox", "0 0 " + W + " " + Hh); svgA.setAttribute("width", W); svgA.setAttribute("height", Hh);
+function el(n, at, txt){ var e = document.createElementNS(NS, n); for (var k in at) e.setAttribute(k, at[k]); if (txt != null) e.textContent = txt; svgA.appendChild(e); return e; }
+A.AB20.forEach(function(r, i){ el("text", {x: labW - 8, y: top + i * rowH + 16, "text-anchor": "end"}, r[0]); });
+Object.keys(A).forEach(function(k, j){
+  var x0 = labW + j * (panW + gap), lo = -1, hi = 14, sc = function(v){ return x0 + (v - lo) / (hi - lo) * panW; };
+  el("text", {x: x0 + panW / 2, y: 16, "text-anchor": "middle", "font-weight": "700"}, k);
+  el("line", {x1: x0, x2: x0 + panW, y1: top + 6 * rowH + 4, y2: top + 6 * rowH + 4, "class": "ax"});
+  [0, 5, 10].forEach(function(v){ el("text", {x: sc(v), y: top + 6 * rowH + 18, "text-anchor": "middle", "class": "val"}, v + "%"); });
+  el("line", {x1: sc(0), x2: sc(0), y1: top - 4, y2: top + 6 * rowH + 4, "class": "zero"});
+  A[k].forEach(function(r, i){
+    var y = top + i * rowH + 4;
+    if (r[1] === null){ el("text", {x: sc(0) + 6, y: y + 12, "class": "na"}, "0/10 可行"); return; }
+    var a = sc(Math.min(0, r[1])), b = sc(Math.max(0, r[1]));
+    el("rect", {x: a, y: y, width: Math.max(b - a, 1.5), height: rowH - 9, "class": r[2] ? "bar full" : "bar"});
+    el("text", {x: (r[1] >= 0 ? b + 4 : a - 4), y: y + 12, "text-anchor": r[1] >= 0 ? "start" : "end", "class": "val"}, (r[1] < 0 ? "−" + Math.abs(r[1]).toFixed(2) : r[1].toFixed(2)) + "%");
+  });
+});
+
+// ---------------- tabs ----------------
+var tabs = [].slice.call(document.querySelectorAll(".tabs button"));
+function show(id){
+  tabs.forEach(function(b){ b.setAttribute("aria-selected", b.dataset.t === id); });
+  ["t1","t2","t3","t4"].forEach(function(t){ document.getElementById(t).hidden = t !== id; });
+  if (id === "t1") setTimeout(draw, 0);
+  try { history.replaceState(null, "", "#" + id); } catch(e){}
+}
+tabs.forEach(function(b){ b.addEventListener("click", function(){ show(b.dataset.t); }); });
+var h0 = (location.hash || "").slice(1); if (["t1","t2","t3","t4"].indexOf(h0) >= 0) show(h0);
+})();
+</script>
