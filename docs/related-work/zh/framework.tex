@@ -1,0 +1,222 @@
+% !TeX program = xelatex
+\documentclass[UTF8,zihao=5,a4paper,fontset=fandol]{ctexart}
+\usepackage[margin=18mm]{geometry}
+\usepackage{tikz}
+\usetikzlibrary{positioning,calc,arrows.meta}
+\usepackage[hidelinks]{hyperref}
+\usepackage{caption}
+\usepackage{booktabs,tabularx,array}
+\captionsetup{font=small,labelfont=bf}
+\setlength{\parskip}{3pt}
+\begin{document}
+\section{相关工作}
+\subsection{设施布局问题及其求解方法的分类}
+设施布局研究可按问题特征、优化目标、布局表示、数学建模、求解方法、空间结构、约束以及数据与评价八个维度组织。
+图~\ref{fig:flp-framework} 综合 Drira 等\cite{drira2007}、P\'{e}rez-Gosende 等\cite{perez2021}、Anjos 与 Vieira\cite{anjos2017}、Ahmadi 等\cite{ahmadi2017}及 Liu\cite{liu2004}的研究视角。这些维度相互补充，同一项研究可同时具有多种特征。该图是针对所选文献的综合整理，不代表全部 FLP 变体或最新算法的穷尽性分类。
+\begin{center}
+\begin{tikzpicture}[
+  box/.style={draw=black,fill=white,line width=.45pt,rectangle,
+    align=center,inner xsep=4pt,inner ysep=3pt,font=\small},
+  root/.style={box,text width=1.85cm},
+  category/.style={box,text width=2.8cm},
+  leaf/.style={box,text width=8.0cm,minimum height=.47cm,font=\footnotesize},
+  link/.style={draw=black,line width=.45pt,-{Stealth[length=1.4mm,width=1.0mm]}}
+]
+\node[leaf] (l11) at (9.65,0.000) {布局单元：部门、设备、工作站};
+\node[leaf] (l12) at (9.65,-0.650) {部门几何：等面积／不等面积、形状与尺寸};
+\node[leaf] (l13) at (9.65,-1.300) {时间条件：静态布局／动态布局};
+\node[leaf] (l14) at (9.65,-1.950) {规划情境：新建布局／现有布局重排};
+\node[category] (c1) at (3.15,-0.975) {问题特征};
+\node[leaf] (l21) at (9.65,-2.920) {物料搬运成本与运输距离};
+\node[leaf] (l22) at (9.65,-3.570) {空间利用率、拥堵与重排成本};
+\node[leaf] (l23) at (9.65,-4.220) {单目标优化／多目标优化};
+\node[category] (c2) at (3.15,-3.570) {优化目标};
+\node[leaf] (l31) at (9.65,-5.190) {离散位置指派};
+\node[leaf] (l32) at (9.65,-5.840) {连续坐标与尺寸};
+\node[leaf] (l33) at (9.65,-6.490) {切片树与柔性分区结构};
+\node[leaf] (l34) at (9.65,-7.140) {序列对表示};
+\node[category] (c3) at (3.15,-6.165) {布局表示方式};
+\node[leaf] (l41) at (9.65,-8.110) {离散指派模型：二次指派问题（QAP）};
+\node[leaf] (l42) at (9.65,-8.760) {连续空间模型：混合整数线性／非线性规划};
+\node[leaf] (l43) at (9.65,-9.410) {松弛与界限：线性规划、半定规划};
+\node[category] (c4) at (3.15,-8.760) {数学建模方式};
+\node[leaf] (l51) at (9.65,-10.380) {精确方法：分支定界、分支切割};
+\node[box,text width=2.15cm] (l52) at (6.15,-11.355) {启发式方法};
+\node[leaf,text width=5.2cm] (l52a) at (10.95,-11.030) {传统启发式：构造式、改进式};
+\node[leaf,text width=5.2cm] (l53) at (10.95,-11.680) {元启发式：遗传算法、模拟退火、禁忌搜索};
+\node[leaf] (l54) at (9.65,-12.330) {混合方法：搜索结合数学规划或仿真};
+\node[category] (c5) at (3.15,-11.355) {求解方法};
+\node[leaf] (l61) at (9.65,-13.300) {单行、多行、开放平面布局};
+\node[leaf] (l62) at (9.65,-13.950) {单层布局／多层布局};
+\node[leaf] (l63) at (9.65,-14.600) {多层决策：楼层分配、层内排布、垂直运输};
+\node[category] (c6) at (3.15,-13.950) {空间结构与决策};
+\node[leaf] (l71) at (9.65,-15.570) {几何约束：面积、长宽比、边界、不重叠};
+\node[leaf] (l72) at (9.65,-16.220) {位置约束：固定位置、朝向、邻接、净距};
+\node[leaf] (l73) at (9.65,-16.870) {通行约束：通道、障碍物、输入／输出点};
+\node[leaf] (l74) at (9.65,-17.520) {应用要求：安全、建筑条件、预算};
+\node[category] (c7) at (3.15,-16.545) {布局约束};
+\node[leaf] (l81) at (9.65,-18.490) {输入数据：面积、流量、成本、关系需求};
+\node[leaf] (l82) at (9.65,-19.140) {数据假设：确定性／不确定性};
+\node[leaf] (l83) at (9.65,-19.790) {评价方式：解析计算或仿真；方案比较};
+\node[category] (c8) at (3.15,-19.140) {数据与评价};
+\node[root] (root) at (0,-10.058) {设施布局\\相关文献};
+\draw[link] (root.east) -- (1.3,0 |- root.east);
+\draw[black,line width=.45pt] (1.3,-0.975) -- (1.3,-19.140);
+\draw[link] (1.3,0 |- c1.west) -- (c1.west);
+\draw[black,line width=.45pt] (c1.east) -- (4.95,-0.975);
+\draw[black,line width=.45pt] (4.95,0 |- l11.west) -- (4.95,0 |- l14.west);
+\draw[link] (4.95,0 |- l11.west) -- (l11.west);
+\draw[link] (4.95,0 |- l12.west) -- (l12.west);
+\draw[link] (4.95,0 |- l13.west) -- (l13.west);
+\draw[link] (4.95,0 |- l14.west) -- (l14.west);
+\draw[link] (1.3,0 |- c2.west) -- (c2.west);
+\draw[black,line width=.45pt] (c2.east) -- (4.95,-3.570);
+\draw[black,line width=.45pt] (4.95,0 |- l21.west) -- (4.95,0 |- l23.west);
+\draw[link] (4.95,0 |- l21.west) -- (l21.west);
+\draw[link] (4.95,0 |- l22.west) -- (l22.west);
+\draw[link] (4.95,0 |- l23.west) -- (l23.west);
+\draw[link] (1.3,0 |- c3.west) -- (c3.west);
+\draw[black,line width=.45pt] (c3.east) -- (4.95,-6.165);
+\draw[black,line width=.45pt] (4.95,0 |- l31.west) -- (4.95,0 |- l34.west);
+\draw[link] (4.95,0 |- l31.west) -- (l31.west);
+\draw[link] (4.95,0 |- l32.west) -- (l32.west);
+\draw[link] (4.95,0 |- l33.west) -- (l33.west);
+\draw[link] (4.95,0 |- l34.west) -- (l34.west);
+\draw[link] (1.3,0 |- c4.west) -- (c4.west);
+\draw[black,line width=.45pt] (c4.east) -- (4.95,-8.760);
+\draw[black,line width=.45pt] (4.95,0 |- l41.west) -- (4.95,0 |- l43.west);
+\draw[link] (4.95,0 |- l41.west) -- (l41.west);
+\draw[link] (4.95,0 |- l42.west) -- (l42.west);
+\draw[link] (4.95,0 |- l43.west) -- (l43.west);
+\draw[link] (1.3,0 |- c5.west) -- (c5.west);
+\draw[black,line width=.45pt] (c5.east) -- (4.95,-11.355);
+\draw[black,line width=.45pt] (4.95,0 |- l51.west) -- (4.95,0 |- l54.west);
+\draw[link] (4.95,0 |- l51.west) -- (l51.west);
+\draw[link] (4.95,0 |- l52.west) -- (l52.west);
+\draw[black,line width=.45pt] (l52.east) -- (7.75,0 |- l52.east);
+\draw[black,line width=.45pt] (7.75,0 |- l52a.west) -- (7.75,0 |- l53.west);
+\draw[link] (7.75,0 |- l52a.west) -- (l52a.west);
+\draw[link] (7.75,0 |- l53.west) -- (l53.west);
+\draw[link] (4.95,0 |- l54.west) -- (l54.west);
+\draw[link] (1.3,0 |- c6.west) -- (c6.west);
+\draw[black,line width=.45pt] (c6.east) -- (4.95,-13.950);
+\draw[black,line width=.45pt] (4.95,0 |- l61.west) -- (4.95,0 |- l63.west);
+\draw[link] (4.95,0 |- l61.west) -- (l61.west);
+\draw[link] (4.95,0 |- l62.west) -- (l62.west);
+\draw[link] (4.95,0 |- l63.west) -- (l63.west);
+\draw[link] (1.3,0 |- c7.west) -- (c7.west);
+\draw[black,line width=.45pt] (c7.east) -- (4.95,-16.545);
+\draw[black,line width=.45pt] (4.95,0 |- l71.west) -- (4.95,0 |- l74.west);
+\draw[link] (4.95,0 |- l71.west) -- (l71.west);
+\draw[link] (4.95,0 |- l72.west) -- (l72.west);
+\draw[link] (4.95,0 |- l73.west) -- (l73.west);
+\draw[link] (4.95,0 |- l74.west) -- (l74.west);
+\draw[link] (1.3,0 |- c8.west) -- (c8.west);
+\draw[black,line width=.45pt] (c8.east) -- (4.95,-19.140);
+\draw[black,line width=.45pt] (4.95,0 |- l81.west) -- (4.95,0 |- l83.west);
+\draw[link] (4.95,0 |- l81.west) -- (l81.west);
+\draw[link] (4.95,0 |- l82.west) -- (l82.west);
+\draw[link] (4.95,0 |- l83.west) -- (l83.west);
+\end{tikzpicture}
+\captionof{figure}{设施布局问题与方法的综合分类。根据文献\cite{drira2007,perez2021,anjos2017,ahmadi2017,liu2004}整理。各分支表示分析维度；不同方法类别可能交叉。}
+\label{fig:flp-framework}
+\end{center}
+\clearpage
+\subsection{问题特征、优化目标与约束}
+首先需要明确布局对象及其规划条件。加工、装配、仓储等功能类型，应与部门的几何属性区分。例如，仓储部门可以是矩形部门，也可以具有固定位置，或涉及多个楼层；这些条件对应不同的建模要求。一般性 FLP 分类还区分静态与动态规划，以及新建布局与现有设施重排\cite{drira2007,perez2021}。因此，方法选择应建立在明确的问题定义之上，不能仅根据部门的功能名称确定算法。
+
+优化目标规定布局质量的衡量方式。常见目标包括物料搬运成本和运输距离，也可涉及空间利用率、运行表现与未来重排成本\cite{drira2007,perez2021}。当多个目标相互冲突时，需要说明采用具有依据的加权目标，还是比较非支配方案。若评价模型没有纳入运输能力、排队与路径限制，则不能仅凭几何距离缩短，就断言实际运行效率得到改善。
+
+约束决定哪些布局可行。面积需求、形状限制、厂房边界和部门不重叠构成基本几何条件；固定位置、通行要求与既有通道结构则引入进一步的工程限制\cite{anjos2017,liu2004}。需要共享边界或保持安全间距时，应明确设置邻接或分离条件。两个部门之间存在物流，并不自动意味着它们必须接壤。建筑与安全要求应根据实际案例转化为明确约束。
+
+\subsection{布局表示、数学建模与求解方法}
+布局表示说明候选方案如何编码。坐标与尺寸直接描述几何位置；切片树、柔性分区结构和序列对则表达空间结构或相对次序\cite{anjos2017,liu2004}。表示方式会影响可探索的布局范围及解码过程，不能在未分析其限制的情况下，假定一种结构编码覆盖所有可行几何布局。
+
+数学建模进一步定义决策变量、目标函数和约束。离散位置指派通常可以用二次指派问题（QAP）表述。连续空间模型则直接确定坐标与尺寸，常采用混合整数线性或非线性规划。线性规划、半定规划等松弛模型可用于获得界限，支持数学优化与结果评价\cite{anjos2017}。松弛模型的解通常不保证是原问题的可行布局，因此，最小化问题的下界应与可行方案的目标值区别报告。
+
+性能评价是另一项独立任务。对于简化模型，解析距离和成本函数可能已经足够；涉及运输、排队和拥堵时，可利用仿真评估运行表现\cite{perez2021,ahmadi2017}。仿真本身主要评价候选方案，不会自动规定如何搜索新布局，因此可以与优化过程结合使用。
+
+求解方法决定如何探索表示或模型定义的方案空间。精确方法在完成必要搜索、并获得足够的界限信息时，可以证明全局最优；构造式、改进式和元启发式方法通常以获得优质可行解为目的，不提供一般性的全局最优保证\cite{drira2007}。传统启发式和元启发式均属于广义的启发式方法。
+
+混合方法结合不同组件的优势。例如，Liu 使用遗传算法搜索序列对，并结合数学规划确定部门的具体位置和尺寸\cite{liu2004}。因此，布局表示、数学建模和求解算法是相互关联的选择，而不是三种互斥方法。
+
+\subsection{空间结构、多层楼宇影响与评价}
+多层布局将部门的楼层分配与各层内部排布耦合起来。垂直运输进一步引入电梯位置、使用方式及跨层成本等因素\cite{ahmadi2017}。单独看某一楼层较好的方案，在考虑跨层物流后可能不再有利。层高、结构承载和可用面积属于依赖具体建筑与模型范围的工程要求，不能假定每个多层布局模型都已考虑这些条件。
+
+相关分类也区分布局生成和评价所依赖的数据假设\cite{drira2007,perez2021}。除面积和物流数据外，模型还可能使用成本参数、定性关系需求，以及确定性或不确定性需求假设。不同研究若采用不同的目标、距离定义或几何限制，其结果便不能直接作为算法优劣排名。比较时应明确实例数据和可行性条件，并报告解质量与计算开销。对于随机搜索算法，还应关注重复运行的结果差异。
+
+\subsection{所选文献的贡献比较}
+所引用研究的贡献层次不同，见表~\ref{tab:review-comparison}。Drira 等\cite{drira2007}提供一般性的问题与方法分类；P\'{e}rez-Gosende 等\cite{perez2021}将规划视角延伸到方案生成与评价；Anjos 与 Vieira\cite{anjos2017}侧重数学模型与优化技术；Ahmadi 等\cite{ahmadi2017}专门讨论多层布局；Liu\cite{liu2004}则提出结合表示、搜索与数学规划的具体方法。因此，应按研究范围和决策覆盖程度比较这些贡献，而不能将其视为条件完全相同的算法对照实验。
+
+\begin{table}[htbp]
+\centering
+\caption{所选文献的研究范围、贡献与使用边界}
+\label{tab:review-comparison}
+\small
+\renewcommand{\arraystretch}{1.22}
+\begin{tabularx}{\textwidth}{@{}p{.19\textwidth} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{文献} & \textbf{主要贡献} & \textbf{用途与解释边界} \\
+\midrule
+Drira 等\cite{drira2007}
+& 对 FLP 的问题特征、建模方式与求解方法进行一般性分类。
+& 建立术语与分析维度，不构成本项目各算法在统一条件下的排名。 \\
+\addlinespace
+P\'{e}rez-Gosende 等\cite{perez2021}
+& 扩展综述规划条件，以及布局方案的生成和评价。
+& 连接优化与规划评价；文献覆盖范围不等于所有方法的统一计算实验。 \\
+\addlinespace
+Anjos 与 Vieira\cite{anjos2017}
+& 梳理数学优化模型、松弛与求解技术。
+& 支持模型选择和界限分析，适用性取决于具体几何条件与建模假设。 \\
+\addlinespace
+Ahmadi 等\cite{ahmadi2017}
+& 讨论多层布局的问题特征、模型及求解方法。
+& 识别楼层分配与垂直运输因素，不能将单层结果不加修改地用于多层情境。 \\
+\addlinespace
+Liu\cite{liu2004}
+& 将序列对搜索与数学规划结合，并扩展至固定部门、通道及非矩形部门。
+& 展示具体混合方法；各扩展依赖相应的几何限制与修复过程。 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+上述比较支持以问题需求为基础选择方法：表示方式应容纳目标布局，模型应捕捉几何和运行限制，搜索算法则应在可比的计算条件下接受评价。该综合框架为选择提供依据，但不证明某一种算法普遍优越。尤其在扩展至多层楼宇时，应明确处理楼层分配与跨层运输，不能仅依据二维布局的目标值判断整体方案质量。
+
+\begin{thebibliography}{9}
+\bibitem{drira2007}
+A. Drira, H. Pierreval, and S. Hajri-Gabouj,
+``Facility layout problems: A survey,''
+\textit{Annual Reviews in Control}, vol. 31, no. 2, pp. 255--267, 2007,
+doi: \href{https://doi.org/10.1016/j.arcontrol.2007.04.001}{10.1016/j.arcontrol.2007.04.001}.
+
+\bibitem{perez2021}
+P. P\'{e}rez-Gosende, J. Mula, and M. D\'{i}az-Madro\~nero,
+``Facility layout planning. An extended literature review,''
+\textit{International Journal of Production Research}, vol. 59, no. 12,
+pp. 3777--3816, 2021,
+doi: \href{https://doi.org/10.1080/00207543.2021.1897176}{10.1080/00207543.2021.1897176}.
+
+\bibitem{anjos2017}
+M. F. Anjos and M. V. C. Vieira,
+``Mathematical optimization approaches for facility layout problems:
+The state-of-the-art and future research directions,''
+\textit{European Journal of Operational Research}, vol. 261, no. 1,
+pp. 1--16, 2017,
+doi: \href{https://doi.org/10.1016/j.ejor.2017.01.049}{10.1016/j.ejor.2017.01.049}.
+
+\bibitem{ahmadi2017}
+A. Ahmadi, M. S. Pishvaee, and M. R. Akbari Jokar,
+``A survey on multi-floor facility layout problems,''
+\textit{Computers \& Industrial Engineering}, vol. 107, pp. 158--170, 2017,
+doi: \href{https://doi.org/10.1016/j.cie.2017.03.015}{10.1016/j.cie.2017.03.015}.
+
+\bibitem{liu2004}
+Q. Liu, ``A sequence-pair and mixed integer programming based methodology
+for the facility layout problem,'' Ph.D. dissertation, Dept. Ind. Syst. Eng.,
+Virginia Polytechnic Institute and State University, Blacksburg, VA, USA, 2004.
+[Online]. Available:
+\url{https://vtechworks.lib.vt.edu/server/api/core/bitstreams/34c76035-26bc-4ee1-a580-86711cd7b4c9/content}
+\end{thebibliography}
+
+\end{document}

@@ -20,6 +20,7 @@ baselines** that our own method (CP-SAT + agent planning layer) will be compared
 | `flp/` | loader, evaluator, FBS decoder |
 | `tests/` | evaluator validation against published solutions |
 | `docs/` | experiment protocol and decisions |
+| [`docs/related-work/`](docs/related-work/) | literature classification, English and Chinese LaTeX, and Chinese PDF |
 | `baselines/` | reproductions of published methods (in progress) |
 
 ## Quick start
