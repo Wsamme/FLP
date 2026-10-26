@@ -61,6 +61,7 @@ REWARD, VWORST = int(_V[0]), int(_V[1])
 # slicing/bay baselines), "stretch" (all areas scaled by W H / sum A so the bays fill the floor), "strip"
 # (exact areas, free area left as one strip after the last bay).
 EMPTY = _os.environ.get("LSA_EMPTY", "dummy")
+PENSCALE = float(_os.environ.get("LSA_PENSCALE", 1.0))   # diagnostics only: multiplier on V_worst
 
 
 @njit(cache=True)
@@ -291,7 +292,7 @@ def chunk(s, b, f, c, ni, o, T, nm, Q, times, eps, A, W, H, alpha, pi, pj, pw, v
                     op = k
         ns[:] = s; nbk[:] = b
         apply_op(op, ns, nbk, A, W, H, alpha, o, buf, tmp_s, tmp_b)
-        f2, c2, n2, o2 = fitness(ns, nbk, A, W, H, alpha, pi, pj, pw, vw[0], buf)
+        f2, c2, n2, o2 = fitness(ns, nbk, A, W, H, alpha, pi, pj, pw, vw[0] * vw[1], buf)
         stats[0] += 1; stats[2 + op] += 1
         if n2 == 0:
             if c2 > vw[0]:
@@ -303,7 +304,7 @@ def chunk(s, b, f, c, ni, o, T, nm, Q, times, eps, A, W, H, alpha, pi, pj, pw, v
         d = f2 - f
         if d < 0 or np.random.random() < math.exp(-abs(d) / T):
             s[:] = ns; b[:] = nbk
-            f, c, ni, o, ne = local_search(s, b, f2, A, W, H, alpha, pi, pj, pw, vw[0], buf, tmp_s, tmp_b, ts, tb)
+            f, c, ni, o, ne = local_search(s, b, f2, A, W, H, alpha, pi, pj, pw, vw[0] * vw[1], buf, tmp_s, tmp_b, ts, tb)
             stats[0] += ne; stats[1] += 1
             if ni == 0:
                 if c > vw[0]:
@@ -383,10 +384,10 @@ def solve(prob, seed, time_limit, log=print):
         init = "random"                            # [ours] fallback: one bay per facility, random order
         s[:] = rng.permutation(n); b[:] = 1
     f, c, ni, o = fitness(s, b, A, W, H, al, pi, pj, pw, 0.0, buf)
-    vw = np.array([c if ni == 0 else 0.0])
+    vw = np.array([c if ni == 0 else 0.0, PENSCALE])   # [V_worst, scale]
     if ni > 0:                                     # no feasible solution yet: penalty from the cost scale
         vw[0] = c
-    f, c, ni, o = fitness(s, b, A, W, H, al, pi, pj, pw, vw[0], buf)
+    f, c, ni, o = fitness(s, b, A, W, H, al, pi, pj, pw, vw[0] * vw[1], buf)
     gs = s.copy(); gb = b.copy(); gstate = np.array([c if ni == 0 else np.inf, float(o)])
 
     # --- initial temperature: 100 neighbours, 90th smallest |delta| ---
@@ -394,7 +395,7 @@ def solve(prob, seed, time_limit, log=print):
     for _ in range(100):
         ns[:] = s; nbk[:] = b
         apply_op(int(rng.integers(4)), ns, nbk, A, W, H, al, o, buf, tmp_s, tmp_b)
-        ds.append(abs(fitness(ns, nbk, A, W, H, al, pi, pj, pw, vw[0], buf)[0] - f))
+        ds.append(abs(fitness(ns, nbk, A, W, H, al, pi, pj, pw, vw[0] * vw[1], buf)[0] - f))
     ds.sort(); T0 = ds[89] if ds[89] > 0 else max(max(ds), 1e-9)
 
     Q = np.zeros(4); times = np.zeros(4); stats = np.zeros(6, np.int64)
