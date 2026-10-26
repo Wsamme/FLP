@@ -96,7 +96,7 @@ svg.abl .na{font-family:var(--f-mono);font-size:11px;fill:var(--muted)}
 .vhit b{font-family:var(--f-mono);font-size:12px;border:1px solid var(--ink);padding:0 5px;margin-right:4px}
 .vhit .act{display:block;margin-top:4px}
 .vhead{font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;color:var(--muted);text-transform:uppercase}
-.imp{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:10px}
+.imp{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:10px}
 .imp div{border:1.5px solid var(--ink);padding:10px 12px;font-size:13px;min-width:0}
 .imp div b{display:block;font-size:14px;margin-bottom:3px}
 @media (max-width:860px){.vrow{grid-template-columns:minmax(0,1fr)} .verdict{justify-content:flex-start} .imp{grid-template-columns:minmax(0,1fr)} .vhead-row{display:none}}
@@ -215,7 +215,7 @@ svg.abl .na{font-family:var(--f-mono);font-size:11px;fill:var(--muted)}
   <div class="vrow"><div class="vyear">2016<small>Anjos &amp; Vieira</small><em>Optimization Letters 10</em></div>
     <div class="vwhat">两阶段：先用非线性近似模型定"谁在谁旁边"，再用<b>精确凸优化模型</b>定最终布局；在文献实例和最多 100 个部门的新实例上，结果有竞争力、常常更好。<span class="en">Two stages: an approximation fixes relative positions, an exact convex model fixes the final layout; up to 100 departments.</span></div>
     <div class="verdict"><span class="ch">挑战</span></div>
-    <div class="vhit"><b>D2</b><b>D5</b>"先定拓扑、再精确凸优化几何"不是我们首创。他们 2021 年的书（Facility Layout §4.4，你的 01_文献 里有）写明：第二阶段就是固定相对位置后的 SOCO，面积约束 ‖(w−h, 2√A)‖ ≤ w+h 和我们完全一样；第一阶段可以是吸引–排斥非线性模型，也可以是<b>在序列对上的 GA</b>。<span class="act">→ 报告必须引用并写清区别：我们第一阶段是切片树搜索，第二阶段在序列对上继续搜索（他们第一阶段是一个近似模型）。最好补一组对比。</span></div></div>
+    <div class="vhit"><b>D2</b><b>D5</b>"先定拓扑、再精确凸优化几何"不是我们首创。他们 2021 年的书（Facility Layout §4.4，你的 01_文献 里有）写明：第二阶段就是固定相对位置后的 SOCO，面积约束 ‖(w−h, 2√A)‖ ≤ w+h 和我们完全一样；第一阶段可以是吸引–排斥非线性模型，也可以是<b>在序列对上的 GA</b>。<b style="display:block;margin-top:6px">全文里的数（10-26 读到）：vC10 24,746.7（我们 18,522.79），SC30 长宽比 5 时 4,342.8（我们 3,301.27），比我们差 34% 和 32%。</b><span class="act">→ 报告必须引用并写清区别：我们第一阶段是切片树搜索，第二阶段在序列对上继续搜索（他们第一阶段是一个近似模型）。同样的凸模型，结果差这么多，说明收益来自搜索部分。</span></div></div>
   <div class="vrow"><div class="vyear">2017<small>Huchette, Dey &amp; Vielma</small><em>arXiv 1602.07760</em></div>
     <div class="vwhat">给布局问题写出更强的混合整数公式，"能解以前解不了的实例"。<span class="en">Stronger MIP formulations solve previously unsolved instances.</span></div>
     <div class="verdict"><span class="mo">修正</span></div>
@@ -240,35 +240,61 @@ svg.abl .na{font-family:var(--f-mono);font-size:11px;fill:var(--muted)}
     <div class="vwhat">知识图谱 + LLM 给布局问题选算法：30–40 个部门、带长宽比的不等面积问题，推荐 BRKGA-LP / GA-LP。<span class="en">KG + LLM algorithm selection recommends BRKGA-LP / GA-LP for 30–40 departments with aspect limits.</span></div>
     <div class="verdict"><span class="mo">修正</span></div>
     <div class="vhit"><b>D1</b><b>Agent</b>支持"元启发式 + 数学规划"的混合路线，也支持 LLM 只放在入口。但我们只引用了 BRKGA-LP（G&amp;R 2015）的已发表值，没跑它。<span class="act">→ 把 BRKGA-LP 补成对比基线。</span></div></div>
+  <div class="vrow"><div class="vyear">2017<small>Paes, Pessoa &amp; Vidal</small><em>EJOR 256(3) · 全文</em></div>
+    <div class="vwhat">混合 GA + 分解：先限定"部门不跨坐标轴"的结构，再拆开重建。承认这个结构可能让最好解变差，但大实例上搜得更好。<span class="en">Hybrid GA with decomposition; an imposed structure may cost optimality but helps search on large instances.</span></div>
+    <div class="verdict"><span class="">支持</span></div>
+    <div class="vhit"><b>D3</b>"先用受限结构搜、接受一点损失"是常见做法，和我们第一阶段用切片树一样。它的实例是不限厂房大小、形状固定，<b>数不能和我们比</b>。<span class="act">→ 只在相关工作里引用。</span></div></div>
+  <div class="vrow"><div class="vyear">2024<small>Lin, Shen, Wu &amp; Zhong</small><em>Soft Computing 28 · 全文</em></div>
+    <div class="vwhat">学习型模拟退火（LSA）：条带结构（FBS）编码，强化学习挑选邻域操作，罚分允许暂时不可行。16 个实例，每个跑 30 次。<span class="en">Learning-based SA on flexible bays; 30 runs per instance.</span></div>
+    <div class="verdict"><span class="ch">挑战</span></div>
+    <div class="vhit"><b>R1</b>Du62（同一厂房、同长宽比 4）最好 3,621,678.59，<b>比我们 10 次里最好的低 0.22%</b>，每次 145 s，和我们 150 s 相当。但平均值我们好 0.39%；SC30 我们最好值好 7.5%、平均好 8.7%。<span class="act">→ 报告里不能说"Du62 上我们最好"，只能说"平均更好、最好值接近"。它的布局没公开，没法复算。</span></div></div>
   <div class="vrow"><div class="vyear">2026<small>Jeong &amp; Chae</small><em>J. Eng. Research 14</em></div>
     <div class="vwhat">珊瑚礁优化 + 切片树，报了 5 个基准的最好值。<span class="en">CRO + slicing tree, best values on our 5 benchmarks.</span></div>
     <div class="verdict"><span class="">支持</span></div>
     <div class="vhit"><b>D3</b>切片树编码是当前元启发式的主流表示；我们复现了它，并在 AB20、SC30、Du62 上超过了它。</div></div>
-  <h3 style="margin:22px 0 4px;font-size:16px">因此要加的 4 个改进项 / 4 resulting action items</h3>
+  <h3 style="margin:22px 0 4px;font-size:16px">因此要加的改进项 / Resulting action items</h3>
   <div class="imp">
-    <div><b>I1 · 对比 Anjos &amp; Vieira 2016</b>引用并写清区别；能拿到实例和结果的话，补一组对比。</div>
+    <div><b>I1 · 对比 Anjos &amp; Vieira 2016</b>已用全文的数补上（⑥），我们在 vC10、SC30 上好 34% 和 32%。剩下：报告里写清区别。</div>
     <div><b>I2 · 更强的精确基线</b>用 Huchette 等的公式做下界或证明，报真实差距。</div>
     <div><b>I3 · CP-SAT 热启动</b>真实工厂离散化后，用第一阶段结果当提示。</div>
     <div><b>I4 · 补跑 BRKGA-LP</b>目前只有它的已发表值，没有同协议的运行。</div>
+    <div><b>I5 · Du62 补一组 30 次运行</b>和 Lin 2024 同样 30 次、约 150 s，比最好值和平均值。这是现在唯一被已发表值压过的格子。</div>
   </div>
-  <p class="foot">核实范围：以上内容来自各文献的摘要或出版页（Ekstedt 2025 来自 Chalmers 出版页；Anjos &amp; Vieira 2016 来自 Springer 页面；Huchette 2017、Gibson 2025、Nikhil 2025 来自 arXiv；Bozer &amp; Wang 2012 来自 RePEc 目录）。全文多在付费墙后，具体数字表没读到。Heinbach 2025 的数字来自项目文档 02，今天出版页打不开，未重新核实。</p>
+  <p class="foot">核实范围：以上内容来自各文献的摘要或出版页（Ekstedt 2025 来自 Chalmers 出版页；Huchette 2017、Gibson 2025、Nikhil 2025 来自 arXiv；Bozer &amp; Wang 2012 来自 RePEc 目录）。Anjos &amp; Vieira 2016、Paes 2017、Lin 2024 已读全文（10-26 下载），其余全文仍在付费墙后。Heinbach 2025 的数字来自项目文档 02，今天出版页打不开，未重新核实。</p>
 </section>
 <!-- TAB 6 -->
 <section id="t6" class="tab" hidden>
-  <p class="lede">不重跑，直接用论文里报的数。每行是一篇论文在这个实例上的<b>最好值</b>，条形是它和我们"10 次协议运行里最好那次"的差：<b>实心向右 = 我们更好</b>，斜线向左 = 它更好。<span class="en">Published best values, no reruns. Bar = difference from our best protocol run: solid right = ours better; hatched left = theirs better.</span></p>
+  <p class="lede">不重跑，直接用论文里报的数（★新 = 你 10-26 下载的全文里读到的）。每行是一篇论文在这个实例上的<b>最好值</b>，条形是它和我们"10 次协议运行里最好那次"的差：<b>实心向右 = 我们更好</b>，斜线向左 = 它更好。<span class="en">Published best values, no reruns. Bar = difference from our best protocol run: solid right = ours better; hatched left = theirs better.</span></p>
   <div class="legend">
     <span><span class="tg">精确面积</span>面积按真实约束</span>
     <span><span class="tg w">面积外逼近</span>原文用线性化，面积可能偏小（J&amp;C 2026 注）</span>
     <span><span class="tg w">未核实</span>我们没拿到布局复算</span>
   </div>
   <div class="chart"><table class="cmp" id="cmp"></table></div>
-  <h3 style="margin:22px 0 4px;font-size:16px">这张表还缺的三篇（需要全文）/ Missing from this table</h3>
+  <h3 style="margin:22px 0 4px;font-size:16px">只看"最好一次"不公平，再看平均值 / Means, not just bests</h3>
+  <div class="chart"><table class="cmp" style="min-width:560px">
+    <tr><th>实例</th><th>方法</th><th style="text-align:right">运行次数</th><th style="text-align:right">每次时间</th><th style="text-align:right">平均值</th><th style="text-align:right">我们的平均值</th><th style="text-align:right">差</th></tr>
+    <tr><td>AB20</td><td>Kang &amp; Chae 2017</td><td class="v">30</td><td class="v">≈45 s</td><td class="v">5,710.91</td><td class="v">5,020.81</td><td class="v">我们好 13.7%</td></tr>
+    <tr><td>SC30</td><td>Lin 等 2024</td><td class="v">30</td><td class="v">39 s</td><td class="v">3,705.52</td><td class="v">3,407.85</td><td class="v">我们好 8.7%</td></tr>
+    <tr><td>SC30</td><td>Kang &amp; Chae 2017</td><td class="v">30</td><td class="v">≈260 s</td><td class="v">4,400.68</td><td class="v">3,407.85</td><td class="v">我们好 29.1%</td></tr>
+    <tr><td>Du62</td><td>Lin 等 2024</td><td class="v">30</td><td class="v">145 s</td><td class="v">3,652,025</td><td class="v">3,637,888.92</td><td class="v">我们好 0.39%</td></tr>
+    <tr><td>Du62</td><td>Kang &amp; Chae 2017</td><td class="v">30</td><td class="v">≈510 s</td><td class="v">3,730,550.23</td><td class="v">3,637,888.92</td><td class="v">我们好 2.55%</td></tr>
+  </table></div>
+  <p class="foot" style="margin-top:6px">我们：10 个种子，每次 60 s（AB20、SC30）或 150 s（Du62）。机器不同，时间只能粗看。差 = (它的平均 − 我们的平均) / 我们的平均。<span class="en">Ours: 10 seeds, 60 s or 150 s per run. Different machines, so times are rough.</span></p>
+
+  <h3 style="margin:22px 0 4px;font-size:16px">你下载的 5 篇读完后 / What the 5 papers changed</h3>
   <div class="need">
-    <div><b>Lin 等 2024 · Soft Computing 28</b>学习型模拟退火，16 个标准实例，自称超过 7 个已知最好值。<b style="display:inline">最可能改写这张表。</b></div>
-    <div><b>Paes, Pessoa &amp; Vidal 2017 · EJOR 256(3)</b>带分解的混合 GA，J&amp;C 2026 的对比里没有它。</div>
-    <div><b>Anjos &amp; Vieira 2016 · Optim. Letters 10(7)</b>和我们同结构的两阶段方法，看它在这些实例上的数。</div>
+    <div><b>Lin 等 2024 · LSA（最新）</b>Du62 最好 3,621,678.59，比我们 10 次里最好的低 0.22%，是这张表里<b style="display:inline">唯一在同一题上胜过我们协议最好值的</b>。但平均值我们好 0.39%，SC30 我们好 7.5%（最好）/ 8.7%（平均）。它用条带结构，布局没公开，没法复算。</div>
+    <div><b>Anjos &amp; Vieira 2016 · 同结构两阶段</b>第二阶段和我们一样是精确凸模型。vC10 24,746.7、SC30 4,342.8，分别比我们差 34% 和 32%。说明差别在第一阶段和后续搜索上，不在凸模型本身。</div>
+    <div><b>Kang &amp; Chae 2017 · 核实口径</b>vC10a 18,522.79 是 CPLEX 证过的最优，我们等于它。Du62 的 3,635,307.3 是在 10 种厂房尺寸里跑的，原文没说最好值是哪种。</div>
   </div>
-  <p class="foot">来源：Jeong &amp; Chae 2026 表 8–10（含 Castillo 2005、Komarudin &amp; Wong 2010、Kulturel-Konak &amp; Konak 2011、Kulturel-Konak 2012、Scholz 2012、Chang &amp; Ku 2013、Ulutas &amp; Kulturel-Konak 2013、Gonçalves &amp; Resende 2015、Kang &amp; Chae 2017、Palomo-Romero 2017 的值）；O7 最优值来自 MINLPLib。我们的值：实验一协议运行（每次 20–150 s，10 个种子）的最好一次；"我们的记录"是更长的单独运行，SC30、Du62 的记录布局文件目前找不到。</p>
+  <h3 style="margin:22px 0 4px;font-size:16px">不能放进上表的数 / Numbers that are not comparable</h3>
+  <div class="need">
+    <div><b>Paes 等 2017 · L062 = 3,650,789.50</b>厂房不限大小，部门形状固定、可旋转。和我们的 Du62（117.124 × 117.124，长宽比 ≤ 4）不是一道题。</div>
+    <div><b>AB20：Anjos &amp; Vieira 2016 = 2,919.1，Jankovits 2011 = 2,960.5</b>两篇都假设流量对称，Jankovits 写明用了"修正后的成本矩阵"。数值只有其他文献的约 60%，是另一版数据。</div>
+    <div><b>Lin 2024 · vC10Ea = 18,461.24</b>低于 CPLEX 证过的最优 18,522.79。原文没定义 R / E，最可能是欧氏距离（我们用直角距离）。</div>
+  </div>
+  <p class="foot">来源：Lin 等 2024 表 2–4（含 Kim &amp; Chae 2021 MBO 的值）；Anjos &amp; Vieira 2016 表 2–5；Jankovits 等 2011 表 1–2；Kang &amp; Chae 2017 表 1–7；Paes 等 2017 表 1–2；Jeong &amp; Chae 2026 表 8–10（含 Castillo 2005、Komarudin &amp; Wong 2010、Kulturel-Konak &amp; Konak 2011、Kulturel-Konak 2012、Scholz 2012、Chang &amp; Ku 2013、Ulutas &amp; Kulturel-Konak 2013、Gonçalves &amp; Resende 2015、Kang &amp; Chae 2017、Palomo-Romero 2017 的值）；O7 最优值来自 MINLPLib。我们的值：实验一协议运行（每次 20–150 s，10 个种子）的最好一次；"我们的记录"是更长的单独运行，SC30、Du62 的记录布局文件目前找不到。</p>
 </section>
 </div>
 
@@ -423,13 +449,20 @@ Object.keys(A).forEach(function(k, j){
 // ---------------- published comparison ----------------
 var P = [
  ["O7", 131.6532, null, [["MINLPLib（已证最优）",131.6531,"e"],["Castillo 等 2005",131.58,"a"],["Gonçalves & Resende 2015",131.56,"a"],["Komarudin & Wong 2010",131.68,"u"],["Kang & Chae 2017",131.69,"u"],["Jeong & Chae 2026",131.69,"e"],["Scholz 等 2012",132.00,"u"]]],
- ["vC10a", 18522.79, null, [["Kang & Chae 2017",18522.79,"u"],["Jeong & Chae 2026",18522.79,"e"],["Chang & Ku 2013",19465.77,"u"],["Kulturel-Konak & Konak 2011",20142.13,"u"]]],
- ["AB20", 4949.54, 4861.35, [["Jeong & Chae 2026",4927.27,"x"],["Kang & Chae 2017",4959.11,"u"],["Komarudin & Wong 2010",4972.56,"u"],["Gonçalves & Resende 2015",5021.17,"a"],["Chang & Ku 2013",5151.86,"u"],["Scholz 等 2012",5225.96,"u"],["Kulturel-Konak & Konak 2011",5336.36,"u"]]],
- ["SC30", 3301.27, 3279.66, [["Jeong & Chae 2026",3343.47,"e"],["Kang & Chae 2017",3352.70,"u"],["Kulturel-Konak 2012",3362.17,"u"],["Gonçalves & Resende 2015",3367.87,"a"],["Palomo-Romero 等 2017",3613.11,"u"],["Komarudin & Wong 2010",3868.55,"u"]]],
- ["Du62", 3629508.93, 3615501.31, [["Kang & Chae 2017",3635307.30,"f"],["Kulturel-Konak & Konak 2011",3642239.47,"u"],["Ulutas & Kulturel-Konak 2013",3670109.1,"u"],["Jeong & Chae 2026",3672799.99,"e"],["Gonçalves & Resende 2015",3685136.02,"a"],["Scholz 等 2012",3871510.00,"u"]]]
+ ["vC10a", 18522.79, null, [["Kang & Chae 2017（CPLEX 证最优）",18522.79,"u"],["Jeong & Chae 2026",18522.79,"e"],["Chang & Ku 2013",19465.77,"u"],["Lin 等 2024 · LSA ★新",20140.35,"l"],["Kulturel-Konak & Konak 2011",20142.13,"u"],["Anjos & Vieira 2016 ★新",24746.7,"r"],["Jankovits 等 2011 ★新",29193.3,"r"]]],
+ ["AB20", 4949.54, 4861.35, [["Jeong & Chae 2026",4927.27,"x"],["Kang & Chae 2017",4959.11,"u"],["Komarudin & Wong 2010",4972.56,"u"],["Gonçalves & Resende 2015",5021.17,"a"],["Lin 等 2024 · LSA ★新",5117.22,"g"],["Chang & Ku 2013",5151.86,"u"],["Kim & Chae 2021 · MBO ★新",5188,"gc"],["Scholz 等 2012",5225.96,"u"],["Kulturel-Konak & Konak 2011",5336.36,"u"]]],
+ ["SC30", 3301.27, 3279.66, [["Jeong & Chae 2026",3343.47,"e"],["Kang & Chae 2017",3352.70,"u"],["Kulturel-Konak 2012",3362.17,"u"],["Gonçalves & Resende 2015",3367.87,"a"],["Kim & Chae 2021 · MBO ★新",3455.34,"c"],["Lin 等 2024 · LSA ★新",3548.24,"l"],["Palomo-Romero 等 2017",3613.11,"u"],["Komarudin & Wong 2010",3868.55,"u"],["Anjos & Vieira 2016 ★新",4342.8,"u"]]],
+ ["Du62", 3629508.93, 3615501.31, [["Lin 等 2024 · LSA ★新",3621678.59,"l"],["Kim & Chae 2021 · MBO ★新",3630715,"c"],["Kang & Chae 2017",3635307.30,"f"],["Kulturel-Konak & Konak 2011",3642239.47,"u"],["Ulutas & Kulturel-Konak 2013",3670109.1,"u"],["Jeong & Chae 2026",3672799.99,"e"],["Gonçalves & Resende 2015",3685136.02,"a"],["Scholz 等 2012",3871510.00,"u"]]]
 ];
-var TG = {e:'<span class="tg">精确面积</span>', a:'<span class="tg w">面积外逼近</span>', u:'<span class="tg w">未核实</span>',
-          x:'<span class="tg">精确面积</span><span class="tg w">长宽比 4.008 &gt; 4，不可行</span>', f:'<span class="tg w">厂房尺寸未确认</span>'};
+var TGS = {e:'<span class="tg">精确面积</span>', a:'<span class="tg w">面积外逼近</span>', u:'<span class="tg w">未核实</span>',
+          x:'<span class="tg">精确面积</span><span class="tg w">长宽比 4.008 &gt; 4，不可行</span>',
+          f:'<span class="tg w">原文厂房尺寸可变，最好值对应哪种没写</span>',
+          l:'<span class="tg w">条带结构（FBS）</span><span class="tg w">未核实</span>',
+          r:'<span class="tg w">长宽比规则没写明</span>',
+          g:'<span class="tg w">长宽比 ≤ 5，比我们的 4 宽松</span>',
+          c:'<span class="tg w">转引自 Lin 2024 表 4</span>'};
+var TG = {}; Object.keys(TGS).forEach(function(k){ TG[k] = TGS[k]; });
+TG.gc = TGS.g + TGS.c;
 var tb = document.getElementById("cmp");
 tb.innerHTML = "<tr><th>方法</th><th style='text-align:right'>已发表最好值</th><th>和我们最好一次比</th><th style='text-align:right'>差</th><th>可比性</th></tr>";
 function fmt(v){ return v >= 1000 ? v.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2}) : v.toFixed(4).replace(/0+$/,"").replace(/\.$/,""); }
