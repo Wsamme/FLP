@@ -100,6 +100,21 @@ svg.abl .na{font-family:var(--f-mono);font-size:11px;fill:var(--muted)}
 .imp div{border:1.5px solid var(--ink);padding:10px 12px;font-size:13px;min-width:0}
 .imp div b{display:block;font-size:14px;margin-bottom:3px}
 @media (max-width:860px){.vrow{grid-template-columns:minmax(0,1fr)} .verdict{justify-content:flex-start} .imp{grid-template-columns:minmax(0,1fr)} .vhead-row{display:none}}
+.cmp{border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums;min-width:720px;width:100%}
+.cmp th,.cmp td{border-bottom:1px solid var(--rule);padding:6px 8px;text-align:left;vertical-align:middle}
+.cmp th{font-size:11.5px;font-family:var(--f-mono);color:var(--muted);font-weight:600;letter-spacing:.04em}
+.cmp td.v{font-family:var(--f-mono);text-align:right;white-space:nowrap}
+.cmp tr.inst td{border-bottom:1.5px solid var(--ink);padding-top:16px;font-weight:700;font-size:14.5px}
+.cmp tr.us td{font-weight:700}
+.cmp .bar{position:relative;height:14px;width:260px;max-width:40vw;background:linear-gradient(var(--rule),var(--rule)) center/1px 100% no-repeat}
+.cmp .bar i{position:absolute;top:2px;height:10px;background:var(--ink)}
+.cmp .bar i.neg{background:repeating-linear-gradient(45deg,var(--ink) 0 2px,var(--paper) 2px 5px);border:1px solid var(--ink)}
+.tg{font-family:var(--f-mono);font-size:11px;border:1px solid var(--ink);padding:0 4px;margin-right:3px;white-space:nowrap}
+.tg.w{border-style:dashed;color:var(--muted)}
+.need{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:10px 0 0}
+.need div{border:1.5px dashed var(--ink);padding:9px 11px;font-size:13px;min-width:0}
+.need b{display:block}
+@media (max-width:760px){.need{grid-template-columns:minmax(0,1fr)}}
 .foot{margin-top:18px;font-size:12px;color:var(--muted);max-width:90ch}
 @media (max-width:760px){.reads{grid-template-columns:minmax(0,1fr)} .arrow{transform:rotate(90deg);width:100%;flex-basis:100%;height:22px}}
 </style>
@@ -116,6 +131,7 @@ svg.abl .na{font-family:var(--f-mono);font-size:11px;fill:var(--muted)}
   <button role="tab" aria-selected="false" data-t="t3">③ 各方法在哪赢、在哪输</button>
   <button role="tab" aria-selected="false" data-t="t4">④ 消融：哪一步真有用</button>
   <button role="tab" aria-selected="false" data-t="t5">⑤ 近期文献：支持还是推翻</button>
+  <button role="tab" aria-selected="false" data-t="t6">⑥ 和已发表值直接比</button>
 </div>
 
 <!-- TAB 1 -->
@@ -199,7 +215,7 @@ svg.abl .na{font-family:var(--f-mono);font-size:11px;fill:var(--muted)}
   <div class="vrow"><div class="vyear">2016<small>Anjos &amp; Vieira</small><em>Optimization Letters 10</em></div>
     <div class="vwhat">两阶段：先用非线性近似模型定"谁在谁旁边"，再用<b>精确凸优化模型</b>定最终布局；在文献实例和最多 100 个部门的新实例上，结果有竞争力、常常更好。<span class="en">Two stages: an approximation fixes relative positions, an exact convex model fixes the final layout; up to 100 departments.</span></div>
     <div class="verdict"><span class="ch">挑战</span></div>
-    <div class="vhit"><b>D2</b><b>D5</b>"先定拓扑、再精确凸优化几何"不是我们首创。<span class="act">→ 报告必须引用并写清区别：我们第一阶段是切片树搜索，第二阶段在序列对上继续搜索（他们第一阶段是一个近似模型）。最好补一组对比。</span></div></div>
+    <div class="vhit"><b>D2</b><b>D5</b>"先定拓扑、再精确凸优化几何"不是我们首创。他们 2021 年的书（Facility Layout §4.4，你的 01_文献 里有）写明：第二阶段就是固定相对位置后的 SOCO，面积约束 ‖(w−h, 2√A)‖ ≤ w+h 和我们完全一样；第一阶段可以是吸引–排斥非线性模型，也可以是<b>在序列对上的 GA</b>。<span class="act">→ 报告必须引用并写清区别：我们第一阶段是切片树搜索，第二阶段在序列对上继续搜索（他们第一阶段是一个近似模型）。最好补一组对比。</span></div></div>
   <div class="vrow"><div class="vyear">2017<small>Huchette, Dey &amp; Vielma</small><em>arXiv 1602.07760</em></div>
     <div class="vwhat">给布局问题写出更强的混合整数公式，"能解以前解不了的实例"。<span class="en">Stronger MIP formulations solve previously unsolved instances.</span></div>
     <div class="verdict"><span class="mo">修正</span></div>
@@ -236,6 +252,23 @@ svg.abl .na{font-family:var(--f-mono);font-size:11px;fill:var(--muted)}
     <div><b>I4 · 补跑 BRKGA-LP</b>目前只有它的已发表值，没有同协议的运行。</div>
   </div>
   <p class="foot">核实范围：以上内容来自各文献的摘要或出版页（Ekstedt 2025 来自 Chalmers 出版页；Anjos &amp; Vieira 2016 来自 Springer 页面；Huchette 2017、Gibson 2025、Nikhil 2025 来自 arXiv；Bozer &amp; Wang 2012 来自 RePEc 目录）。全文多在付费墙后，具体数字表没读到。Heinbach 2025 的数字来自项目文档 02，今天出版页打不开，未重新核实。</p>
+</section>
+<!-- TAB 6 -->
+<section id="t6" class="tab" hidden>
+  <p class="lede">不重跑，直接用论文里报的数。每行是一篇论文在这个实例上的<b>最好值</b>，条形是它和我们"10 次协议运行里最好那次"的差：<b>实心向右 = 我们更好</b>，斜线向左 = 它更好。<span class="en">Published best values, no reruns. Bar = difference from our best protocol run: solid right = ours better; hatched left = theirs better.</span></p>
+  <div class="legend">
+    <span><span class="tg">精确面积</span>面积按真实约束</span>
+    <span><span class="tg w">面积外逼近</span>原文用线性化，面积可能偏小（J&amp;C 2026 注）</span>
+    <span><span class="tg w">未核实</span>我们没拿到布局复算</span>
+  </div>
+  <div class="chart"><table class="cmp" id="cmp"></table></div>
+  <h3 style="margin:22px 0 4px;font-size:16px">这张表还缺的三篇（需要全文）/ Missing from this table</h3>
+  <div class="need">
+    <div><b>Lin 等 2024 · Soft Computing 28</b>学习型模拟退火，16 个标准实例，自称超过 7 个已知最好值。<b style="display:inline">最可能改写这张表。</b></div>
+    <div><b>Paes, Pessoa &amp; Vidal 2017 · EJOR 256(3)</b>带分解的混合 GA，J&amp;C 2026 的对比里没有它。</div>
+    <div><b>Anjos &amp; Vieira 2016 · Optim. Letters 10(7)</b>和我们同结构的两阶段方法，看它在这些实例上的数。</div>
+  </div>
+  <p class="foot">来源：Jeong &amp; Chae 2026 表 8–10（含 Castillo 2005、Komarudin &amp; Wong 2010、Kulturel-Konak &amp; Konak 2011、Kulturel-Konak 2012、Scholz 2012、Chang &amp; Ku 2013、Ulutas &amp; Kulturel-Konak 2013、Gonçalves &amp; Resende 2015、Kang &amp; Chae 2017、Palomo-Romero 2017 的值）；O7 最优值来自 MINLPLib。我们的值：实验一协议运行（每次 20–150 s，10 个种子）的最好一次；"我们的记录"是更长的单独运行，SC30、Du62 的记录布局文件目前找不到。</p>
 </section>
 </div>
 
@@ -386,15 +419,43 @@ Object.keys(A).forEach(function(k, j){
   });
 });
 
+
+// ---------------- published comparison ----------------
+var P = [
+ ["O7", 131.6532, null, [["MINLPLib（已证最优）",131.6531,"e"],["Castillo 等 2005",131.58,"a"],["Gonçalves & Resende 2015",131.56,"a"],["Komarudin & Wong 2010",131.68,"u"],["Kang & Chae 2017",131.69,"u"],["Jeong & Chae 2026",131.69,"e"],["Scholz 等 2012",132.00,"u"]]],
+ ["vC10a", 18522.79, null, [["Kang & Chae 2017",18522.79,"u"],["Jeong & Chae 2026",18522.79,"e"],["Chang & Ku 2013",19465.77,"u"],["Kulturel-Konak & Konak 2011",20142.13,"u"]]],
+ ["AB20", 4949.54, 4861.35, [["Jeong & Chae 2026",4927.27,"x"],["Kang & Chae 2017",4959.11,"u"],["Komarudin & Wong 2010",4972.56,"u"],["Gonçalves & Resende 2015",5021.17,"a"],["Chang & Ku 2013",5151.86,"u"],["Scholz 等 2012",5225.96,"u"],["Kulturel-Konak & Konak 2011",5336.36,"u"]]],
+ ["SC30", 3301.27, 3279.66, [["Jeong & Chae 2026",3343.47,"e"],["Kang & Chae 2017",3352.70,"u"],["Kulturel-Konak 2012",3362.17,"u"],["Gonçalves & Resende 2015",3367.87,"a"],["Palomo-Romero 等 2017",3613.11,"u"],["Komarudin & Wong 2010",3868.55,"u"]]],
+ ["Du62", 3629508.93, 3615501.31, [["Kang & Chae 2017",3635307.30,"f"],["Kulturel-Konak & Konak 2011",3642239.47,"u"],["Ulutas & Kulturel-Konak 2013",3670109.1,"u"],["Jeong & Chae 2026",3672799.99,"e"],["Gonçalves & Resende 2015",3685136.02,"a"],["Scholz 等 2012",3871510.00,"u"]]]
+];
+var TG = {e:'<span class="tg">精确面积</span>', a:'<span class="tg w">面积外逼近</span>', u:'<span class="tg w">未核实</span>',
+          x:'<span class="tg">精确面积</span><span class="tg w">长宽比 4.008 &gt; 4，不可行</span>', f:'<span class="tg w">厂房尺寸未确认</span>'};
+var tb = document.getElementById("cmp");
+tb.innerHTML = "<tr><th>方法</th><th style='text-align:right'>已发表最好值</th><th>和我们最好一次比</th><th style='text-align:right'>差</th><th>可比性</th></tr>";
+function fmt(v){ return v >= 1000 ? v.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2}) : v.toFixed(4).replace(/0+$/,"").replace(/\.$/,""); }
+P.forEach(function(r){
+  var name = r[0], ours = r[1], rec = r[2];
+  var tr = tb.insertRow(); tr.className = "inst"; var td = tr.insertCell(); td.colSpan = 5;
+  td.textContent = name + "　我们 10 次协议运行最好 " + fmt(ours) + (rec ? "　·　我们的记录 " + fmt(rec) : "");
+  r[3].forEach(function(m){
+    var d = 100 * (m[1] - ours) / ours, w = Math.min(Math.abs(d), 10) / 10 * 130;
+    var row = tb.insertRow();
+    row.insertCell().textContent = m[0];
+    var c1 = row.insertCell(); c1.className = "v"; c1.textContent = fmt(m[1]);
+    var c2 = row.insertCell(); c2.innerHTML = "<div class='bar'><i class='" + (d < 0 ? "neg" : "") + "' style='" + (d >= 0 ? "left:50%;width:" + w + "px" : "right:50%;width:" + w + "px") + "'></i></div>";
+    var c3 = row.insertCell(); c3.className = "v"; c3.textContent = (d >= 0 ? "我们好 " : "它好 ") + Math.abs(d).toFixed(Math.abs(d) < 0.1 ? 3 : 2) + "%";
+    row.insertCell().innerHTML = TG[m[2]];
+  });
+});
 // ---------------- tabs ----------------
 var tabs = [].slice.call(document.querySelectorAll(".tabs button"));
 function show(id){
   tabs.forEach(function(b){ b.setAttribute("aria-selected", b.dataset.t === id); });
-  ["t1","t2","t3","t4","t5"].forEach(function(t){ document.getElementById(t).hidden = t !== id; });
+  ["t1","t2","t3","t4","t5","t6"].forEach(function(t){ document.getElementById(t).hidden = t !== id; });
   if (id === "t1") setTimeout(draw, 0);
   try { history.replaceState(null, "", "#" + id); } catch(e){}
 }
 tabs.forEach(function(b){ b.addEventListener("click", function(){ show(b.dataset.t); }); });
-var h0 = (location.hash || "").slice(1); if (["t1","t2","t3","t4","t5"].indexOf(h0) >= 0) show(h0);
+var h0 = (location.hash || "").slice(1); if (["t1","t2","t3","t4","t5","t6"].indexOf(h0) >= 0) show(h0);
 })();
 </script>
