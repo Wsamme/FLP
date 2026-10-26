@@ -109,8 +109,8 @@ Each step answers one design question and backs it with an experiment.</p>
 <tbody>
 <tr>
 <td>R1</td>
-<td>为什么不用精确方法？</td>
-<td>网格格子数算术 + 论文 MINLP 行</td>
+<td>精确方法能做什么、在哪失败？</td>
+<td>论文 MINLP 行 + 证明记录 + 网格算术</td>
 </tr>
 <tr>
 <td>R2</td>
@@ -146,6 +146,16 @@ Each step answers one design question and backs it with an experiment.</p>
 <td>T</td>
 <td>主表</td>
 <td>原始数据重算</td>
+</tr>
+<tr>
+<td>D</td>
+<td>每种方法的长处和失败点 → 取舍</td>
+<td>由上面所有格子的数字汇总</td>
+</tr>
+<tr>
+<td>L</td>
+<td>这是共识吗？</td>
+<td>文献 vs 我们自己的数据</td>
 </tr>
 </tbody>
 </table></div><div class="cell"><div class="ch"><span class="in">In [1]</span><span class="cl">0 · 设置 / Setup</span></div><pre class="code"># 0 · 设置 / Setup
@@ -367,9 +377,14 @@ O7 权重矩阵 w（对称，成本按 i&lt;j 求和）:</pre><div class="df"><d
   </tbody>
 </table>
 </div></div></div></section>
-<section class="step" id="n2" data-title="R1 · 为什么不用精确方法？"><div class="md"><h2>R1 · 为什么不用精确方法？ / Why not an exact method?</h2>
-<p><strong>推论</strong>：精确模型在这些实例上要么规模太大、要么离散化后根本没有可行解，所以核心必须是启发式搜索；精确数学只用在"给定拓扑后的几何"上（见 R4）。
-<strong>Claim</strong>: exact models either do not scale or become infeasible once discretised, so the core must be a heuristic search; exact math is used only for geometry under a fixed topology (R4).</p></div><div class="cell"><div class="ch"><span class="in">In [3]</span><span class="cl">2 · 网格 CP-SAT：格子数够不够？ / grid CP-SAT cell balance (bench/methods/cpsat.py 的离散化规则)</span></div><pre class="code"># 2 · 网格 CP-SAT：格子数够不够？ / grid CP-SAT cell balance (bench/methods/cpsat.py 的离散化规则)
+<section class="step" id="n2" data-title="R1 · 精确方法：能做什么、在哪失败"><div class="md"><h2>R1 · 精确方法：能做什么、在哪失败 / Exact methods: what they do well, where they fail</h2>
+<p><strong>数据说的是</strong>（不是"精确方法不行"）：
+- <strong>能证最优</strong>：凸 MINLP 在 O7 上 2,322 s 证到最优（论文 numbers.tex）；我们自己的序列对 MINLP 在 vC10a 上约 1.9 h 证明 18,522.79 是全局最优（文档 21）。
+- <strong>在统一时限（300 s）内</strong>：vC10a 差 21.10%，SC30 差 201.30%，AB20、Du62 连可行解都没有（下面第 3 格）。
+- <strong>网格 CP-SAT 在 O7、Du62 上的"无解"是我们自己的离散化规则造成的</strong>（厂房向下取整、面积向上取整，第 2 格），不能当作"CP-SAT 不行"的证据。
+- 文献同样认为精确法只能解到约 9–14 个部门（Sherali 2003、Konak 2006，见项目文档 02）。</p>
+<p><strong>我们的取舍</strong>：不用精确模型做全局搜索（时限内失败），但<strong>保留精确数学的两个用处</strong>：①给定拓扑后精确求几何（R4 的 SOCP）；②小实例上做最优性证明，用来校验启发式（O7、vC10a）。
+<strong>Our choice</strong>: no exact model for the global search (fails within the budget), but keep exact math for (1) geometry under a fixed topology and (2) optimality certificates on small instances.</p></div><div class="cell"><div class="ch"><span class="in">In [3]</span><span class="cl">2 · 网格 CP-SAT：按我们的离散化规则，格子数够不够？ / cell balance under OUR discretisation rule (bench/methods/cpsat.py)</span></div><pre class="code"># 2 · 网格 CP-SAT：按我们的离散化规则，格子数够不够？ / cell balance under OUR discretisation rule (bench/methods/cpsat.py)
 import math
 rows = []
 for k, s in [(&quot;O7&quot;, 10), (&quot;vC10a&quot;, 10), (&quot;AB20&quot;, 10), (&quot;SC30&quot;, 10), (&quot;Du62&quot;, 1)]:
@@ -664,7 +679,7 @@ for ax, RR, tt in [(axs[0], R0, f&quot;第一阶段（切片）{ev0[&#x27;cost&#
     ax.set_xlim(-0.2, P.W + 0.2); ax.set_ylim(-0.2, P.H + 0.2); ax.set_aspect(&quot;equal&quot;); ax.set_title(tt, fontsize=9)
 fig.tight_layout(); fig.savefig(f&quot;{FIG}/o7_polish.png&quot;); plt.close(fig); display(Image(f&quot;{FIG}/o7_polish.png&quot;))</pre><pre class="out">Γ+ = [2, 1, 4, 3, 5, 7, 6]  Γ- = [3, 6, 7, 2, 5, 4, 1]
 关系：左右 6 对、上下 15 对（合计 21 = 7·6/2）；传递约简后进模型 13 条
-第一阶段 131.6892 → SOCP 131.6532（3 ms，状态 Solved）；独立检查器可行: True
+第一阶段 131.6892 → SOCP 131.6532（2 ms，状态 Solved）；独立检查器可行: True
 与已证明最优 131.6531381 的差: 0.00003%</pre><div class="img"><img alt="布局图" src="data:image/png;base64,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b15dvnxZkZGRmjZtmvLmzauSJUvqyy+/VEREhP322GOPOZxo/m+5u7urb9++WrdunXr16qW0tDQdO3ZMhQoVuu3jDxw4oFq1auns2bN66aWX9P333ys5OVmenp4qV66cmjZtqurVq+vAgQMOVyzLiKCgIBUvXtx+ROmWr7/+Wmlpabp06ZJ+/fVXffTRRxo9erT69+/vsAztzJkzDufoLFmyJEMXPPinX3/9VYGBgelOir1fixcvVkhIiC5cuGAf27x5s9zd3VWiRIm77rtr1y77crkWLVpoyZIl9uV3aWlpmjFjhqpXry43NzcVLlxYKSkpDkvLLly4oOPHj6tw4cKSpM8++0xVq1bV9evXJd381PLTTz9V9+7d7fts27ZNrVq10vTp0x2uDgQgc1u3bp2eeeYZhw9t4uPjtX37dvvPmDZt2igoKEjdunXTtWvX7I9btWqVJk2apOHDh9vHRowYoY8//ljr1q2zjyUlJemtt97S1atX01317H5t2rRJrVu31gcffKDVq1c7XBn0ds6dO6cjR448lC/5vHXhoL8XnS1btiglJcW+LPxO9uzZY1/e16JFC61cudJhBcX06dNVpUoV+3lQtWrVcvj6gz/++EMnT560L2/v1KmTunXr5vAav/76q8N3wi1btkxvvvmmli1bxpee4u4M4F+IjY013n33XeOpp54yTp06ZYSGhhpLly41UlNTjbS0NOPSpUtG9uzZjaioqP/pdWbOnGm0b9/eYWz+/PnGk08+ab+/dOlSo3nz5vb7SUlJxubNm42CBQume764uDjjrbfeMry9vY1y5coZ//3vf+870/Lly40qVaoYaWlp9rFjx445/FnHjRtnFC5c2EhISHDI5efnZxw4cMAwDMP4888/jRw5chjHjx+/7ev8+OOPRrly5W67rUaNGsbChQvvO7thGEZwcLAxbdo0wzAMIzEx0Xj22WcNX19fo3nz5ka1atUMDw8PY8yYMbd9zWHDhhmGYRgRERGGJGPkyJH27W3atDHy5s1rdOjQwShfvryRL18+Y//+/fbtffv2NTw9PY3nnnvOaN68uZE9e3ajbt26xvXr1w3DMIwLFy4YwcHBRoECBYywsDCjQIECRrt27YyUlBTDMAwjPj7e8Pf3N3LlymU0bNjQ4bZt27Z/9V4AsIakpCSjdu3ahq+vrxEaGmo0a9bM8PHx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hZLz//n6+uqDDz6Qr6+v2VGcFu9RxvA+3RvvUcbwPrkm/t4yhvfp3niP7o33KGMy4/uUaS48AAAAACBz4EgOAAAAAEuh5AAAAACwFEoOAAAAAEuh5AAAAACwFEoOAAAAAEuh5AAAAACwFErO/8eVtDOG9wkPCv8v3RvvEayM/7/xoPD/0r1lxvco05ec48ePq3HjxvLz81OJEiU0cOBApaammh3LqSQkJKhfv34qWLCgvL299fTTT2vDhg1mx3JqHTp0UKFChbRp0yazozid2bNnq2LFisqaNauefPJJffvtt2ZHcjrff/+9ypQpoyxZsqhw4cIaMmSIkpOTzY6Fe0hMTFS3bt1UoEAB5cmTRy+++KIuXLhgdiynM2PGDJUqVUpeXl4qWbKkpk6danYkpzZlyhQVKlRIH374odlRnM62bdtUt25d+fj4qGDBghoyZIiuX79udiynEh4erjp16sjHx0e5c+dWu3btFBUVZXasRyJTl5yYmBhVr15diYmJ+vbbb/Xuu+9qxowZ6ty5s9nRnMprr72m77//XmPGjNHq1atVpkwZNWrUSHv27DE7mlNasmSJ5s2bp8jISH4x/YepU6eqR48eatmypX744Qc988wzat++vRYtWmR2NKexfPlyvfzyy2rWrJk2btyoYcOGacqUKerbt6/Z0XAPTZo00c8//6xx48bpiy++0JEjR1SjRg0lJSWZHc1pzJw5U7169VLnzp21fv16de3aVe+8844+//xzs6M5pYiICL377ruKjo5WXFyc2XGcyo4dO1S3bl0VLVpUCxYsUJcuXfTJJ5+oT58+ZkdzGqdPn1bdunXl5+enlStXas6cOdq3b58aN26slJQUs+M9fEYm9sEHHxhBQUFGfHy8fWzFihWGm5ubceTIEROTOY/Y2FjDzc3NWLRokcN42bJljb59+5qUynlduXLFCAoKMgYNGmRIMtasWWN2JKeRlJRk5M2b15gxY4bDeOvWrY3GjRublMr5tGrVyqhfv77D2EcffWT4+voaaWlpJqXCvWzcuNGQZOzatcs+FhMTY3h7extffvmlecGcTIUKFYxevXo5jPXu3duoWLGiSYmcW2hoqNG4cWOjbNmyxrvvvmt2HKfSrFkzo127dg5jEydONAoUKODwe11mNmnSJMPHx8dITk62j+3YscOQZOzcudPEZI9Gpj6S8/33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"></div></div><div class="cell"><div class="ch"><span class="in">In [8]</span><span class="cl">7 · 重算论文缺原始数据的两行：&quot;SA + polish&quot; 和 &quot;CRO + polish&quot; / regenerate the polish rows</span></div><pre class="code"># 7 · 重算论文缺原始数据的两行：&quot;SA + polish&quot; 和 &quot;CRO + polish&quot; / regenerate the polish rows
 def polish(rects, P, S2):
     R = np.array(rects)[:P.n]
@@ -809,7 +824,7 @@ print(f&quot;用时 {time.time()-t0:.1f} s&quot;)</pre><div class="df"><div>
     </tr>
   </tbody>
 </table>
-</div></div><pre class="out">用时 2.1 s</pre></div></section>
+</div></div><pre class="out">用时 2.3 s</pre></div></section>
 <section class="step" id="n6" data-title="R5 · 第二阶段为什么要&quot;搜索&quot;？什么时候只抛光？"><div class="md"><h2>R5 · 第二阶段为什么要"搜索"？什么时候只抛光？ / Why search in Stage 2, and when only polish?</h2>
 <p><strong>推论</strong>：一次 SOCP 只能优化"给定拓扑"。要换拓扑，就要在序列对上搜索（每走一步解一次 SOCP）。搜索只在两个条件下值钱：①切片结构限制得厉害（有空地、形状受限，如 SC30）；② SOCP 足够快，时间内能解几千次。Du62 的 SOCP 太慢，所以规则是：剩余时间解不到 3000 次就只抛光一次。</p></div><div class="cell"><div class="ch"><span class="in">In [9]</span><span class="cl">8 · 每次运行：第一阶段成本 → 第二阶段成本，SOCP 次数 / per run: Stage-1 vs Stage-2 cost, number of SOCP solves</span></div><pre class="code"># 8 · 每次运行：第一阶段成本 → 第二阶段成本，SOCP 次数 / per run: Stage-1 vs Stage-2 cost, number of SOCP solves
 rows = []
@@ -927,41 +942,41 @@ print(&quot;本容器比原实验机器慢，次数只看量级；原实验里 D
     <tr>
       <th>O7</th>
       <td>7</td>
-      <td>1.1</td>
+      <td>1.7</td>
       <td>10.0</td>
-      <td>9440</td>
+      <td>5898</td>
       <td>搜索</td>
     </tr>
     <tr>
       <th>vC10a</th>
       <td>10</td>
-      <td>2.1</td>
+      <td>1.9</td>
       <td>10.0</td>
-      <td>4698</td>
+      <td>5140</td>
       <td>搜索</td>
     </tr>
     <tr>
       <th>AB20</th>
       <td>20</td>
-      <td>5.9</td>
+      <td>9.0</td>
       <td>30.0</td>
-      <td>5073</td>
+      <td>3321</td>
       <td>搜索</td>
     </tr>
     <tr>
       <th>SC30</th>
       <td>30</td>
-      <td>3.5</td>
+      <td>3.7</td>
       <td>30.0</td>
-      <td>8682</td>
+      <td>8024</td>
       <td>搜索</td>
     </tr>
     <tr>
       <th>Du62</th>
       <td>62</td>
-      <td>85.5</td>
+      <td>85.1</td>
       <td>75.0</td>
-      <td>876</td>
+      <td>881</td>
       <td>只抛光</td>
     </tr>
   </tbody>
@@ -1839,9 +1854,248 @@ display(CHK[CHK[&quot;一致&quot;] != &quot;是&quot;] if (CHK[&quot;一致&quo
   </tbody>
 </table>
 </div></div></div></section>
-<section class="step" id="n9" data-title="结论"><div class="md"><h2>结论 / What the evidence supports</h2>
+<section class="step" id="n9" data-title="D · 取舍表：每种方法的长处、失败点，我们取什么、避开什么"><div class="md"><h2>D · 取舍表：每种方法的长处、失败点，我们取什么、避开什么 / Trade-off table</h2>
+<p>下面两格只用前面算出来的数（主表 MAIN、polish、消融 ABL、每次运行的阶段成本 S），把每种方法"在哪赢、在哪输"量化出来，再对应到我们方法的设计。
+The next two cells use only numbers computed above to quantify where each method wins and fails, then map that to our design.</p></div><div class="cell"><div class="ch"><span class="in">In [17]</span><span class="cl">16 · 各方法在不同实例特征下的表现 / performance by instance feature</span></div><pre class="code"># 16 · 各方法在不同实例特征下的表现 / performance by instance feature
+FEAT = {&quot;O7&quot;: &quot;满铺 · 小&quot;, &quot;vC10a&quot;: &quot;满铺 · 细长&quot;, &quot;AB20&quot;: &quot;满铺 · 不对称流量&quot;, &quot;SC30&quot;: &quot;有空地&quot;, &quot;Du62&quot;: &quot;满铺 · 大（62）&quot;}
+def cv(m, k):
+    c = costs(m, k); return 100 * c.std(ddof=1) / c.mean() if len(c) &gt; 1 else np.nan
+rows = []
+for m, lab in [(&quot;construct&quot;, &quot;Construct（构造法）&quot;), (&quot;swap&quot;, &quot;Swap（CRAFT 式交换）&quot;), (&quot;ga&quot;, &quot;GA&quot;), (&quot;sa&quot;, &quot;SA（切片树）&quot;),
+               (&quot;cro&quot;, &quot;CRO（切片树，J&amp;C 2026）&quot;), (&quot;ours_s1&quot;, &quot;只第一阶段&quot;), (&quot;ours&quot;, &quot;Ours&quot;)]:
+    r = {&quot;方法&quot;: lab}
+    for k in INST:
+        c = costs(m, k); n_all = len(RUNS[(m, k)])
+        r[k] = f&quot;{100*(c.mean()-REF[k])/REF[k]:.2f}%&quot; + (f&quot;（{len(c)}/{n_all} 可行）&quot; if len(c) &lt; n_all else &quot;&quot;)
+    v = [x for x in (cv(m, k) for k in INST) if not np.isnan(x)]
+    r[&quot;平均波动 CV&quot;] = f&quot;{np.mean(v):.2f}%&quot; if v else &quot;—（只跑 1 次）&quot;
+    rows.append(r)
+r = {&quot;方法&quot;: &quot;精确 MINLP（300 s，论文表）&quot;}
+for k, v in zip(INST, [&quot;0.000%&quot;, &quot;21.10%&quot;, &quot;无可行解&quot;, &quot;201.30%&quot;, &quot;无可行解&quot;]): r[k] = v
+r[&quot;平均波动 CV&quot;] = &quot;—&quot;; rows.append(r)
+T = pd.DataFrame(rows).set_index(&quot;方法&quot;); T.columns = [f&quot;{c}（{FEAT[c]}）&quot; if c in FEAT else c for c in T.columns]
+display(T)
+print(&quot;单元格 = 10 次运行的平均差距（相对参考值）。CV = 标准差 / 平均，越大说明结果越看运气。&quot;)
+gain = {k: 100 * (costs(&quot;sa&quot;, k).mean() - POLC[(&quot;sa&quot;, k)].mean()) / costs(&quot;sa&quot;, k).mean() for k in INST}
+print(&quot;一次 SOCP 抛光让 SA 平均成本下降:&quot;, {k: f&quot;{v:.3f}%&quot; for k, v in gain.items()})</pre><div class="df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>O7（满铺 · 小）</th>
+      <th>vC10a（满铺 · 细长）</th>
+      <th>AB20（满铺 · 不对称流量）</th>
+      <th>SC30（有空地）</th>
+      <th>Du62（满铺 · 大（62））</th>
+      <th>平均波动 CV</th>
+    </tr>
+    <tr>
+      <th>方法</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Construct（构造法）</th>
+      <td>14.75%</td>
+      <td>52.91%</td>
+      <td>75.74%</td>
+      <td>195.51%</td>
+      <td>28.85%</td>
+      <td>—（只跑 1 次）</td>
+    </tr>
+    <tr>
+      <th>Swap（CRAFT 式交换）</th>
+      <td>0.03%</td>
+      <td>1.52%</td>
+      <td>11.00%</td>
+      <td>35.62%</td>
+      <td>10.69%（1/10 可行）</td>
+      <td>1.48%</td>
+    </tr>
+    <tr>
+      <th>GA</th>
+      <td>4.67%</td>
+      <td>18.81%</td>
+      <td>23.82%</td>
+      <td>53.28%</td>
+      <td>2.75%</td>
+      <td>5.26%</td>
+    </tr>
+    <tr>
+      <th>SA（切片树）</th>
+      <td>0.03%</td>
+      <td>-0.00%</td>
+      <td>0.44%</td>
+      <td>9.07%</td>
+      <td>0.85%</td>
+      <td>1.20%</td>
+    </tr>
+    <tr>
+      <th>CRO（切片树，J&amp;C 2026）</th>
+      <td>0.03%</td>
+      <td>-0.00%</td>
+      <td>5.37%</td>
+      <td>28.96%</td>
+      <td>1.80%</td>
+      <td>1.97%</td>
+    </tr>
+    <tr>
+      <th>只第一阶段</th>
+      <td>0.03%</td>
+      <td>-0.00%</td>
+      <td>-0.41%</td>
+      <td>7.01%</td>
+      <td>0.03%</td>
+      <td>0.76%</td>
+    </tr>
+    <tr>
+      <th>Ours</th>
+      <td>0.00%</td>
+      <td>-0.00%</td>
+      <td>-0.01%</td>
+      <td>1.93%</td>
+      <td>0.07%</td>
+      <td>0.63%</td>
+    </tr>
+    <tr>
+      <th>精确 MINLP（300 s，论文表）</th>
+      <td>0.000%</td>
+      <td>21.10%</td>
+      <td>无可行解</td>
+      <td>201.30%</td>
+      <td>无可行解</td>
+      <td>—</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><pre class="out">单元格 = 10 次运行的平均差距（相对参考值）。CV = 标准差 / 平均，越大说明结果越看运气。
+一次 SOCP 抛光让 SA 平均成本下降: {&#x27;O7&#x27;: &#x27;0.025%&#x27;, &#x27;vC10a&#x27;: &#x27;0.000%&#x27;, &#x27;AB20&#x27;: &#x27;0.000%&#x27;, &#x27;SC30&#x27;: &#x27;3.084%&#x27;, &#x27;Du62&#x27;: &#x27;0.001%&#x27;}</pre></div><div class="cell"><div class="ch"><span class="in">In [18]</span><span class="cl">17 · 取舍表（每条后面是支撑它的数字，均由上面的格子算出）/ the trade-off table, each line backed by a number above</span></div><pre class="code"># 17 · 取舍表（每条后面是支撑它的数字，均由上面的格子算出）/ the trade-off table, each line backed by a number above
+def mg(m, k): c = costs(m, k); return 100 * (c.mean() - REF[k]) / REF[k]
+sw_du = costs(&quot;swap&quot;, &quot;Du62&quot;); ga_cv = cv(&quot;ga&quot;, &quot;vC10a&quot;)
+s1 = ABL.set_index([&quot;实例&quot;, &quot;变体&quot;])
+rows = [
+ dict(方法=&quot;切片树编码（STS，Kang &amp; Chae 2017 / J&amp;C 2026）&quot;,
+      长处=f&quot;面积按比例、铺满、不重叠天然成立 → SA/CRO 在 5 个实例上 10/10 全可行&quot;,
+      失败点=f&quot;表示不了非切片布局：O7 上全部停在 131.6892；有空地时弱：SC30 上 SA {mg(&#x27;sa&#x27;,&#x27;SC30&#x27;):.2f}%、CRO {mg(&#x27;cro&#x27;,&#x27;SC30&#x27;):.2f}%&quot;,
+      我们怎么做=&quot;取：第一阶段用它快速找好拓扑。避：不让它决定最终几何（交给第二阶段）&quot;),
+ dict(方法=&quot;模拟退火 SA&quot;,
+      长处=f&quot;比 GA、CRO 稳：AB20 平均 {mg(&#x27;sa&#x27;,&#x27;AB20&#x27;):.2f}% vs GA {mg(&#x27;ga&#x27;,&#x27;AB20&#x27;):.2f}%、CRO {mg(&#x27;cro&#x27;,&#x27;AB20&#x27;):.2f}%&quot;,
+      失败点=f&quot;SC30 平均 {mg(&#x27;sa&#x27;,&#x27;SC30&#x27;):.2f}%（受切片树限制）&quot;,
+      我们怎么做=&quot;取：两个阶段都用 SA 做搜索框架&quot;),
+ dict(方法=&quot;GA（无局部搜索）&quot;,
+      长处=&quot;—&quot;,
+      失败点=f&quot;波动大：vC10a 上 CV {ga_cv:.1f}%，平均差距 {mg(&#x27;ga&#x27;,&#x27;vC10a&#x27;):.2f}%&quot;,
+      我们怎么做=&quot;避：不用种群交叉&quot;),
+ dict(方法=&quot;CRAFT 式两两交换（Swap）&quot;,
+      长处=f&quot;小实例够用：O7 平均 {mg(&#x27;swap&#x27;,&#x27;O7&#x27;):.3f}%&quot;,
+      失败点=f&quot;大实例 + 长宽比限制下找不到可行解：Du62 只有 {len(sw_du)}/10 次可行&quot;,
+      我们怎么做=&quot;避：不用纯局部下降&quot;),
+ dict(方法=&quot;构造法（CORELAP 式）&quot;,
+      长处=&quot;几秒出解、确定性&quot;,
+      失败点=f&quot;质量差：SC30 {mg(&#x27;construct&#x27;,&#x27;SC30&#x27;):.1f}%、AB20 {mg(&#x27;construct&#x27;,&#x27;AB20&#x27;):.1f}%&quot;,
+      我们怎么做=&quot;避：不用作主方法（最多当起点）&quot;),
+ dict(方法=&quot;精确数学（凸 MINLP / SOCP）&quot;,
+      长处=f&quot;给定拓扑时精确：一次 SOCP 把 SA 平均成本在 SC30 降 {gain[&#x27;SC30&#x27;]:.2f}%、O7 降 {gain[&#x27;O7&#x27;]:.3f}%；小实例可证最优&quot;,
+      失败点=&quot;整体建模在 300 s 内：vC10a 21.10%、SC30 201.30%、AB20/Du62 无解；网格离散化可能直接无解&quot;,
+      我们怎么做=&quot;取：第二阶段每个序列对用 SOCP 精确求几何（面积精确，不用 G&amp;R 2015 的切线外逼近）。避：不做全局精确搜索&quot;),
+ dict(方法=&quot;序列对 + 数学规划（Liu &amp; Meller 2007）&quot;,
+      长处=&quot;能表示所有矩形布局，包括非切片&quot;,
+      失败点=f&quot;从随机序列对开始很差：去掉第一阶段 AB20 {s1.loc[(&#x27;AB20&#x27;,&#x27;去掉第一阶段&#x27;),&#x27;平均差距&#x27;]:.2f}%、SC30 {s1.loc[(&#x27;SC30&#x27;,&#x27;去掉第一阶段&#x27;),&#x27;平均差距&#x27;]:.2f}%、Du62 0/10 可行&quot;,
+      我们怎么做=&quot;取：第二阶段的表示。避：不从随机起点开始，用第一阶段的结果当起点&quot;),
+ dict(方法=&quot;第二阶段搜索（我们的组合）&quot;,
+      长处=f&quot;SC30 上明显有效：平均 {s1.loc[(&#x27;SC30&#x27;,&#x27;Ours（完整）&#x27;),&#x27;平均差距&#x27;]:.2f}% vs 只第一阶段 {s1.loc[(&#x27;SC30&#x27;,&#x27;只第一阶段&#x27;),&#x27;平均差距&#x27;]:.2f}%&quot;,
+      失败点=f&quot;满铺实例上几乎没用：AB20 完整 {s1.loc[(&#x27;AB20&#x27;,&#x27;Ours（完整）&#x27;),&#x27;平均差距&#x27;]:.2f}% vs 只第一阶段 {s1.loc[(&#x27;AB20&#x27;,&#x27;只第一阶段&#x27;),&#x27;平均差距&#x27;]:.2f}%；Du62 SOCP 太慢只能抛光&quot;,
+      我们怎么做=&quot;如实写：第二阶段的价值集中在有空地 / 切片限制强的实例&quot;),
+]
+display(pd.DataFrame(rows).set_index(&quot;方法&quot;))</pre><div class="df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>长处</th>
+      <th>失败点</th>
+      <th>我们怎么做</th>
+    </tr>
+    <tr>
+      <th>方法</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>切片树编码（STS，Kang &amp; Chae 2017 / J&amp;C 2026）</th>
+      <td>面积按比例、铺满、不重叠天然成立 → SA/CRO 在 5 个实例上 10/10 全可行</td>
+      <td>表示不了非切片布局：O7 上全部停在 131.6892；有空地时弱：SC30 上 SA 9....</td>
+      <td>取：第一阶段用它快速找好拓扑。避：不让它决定最终几何（交给第二阶段）</td>
+    </tr>
+    <tr>
+      <th>模拟退火 SA</th>
+      <td>比 GA、CRO 稳：AB20 平均 0.44% vs GA 23.82%、CRO 5.37%</td>
+      <td>SC30 平均 9.07%（受切片树限制）</td>
+      <td>取：两个阶段都用 SA 做搜索框架</td>
+    </tr>
+    <tr>
+      <th>GA（无局部搜索）</th>
+      <td>—</td>
+      <td>波动大：vC10a 上 CV 8.9%，平均差距 18.81%</td>
+      <td>避：不用种群交叉</td>
+    </tr>
+    <tr>
+      <th>CRAFT 式两两交换（Swap）</th>
+      <td>小实例够用：O7 平均 0.027%</td>
+      <td>大实例 + 长宽比限制下找不到可行解：Du62 只有 1/10 次可行</td>
+      <td>避：不用纯局部下降</td>
+    </tr>
+    <tr>
+      <th>构造法（CORELAP 式）</th>
+      <td>几秒出解、确定性</td>
+      <td>质量差：SC30 195.5%、AB20 75.7%</td>
+      <td>避：不用作主方法（最多当起点）</td>
+    </tr>
+    <tr>
+      <th>精确数学（凸 MINLP / SOCP）</th>
+      <td>给定拓扑时精确：一次 SOCP 把 SA 平均成本在 SC30 降 3.08%、O7 降 0...</td>
+      <td>整体建模在 300 s 内：vC10a 21.10%、SC30 201.30%、AB20/D...</td>
+      <td>取：第二阶段每个序列对用 SOCP 精确求几何（面积精确，不用 G&amp;R 2015 的切线外逼...</td>
+    </tr>
+    <tr>
+      <th>序列对 + 数学规划（Liu &amp; Meller 2007）</th>
+      <td>能表示所有矩形布局，包括非切片</td>
+      <td>从随机序列对开始很差：去掉第一阶段 AB20 12.32%、SC30 10.38%、Du62...</td>
+      <td>取：第二阶段的表示。避：不从随机起点开始，用第一阶段的结果当起点</td>
+    </tr>
+    <tr>
+      <th>第二阶段搜索（我们的组合）</th>
+      <td>SC30 上明显有效：平均 1.93% vs 只第一阶段 7.01%</td>
+      <td>满铺实例上几乎没用：AB20 完整 -0.01% vs 只第一阶段 -0.41%；Du62 ...</td>
+      <td>如实写：第二阶段的价值集中在有空地 / 切片限制强的实例</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div></section>
+<section class="step" id="n10" data-title="L · 这是大家的共识吗？"><div class="md"><h2>L · 这是大家的共识吗？ / Is this the consensus?</h2>
+<p>分三层说，每层标出处：
+1. <strong>文献共识</strong>（项目文档 02 的综述）：精确法只能解到约 9–14 个部门（Sherali 2003、Konak 2006）；2010–2020 年 232 篇文献里元启发式占绝对主导（Pérez-Gosende 2021）。
+2. <strong>已有的同类混合思路</strong>（不是我们首创）：
+   - Liu &amp; Meller 2007（IIE Transactions）、Liu 2004 博士论文：序列对搜索 + MIP 求位置和尺寸——我们第二阶段的直接前身。
+   - Gonçalves &amp; Resende 2015（EJOR）：BRKGA 解码 + LP 微调，面积用切线外逼近。
+   - Jeong &amp; Chae 2026、Kang &amp; Chae 2017：切片树编码——我们第一阶段的表示。
+3. <strong>我们自己的数据才能说明的</strong>（上面各格）：哪种方法在哪种实例上赢、在哪失败；两阶段各自的贡献；精英池、近邻移动没有作用。</p>
+<p>所以贡献的准确说法是：<strong>把切片树 SA（快速找拓扑）和序列对 + 精确面积 SOCP（精确几何）接起来，并用统一协议、独立检查器和消融量化了每一部分的作用</strong>——不是新范式。
+So the accurate claim: we connect slicing-tree SA (fast topology search) with sequence-pair search under an exact-area SOCP, and quantify each part's effect under one protocol with an independent checker and ablation. It is not a new paradigm.</p></div></section>
+<section class="step" id="n11" data-title="结论"><div class="md"><h2>结论 / What the evidence supports</h2>
 <p>由上面的格子得出（不是另加的判断）：
-1. <strong>R1</strong>：网格 CP-SAT 在 O7、Du62 上格子数不够，按构造不可行；300 s MINLP 只在 O7 上到最优。→ 核心用启发式搜索。
+1. <strong>R1 / D</strong>：精确方法在小实例上能证最优，但 300 s 内在 vC10a、SC30 上差 21%–201%，AB20、Du62 无解 → 全局搜索用启发式，精确数学只用于"给定拓扑求几何"和"小实例证最优"。（网格 CP-SAT 的无解来自我们的离散化规则，不作为证据。）
 2. <strong>R2–R3</strong>：切片树让面积按比例分配、厂房铺满、不重叠天然成立，但 O7 上所有切片类方法都停在 131.6892（差 0.027%）。→ 需要能表示非切片布局的第二阶段。
 3. <strong>R4</strong>：给定序列对，SOCP 精确求几何；一次 SOCP 就把 O7 从 131.6892 推到 131.6532（已证明最优）。重算的 polish 行见第 7 格、与论文对比见第 15 格。
 4. <strong>R5</strong>：第二阶段搜索的收益集中在 SC30；Du62 因 SOCP 太慢按规则只抛光。

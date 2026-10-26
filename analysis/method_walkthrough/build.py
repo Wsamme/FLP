@@ -23,7 +23,7 @@ Each step answers one design question and backs it with an experiment.
 
 | 步 / Step | 问题 / Question | 证据 / Evidence |
 |---|---|---|
-| R1 | 为什么不用精确方法？ | 网格格子数算术 + 论文 MINLP 行 |
+| R1 | 精确方法能做什么、在哪失败？ | 论文 MINLP 行 + 证明记录 + 网格算术 |
 | R2 | 第一阶段为什么用切片树？ | 解码一个基因，检查面积 |
 | R3 | 切片树的天花板在哪？ | O7：所有切片类方法都停在 131.6892 |
 | R4 | 第二阶段为什么是序列对 + SOCP？ | 现场抛光 + 重算 polish 行 |
@@ -31,6 +31,8 @@ Each step answers one design question and backs it with an experiment.
 | R6 | 精英池和近邻移动有用吗？ | 消融 |
 | A | 消融全表 + 显著性检验 | 原始数据重算 |
 | T | 主表 | 原始数据重算 |
+| D | 每种方法的长处和失败点 → 取舍 | 由上面所有格子的数字汇总 |
+| L | 这是共识吗？ | 文献 vs 我们自己的数据 |
 """)
 
 C("""
@@ -96,12 +98,18 @@ display(pd.DataFrame(I.w.astype(int), index=range(1, 8), columns=range(1, 8)))
 """)
 
 M("""
-## R1 · 为什么不用精确方法？ / Why not an exact method?
-**推论**：精确模型在这些实例上要么规模太大、要么离散化后根本没有可行解，所以核心必须是启发式搜索；精确数学只用在"给定拓扑后的几何"上（见 R4）。
-**Claim**: exact models either do not scale or become infeasible once discretised, so the core must be a heuristic search; exact math is used only for geometry under a fixed topology (R4).
+## R1 · 精确方法：能做什么、在哪失败 / Exact methods: what they do well, where they fail
+**数据说的是**（不是"精确方法不行"）：
+- **能证最优**：凸 MINLP 在 O7 上 2,322 s 证到最优（论文 numbers.tex）；我们自己的序列对 MINLP 在 vC10a 上约 1.9 h 证明 18,522.79 是全局最优（文档 21）。
+- **在统一时限（300 s）内**：vC10a 差 21.10%，SC30 差 201.30%，AB20、Du62 连可行解都没有（下面第 3 格）。
+- **网格 CP-SAT 在 O7、Du62 上的"无解"是我们自己的离散化规则造成的**（厂房向下取整、面积向上取整，第 2 格），不能当作"CP-SAT 不行"的证据。
+- 文献同样认为精确法只能解到约 9–14 个部门（Sherali 2003、Konak 2006，见项目文档 02）。
+
+**我们的取舍**：不用精确模型做全局搜索（时限内失败），但**保留精确数学的两个用处**：①给定拓扑后精确求几何（R4 的 SOCP）；②小实例上做最优性证明，用来校验启发式（O7、vC10a）。
+**Our choice**: no exact model for the global search (fails within the budget), but keep exact math for (1) geometry under a fixed topology and (2) optimality certificates on small instances.
 """)
 C("""
-# 2 · 网格 CP-SAT：格子数够不够？ / grid CP-SAT cell balance (bench/methods/cpsat.py 的离散化规则)
+# 2 · 网格 CP-SAT：按我们的离散化规则，格子数够不够？ / cell balance under OUR discretisation rule (bench/methods/cpsat.py)
 import math
 rows = []
 for k, s in [("O7", 10), ("vC10a", 10), ("AB20", 10), ("SC30", 10), ("Du62", 1)]:
@@ -404,9 +412,94 @@ display(CHK[CHK["一致"] != "是"] if (CHK["一致"] != "是").any() else CHK.h
 """)
 
 M("""
+## D · 取舍表：每种方法的长处、失败点，我们取什么、避开什么 / Trade-off table
+下面两格只用前面算出来的数（主表 MAIN、polish、消融 ABL、每次运行的阶段成本 S），把每种方法"在哪赢、在哪输"量化出来，再对应到我们方法的设计。
+The next two cells use only numbers computed above to quantify where each method wins and fails, then map that to our design.
+""")
+C("""
+# 16 · 各方法在不同实例特征下的表现 / performance by instance feature
+FEAT = {"O7": "满铺 · 小", "vC10a": "满铺 · 细长", "AB20": "满铺 · 不对称流量", "SC30": "有空地", "Du62": "满铺 · 大（62）"}
+def cv(m, k):
+    c = costs(m, k); return 100 * c.std(ddof=1) / c.mean() if len(c) > 1 else np.nan
+rows = []
+for m, lab in [("construct", "Construct（构造法）"), ("swap", "Swap（CRAFT 式交换）"), ("ga", "GA"), ("sa", "SA（切片树）"),
+               ("cro", "CRO（切片树，J&C 2026）"), ("ours_s1", "只第一阶段"), ("ours", "Ours")]:
+    r = {"方法": lab}
+    for k in INST:
+        c = costs(m, k); n_all = len(RUNS[(m, k)])
+        r[k] = f"{100*(c.mean()-REF[k])/REF[k]:.2f}%" + (f"（{len(c)}/{n_all} 可行）" if len(c) < n_all else "")
+    v = [x for x in (cv(m, k) for k in INST) if not np.isnan(x)]
+    r["平均波动 CV"] = f"{np.mean(v):.2f}%" if v else "—（只跑 1 次）"
+    rows.append(r)
+r = {"方法": "精确 MINLP（300 s，论文表）"}
+for k, v in zip(INST, ["0.000%", "21.10%", "无可行解", "201.30%", "无可行解"]): r[k] = v
+r["平均波动 CV"] = "—"; rows.append(r)
+T = pd.DataFrame(rows).set_index("方法"); T.columns = [f"{c}（{FEAT[c]}）" if c in FEAT else c for c in T.columns]
+display(T)
+print("单元格 = 10 次运行的平均差距（相对参考值）。CV = 标准差 / 平均，越大说明结果越看运气。")
+gain = {k: 100 * (costs("sa", k).mean() - POLC[("sa", k)].mean()) / costs("sa", k).mean() for k in INST}
+print("一次 SOCP 抛光让 SA 平均成本下降:", {k: f"{v:.3f}%" for k, v in gain.items()})
+""")
+C("""
+# 17 · 取舍表（每条后面是支撑它的数字，均由上面的格子算出）/ the trade-off table, each line backed by a number above
+def mg(m, k): c = costs(m, k); return 100 * (c.mean() - REF[k]) / REF[k]
+sw_du = costs("swap", "Du62"); ga_cv = cv("ga", "vC10a")
+s1 = ABL.set_index(["实例", "变体"])
+rows = [
+ dict(方法="切片树编码（STS，Kang & Chae 2017 / J&C 2026）",
+      长处=f"面积按比例、铺满、不重叠天然成立 → SA/CRO 在 5 个实例上 10/10 全可行",
+      失败点=f"表示不了非切片布局：O7 上全部停在 131.6892；有空地时弱：SC30 上 SA {mg('sa','SC30'):.2f}%、CRO {mg('cro','SC30'):.2f}%",
+      我们怎么做="取：第一阶段用它快速找好拓扑。避：不让它决定最终几何（交给第二阶段）"),
+ dict(方法="模拟退火 SA",
+      长处=f"比 GA、CRO 稳：AB20 平均 {mg('sa','AB20'):.2f}% vs GA {mg('ga','AB20'):.2f}%、CRO {mg('cro','AB20'):.2f}%",
+      失败点=f"SC30 平均 {mg('sa','SC30'):.2f}%（受切片树限制）",
+      我们怎么做="取：两个阶段都用 SA 做搜索框架"),
+ dict(方法="GA（无局部搜索）",
+      长处="—",
+      失败点=f"波动大：vC10a 上 CV {ga_cv:.1f}%，平均差距 {mg('ga','vC10a'):.2f}%",
+      我们怎么做="避：不用种群交叉"),
+ dict(方法="CRAFT 式两两交换（Swap）",
+      长处=f"小实例够用：O7 平均 {mg('swap','O7'):.3f}%",
+      失败点=f"大实例 + 长宽比限制下找不到可行解：Du62 只有 {len(sw_du)}/10 次可行",
+      我们怎么做="避：不用纯局部下降"),
+ dict(方法="构造法（CORELAP 式）",
+      长处="几秒出解、确定性",
+      失败点=f"质量差：SC30 {mg('construct','SC30'):.1f}%、AB20 {mg('construct','AB20'):.1f}%",
+      我们怎么做="避：不用作主方法（最多当起点）"),
+ dict(方法="精确数学（凸 MINLP / SOCP）",
+      长处=f"给定拓扑时精确：一次 SOCP 把 SA 平均成本在 SC30 降 {gain['SC30']:.2f}%、O7 降 {gain['O7']:.3f}%；小实例可证最优",
+      失败点="整体建模在 300 s 内：vC10a 21.10%、SC30 201.30%、AB20/Du62 无解；网格离散化可能直接无解",
+      我们怎么做="取：第二阶段每个序列对用 SOCP 精确求几何（面积精确，不用 G&R 2015 的切线外逼近）。避：不做全局精确搜索"),
+ dict(方法="序列对 + 数学规划（Liu & Meller 2007）",
+      长处="能表示所有矩形布局，包括非切片",
+      失败点=f"从随机序列对开始很差：去掉第一阶段 AB20 {s1.loc[('AB20','去掉第一阶段'),'平均差距']:.2f}%、SC30 {s1.loc[('SC30','去掉第一阶段'),'平均差距']:.2f}%、Du62 0/10 可行",
+      我们怎么做="取：第二阶段的表示。避：不从随机起点开始，用第一阶段的结果当起点"),
+ dict(方法="第二阶段搜索（我们的组合）",
+      长处=f"SC30 上明显有效：平均 {s1.loc[('SC30','Ours（完整）'),'平均差距']:.2f}% vs 只第一阶段 {s1.loc[('SC30','只第一阶段'),'平均差距']:.2f}%",
+      失败点=f"满铺实例上几乎没用：AB20 完整 {s1.loc[('AB20','Ours（完整）'),'平均差距']:.2f}% vs 只第一阶段 {s1.loc[('AB20','只第一阶段'),'平均差距']:.2f}%；Du62 SOCP 太慢只能抛光",
+      我们怎么做="如实写：第二阶段的价值集中在有空地 / 切片限制强的实例"),
+]
+display(pd.DataFrame(rows).set_index("方法"))
+""")
+
+M("""
+## L · 这是大家的共识吗？ / Is this the consensus?
+分三层说，每层标出处：
+1. **文献共识**（项目文档 02 的综述）：精确法只能解到约 9–14 个部门（Sherali 2003、Konak 2006）；2010–2020 年 232 篇文献里元启发式占绝对主导（Pérez-Gosende 2021）。
+2. **已有的同类混合思路**（不是我们首创）：
+   - Liu & Meller 2007（IIE Transactions）、Liu 2004 博士论文：序列对搜索 + MIP 求位置和尺寸——我们第二阶段的直接前身。
+   - Gonçalves & Resende 2015（EJOR）：BRKGA 解码 + LP 微调，面积用切线外逼近。
+   - Jeong & Chae 2026、Kang & Chae 2017：切片树编码——我们第一阶段的表示。
+3. **我们自己的数据才能说明的**（上面各格）：哪种方法在哪种实例上赢、在哪失败；两阶段各自的贡献；精英池、近邻移动没有作用。
+
+所以贡献的准确说法是：**把切片树 SA（快速找拓扑）和序列对 + 精确面积 SOCP（精确几何）接起来，并用统一协议、独立检查器和消融量化了每一部分的作用**——不是新范式。
+So the accurate claim: we connect slicing-tree SA (fast topology search) with sequence-pair search under an exact-area SOCP, and quantify each part's effect under one protocol with an independent checker and ablation. It is not a new paradigm.
+""")
+
+M("""
 ## 结论 / What the evidence supports
 由上面的格子得出（不是另加的判断）：
-1. **R1**：网格 CP-SAT 在 O7、Du62 上格子数不够，按构造不可行；300 s MINLP 只在 O7 上到最优。→ 核心用启发式搜索。
+1. **R1 / D**：精确方法在小实例上能证最优，但 300 s 内在 vC10a、SC30 上差 21%–201%，AB20、Du62 无解 → 全局搜索用启发式，精确数学只用于"给定拓扑求几何"和"小实例证最优"。（网格 CP-SAT 的无解来自我们的离散化规则，不作为证据。）
 2. **R2–R3**：切片树让面积按比例分配、厂房铺满、不重叠天然成立，但 O7 上所有切片类方法都停在 131.6892（差 0.027%）。→ 需要能表示非切片布局的第二阶段。
 3. **R4**：给定序列对，SOCP 精确求几何；一次 SOCP 就把 O7 从 131.6892 推到 131.6532（已证明最优）。重算的 polish 行见第 7 格、与论文对比见第 15 格。
 4. **R5**：第二阶段搜索的收益集中在 SC30；Du62 因 SOCP 太慢按规则只抛光。
