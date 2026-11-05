@@ -1,0 +1,1 @@
+{"method": "cpsat", "instance": "Du62", "seed": 0, "time_limit": 300.0, "wall": 300.06, "meta": {"status": "UNKNOWN", "solve_time": 300.0, "scale": 1, "grid": [117, 117], "cells_floor": 13689, "cells_needed": 13718, "workers": 2}, "error": null, "cost": null, "feasible": false, "violations": ["no layout"], "rects": null}

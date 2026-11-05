@@ -1,0 +1,5 @@
+cpsat        O7     seed  0 cost None feasible False wall 300.4s -> results/verify300/cpsat_O7_s0.json
+cpsat        vC10a  seed  0 cost None feasible False wall 300.0s -> results/verify300/cpsat_vC10a_s0.json
+cpsat        AB20   seed  0 cost None feasible False wall 300.0s -> results/verify300/cpsat_AB20_s0.json
+cpsat        SC30   seed  0 cost 5352.405000000001 feasible True wall 300.0s -> results/verify300/cpsat_SC30_s0.json
+cpsat        Du62   seed  0 cost None feasible False wall 300.1s -> results/verify300/cpsat_Du62_s0.json

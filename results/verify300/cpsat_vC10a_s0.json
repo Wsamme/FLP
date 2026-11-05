@@ -1,0 +1,1 @@
+{"method": "cpsat", "instance": "vC10a", "seed": 0, "time_limit": 300.0, "wall": 300.01, "meta": {"status": "UNKNOWN", "solve_time": 300.0, "scale": 10, "grid": [250, 510], "cells_floor": 127500, "cells_needed": 127500, "workers": 2}, "error": null, "cost": null, "feasible": false, "violations": ["no layout"], "rects": null}

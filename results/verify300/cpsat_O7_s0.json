@@ -1,0 +1,1 @@
+{"method": "cpsat", "instance": "O7", "seed": 0, "time_limit": 300.0, "wall": 300.4, "meta": {"status": "UNKNOWN", "solve_time": 300.2, "scale": 10, "grid": [85, 130], "cells_floor": 11050, "cells_needed": 11100, "workers": 2}, "error": null, "cost": null, "feasible": false, "violations": ["no layout"], "rects": null}
