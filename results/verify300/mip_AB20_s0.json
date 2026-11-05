@@ -1,0 +1,1 @@
+{"method": "mip", "instance": "AB20", "seed": 0, "time_limit": 300.0, "wall": 300.13, "meta": {"status": "no solution found", "solve_time": 300.0, "shape_vars": 180, "pair_vars": 760, "constraints": 1298, "variables": 1104, "fill": 100.0}, "error": null, "cost": null, "feasible": false, "violations": ["no layout"], "rects": null}
