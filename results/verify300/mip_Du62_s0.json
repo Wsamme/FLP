@@ -1,0 +1,1 @@
+{"method": "mip", "instance": "Du62", "seed": 0, "time_limit": 300.0, "wall": 300.37, "meta": {"status": "no solution found", "solve_time": 300.0, "shape_vars": 558, "pair_vars": 7564, "constraints": 14493, "variables": 10610, "fill": 100.0}, "error": null, "cost": null, "feasible": false, "violations": ["no layout"], "rects": null}

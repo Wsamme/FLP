@@ -2,3 +2,4 @@ mip          O7     seed  0 cost None feasible False wall 300.5s -> results/veri
 mip          vC10a  seed  0 cost None feasible False wall 300.3s -> results/verify300/mip_vC10a_s0.json
 mip          AB20   seed  0 cost None feasible False wall 300.1s -> results/verify300/mip_AB20_s0.json
 mip          SC30   seed  0 cost None feasible False wall 300.1s -> results/verify300/mip_SC30_s0.json
+mip          Du62   seed  0 cost None feasible False wall 300.4s -> results/verify300/mip_Du62_s0.json
