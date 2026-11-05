@@ -1,0 +1,2 @@
+mip          O7     seed  0 cost None feasible False wall 300.5s -> results/verify300/mip_O7_s0.json
+mip          vC10a  seed  0 cost None feasible False wall 300.3s -> results/verify300/mip_vC10a_s0.json

@@ -1,0 +1,1 @@
+{"method": "mip", "instance": "O7", "seed": 0, "time_limit": 300.0, "wall": 300.54, "meta": {"status": "no solution found", "solve_time": 300.0, "shape_vars": 61, "pair_vars": 84, "constraints": 180, "variables": 179, "fill": 99.98}, "error": null, "cost": null, "feasible": false, "violations": ["no layout"], "rects": null}

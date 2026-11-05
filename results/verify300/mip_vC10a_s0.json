@@ -1,0 +1,1 @@
+{"method": "mip", "instance": "vC10a", "seed": 0, "time_limit": 300.0, "wall": 300.31, "meta": {"status": "no solution found", "solve_time": 300.0, "shape_vars": 85, "pair_vars": 180, "constraints": 323, "variables": 309, "fill": 100.0}, "error": null, "cost": null, "feasible": false, "violations": ["no layout"], "rects": null}

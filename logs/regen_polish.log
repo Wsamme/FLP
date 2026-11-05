@@ -1,0 +1,9 @@
+/usr/local/lib/python3.13/dist-packages/numpy/_core/fromnumeric.py:3862: RuntimeWarning: Mean of empty slice
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/usr/local/lib/python3.13/dist-packages/numpy/_core/_methods.py:142: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-claude/cedb336b-2e09-55bb-a3e2-86d60a89916d/scratchpad/regen_polish.py", line 25, in <module>
+    print(inst,m+'+polish',len(C),'mean gap %.3f'%(100*(np.mean(C)-ref[inst])/ref[inst]),'best gap %.3f'%(100*(min(C)-ref[inst])/ref[inst]),flush=True)
+                                                                                                               ~~~^^^
+ValueError: min() iterable argument is empty
