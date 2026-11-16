@@ -63,7 +63,7 @@ class St(list):
 
 class Model:
     def __init__(self, inst, pairs=False):
-        self.pairs = pairs
+        self.pairmode = bool(pairs)          # option B1 (not the list of flow pairs below)
         self.inst = inst
         B = inst["building"]; self.W, self.H = float(B["W"]), float(B["H"])
         self.D = D = inst["departments"]; self.n = n = len(D)
@@ -112,7 +112,8 @@ class Model:
         self.paint = [i for i, d in enumerate(D) if d.get("exterior_wall")]
         self.movers = [i for i in range(n) if i not in self.fixed and i not in self.dock]
         self.placed = [i for i in range(n) if i not in self.fixed]
-        self.penalty = 2.0 * sum(w for _, _, w in self.pairs)      # cost of one metre of shortfall
+        self.penalty = 20.0 * sum(w for _, _, w in self.pairs)     # cost of one metre of shortfall
+        self.step = 0.02                                             # plus 2 % of the objective while any shortfall remains
         self.sig_pen = 20.0 * sum(w for _, _, w in self.pairs)     # cost of one metre of row slack
 
     # ---------- geometry set-up ----------
@@ -179,7 +180,7 @@ class Model:
             seq = state[s["row"]]
             if s["mode"] == "W" and seq[0] != i: seq.remove(i); seq.insert(0, i)
             if s["mode"] == "E" and seq[-1] != i: seq.remove(i); seq.append(i)
-        if self.pairs: self.sync(state)
+        if self.pairmode: self.sync(state)
         return state
 
     def sync(self, state):
@@ -211,7 +212,7 @@ class Model:
         for ri, seq in enumerate(state):
             if not seq: continue
             r = R[ri]; cap = r["rh"]
-            if r["group"] is not None and not self.pairs:
+            if r["group"] is not None and not self.pairmode:
                 other = self.mate[ri]
                 if other is not None: cap -= need[other]
             if cap < need[ri] - E:
@@ -243,7 +244,7 @@ class Model:
             if g is not None and seq: used.setdefault(g, []).append(ri)
         gvar = {}
         for g, rs in used.items():
-            if len(rs) == 2 and not self.pairs: gvar[g] = nv; nv += 1
+            if len(rs) == 2 and not self.pairmode: gvar[g] = nv; nv += 1
         sig = {}
         for ri, seq in enumerate(state):
             if seq: sig[ri] = nv; nv += 1
@@ -297,7 +298,7 @@ class Model:
                     elif k == m - 1 and r["wallE"]: eq([(x, 1), (w, 1)], r["x1"])
                     elif r["far_wall"]: le([(d, -1)], -r["rh"])
                     else: return None
-        if self.pairs:
+        if self.pairmode:
             for g, (rb, rt) in self.grows.items():
                 if not state[rb] or not state[rt]: continue
                 plus, minus = state.inter[g]
@@ -404,7 +405,9 @@ class Model:
         out = self.socp(state)
         if out is None: return None
         v = self.shortfall(out[1])
-        return out[0] + self.penalty * v, out[1], v <= 1e-6 and out[2] <= 1e-6, v, out[2], out[3]
+        short = v > 1e-6
+        cost = out[0] + self.penalty * v + (self.step * out[3] if short else 0.0)
+        return cost, out[1], not short and out[2] <= 1e-6, v, out[2], out[3]
 
     # ---------- initial solution ----------
     def initial(self, rng, deadline=None, tries=20000):
@@ -486,7 +489,7 @@ class Model:
 
     def neighbor(self, state, rng):
         s = state.copy()
-        if self.pairs and rng.random() < 0.25:
+        if self.pairmode and rng.random() < 0.25:
             gs = [g for g, (rb, rt) in self.grows.items() if s[rb] and s[rt]]
             if gs:
                 g = gs[rng.integers(len(gs))]; seq = s.inter[g][int(rng.integers(2))]
