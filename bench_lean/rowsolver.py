@@ -429,8 +429,11 @@ class Model:
         if out is None: return None
         v = self.shortfall(out[1])
         short = v > 1e-6
-        cost = out[0] + self.penalty * v + (self.step * out[3] if short else 0.0)
-        return cost, out[1], not short and out[2] <= 1e-6, v, out[2], out[3]
+        slack = out[2] > 1e-6
+        # the 2 % step applies to row slack as well: without it the search can rest at a few cm of slack
+        # (LA-M-I-s1: 0.043 m for a whole 60 s run), which the per-metre price alone makes almost free
+        cost = out[0] + self.penalty * v + (self.step * out[3] if short or slack else 0.0)
+        return cost, out[1], not short and not slack, v, out[2], out[3]
 
     # ---------- initial solution ----------
     def initial(self, rng, deadline=None, tries=20000):
@@ -447,13 +450,41 @@ class Model:
         def est(i, ri):
             cap = R[ri]["rh"] / (2 if R[ri]["group"] is not None else 1)
             return max(self.ms[i], self.A[i] / max(cap, 1e-6), math.sqrt(self.A[i] / self.am[i])) + 0.5
-        # paint first, on a row where it can touch the outer wall
+        # paint first, on a row where its shape fits while touching an outer wall: full depth against the far
+        # wall, or at a row end on the W/E wall that no dock holds (LA-M-I-s1: a 360 m2 paint shop put at full
+        # depth in a 10.9 m deep, 29.6 m long row needs slack that no single move can remove)
+        def paint_fit(i, ri):
+            r = R[ri]; L = r["x1"] - r["x0"]; A, a, ms = self.A[i], self.am[i], self.ms[i]
+            held = {self.dock[j]["mode"] for j in state[ri] if j in self.dock}
+            opts = []
+            if r["far_wall"]:
+                d = r["rh"]; w = A / d
+                if w <= L - used[ri] and max(w / d, d / w) <= a and min(w, d) >= ms: opts.append((w, "any", False, w))
+            # at a W/E row end; in a two-row region it may take the full depth if the other row is left empty
+            for dcap, blocks in ((r["rh"] / (2 if r["group"] is not None else 1), False),
+                                 ((r["rh"], True) if r["group"] is not None else (None, False))):
+                if dcap is None: continue
+                d = min(dcap, math.sqrt(A * a))
+                if d >= max(ms, math.sqrt(A / a)) - 1e-9 and A / d <= L - used[ri]:
+                    if blocks and used[self.mate[ri]] > 0: continue
+                    pen = L if blocks else 0.0           # prefer options that leave the other row usable
+                    if r["wallW"] and "W" not in held: opts.append((A / d + pen, "first", blocks, A / d))
+                    elif r["wallE"] and "E" not in held: opts.append((A / d + pen, "last", blocks, A / d))
+            return min(opts) if opts else None
         for i in self.paint:
-            ok = [ri for ri in range(len(R)) if R[ri]["wallW"] or R[ri]["wallE"] or R[ri]["far_wall"]]
-            ri = min(ok, key=lambda q: used[q] / (R[q]["x1"] - R[q]["x0"]))
-            if R[ri]["wallW"]: state[ri].insert(0, i)
+            fits = [(ri, paint_fit(i, ri)) for ri in range(len(R))]
+            fits = [(ri, f) for ri, f in fits if f is not None]
+            blocks = False
+            if fits:
+                ri, (_, where, blocks, w) = min(fits, key=lambda t: (used[t[0]] + t[1][0]) / (R[t[0]]["x1"] - R[t[0]]["x0"]))
+            else:                                   # nothing fits outright: the old rule, the SA has to repair
+                ok = [q for q in range(len(R)) if R[q]["wallW"] or R[q]["wallE"] or R[q]["far_wall"]]
+                ri = min(ok, key=lambda q: used[q] / (R[q]["x1"] - R[q]["x0"])); w = est(i, ri)
+                where = "first" if R[ri]["wallW"] else "last"
+            if where == "first": state[ri].insert(0, i)
             else: state[ri].append(i)
-            used[ri] += est(i, ri)
+            used[ri] += w
+            if blocks: used[self.mate[ri]] = R[ri]["x1"] - R[ri]["x0"]     # keep the other row of the region empty
         for i in [i for i in default_order(self.inst) if i in self.movers and i not in self.paint]:
             for ri in order_rows:
                 if used[ri] + est(i, ri) <= R[ri]["x1"] - R[ri]["x0"]:
