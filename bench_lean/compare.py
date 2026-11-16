@@ -20,7 +20,10 @@ def load(dirs, m):
     for d in dirs:
         for f in sorted(os.listdir(d)):
             if not f.endswith(".json") or f.startswith("summary"): continue
-            r = json.load(open(os.path.join(d, f), encoding="utf-8"))
+            try:
+                r = json.load(open(os.path.join(d, f), encoding="utf-8"))
+            except ValueError:
+                print(f"(skipped unreadable {f})"); continue
             if r.get("method") == m: out.setdefault(r["instance"], {})[r["seed"]] = r
     return out
 

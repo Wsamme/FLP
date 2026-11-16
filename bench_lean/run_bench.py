@@ -49,7 +49,8 @@ def main():
             return f"skip {tag} {n} {s} (exists)"
         r = subprocess.run([sys.executable, "-m", "bench_lean.baseline", method, n, str(s), a.seconds, a.out, tag, *opts],
                            cwd=root, env=env, capture_output=True, text=True, encoding="utf-8")
-        return r.stdout.strip() or f"ERROR {tag} {n} {s} {r.stderr.strip()[-400:]}"
+        err = " | ".join(r.stderr.strip().splitlines()[-3:])
+        return r.stdout.strip() or f"ERROR {tag} {n} {s} {err[-400:]}"
     t0 = time.time()
     with open(os.path.join(a.out, "log.txt"), "a", encoding="utf-8") as log, ThreadPoolExecutor(a.workers) as ex:
         log.write(f"# {time.strftime('%Y-%m-%d %H:%M:%S')} T={a.seconds}s workers={a.workers} set={a.set} "

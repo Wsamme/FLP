@@ -6,6 +6,8 @@ classic : our two-stage UA-FLP solver (bench.methods.ours) on the classic view o
           The result is then checked by bench_lean.evaluate, which shows what a classic solver misses.
 ref     : bench_lean.reference (aisle-aware packing + local search), which respects every rule.
 rows    : bench_lean.rowsolver (rows along aisles; SA over rows/order, SOCP geometry), which respects every rule.
+legal   : classic for half the time, then its layout is mapped onto the rows (rowsolver.Model.from_rects) and the
+          row solver runs only until the first feasible layout ("ignore the real elements, repair afterwards").
 
 Usage: python -m bench_lean.baseline METHOD INSTANCE SEED SECONDS OUTDIR [TAG] [key=value ...]
 TAG names the configuration in the result file (default METHOD); key=value pairs are passed to the solver.
@@ -63,6 +65,15 @@ def run(method, name, seed, T, opts=None, tag=None):
         out = solve(inst, seed, T, **opts)
         rects = None if out is None else out["rects"]
         if out: stats = dict(iterations=out["iterations"], accepted=out["accepted"])
+    elif method == "legal":
+        from bench.methods import ours
+        from .rowsolver import solve
+        t1 = time.time()
+        cl = ours.solve(classic_problem(inst), seed, T * 0.5, log=lambda *a: None)
+        left = T - (time.time() - t1)
+        out = solve(inst, seed, max(5.0, left), init_rects=cl["rects"], stop_feasible=True, **opts)
+        rects = None if out is None else out["rects"]
+        if out: stats = {k: v for k, v in out.items() if k not in ("rects", "eval")}
     elif method == "rows":
         from .rowsolver import solve
         out = solve(inst, seed, T, **opts)
@@ -86,6 +97,10 @@ if __name__ == "__main__":
     opts = {k: _val(v) for k, v in (a.split("=", 1) for a in rest)}
     os.makedirs(out, exist_ok=True)
     rec = run(m, name, seed, T, opts, tag)
-    json.dump(rec, open(os.path.join(out, f"{tag}_{name}_s{seed}.json"), "w", encoding="utf-8"), ensure_ascii=False)
+    conv = lambda o: o.item() if hasattr(o, "item") else (o.tolist() if hasattr(o, "tolist") else str(o))
+    path = os.path.join(out, f"{tag}_{name}_s{seed}.json")
+    with open(path + ".tmp", "w", encoding="utf-8") as fh:        # write then rename: no half-written results
+        json.dump(rec, fh, ensure_ascii=False, default=conv)
+    os.replace(path + ".tmp", path)
     e = rec["eval"]
     print(tag, name, seed, f"wall={rec['wall']:.1f}", "none" if e is None else f"feasible={e['feasible']} viol={e['n_violations']} path={e['path_total']:.1f} centroid={e['centroid_material'] + e['centroid_people']:.1f}", flush=True)

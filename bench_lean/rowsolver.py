@@ -447,6 +447,43 @@ class Model:
             state = self.neighbor(state, rng); out = self.score(state)
         return state, out
 
+    def from_rects(self, rects):
+        """Rows state that follows a given layout (e.g. a classic solution that ignores aisles): each department
+        goes to the row whose band contains its centre (nearest row otherwise), ordered by centre x."""
+        R = self.rows; state = St([] for _ in R); state.inter = {}
+        for i, s_ in self.dock.items(): state[s_["row"]].append(i)
+        def band(r):                     # the half of the region a row may use
+            if r["group"] is None: return r["ry"], r["ry"] + r["rh"]
+            mid = r["ry"] + r["rh"] / 2
+            return (r["ry"], mid) if r["side"] == "B" else (mid, r["ry"] + r["rh"])
+        place = []
+        for i in self.movers:
+            x, y, w, h = rects[i]; cx, cy = x + w / 2, y + h / 2
+            def dist(ri):
+                r = R[ri]; y0, y1 = band(r)
+                dx = max(0.0, r["x0"] - cx, cx - r["x1"]); dy = max(0.0, y0 - cy, cy - y1)
+                return dx + dy
+            ri = min(range(len(R)), key=dist)
+            if i in self.paint and not (R[ri]["wallW"] or R[ri]["wallE"] or R[ri]["far_wall"]):
+                ri = min((q for q in range(len(R)) if R[q]["wallW"] or R[q]["wallE"] or R[q]["far_wall"]), key=dist)
+            place.append((ri, cx, i))
+        for ri, cx, i in sorted(place):
+            state[ri].append(i)
+        for ri, seq in enumerate(state):            # order by centre x, docks stay where normalize puts them
+            cxs = {i: (rects[i][0] + rects[i][2] / 2 if i in self.movers else (R[ri]["x0"] + R[ri]["x1"]) / 2) for i in seq}
+            if i in self.dock and self.dock[i]["mode"] in "SN":
+                pass
+            seq.sort(key=lambda i: cxs[i] if i not in self.dock else
+                     (self.dock[i]["lo"] + self.dock[i]["hi"]) / 2 if self.dock[i]["mode"] in "SN" else
+                     (-1e9 if self.dock[i]["mode"] == "W" else 1e9))
+        for i in self.paint:                        # paint must sit where it can touch an outer wall
+            ri = next(q for q, seq in enumerate(state) if i in seq); r = R[ri]; seq = state[ri]
+            if r["far_wall"]: continue
+            seq.remove(i)
+            if r["wallW"]: seq.insert(1 if seq and seq[0] in self.dock and self.dock[seq[0]]["mode"] == "W" else 0, i)
+            else: seq.insert(len(seq) - (1 if seq and seq[-1] in self.dock and self.dock[seq[-1]]["mode"] == "E" else 0), i)
+        return self.normalize(state)
+
     def neighbor(self, state, rng):
         s = state.copy()
         if self.pairs and rng.random() < 0.25:
@@ -482,7 +519,7 @@ class Model:
 
 
 def solve(inst, seed=0, time_limit=60.0, log=None, trace=None, pairs=False, elite=0, polish=0.0, accept="proxy",
-          check_every=0.5):
+          check_every=0.5, init_rects=None, stop_feasible=False):
     """trace: optional callable(proxy_cost, rects, ok, elapsed) called on every accepted move (diagnostics).
     pairs: pairwise coupling of two-row regions (B1).
     elite: keep the K best distinct layouts under the search cost and re-score them by true path cost at the end.
@@ -490,12 +527,18 @@ def solve(inst, seed=0, time_limit=60.0, log=None, trace=None, pairs=False, elit
     accept: "proxy" = SA accepts on the SOCP objective; "true" = SA accepts on the true path cost
             (+ the same shortfall penalty); the SOCP still sets the geometry of every candidate.
     check_every: seconds between true-cost checks of a new best layout (accept="proxy").
+    init_rects: start from this layout (Model.from_rects) instead of the greedy start.
+    stop_feasible: return the first feasible layout found (used to legalise a classic solution).
     True path costs come from fastpath.path_cost (same numbers as evaluate, about 5x faster); the returned layout
     is the cheapest candidate that evaluate confirms as feasible."""
     t0 = time.time()
     rng = np.random.default_rng(seed)
     M = Model(inst, pairs=bool(pairs))
-    state, out = M.initial(rng, deadline=t0 + 0.3 * time_limit)
+    if init_rects is not None:
+        state = M.from_rects(init_rects); out = M.score(state)
+        if out is None: state, out = M.initial(rng, deadline=t0 + 0.3 * time_limit)
+    else:
+        state, out = M.initial(rng, deadline=t0 + 0.3 * time_limit)
     if out is None: return None
     best = None                                  # best feasible under the search cost: (cost, state, rects)
     cands = []                                   # (true path cost, rects, state), cheapest first, at most 8
@@ -557,8 +600,10 @@ def solve(inst, seed=0, time_limit=60.0, log=None, trace=None, pairs=False, elit
                 remember(cur, cand, o[1])
                 if best is None or cur < best[0] - 1e-9:
                     best = (cur, cand, o[1]); pending = True
+                if stop_feasible: break
         if pending and not use_true and time.time() - last_true > check_every:
             true_cost(best[2], best[1]); last_true = time.time(); pending = False
+    if stop_feasible and out[2] and not cands: true_cost(out[1], state)
     if pending and not use_true: true_cost(best[2], best[1])
     for c, st, rects in sorted(pool.values(), key=lambda v: v[0]):
         if time.time() - t_start > total: break
@@ -584,4 +629,4 @@ def solve(inst, seed=0, time_limit=60.0, log=None, trace=None, pairs=False, elit
     return dict(rects=chosen[1], eval=chosen[2], iterations=it, socp_feasible=feas, accepted=acc,
                 search_best=best[0] if best else None, true_evals=n_true, polish_iterations=pol_it,
                 polish_accepted=pol_acc, rows=[[int(i) for i in seq] for seq in st],
-                inter={str(g): v for g, v in (st.inter or {}).items()} if pairs else None)
+                inter={str(g): [[int(i) for i in a], [int(i) for i in b]] for g, (a, b) in (st.inter or {}).items()} if pairs else None)
