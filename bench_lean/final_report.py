@@ -12,7 +12,7 @@ from scipy.stats import mannwhitneyu, wilcoxon
 from .evaluate import load as load_inst
 from .clearance import clear_cost
 
-TAGS = ["rowsF", "reft", "legal", "classic", "rowsF_300", "reft_300", "rowsC", "rowsC2"]
+TAGS = ["rowsF", "reft", "legal", "classic", "rowsF_300", "reft_300", "rowsE_post", "rowsC", "rowsC2"]
 
 
 def read(d):
@@ -139,7 +139,9 @@ def main():
         md += ["", "经典求解器（忽略通道和规则）各类违规出现的运行次数：" + "，".join(f"{k} {v}" for k, v in cnt.most_common())]
         res["classic_violations"] = dict(cnt)
     for A, B, title in [("rowsF", "reft", "60 秒：rows（最终配置）与参考解法"), ("rowsF_300", "reft_300", "300 秒：rows 与参考解法"),
-                        ("rowsF", "legal", "60 秒：rows 与“经典解 + 合法化”"), ("rowsF_300", "rowsF", "rows：300 秒与 60 秒")]:
+                        ("rowsF", "legal", "60 秒：rows 与“经典解 + 合法化”"), ("rowsF_300", "rowsF", "rows：300 秒与 60 秒"),
+                        ("rowsE_post", "reft", "事后稳健性版本 rowsE（看过 rowsF 的测试集失败后才选，单独报告）与参考解法，60 秒"),
+                        ("rowsE_post", "rowsF", "事后稳健性版本 rowsE 与最终配置 rowsF，60 秒")]:
         if A in runs and B in runs:
             c = compare(runs, A, B); res[f"{A}_vs_{B}"] = c
             md += ["", f"## {title}", "", md_table(c, A, B)]
