@@ -15,9 +15,9 @@ from scipy.stats import mannwhitneyu, wilcoxon
 def load(d, m):
     out = {}
     for f in sorted(os.listdir(d)):
-        if not (f.startswith(m + "_") and f.endswith(".json")): continue
+        if not f.endswith(".json") or f.startswith("summary"): continue
         r = json.load(open(os.path.join(d, f), encoding="utf-8"))
-        out.setdefault(r["instance"], []).append(r)
+        if r.get("method") == m: out.setdefault(r["instance"], []).append(r)
     return out
 
 

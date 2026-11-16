@@ -26,7 +26,11 @@ TOL = 1e-6
 
 
 def load(name):
-    return json.load(open(os.path.join(HERE, "instances", name + ".json"), encoding="utf-8"))
+    """Instance by name, from instances/ (test set) or instances_tune/ (tuning set, bench_lean.make_tune)."""
+    for sub in ("instances", "instances_tune"):
+        p = os.path.join(HERE, sub, name + ".json")
+        if os.path.exists(p): return json.load(open(p, encoding="utf-8"))
+    raise FileNotFoundError(name)
 
 
 def r4(v):

@@ -138,7 +138,10 @@ def default_order(inst):
     return sorted(range(len(D)), key=lambda i: (ORDER_TYPES.index(D[i]["type"]) if D[i]["type"] in ORDER_TYPES else 9, i))
 
 
-def solve(inst, seed=0, time_limit=60.0, log=None):
+def solve(inst, seed=0, time_limit=60.0, log=None, count_init=False):
+    """count_init=False (as in the first baseline run): the clock starts after a feasible start is found.
+    count_init=True: the start search counts too, so the whole call stays within time_limit."""
+    T_START = time.time()
     rng = np.random.default_rng(seed)
     order = default_order(inst)
     best = None
@@ -150,9 +153,10 @@ def solve(inst, seed=0, time_limit=60.0, log=None):
                 if ev["feasible"]:
                     best = (ev["path_total"], order[:], pr, rects, ev); break
             order = order[:]; i, j = rng.integers(len(order), size=2); order[i], order[j] = order[j], order[i]
+            if count_init and time.time() - T_START > time_limit: break
         if best: break
     if best is None: return None
-    t0 = time.time(); it = acc = 0
+    t0 = T_START if count_init else time.time(); it = acc = 0
     cur = best
     while time.time() - t0 < time_limit:
         it += 1

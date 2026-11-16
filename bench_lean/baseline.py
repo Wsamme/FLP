@@ -7,7 +7,8 @@ classic : our two-stage UA-FLP solver (bench.methods.ours) on the classic view o
 ref     : bench_lean.reference (aisle-aware packing + local search), which respects every rule.
 rows    : bench_lean.rowsolver (rows along aisles; SA over rows/order, SOCP geometry), which respects every rule.
 
-Usage: python -m bench_lean.baseline METHOD INSTANCE SEED SECONDS OUTDIR
+Usage: python -m bench_lean.baseline METHOD INSTANCE SEED SECONDS OUTDIR [TAG] [key=value ...]
+TAG names the configuration in the result file (default METHOD); key=value pairs are passed to the solver.
 """
 import json, os, sys, time
 import numpy as np
@@ -33,8 +34,25 @@ def classic_problem(inst):
     return Problem(I, n, float(B["W"]), float(B["H"]), areas, Wt, alpha, n + k, areas_d, Wt_d, alpha_d, pen)
 
 
-def run(method, name, seed, T):
-    inst = load(name); t = time.time()
+def _commit():
+    try:
+        import subprocess
+        return subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=os.path.dirname(os.path.abspath(__file__)),
+                              capture_output=True, text=True).stdout.strip()
+    except Exception:
+        return ""
+
+
+def _val(v):
+    for f in (int, float):
+        try: return f(v)
+        except ValueError: pass
+    return {"true": True, "false": False}.get(v.lower(), v)
+
+
+def run(method, name, seed, T, opts=None, tag=None):
+    opts = opts or {}
+    inst = load(name); t = time.time(); stats = {}
     if method == "classic":
         from bench.methods import ours
         prob = classic_problem(inst)
@@ -42,26 +60,32 @@ def run(method, name, seed, T):
         rects = out["rects"]
     elif method == "ref":
         from .reference import solve
-        out = solve(inst, seed, T)
+        out = solve(inst, seed, T, **opts)
         rects = None if out is None else out["rects"]
+        if out: stats = dict(iterations=out["iterations"], accepted=out["accepted"])
     elif method == "rows":
         from .rowsolver import solve
-        out = solve(inst, seed, T)
+        out = solve(inst, seed, T, **opts)
         rects = None if out is None else out["rects"]
+        if out: stats = {k: v for k, v in out.items() if k not in ("rects", "eval")}
     else:
         raise ValueError(method)
     wall = time.time() - t
+    meta = dict(method=tag or method, solver=method, options=opts, budget=T, commit=_commit(), instance=name, seed=seed, wall=wall)
     if rects is None:
-        return dict(method=method, instance=name, seed=seed, wall=wall, rects=None, eval=None)
+        return dict(meta, rects=None, eval=None, stats=stats)
     ev = evaluate(inst, rects)
     ev.pop("io", None)
-    return dict(method=method, instance=name, seed=seed, wall=wall, rects=[list(map(float, r)) for r in rects], eval=ev)
+    return dict(meta, rects=[list(map(float, r)) for r in rects], eval=ev, stats=stats)
 
 
 if __name__ == "__main__":
     m, name, seed, T, out = sys.argv[1], sys.argv[2], int(sys.argv[3]), float(sys.argv[4]), sys.argv[5]
+    rest = sys.argv[6:]
+    tag = rest.pop(0) if rest and "=" not in rest[0] else m
+    opts = {k: _val(v) for k, v in (a.split("=", 1) for a in rest)}
     os.makedirs(out, exist_ok=True)
-    rec = run(m, name, seed, T)
-    json.dump(rec, open(os.path.join(out, f"{m}_{name}_s{seed}.json"), "w", encoding="utf-8"), ensure_ascii=False)
+    rec = run(m, name, seed, T, opts, tag)
+    json.dump(rec, open(os.path.join(out, f"{tag}_{name}_s{seed}.json"), "w", encoding="utf-8"), ensure_ascii=False)
     e = rec["eval"]
-    print(m, name, seed, "none" if e is None else f"feasible={e['feasible']} viol={e['n_violations']} path={e['path_total']:.1f} centroid={e['centroid_material'] + e['centroid_people']:.1f}", flush=True)
+    print(tag, name, seed, f"wall={rec['wall']:.1f}", "none" if e is None else f"feasible={e['feasible']} viol={e['n_violations']} path={e['path_total']:.1f} centroid={e['centroid_material'] + e['centroid_people']:.1f}", flush=True)

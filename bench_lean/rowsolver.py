@@ -19,7 +19,16 @@ SOCP (rows and order fixed), per department x, w, d (along the aisle, width, dep
   |cx_i - c| + |cx_j - c| + |dy| through vertical aisle c. Both convex.
   X pairs in different rows and fire egress are checked after the SOCP; failing layouts are rejected.
 
-SA moves: swap two departments; move one department to another row/position; swap neighbours in a row.
+Option pairs=True (B1 in 改进规划.md): the two rows of a region are coupled pair by pair instead of by one split.
+  Each region keeps two interleavings (a sequence pair restricted to two rows) of its bottom and top departments;
+  bottom i / top j are "i left of j", "j left of i" or stacked (d_i + d_j <= depth), so a deep department only
+  limits the departments facing it. X pairs inside the region are handled exactly (horizontal or vertical gap).
+  The all-stacked interleaving is the single-split model, so this only adds layouts.
+Option elite=K: keep the K best distinct layouts under the search cost and re-score them all with evaluate.
+Option polish=f (C1): spend the last fraction f of the time on a descent scored by the true path cost.
+
+SA moves: swap two departments; move one department to another row/position; swap neighbours in a row;
+  with pairs=True also swap two neighbouring entries of an interleaving.
   W/E dock departments stay at their row end, S/N dock departments stay in their row.
 Search uses the SOCP objective; new best layouts are re-scored with bench_lean.evaluate (true path cost,
 all checks) and the best feasible one under the true cost is returned.
@@ -29,14 +38,26 @@ import numpy as np
 import scipy.sparse as sp
 import clarabel
 from .evaluate import evaluate, weights, _gap
+from .fastpath import path_cost
 from .reference import regions as base_regions, subtract, default_order
 
 E = 1e-6
 CORRIDOR = 2.0
 
 
+class St(list):
+    """Rows (list of department lists) plus, for pairs=True, the interleavings of two-row regions."""
+    inter = None
+
+    def copy(self):
+        s = St(seq[:] for seq in self)
+        s.inter = {g: (a[:], b[:]) for g, (a, b) in (self.inter or {}).items()}
+        return s
+
+
 class Model:
-    def __init__(self, inst):
+    def __init__(self, inst, pairs=False):
+        self.pairs = pairs
         self.inst = inst
         B = inst["building"]; self.W, self.H = float(B["W"]), float(B["H"])
         self.D = D = inst["departments"]; self.n = n = len(D)
@@ -65,6 +86,9 @@ class Model:
         for ri, r in enumerate(self.rows):
             for rj, q in enumerate(self.rows):
                 if rj != ri and r["group"] is not None and q["group"] == r["group"]: self.mate[ri] = rj
+        self.grows = {}                 # group -> (bottom-side row, top-side row)
+        for ri, r in enumerate(self.rows):
+            if r["group"] is not None and r["side"] == "B": self.grows[r["group"]] = (ri, self.mate[ri])
         # X pairs
         self.xpairs = {}
         for rel in inst["relations"]:
@@ -148,7 +172,29 @@ class Model:
             seq = state[s["row"]]
             if s["mode"] == "W" and seq[0] != i: seq.remove(i); seq.insert(0, i)
             if s["mode"] == "E" and seq[-1] != i: seq.remove(i); seq.append(i)
+        if self.pairs: self.sync(state)
         return state
+
+    def sync(self, state):
+        """Rebuild each interleaving so that it holds exactly the region's departments in row order.
+        The B/T pattern of the old interleaving is kept; a new department enters stacked with the other row."""
+        if state.inter is None: state.inter = {}
+        for g, (rb, rt) in self.grows.items():
+            Bs, Ts = state[rb], state[rt]; sb, st = set(Bs), set(Ts)
+            old = state.inter.get(g, ([], []))
+            new = []
+            for which in (0, 1):
+                seq = [i for i in old[which] if i in sb or i in st]
+                have = set(seq)
+                for i in Bs + Ts:
+                    if i in have: continue
+                    # plus: top first, bottom last; minus: bottom first, top last  -> stacked with the other row
+                    if (i in sb) == (which == 0): seq.append(i)
+                    else: seq.insert(0, i)
+                lab = ["B" if i in sb else "T" for i in seq]
+                ib, it = iter(Bs), iter(Ts)
+                new.append([next(ib) if l == "B" else next(it) for l in lab])
+            state.inter[g] = (new[0], new[1])
 
     def overflow(self, state):
         """Necessary-condition check of the rows: excess width (m) + 10 x missing depth (m); 0 = may be feasible."""
@@ -158,7 +204,7 @@ class Model:
         for ri, seq in enumerate(state):
             if not seq: continue
             r = R[ri]; cap = r["rh"]
-            if r["group"] is not None:
+            if r["group"] is not None and not self.pairs:
                 other = self.mate[ri]
                 if other is not None: cap -= need[other]
             if cap < need[ri] - E:
@@ -190,7 +236,7 @@ class Model:
             if g is not None and seq: used.setdefault(g, []).append(ri)
         gvar = {}
         for g, rs in used.items():
-            if len(rs) == 2: gvar[g] = nv; nv += 1
+            if len(rs) == 2 and not self.pairs: gvar[g] = nv; nv += 1
         ineq_r, ineq_c, ineq_v, ineq_b = [], [], [], []
         eq_r, eq_c, eq_v, eq_b = [], [], [], []
         cnt = [0, 0]
@@ -240,6 +286,19 @@ class Model:
                     elif k == m - 1 and r["wallE"]: eq([(x, 1), (w, 1)], r["x1"])
                     elif r["far_wall"]: le([(d, -1)], -r["rh"])
                     else: return None
+        if self.pairs:
+            for g, (rb, rt) in self.grows.items():
+                if not state[rb] or not state[rt]: continue
+                plus, minus = state.inter[g]
+                pp = {i: k for k, i in enumerate(plus)}; pm = {i: k for k, i in enumerate(minus)}
+                rh = R[rb]["rh"]
+                for i in state[rb]:
+                    for j in state[rt]:
+                        gap = self.xpairs.get((i, j), 0.0)
+                        a, b = pp[i] < pp[j], pm[i] < pm[j]
+                        if a and b: le([(vi[i], 1), (vi[i] + 1, 1), (vi[j], -1)], -gap)
+                        elif not a and not b: le([(vi[j], 1), (vi[j] + 1, 1), (vi[i], -1)], -gap)
+                        else: le([(vi[i] + 2, 1), (vi[j] + 2, 1)], rh - gap)
         # objective along the aisle network
         q_extra = {}; const = 0.0
 
@@ -329,11 +388,11 @@ class Model:
         out = self.socp(state)
         if out is None: return None
         v = self.shortfall(out[1])
-        return out[0] + self.penalty * v, out[1], v <= 1e-6
+        return out[0] + self.penalty * v, out[1], v <= 1e-6, v
 
     # ---------- initial solution ----------
     def initial(self, rng, tries=20000):
-        R = self.rows; state = [[] for _ in R]
+        R = self.rows; state = St([] for _ in R); state.inter = {}
         for i, s in self.dock.items(): state[s["row"]].append(i)
         def ctr(ri): return np.array([(R[ri]["x0"] + R[ri]["x1"]) / 2, R[ri]["ry"] + R[ri]["rh"] / 2])
         recv = next((s["row"] for i, s in self.dock.items() if self.D[i]["dock"] == "receiving"), 0)
@@ -377,7 +436,16 @@ class Model:
         return state, out
 
     def neighbor(self, state, rng):
-        s = [seq[:] for seq in state]
+        s = state.copy()
+        if self.pairs and rng.random() < 0.25:
+            gs = [g for g, (rb, rt) in self.grows.items() if s[rb] and s[rt]]
+            if gs:
+                g = gs[rng.integers(len(gs))]; seq = s.inter[g][int(rng.integers(2))]
+                rb = self.grows[g][0]; sb = set(s[rb])
+                ks = [k for k in range(len(seq) - 1) if (seq[k] in sb) != (seq[k + 1] in sb)]
+                if ks:
+                    k = ks[rng.integers(len(ks))]; seq[k], seq[k + 1] = seq[k + 1], seq[k]
+                    return s
         u = rng.random()
         mv = self.movers
         if u < 0.4 and len(mv) > 1:
@@ -401,31 +469,62 @@ class Model:
         raise KeyError(i)
 
 
-def solve(inst, seed=0, time_limit=60.0, log=None):
+def solve(inst, seed=0, time_limit=60.0, log=None, trace=None, pairs=False, elite=0, polish=0.0, accept="proxy",
+          check_every=0.5):
+    """trace: optional callable(proxy_cost, rects, ok, elapsed) called on every accepted move (diagnostics).
+    pairs: pairwise coupling of two-row regions (B1).
+    elite: keep the K best distinct layouts under the search cost and re-score them by true path cost at the end.
+    polish: fraction of the time for a final descent that accepts only true-cost improvements (C1).
+    accept: "proxy" = SA accepts on the SOCP objective; "true" = SA accepts on the true path cost
+            (+ the same shortfall penalty); the SOCP still sets the geometry of every candidate.
+    check_every: seconds between true-cost checks of a new best layout (accept="proxy").
+    True path costs come from fastpath.path_cost (same numbers as evaluate, about 5x faster); the returned layout
+    is the cheapest candidate that evaluate confirms as feasible."""
     t0 = time.time()
     rng = np.random.default_rng(seed)
-    M = Model(inst)
+    M = Model(inst, pairs=bool(pairs))
     state, out = M.initial(rng)
     if out is None: return None
-    cur_state, cur = state, out[0]
     best = None                                  # best feasible under the search cost: (cost, state, rects)
-    true_best = None
-    def true_eval(rects):
-        nonlocal true_best
-        ev = evaluate(inst, rects)
-        if ev["feasible"] and (true_best is None or ev["path_total"] < true_best[0] - 1e-9):
-            true_best = (ev["path_total"], rects, ev)
-        return ev
+    cands = []                                   # (true path cost, rects, state), cheapest first, at most 8
+    pool = {}                                    # elite: rounded search cost -> (cost, state, rects)
+    n_true = 0
+
+    def true_cost(rects, st=None, record=True):
+        nonlocal n_true
+        pc = path_cost(inst, rects)[0]; n_true += 1
+        if record and np.isfinite(pc) and (len(cands) < 8 or pc < cands[-1][0] - 1e-9):
+            if all(abs(pc - c[0]) > 1e-6 for c in cands):
+                cands.append((pc, rects, st)); cands.sort(key=lambda v: v[0]); del cands[8:]
+        return pc
+
+    def remember(cost, st, rects):
+        if elite <= 0: return
+        key = round(cost, 3)
+        if key in pool: return
+        if len(pool) < elite: pool[key] = (cost, st, rects); return
+        worst = max(pool)
+        if key < worst: del pool[worst]; pool[key] = (cost, st, rects)
+    use_true = accept == "true"
+
+    def scost(o, st):
+        if not use_true: return o[0]
+        return true_cost(o[1], st, record=o[2]) + M.penalty * o[3]
+    cur_state, cur = state, scost(out, state)
     pending = False
     if out[2]:
-        best = (out[0], state, out[1]); true_eval(out[1])
+        best = (cur, state, out[1]); remember(cur, state, out[1])
+        if not use_true: true_cost(out[1], state)
     ds = []
     for _ in range(30):
-        o = M.score(M.neighbor(cur_state, rng))
-        if o is not None and o[0] > cur: ds.append(min(o[0] - cur, 0.2 * cur))
+        nb = M.neighbor(cur_state, rng); o = M.score(nb)
+        if o is None: continue
+        c = scost(o, nb)
+        if c > cur: ds.append(min(c - cur, 0.2 * cur))
     T0 = (np.median(ds) if ds else 0.01 * cur) / -math.log(0.3); Tend = T0 * 1e-3
     it = feas = acc = 0; last_true = time.time()
-    t_start = time.time(); budget = max(1.0, time_limit - (t_start - t0) - 1.0)
+    t_start = time.time(); total = max(1.0, time_limit - (t_start - t0) - 1.0)
+    budget = total * (1.0 - polish)
     while True:
         el = time.time() - t_start
         if el >= budget: break
@@ -435,15 +534,40 @@ def solve(inst, seed=0, time_limit=60.0, log=None):
         o = M.score(cand)
         if o is None: continue
         feas += 1
-        dlt = o[0] - cur
+        c = scost(o, cand)
+        dlt = c - cur
         if dlt <= 0 or rng.random() < math.exp(-dlt / T):
-            cur_state, cur = cand, o[0]; acc += 1
-            if o[2] and (best is None or cur < best[0] - 1e-9):
-                best = (cur, cand, o[1]); pending = True
-        if pending and time.time() - last_true > 0.5:
-            true_eval(best[2]); last_true = time.time(); pending = False
-    if pending: true_eval(best[2])
-    if true_best is None: return None
-    if log: log(f"it={it} socp_ok={feas} acc={acc} proxy={best[0]:.1f} true={true_best[0]:.1f}")
-    return dict(rects=true_best[1], eval=true_best[2], iterations=it, socp_feasible=feas, accepted=acc,
-                proxy_best=best[0], rows=[[int(i) for i in seq] for seq in best[1]])
+            cur_state, cur = cand, c; acc += 1
+            if trace: trace(o[0], o[1], o[2], time.time() - t0)
+            if o[2]:
+                remember(cur, cand, o[1])
+                if best is None or cur < best[0] - 1e-9:
+                    best = (cur, cand, o[1]); pending = True
+        if pending and not use_true and time.time() - last_true > check_every:
+            true_cost(best[2], best[1]); last_true = time.time(); pending = False
+    if pending and not use_true: true_cost(best[2], best[1])
+    for c, st, rects in sorted(pool.values(), key=lambda v: v[0]):
+        if time.time() - t_start > total: break
+        true_cost(rects, st)
+    pol_it = pol_acc = 0
+    if polish > 0 and cands:
+        st, tb = cands[0][2], cands[0][0]
+        while time.time() - t_start < total:
+            pol_it += 1
+            cand = M.neighbor(st, rng)
+            o = M.score(cand)
+            if o is None or not o[2]: continue
+            pc = true_cost(o[1], cand)
+            if pc < tb - 1e-9: st, tb = cand, pc; pol_acc += 1
+    chosen = None
+    for pc, rects, st in cands:                  # official check, cheapest first
+        ev = evaluate(inst, rects)
+        if ev["feasible"]: chosen = (pc, rects, ev, st); break
+    if chosen is None: return None
+    if log: log(f"it={it} socp_ok={feas} acc={acc} search_best={best[0] if best else float('nan'):.1f} "
+                f"true={chosen[0]:.1f} true_evals={n_true} polish={pol_acc}/{pol_it}")
+    st = chosen[3]
+    return dict(rects=chosen[1], eval=chosen[2], iterations=it, socp_feasible=feas, accepted=acc,
+                search_best=best[0] if best else None, true_evals=n_true, polish_iterations=pol_it,
+                polish_accepted=pol_acc, rows=[[int(i) for i in seq] for seq in st],
+                inter={str(g): v for g, v in (st.inter or {}).items()} if pairs else None)
