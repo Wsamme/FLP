@@ -11,9 +11,13 @@
 | `instances/*.json` | 11 个算例和参数表 `_params.json` |
 | `evaluate.py` | 独立检查器 + 核算器（不与任何求解器共用代码） |
 | `reference.py` | 考虑通道的参考解法：证明每个算例有可行解，并给出第一个要超越的成本 |
-| `baseline.py` | 基线：经典求解器（忽略真实要素）和参考解法 |
+| `rowsolver.py` | 按通道分行的两阶段求解器：SA 定行和顺序，SOCP 定几何（见下文“按通道分行求解器”） |
+| `baseline.py` | 基线：经典求解器（忽略真实要素）、参考解法、按通道分行求解器（`rows`） |
+| `run_bench.py` | 并行跑全部算例 × 3 个种子 |
+| `compare.py` | 两种方法对比表：可行次数、平均/最好真实路径成本、Mann–Whitney U、合并的 Wilcoxon 符号秩 |
 | `test_evaluate.py` | 检查器自测：每次破坏一条规则，确认被报出来 |
-| `results/` | 基线结果 |
+| `results/` | 基线结果（云端，2026-11-16） |
+| `results_rows/` | 按通道分行求解器和参考解法在同一台机器上的结果 |
 
 ## 工厂原型
 
@@ -53,6 +57,30 @@ from bench_lean.evaluate import load, evaluate
 inst = load("LA-M-I-s1")
 ev = evaluate(inst, rects)      # rects: 每个部门一个 [x, y, w, h]，左下角坐标，单位 m
 ```
+
+## 按通道分行求解器（`rowsolver.py`）
+
+沿用两阶段思路：离散部分（每个部门在哪一行、行内顺序）交给模拟退火，连续几何交给 SOCP（Clarabel）。
+
+- **行**：固定通道把厂房切成区域，区域朝横向通道的一边是一行；两边都是通道就有两行，两行共用一个分割变量。部门贴着通道边，所以出入口在通道上，物流一定连通。
+- **改造项目**：既有办公楼不动，从它的一边到最近通道留 2 m 通道，出入口在通道端点。
+- **SOCP**：面积用旋转锥；长宽比、最短边、行内顺序、在区域内、收发货区接门、喷漆靠外墙、同一行内的 X 级净距都是线性约束。目标是出入口沿通道网络的距离乘权重（同一通道 |Δx|，不同横向通道经竖向主通道）。
+- **SA**：交换两个部门、把部门移到另一行、交换同一行相邻部门。跨行的 X 级净距和疏散距离作为罚项。每个新的最好解用 `evaluate` 复核，返回真实路径成本最低的可行解。
+
+第一轮结果（11 个算例 × 3 个种子 × 60 秒，与参考解法在同一台电脑上同时跑）：
+
+- 两种方法 33/33 可行。
+- rows 在 11 个算例上的平均真实路径成本都更低：几何平均 −30.7 %，范围 −45.3 % 到 −6.2 %；Wilcoxon p = 0.00098。
+- 参考解法实际墙钟最长 133.7 秒，rows 最长 59.0 秒。
+- 详见 `改进规划.md` §0，下一步也在那份文件里。
+
+```
+python -X utf8 -m bench_lean.baseline rows LA-M-I-s1 0 60 out/
+python -X utf8 -m bench_lean.run_bench bench_lean/results_rows 60 11 rows ref   # 全部算例 × 种子 0–2
+python -X utf8 -m bench_lean.compare bench_lean/results_rows rows ref
+```
+
+Windows 下用 `-X utf8`，否则控制台打印中文会报编码错。读写文件已统一用 UTF-8。
 
 ## 注意
 

@@ -5,6 +5,7 @@ classic : our two-stage UA-FLP solver (bench.methods.ours) on the classic view o
           material (trips x equipment rate) + people. Aisles, docks, exits, X-gaps and fixed zones are ignored.
           The result is then checked by bench_lean.evaluate, which shows what a classic solver misses.
 ref     : bench_lean.reference (aisle-aware packing + local search), which respects every rule.
+rows    : bench_lean.rowsolver (rows along aisles; SA over rows/order, SOCP geometry), which respects every rule.
 
 Usage: python -m bench_lean.baseline METHOD INSTANCE SEED SECONDS OUTDIR
 """
@@ -43,6 +44,10 @@ def run(method, name, seed, T):
         from .reference import solve
         out = solve(inst, seed, T)
         rects = None if out is None else out["rects"]
+    elif method == "rows":
+        from .rowsolver import solve
+        out = solve(inst, seed, T)
+        rects = None if out is None else out["rects"]
     else:
         raise ValueError(method)
     wall = time.time() - t
@@ -57,6 +62,6 @@ if __name__ == "__main__":
     m, name, seed, T, out = sys.argv[1], sys.argv[2], int(sys.argv[3]), float(sys.argv[4]), sys.argv[5]
     os.makedirs(out, exist_ok=True)
     rec = run(m, name, seed, T)
-    json.dump(rec, open(os.path.join(out, f"{m}_{name}_s{seed}.json"), "w"), ensure_ascii=False)
+    json.dump(rec, open(os.path.join(out, f"{m}_{name}_s{seed}.json"), "w", encoding="utf-8"), ensure_ascii=False)
     e = rec["eval"]
     print(m, name, seed, "none" if e is None else f"feasible={e['feasible']} viol={e['n_violations']} path={e['path_total']:.1f} centroid={e['centroid_material'] + e['centroid_people']:.1f}", flush=True)

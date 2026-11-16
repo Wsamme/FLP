@@ -375,16 +375,16 @@ def main():
     names = []
     for tier, pat, seed in plan:
         inst = build(tier, pat, seed)
-        json.dump(inst, open(os.path.join(OUT, inst["name"] + ".json"), "w"), ensure_ascii=False, indent=1)
+        json.dump(inst, open(os.path.join(OUT, inst["name"] + ".json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
         names.append(inst["name"])
     for tier, pat, seed in [("M", "I", 4), ("L", "U", 5)]:
         inst = build(tier, pat, seed, brownfield=True)
-        json.dump(inst, open(os.path.join(OUT, inst["name"] + ".json"), "w"), ensure_ascii=False, indent=1)
+        json.dump(inst, open(os.path.join(OUT, inst["name"] + ".json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
         names.append(inst["name"])
-    json.dump(PR.table(), open(os.path.join(OUT, "_params.json"), "w"), ensure_ascii=False, indent=1)
+    json.dump(PR.table(), open(os.path.join(OUT, "_params.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     for nm in names:
-        s = json.load(open(os.path.join(OUT, nm + ".json")))["summary"]
-        b = json.load(open(os.path.join(OUT, nm + ".json")))["building"]
+        s = json.load(open(os.path.join(OUT, nm + ".json"), encoding="utf-8"))["summary"]
+        b = json.load(open(os.path.join(OUT, nm + ".json"), encoding="utf-8"))["building"]
         print(nm, s, b["W"], "x", b["H"])
 
 

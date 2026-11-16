@@ -26,7 +26,7 @@ TOL = 1e-6
 
 
 def load(name):
-    return json.load(open(os.path.join(HERE, "instances", name + ".json")))
+    return json.load(open(os.path.join(HERE, "instances", name + ".json"), encoding="utf-8"))
 
 
 def r4(v):
