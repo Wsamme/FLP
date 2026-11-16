@@ -324,7 +324,10 @@ class Model:
                 f = self.fixed[i]; return None, f["x"], f["aisle"], f["y"], f["extra"]
             ri, _ = pos[i]; r = R[ri]
             return vi[i], 0.0, r["aisle"], r["y"], 0.0
-        uvar = {}
+        # pairs on the same aisle -> one t >= |cx_i - cx_j| each; pairs on different aisles -> u >= |cx - c| per
+        # (department, connector), shared. Rows are built as arrays (same rows as one le() per row).
+        P_i, P_j, P_w, P_c = [], [], [], []
+        uw = {}
         for i, j, wt in self.pairs:
             vi_i, ci, ai, yi, ei = info(i); vj, cj, aj, yj, ej = info(j)
             const += wt * (abs(yi - yj) + ei + ej)
@@ -333,27 +336,42 @@ class Model:
                 else: const += wt * min(abs(ci - c) + abs(cj - c) for c in self.conn)
                 continue
             if ai == aj or ai is None or aj is None or not self.conn:
-                t = newvar(); q_extra[t] = q_extra.get(t, 0.0) + wt
-                lhs = []
-                if vi_i is not None: lhs += [(vi_i, 1), (vi_i + 1, 0.5)]
-                if vj is not None: lhs += [(vj, -1), (vj + 1, -0.5)]
-                cst = ci - cj
-                le(lhs + [(t, -1)], -cst)
-                le([(c, -v) for c, v in lhs] + [(t, -1)], cst)
+                P_i.append(-1 if vi_i is None else vi_i); P_j.append(-1 if vj is None else vj)
+                P_w.append(wt); P_c.append(ci - cj)
             else:
                 ri_c = (ci if vi_i is None else (R[pos[i][0]]["x0"] + R[pos[i][0]]["x1"]) / 2)
                 rj_c = (cj if vj is None else (R[pos[j][0]]["x0"] + R[pos[j][0]]["x1"]) / 2)
                 c = min(self.conn, key=lambda cc: abs(ri_c - cc) + abs(rj_c - cc))
                 for vv, cc0 in ((vi_i, ci), (vj, cj)):
                     if vv is None: const += wt * abs(cc0 - c); continue
-                    key = (vv, c)
-                    if key not in uvar:
-                        u = newvar(); uvar[key] = u
-                        le([(vv, 1), (vv + 1, 0.5), (u, -1)], c)
-                        le([(vv, -1), (vv + 1, -0.5), (u, -1)], -c)
-                    q_extra[uvar[key]] = q_extra.get(uvar[key], 0.0) + wt
+                    uw[(vv, c)] = uw.get((vv, c), 0.0) + wt
+        blk_r, blk_c, blk_v, blk_b = [], [], [], []
+        m = len(P_w)
+        if m:
+            PI, PJ, PC = np.array(P_i), np.array(P_j), np.array(P_c, float)
+            t0 = nv; nv += m
+            k = np.arange(m); ra, rb_ = cnt[0] + 2 * k, cnt[0] + 2 * k + 1
+            rr = [ra, rb_]; cc = [t0 + k, t0 + k]; vv_ = [-np.ones(m), -np.ones(m)]
+            for idx, sgn in ((PI, 1.0), (PJ, -1.0)):
+                mk = idx >= 0
+                for off, coef in ((0, 1.0), (1, 0.5)):
+                    rr += [ra[mk], rb_[mk]]; cc += [idx[mk] + off, idx[mk] + off]
+                    vv_ += [np.full(mk.sum(), sgn * coef), np.full(mk.sum(), -sgn * coef)]
+            blk_r += rr; blk_c += cc; blk_v += vv_
+            bb = np.empty(2 * m); bb[0::2] = -PC; bb[1::2] = PC; blk_b.append(bb)
+            cnt[0] += 2 * m
+        mu = len(uw)
+        if mu:
+            keys = list(uw); UV = np.array([kk[0] for kk in keys]); UC = np.array([kk[1] for kk in keys], float)
+            u0 = nv; nv += mu
+            k = np.arange(mu); ra, rb_ = cnt[0] + 2 * k, cnt[0] + 2 * k + 1
+            blk_r += [ra, ra, ra, rb_, rb_, rb_]; blk_c += [UV, UV + 1, u0 + k, UV, UV + 1, u0 + k]
+            blk_v += [np.ones(mu), np.full(mu, 0.5), -np.ones(mu), -np.ones(mu), np.full(mu, -0.5), -np.ones(mu)]
+            bb = np.empty(2 * mu); bb[0::2] = UC; bb[1::2] = -UC; blk_b.append(bb)
+            cnt[0] += 2 * mu
         q = np.zeros(nv)
-        for k, v in q_extra.items(): q[k] += v
+        if m: q[t0:t0 + m] = P_w
+        if mu: q[u0:u0 + mu] = [uw[kk] for kk in keys]
         for ri, c in sig.items(): q[c] += self.sig_pen
         # SOC rows: s = b - A z, s = (w + d, w - d, 2 sqrt(A))
         soc_r, soc_c, soc_v, soc_b = [], [], [], []
@@ -362,11 +380,14 @@ class Model:
             soc_r += [b0, b0, b0 + 1, b0 + 1]; soc_c += [w, d, w, d]; soc_v += [-1, -1, -1, 1]
             soc_b += [0.0, 0.0, 2 * math.sqrt(self.A[i])]
         ne, ni, ns = cnt[1], cnt[0], 3 * len(self.placed)
-        rows = np.r_[np.array(eq_r, int), ne + np.array(ineq_r, int), ne + ni + np.array(soc_r, int)]
-        cols = np.r_[np.array(eq_c, int), np.array(ineq_c, int), np.array(soc_c, int)]
-        vals = np.r_[np.array(eq_v, float), np.array(ineq_v, float), np.array(soc_v, float)]
+        rows = np.concatenate([np.array(eq_r, int), ne + np.array(ineq_r, int)] + [ne + np.asarray(x, int) for x in blk_r]
+                              + [ne + ni + np.array(soc_r, int)])
+        cols = np.concatenate([np.array(eq_c, int), np.array(ineq_c, int)] + [np.asarray(x, int) for x in blk_c]
+                              + [np.array(soc_c, int)])
+        vals = np.concatenate([np.array(eq_v, float), np.array(ineq_v, float)] + [np.asarray(x, float) for x in blk_v]
+                              + [np.array(soc_v, float)])
         Amat = sp.csc_matrix((vals, (rows, cols)), shape=(ne + ni + ns, nv))
-        b = np.r_[np.array(eq_b, float), np.array(ineq_b, float), np.array(soc_b, float)]
+        b = np.concatenate([np.array(eq_b, float), np.array(ineq_b, float)] + blk_b + [np.array(soc_b, float)])
         cones = ([clarabel.ZeroConeT(ne)] if ne else []) + [clarabel.NonnegativeConeT(ni)] + \
                 [clarabel.SecondOrderConeT(3)] * len(self.placed)
         st = clarabel.DefaultSettings(); st.verbose = False
@@ -392,9 +413,10 @@ class Model:
         v = 0.0
         for (i, j), gap in self.xpairs.items():
             if i < j: v += max(0.0, gap - _gap(rects[i], rects[j]))
-        for x, y, w, h in rects:
-            cs = np.array([[x, y], [x + w, y], [x, y + h], [x + w, y + h]])
-            v += max(0.0, float(np.max(np.min(np.linalg.norm(cs[:, None, :] - self.exits[None], axis=2), axis=1))) - self.egress)
+        Rr = np.asarray(rects, float)
+        cs = np.stack([Rr[:, :2], Rr[:, :2] + Rr[:, 2:4] * [1, 0], Rr[:, :2] + Rr[:, 2:4] * [0, 1], Rr[:, :2] + Rr[:, 2:4]], 1)
+        dmin = np.sqrt(((cs[:, :, None, :] - self.exits[None, None]) ** 2).sum(-1)).min(2)    # corner -> nearest exit
+        v += float(np.maximum(dmin.max(1) - self.egress, 0.0).sum())
         return v
 
     def score(self, state, prefilter=False):
