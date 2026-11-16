@@ -62,7 +62,8 @@ class St(list):
 
 
 class Model:
-    def __init__(self, inst, pairs=False):
+    def __init__(self, inst, pairs=False, near=0.0):
+        self.near = float(near)              # D3: probability that a move puts a department next to a flow partner
         self.pairmode = bool(pairs)          # option B1 (not the list of flow pairs below)
         self.inst = inst
         B = inst["building"]; self.W, self.H = float(B["W"]), float(B["H"])
@@ -506,7 +507,15 @@ class Model:
             s[ri][ki], s[rj][kj] = j, i
         elif u < 0.8:
             i = mv[rng.integers(len(mv))]; ri, ki = self._find(s, i); s[ri].pop(ki)
-            rj = int(rng.integers(len(s))); s[rj].insert(int(rng.integers(len(s[rj]) + 1)), i)
+            wi = self.Wt[i].copy(); wi[i] = 0.0
+            if self.near > 0 and wi.sum() > 0 and rng.random() < self.near:
+                j = int(rng.choice(self.n, p=wi / wi.sum()))            # a flow partner, by weight
+                if j in self.fixed:
+                    rj = int(rng.integers(len(s))); s[rj].insert(int(rng.integers(len(s[rj]) + 1)), i)
+                else:
+                    rj, kj = self._find(s, j); s[rj].insert(kj + int(rng.integers(2)), i)
+            else:
+                rj = int(rng.integers(len(s))); s[rj].insert(int(rng.integers(len(s[rj]) + 1)), i)
         else:
             nz = [ri for ri, seq in enumerate(s) if len(seq) > 1]
             if nz:
@@ -522,7 +531,7 @@ class Model:
 
 
 def solve(inst, seed=0, time_limit=60.0, log=None, trace=None, pairs=False, elite=0, polish=0.0, accept="proxy",
-          check_every=0.5, init_rects=None, stop_feasible=False):
+          check_every=0.5, init_rects=None, stop_feasible=False, near=0.0):
     """trace: optional callable(proxy_cost, rects, ok, elapsed) called on every accepted move (diagnostics).
     pairs: pairwise coupling of two-row regions (B1).
     elite: keep the K best distinct layouts under the search cost and re-score them by true path cost at the end.
@@ -532,11 +541,12 @@ def solve(inst, seed=0, time_limit=60.0, log=None, trace=None, pairs=False, elit
     check_every: seconds between true-cost checks of a new best layout (accept="proxy").
     init_rects: start from this layout (Model.from_rects) instead of the greedy start.
     stop_feasible: return the first feasible layout found (used to legalise a classic solution).
+    near: probability that a relocation puts the department next to a flow partner (chosen by weight).
     True path costs come from fastpath.path_cost (same numbers as evaluate, about 5x faster); the returned layout
     is the cheapest candidate that evaluate confirms as feasible."""
     t0 = time.time()
     rng = np.random.default_rng(seed)
-    M = Model(inst, pairs=bool(pairs))
+    M = Model(inst, pairs=bool(pairs), near=near)
     if init_rects is not None:
         state = M.from_rects(init_rects); out = M.score(state)
         if out is None: state, out = M.initial(rng, deadline=t0 + 0.3 * time_limit)
