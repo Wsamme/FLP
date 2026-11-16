@@ -1,0 +1,1 @@
+{"method": "rowsC", "solver": "rows", "options": {"elite": 50, "polish": 0.25}, "budget": 60.0, "commit": "547a5bf", "instance": "LA-M-I-s1", "seed": 0, "wall": 44.31935691833496, "rects": null, "eval": null, "stats": {}}

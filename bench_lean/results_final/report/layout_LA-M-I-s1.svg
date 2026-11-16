@@ -1,0 +1,197 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1366.0" height="338.0" font-family="sans-serif"><rect width="100%" height="100%" fill="white"/><g transform="translate(10,30)"><g><text x="0" y="-8" font-size="12">rowsF 种子 14：真实路径成本 17,097</text>
+<rect x="0" y="0" width="648.0" height="288.0" fill="none" stroke="black" stroke-width="1.5"/>
+<rect x="0.0" y="111.60000000000001" width="648.0" height="30.599999999999998" fill="#e3e3e3"/>
+<rect x="177.89999999999998" y="0.0" width="22.200000000000003" height="288.0" fill="#e3e3e3"/>
+<rect x="393.90000000000003" y="0.0" width="22.200000000000003" height="288.0" fill="#e3e3e3"/>
+<rect x="0.0" y="207.60000000000002" width="648.0" height="15.0" fill="#e3e3e3"/>
+<rect x="140.34785757571342" y="6.13981953279108e-07" width="37.55214223695156" height="111.59999938601806" fill="#fc6" stroke="#333" stroke-width=".6"/>
+<text x="159.1239286941892" y="58.80000030699098" font-size="7" text-anchor="middle">齿轮加工单元 1</text>
+<rect x="224.10060058986716" y="142.2" width="36.444011336023536" height="65.3999995949155" fill="#fc6" stroke="#333" stroke-width=".6"/>
+<text x="242.32260625787893" y="177.89999979745775" font-size="7" text-anchor="middle">壳体加工单元 1</text>
+<rect x="200.1000001787971" y="142.2" width="24.000600221426296" height="59.71676741869399" fill="#fc6" stroke="#333" stroke-width=".6"/>
+<text x="212.10030028951024" y="175.058383709347" font-size="7" text-anchor="middle">壳体加工单元 2</text>
+<rect x="81.11761911298379" y="142.2" width="65.38302353536875" height="27.863229180742938" fill="#fc6" stroke="#333" stroke-width=".6"/>
+<text x="113.80913088066816" y="159.13161459037144" font-size="7" text-anchor="middle">轴加工单元 1</text>
+<rect x="105.50566339269625" y="9.464081358601106e-07" width="34.84219398128258" height="111.59999905359187" fill="#f96" stroke="#333" stroke-width=".6"/>
+<text x="122.92676038333754" y="58.80000047320405" font-size="7" text-anchor="middle">热处理</text>
+<rect x="146.5006429725325" y="142.2" width="31.39935691097339" height="27.863229323449787" fill="#f96" stroke="#333" stroke-width=".6"/>
+<text x="162.20032142801915" y="159.13161466172488" font-size="7" text-anchor="middle">清洗 1</text>
+<rect x="366.8985116974633" y="3.5951448814369726" width="27.00148753118964" height="108.00485511856303" fill="#fc6" stroke="#333" stroke-width=".6"/>
+<text x="380.39925546305807" y="60.59757244071848" font-size="7" text-anchor="middle">焊接 1</text>
+<rect x="416.10000027667127" y="222.59999999999997" width="231.89999972332654" height="59.277041426041926" fill="#f96" stroke="#333" stroke-width=".6"/>
+<text x="532.0500001383346" y="255.23852071302096" font-size="7" text-anchor="middle">喷漆</text>
+<rect x="236.10060091980682" y="222.59999999999997" width="46.2431567072225" height="65.39999928584854" fill="#9d9" stroke="#333" stroke-width=".6"/>
+<text x="259.2221792734181" y="258.29999964292426" font-size="7" text-anchor="middle">部装线 1</text>
+<rect x="59.92387166352249" y="170.06322979070814" width="60.42679740627722" height="37.53677020929189" fill="#9d9" stroke="#333" stroke-width=".6"/>
+<text x="90.1372703666611" y="191.83161489535405" font-size="7" text-anchor="middle">部装线 2</text>
+<rect x="200.1000002143554" y="222.60000000000002" width="36.00060028829698" height="63.73232508189331" fill="#9d9" stroke="#333" stroke-width=".6"/>
+<text x="218.10030035850386" y="257.46616254094664" font-size="7" text-anchor="middle">部装线 3</text>
+<rect x="282.3437581981708" y="222.60000000000002" width="104.04710254010703" height="65.39999931009329" fill="#9d9" stroke="#333" stroke-width=".6"/>
+<text x="334.36730946822433" y="258.29999965504663" font-size="7" text-anchor="middle">总装线 1</text>
+<rect x="416.1000030609294" y="142.20000000000002" width="38.53597145360027" height="65.39999078673834" fill="#9d9" stroke="#333" stroke-width=".6"/>
+<text x="435.36798878772953" y="177.89999539336915" font-size="7" text-anchor="middle">下线测试 1</text>
+<rect x="72.09485330910954" y="222.60000000000002" width="57.80394569808989" height="65.39999942699667" fill="#9d9" stroke="#333" stroke-width=".6"/>
+<text x="100.99682615815448" y="258.2999997134983" font-size="7" text-anchor="middle">总装线 2</text>
+<rect x="464.4919428280816" y="11.196293626930427" width="25.10119104586149" height="100.40370637306958" fill="#9d9" stroke="#333" stroke-width=".6"/>
+<text x="477.04253835101235" y="64.39814681346522" font-size="7" text-anchor="middle">下线测试 2</text>
+<rect x="454.6360029415174" y="142.2" width="180.23831073729139" height="65.39997344062502" fill="#cce" stroke="#333" stroke-width=".6"/>
+<text x="544.7551583101631" y="177.89998672031248" font-size="7" text-anchor="middle">包装 1</text>
+<rect x="3.796803381701503e-11" y="17.027283779101193" width="105.50566301177989" height="94.57271622089881" fill="#f6a" stroke="#333" stroke-width=".6"/>
+<text x="52.75283150592791" y="67.3136418895506" font-size="7" text-anchor="middle">收货区</text>
+<rect x="200.10000011712498" y="2.32334663508027e-07" width="117.78597131994846" height="111.59999976766534" fill="#8cf" stroke="#333" stroke-width=".6"/>
+<text x="258.9929857770992" y="58.800000116167325" font-size="7" text-anchor="middle">原材料库</text>
+<rect x="120.35066929925375" y="170.06322962870365" width="57.54933049196208" height="37.53677037129635" fill="#8cf" stroke="#333" stroke-width=".6"/>
+<text x="149.1253345452348" y="191.83161481435184" font-size="7" text-anchor="middle">外购件库</text>
+<rect x="153.89939971601063" y="222.60000000000002" width="24.00060014820049" height="61.58782178539229" fill="#8cf" stroke="#333" stroke-width=".6"/>
+<text x="165.89969979011087" y="256.3939108926961" font-size="7" text-anchor="middle">线边超市 1</text>
+<rect x="129.89879931988992" y="222.60000000000002" width="24.000600226266236" height="61.60535165386372" fill="#8cf" stroke="#333" stroke-width=".6"/>
+<text x="141.89909943302305" y="256.40267582693184" font-size="7" text-anchor="middle">线边超市 2</text>
+<rect x="525.6403433338614" y="2.95539343397877e-06" width="38.229630564691675" height="111.59999704460657" fill="#8cf" stroke="#333" stroke-width=".6"/>
+<text x="544.7551586162072" y="58.80000147769671" font-size="7" text-anchor="middle">成品库</text>
+<rect x="563.8699744046033" y="12.770384008060041" width="84.13002559539446" height="98.82961599193996" fill="#f6a" stroke="#333" stroke-width=".6"/>
+<text x="605.9349872023006" y="65.18519200403001" font-size="7" text-anchor="middle">发货区</text>
+<rect x="317.8859722718699" y="6.602690682200318e-06" width="29.03516393723803" height="111.59999339730933" fill="#ddb" stroke="#333" stroke-width=".6"/>
+<text x="332.4035542404889" y="58.800003301345356" font-size="7" text-anchor="middle">刀具室</text>
+<rect x="416.1000011884122" y="4.16651992907191e-06" width="48.3919381702593" height="111.59999583348008" fill="#ddb" stroke="#333" stroke-width=".6"/>
+<text x="440.29597027354185" y="58.80000208325997" font-size="7" text-anchor="middle">设备维修</text>
+<rect x="6.033197595686731" y="222.60000000000002" width="66.06165471574825" height="65.39999778856507" fill="#ddb" stroke="#333" stroke-width=".6"/>
+<text x="39.06402495356086" y="258.2999988942825" font-size="7" text-anchor="middle">质检室</text>
+<rect x="310.0908538764621" y="142.2" width="83.67809321993985" height="65.39999935224414" fill="#ddb" stroke="#333" stroke-width=".6"/>
+<text x="351.929900486432" y="177.89999967612206" font-size="7" text-anchor="middle">办公室</text>
+<rect x="260.54461213491226" y="142.2" width="49.54623912392925" height="65.39999946609447" fill="#ddb" stroke="#333" stroke-width=".6"/>
+<text x="285.3177316968769" y="177.89999973304725" font-size="7" text-anchor="middle">更衣室/食堂</text>
+<circle cx="159.1239286941892" cy="111.60000000000001" r="2"/>
+<circle cx="242.32260625787893" cy="142.2" r="2"/>
+<circle cx="212.10030028951024" cy="142.2" r="2"/>
+<circle cx="113.80913088066816" cy="142.2" r="2"/>
+<circle cx="122.92676038333754" cy="111.60000000000001" r="2"/>
+<circle cx="177.89999988350587" cy="156.13161466172488" r="2"/>
+<circle cx="380.39925546305807" cy="111.60000000000001" r="2"/>
+<circle cx="416.10000027667127" cy="252.23852071302096" r="2"/>
+<circle cx="259.2221792734181" cy="222.60000000000002" r="2"/>
+<circle cx="90.1372703666611" cy="207.60000000000002" r="2"/>
+<circle cx="218.10030035850386" cy="222.60000000000002" r="2"/>
+<circle cx="334.36730946822433" cy="222.60000000000002" r="2"/>
+<circle cx="416.1000030609294" cy="174.89999539336915" r="2"/>
+<circle cx="100.99682615815448" cy="222.60000000000002" r="2"/>
+<circle cx="477.04253835101235" cy="111.60000000000001" r="2"/>
+<circle cx="544.7551583101631" cy="142.2" r="2"/>
+<circle cx="52.75283150592791" cy="111.60000000000001" r="2"/>
+<circle cx="258.9929857770992" cy="111.60000000000001" r="2"/>
+<circle cx="149.1253345452348" cy="207.60000000000002" r="2"/>
+<circle cx="165.89969979011087" cy="222.60000000000002" r="2"/>
+<circle cx="141.89909943302305" cy="222.60000000000002" r="2"/>
+<circle cx="544.7551586162072" cy="111.60000000000001" r="2"/>
+<circle cx="605.9349872023006" cy="111.60000000000001" r="2"/>
+<circle cx="332.4035542404889" cy="111.60000000000001" r="2"/>
+<circle cx="440.29597027354185" cy="111.60000000000001" r="2"/>
+<circle cx="39.06402495356086" cy="222.60000000000002" r="2"/>
+<circle cx="351.929900486432" cy="207.5999993522441" r="2"/>
+<circle cx="285.3177316968769" cy="207.59999946609446" r="2"/>
+<circle cx="108.0" cy="288.0" r="3.5" fill="#2a2"/>
+<circle cx="324.0" cy="288.0" r="3.5" fill="#2a2"/>
+<circle cx="540.0" cy="288.0" r="3.5" fill="#2a2"/>
+<circle cx="108.0" cy="0.0" r="3.5" fill="#2a2"/>
+<circle cx="324.0" cy="0.0" r="3.5" fill="#2a2"/>
+<circle cx="540.0" cy="0.0" r="3.5" fill="#2a2"/>
+<circle cx="0.0" cy="216.0" r="3.5" fill="#2a2"/>
+<circle cx="648.0" cy="216.0" r="3.5" fill="#2a2"/>
+</g></g><g transform="translate(688.0,30)"><g><text x="0" y="-8" font-size="12">reft 种子 19：真实路径成本 24,920</text>
+<rect x="0" y="0" width="648.0" height="288.0" fill="none" stroke="black" stroke-width="1.5"/>
+<rect x="0.0" y="111.60000000000001" width="648.0" height="30.599999999999998" fill="#e3e3e3"/>
+<rect x="177.89999999999998" y="0.0" width="22.200000000000003" height="288.0" fill="#e3e3e3"/>
+<rect x="393.90000000000003" y="0.0" width="22.200000000000003" height="288.0" fill="#e3e3e3"/>
+<rect x="0.0" y="207.60000000000002" width="648.0" height="15.0" fill="#e3e3e3"/>
+<rect x="271.9348623853211" y="142.20000000000002" width="64.07339449541286" height="65.4" fill="#fc6" stroke="#333" stroke-width=".6"/>
+<text x="303.9715596330275" y="177.89999999999998" font-size="7" text-anchor="middle">齿轮加工单元 1</text>
+<rect x="235.49449541284403" y="142.20000000000002" width="36.440366972477065" height="65.4" fill="#fc6" stroke="#333" stroke-width=".6"/>
+<text x="253.71467889908257" y="177.89999999999998" font-size="7" text-anchor="middle">壳体加工单元 1</text>
+<rect x="336.00825688073394" y="170.56488153117368" width="37.03511846882632" height="37.03511846882631" fill="#fc6" stroke="#333" stroke-width=".6"/>
+<text x="354.5258161151471" y="192.08244076558685" font-size="7" text-anchor="middle">壳体加工单元 2</text>
+<rect x="365.7880733944954" y="222.60000000000002" width="27.853211009174313" height="65.4" fill="#fc6" stroke="#333" stroke-width=".6"/>
+<text x="379.7146788990826" y="258.29999999999995" font-size="7" text-anchor="middle">轴加工单元 1</text>
+<rect x="306.33853211009176" y="222.60000000000002" width="59.449541284403665" height="65.4" fill="#f96" stroke="#333" stroke-width=".6"/>
+<text x="336.06330275229357" y="258.29999999999995" font-size="7" text-anchor="middle">热处理</text>
+<rect x="200.10000000000002" y="182.88429237947122" width="35.39449541284404" height="24.715707620528775" fill="#f96" stroke="#333" stroke-width=".6"/>
+<text x="217.79724770642204" y="198.24214618973562" font-size="7" text-anchor="middle">清洗 1</text>
+<rect x="416.1" y="66.6268656716418" width="64.83870967741935" height="44.97313432835821" fill="#fc6" stroke="#333" stroke-width=".6"/>
+<text x="448.5193548387098" y="92.11343283582092" font-size="7" text-anchor="middle">焊接 1</text>
+<rect x="200.10000000000002" y="0.0" width="116.1290322580645" height="111.60000000000001" fill="#f96" stroke="#333" stroke-width=".6"/>
+<text x="258.1645161290323" y="58.79999999999998" font-size="7" text-anchor="middle">喷漆</text>
+<rect x="131.29324836980481" y="222.60000000000002" width="46.23853211009174" height="65.4" fill="#9d9" stroke="#333" stroke-width=".6"/>
+<text x="154.4125144248507" y="258.29999999999995" font-size="7" text-anchor="middle">部装线 1</text>
+<rect x="83.6697247706422" y="240.37647640083736" width="47.623523599162624" height="47.62352359916263" fill="#9d9" stroke="#333" stroke-width=".6"/>
+<text x="107.48148657022351" y="267.1882382004187" font-size="7" text-anchor="middle">部装线 2</text>
+<rect x="200.10000000000002" y="222.59999999999997" width="56.69724770642201" height="40.001941747572815" fill="#9d9" stroke="#333" stroke-width=".6"/>
+<text x="228.44862385321102" y="245.60097087378642" font-size="7" text-anchor="middle">部装线 3</text>
+<rect x="316.22903225806454" y="0.0" width="60.967741935483865" height="111.60000000000001" fill="#9d9" stroke="#333" stroke-width=".6"/>
+<text x="346.71290322580643" y="58.79999999999998" font-size="7" text-anchor="middle">总装线 1</text>
+<rect x="416.1" y="142.20000000000002" width="38.53211009174312" height="65.4" fill="#9d9" stroke="#333" stroke-width=".6"/>
+<text x="435.3660550458716" y="177.89999999999998" font-size="7" text-anchor="middle">下线测试 1</text>
+<rect x="82.56880733944953" y="142.20000000000002" width="57.79816513761468" height="65.4" fill="#9d9" stroke="#333" stroke-width=".6"/>
+<text x="111.4678899082569" y="177.89999999999998" font-size="7" text-anchor="middle">总装线 2</text>
+<rect x="85.36764705882352" y="61.40039840795548" width="50.19960159204453" height="50.19960159204453" fill="#9d9" stroke="#333" stroke-width=".6"/>
+<text x="110.4674478548458" y="89.50019920397776" font-size="7" text-anchor="middle">下线测试 2</text>
+<rect x="454.63211009174313" y="142.20000000000002" width="180.2201834862385" height="65.4" fill="#cce" stroke="#333" stroke-width=".6"/>
+<text x="544.7422018348625" y="177.89999999999998" font-size="7" text-anchor="middle">包装 1</text>
+<rect x="0.0" y="24.0" width="85.36764705882352" height="81.60000000000001" fill="#f6a" stroke="#333" stroke-width=".6"/>
+<text x="42.68382352941176" y="67.79999999999998" font-size="7" text-anchor="middle">收货区</text>
+<rect x="416.1" y="222.60000000000002" width="200.9724770642202" height="65.4" fill="#8cf" stroke="#333" stroke-width=".6"/>
+<text x="516.5862385321102" y="258.29999999999995" font-size="7" text-anchor="middle">原材料库</text>
+<rect x="140.36697247706422" y="142.20000000000002" width="33.027522935779814" height="65.4" fill="#8cf" stroke="#333" stroke-width=".6"/>
+<text x="156.88073394495413" y="177.89999999999998" font-size="7" text-anchor="middle">外购件库</text>
+<rect x="200.10000000000002" y="262.6019417475728" width="56.69724770642201" height="25.39805825242719" fill="#8cf" stroke="#333" stroke-width=".6"/>
+<text x="228.44862385321102" y="278.3009708737864" font-size="7" text-anchor="middle">线边超市 1</text>
+<rect x="200.10000000000002" y="142.2" width="35.39449541284404" height="40.68429237947123" fill="#8cf" stroke="#333" stroke-width=".6"/>
+<text x="217.79724770642204" y="165.54214618973563" font-size="7" text-anchor="middle">线边超市 2</text>
+<rect x="509.9709677419355" y="0.0" width="38.2258064516129" height="111.60000000000001" fill="#8cf" stroke="#333" stroke-width=".6"/>
+<text x="529.083870967742" y="58.79999999999998" font-size="7" text-anchor="middle">成品库</text>
+<rect x="562.6323529411766" y="24.0" width="85.36764705882352" height="81.60000000000001" fill="#f6a" stroke="#333" stroke-width=".6"/>
+<text x="605.3161764705883" y="67.79999999999998" font-size="7" text-anchor="middle">发货区</text>
+<rect x="480.93870967741935" y="0.0" width="29.032258064516125" height="111.60000000000001" fill="#ddb" stroke="#333" stroke-width=".6"/>
+<text x="495.45483870967746" y="58.79999999999998" font-size="7" text-anchor="middle">刀具室</text>
+<rect x="0.0" y="142.20000000000002" width="82.56880733944953" height="65.4" fill="#ddb" stroke="#333" stroke-width=".6"/>
+<text x="41.28440366972477" y="177.89999999999998" font-size="7" text-anchor="middle">设备维修</text>
+<rect x="416.1" y="-2.1316282072803006e-14" width="64.83870967741935" height="66.62686567164181" fill="#ddb" stroke="#333" stroke-width=".6"/>
+<text x="448.5193548387098" y="36.31343283582089" font-size="7" text-anchor="middle">质检室</text>
+<rect x="0.0" y="222.60000000000002" width="83.6697247706422" height="65.4" fill="#ddb" stroke="#333" stroke-width=".6"/>
+<text x="41.8348623853211" y="258.29999999999995" font-size="7" text-anchor="middle">办公室</text>
+<rect x="256.797247706422" y="222.60000000000002" width="49.54128440366972" height="65.4" fill="#ddb" stroke="#333" stroke-width=".6"/>
+<text x="281.5678899082569" y="258.29999999999995" font-size="7" text-anchor="middle">更衣室/食堂</text>
+<circle cx="303.9715596330275" cy="207.60000000000002" r="2"/>
+<circle cx="253.71467889908257" cy="207.60000000000002" r="2"/>
+<circle cx="354.5258161151471" cy="207.60000000000002" r="2"/>
+<circle cx="379.7146788990826" cy="222.60000000000002" r="2"/>
+<circle cx="336.06330275229357" cy="222.60000000000002" r="2"/>
+<circle cx="217.79724770642204" cy="207.60000000000002" r="2"/>
+<circle cx="416.1" cy="89.11343283582092" r="2"/>
+<circle cx="258.1645161290323" cy="111.60000000000001" r="2"/>
+<circle cx="154.4125144248507" cy="222.60000000000002" r="2"/>
+<circle cx="107.48148657022351" cy="240.37647640083736" r="2"/>
+<circle cx="200.10000000000002" cy="242.60097087378642" r="2"/>
+<circle cx="346.71290322580643" cy="111.60000000000001" r="2"/>
+<circle cx="435.3660550458716" cy="142.2" r="2"/>
+<circle cx="111.4678899082569" cy="207.60000000000002" r="2"/>
+<circle cx="110.4674478548458" cy="111.60000000000001" r="2"/>
+<circle cx="544.7422018348625" cy="142.2" r="2"/>
+<circle cx="42.68382352941176" cy="105.60000000000001" r="2"/>
+<circle cx="416.1" cy="255.29999999999998" r="2"/>
+<circle cx="173.39449541284404" cy="174.89999999999998" r="2"/>
+<circle cx="200.10000000000002" cy="275.3009708737864" r="2"/>
+<circle cx="200.10000000000002" cy="162.54214618973563" r="2"/>
+<circle cx="529.083870967742" cy="111.60000000000001" r="2"/>
+<circle cx="605.3161764705883" cy="105.60000000000001" r="2"/>
+<circle cx="495.45483870967746" cy="111.60000000000001" r="2"/>
+<circle cx="41.28440366972477" cy="207.60000000000002" r="2"/>
+<circle cx="416.1" cy="33.31343283582089" r="2"/>
+<circle cx="41.8348623853211" cy="222.60000000000002" r="2"/>
+<circle cx="281.5678899082569" cy="222.60000000000002" r="2"/>
+<circle cx="108.0" cy="288.0" r="3.5" fill="#2a2"/>
+<circle cx="324.0" cy="288.0" r="3.5" fill="#2a2"/>
+<circle cx="540.0" cy="288.0" r="3.5" fill="#2a2"/>
+<circle cx="108.0" cy="0.0" r="3.5" fill="#2a2"/>
+<circle cx="324.0" cy="0.0" r="3.5" fill="#2a2"/>
+<circle cx="540.0" cy="0.0" r="3.5" fill="#2a2"/>
+<circle cx="0.0" cy="216.0" r="3.5" fill="#2a2"/>
+<circle cx="648.0" cy="216.0" r="3.5" fill="#2a2"/>
+</g></g></svg>

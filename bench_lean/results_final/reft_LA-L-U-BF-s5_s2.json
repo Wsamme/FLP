@@ -1,0 +1,1 @@
+{"method": "reft", "solver": "ref", "options": {"count_init": 1}, "budget": 60.0, "commit": "547a5bf", "instance": "LA-L-U-BF-s5", "seed": 2, "wall": 60.69237995147705, "rects": null, "eval": null, "stats": {}}
