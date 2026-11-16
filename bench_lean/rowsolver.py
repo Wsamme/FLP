@@ -27,6 +27,12 @@ Option pairs=True (B1 in 改进规划.md): the two rows of a region are coupled 
 Option elite=K: keep the K best distinct layouts under the search cost and re-score them all with evaluate.
 Option polish=f (C1): spend the last fraction f of the time on a descent scored by the true path cost.
 
+Elastic SOCP (phase-1 idea): every non-empty row has a slack sigma >= 0 that may relax its end, depth and
+  dock-door constraints at price sig_pen per metre. The SOCP therefore always solves and sum(sigma) grades how
+  far a state is from fitting; the SA minimises cost + penalties and only states with sigma = 0 and no
+  shortfall count as feasible. This replaces the old repair loop, which could wander for a minute on tight
+  instances (LA-L-U-BF-s21: departments fill 79 % of the usable row area).
+
 SA moves: swap two departments; move one department to another row/position; swap neighbours in a row;
   with pairs=True also swap two neighbouring entries of an interleaving.
   W/E dock departments stay at their row end, S/N dock departments stay in their row.
@@ -107,6 +113,7 @@ class Model:
         self.movers = [i for i in range(n) if i not in self.fixed and i not in self.dock]
         self.placed = [i for i in range(n) if i not in self.fixed]
         self.penalty = 2.0 * sum(w for _, _, w in self.pairs)      # cost of one metre of shortfall
+        self.sig_pen = 20.0 * sum(w for _, _, w in self.pairs)     # cost of one metre of row slack
 
     # ---------- geometry set-up ----------
     def _aisle_at(self, y, x0, x1, top_edge):
@@ -237,6 +244,9 @@ class Model:
         gvar = {}
         for g, rs in used.items():
             if len(rs) == 2 and not self.pairs: gvar[g] = nv; nv += 1
+        sig = {}
+        for ri, seq in enumerate(state):
+            if seq: sig[ri] = nv; nv += 1
         ineq_r, ineq_c, ineq_v, ineq_b = [], [], [], []
         eq_r, eq_c, eq_v, eq_b = [], [], [], []
         cnt = [0, 0]
@@ -250,8 +260,9 @@ class Model:
             k = cnt[1]; cnt[1] += 1
             for c, v in coefs: eq_r.append(k); eq_c.append(c); eq_v.append(v)
             eq_b.append(b)
+        for ri in sig: le([(sig[ri], -1)], 0.0)
         for ri, seq in enumerate(state):
-            r = R[ri]; m = len(seq)
+            r = R[ri]; m = len(seq); sg = sig.get(ri)
             for k, i in enumerate(seq):
                 x, w, d = vi[i], vi[i] + 1, vi[i] + 2
                 ms, a = self.ms[i], self.am[i]
@@ -259,22 +270,22 @@ class Model:
                 le([(w, 1), (d, -a)], 0.0); le([(d, 1), (w, -a)], 0.0)
                 g = r["group"]
                 if g in gvar:
-                    if r["side"] == "B": le([(d, 1), (gvar[g], -1)], 0.0)
-                    else: le([(d, 1), (gvar[g], 1)], r["rh"])
+                    if r["side"] == "B": le([(d, 1), (gvar[g], -1), (sg, -1)], 0.0)
+                    else: le([(d, 1), (gvar[g], 1), (sg, -1)], r["rh"])
                 else:
-                    le([(d, 1)], r["rh"])
+                    le([(d, 1), (sg, -1)], r["rh"])
                 if k == 0: le([(x, -1)], -r["x0"])
                 else:
                     p = seq[k - 1]; gap = self.xpairs.get((p, i), 0.0)
                     le([(vi[p], 1), (vi[p] + 1, 1), (x, -1)], -gap)
-                if k == m - 1: le([(x, 1), (w, 1)], r["x1"])
+                if k == m - 1: le([(x, 1), (w, 1), (sg, -1)], r["x1"])
                 for kk in range(k + 2, m):                 # X pairs further apart in the same row
                     j = seq[kk]; gap = self.xpairs.get((i, j))
                     if gap: le([(x, 1), (w, 1), (vi[j], -1)], -gap)
                 if i in self.dock:
                     s = self.dock[i]
                     if s["mode"] in "SN":
-                        le([(d, -1)], -r["rh"]); le([(x, 1)], s["lo"]); le([(x, -1), (w, -1)], -s["hi"])
+                        le([(d, -1)], -r["rh"]); le([(x, 1), (sg, -1)], s["lo"]); le([(x, -1), (w, -1), (sg, -1)], -s["hi"])
                     elif s["mode"] == "W":
                         if k != 0: return None
                         eq([(x, 1)], r["x0"]); le([(d, -1)], -s["dreq"])
@@ -298,7 +309,7 @@ class Model:
                         a, b = pp[i] < pp[j], pm[i] < pm[j]
                         if a and b: le([(vi[i], 1), (vi[i] + 1, 1), (vi[j], -1)], -gap)
                         elif not a and not b: le([(vi[j], 1), (vi[j] + 1, 1), (vi[i], -1)], -gap)
-                        else: le([(vi[i] + 2, 1), (vi[j] + 2, 1)], rh - gap)
+                        else: le([(vi[i] + 2, 1), (vi[j] + 2, 1), (sig[rb], -1)], rh - gap)
         # objective along the aisle network
         q_extra = {}; const = 0.0
 
@@ -341,6 +352,7 @@ class Model:
                     q_extra[uvar[key]] = q_extra.get(uvar[key], 0.0) + wt
         q = np.zeros(nv)
         for k, v in q_extra.items(): q[k] += v
+        for ri, c in sig.items(): q[c] += self.sig_pen
         # SOC rows: s = b - A z, s = (w + d, w - d, 2 sqrt(A))
         soc_r, soc_c, soc_v, soc_b = [], [], [], []
         for t, i in enumerate(self.placed):
@@ -369,7 +381,9 @@ class Model:
                 x, w, d = z[vi[i]], z[vi[i] + 1], z[vi[i] + 2]
                 y = r["ry"] if r["side"] == "B" else r["ry"] + r["rh"] - d
                 rects[i] = [float(x), float(y), float(w), float(d)]
-        return float(sol.obj_val) + const, rects
+        sg_tot = float(sum(max(0.0, z[c]) for c in sig.values()))
+        obj = float(sol.obj_val) + const
+        return obj, rects, sg_tot, obj - self.sig_pen * sg_tot
 
     def shortfall(self, rects):
         """X gaps between rows and fire egress, checked after the SOCP: total shortfall in metres (0 = ok)."""
@@ -381,17 +395,19 @@ class Model:
             v += max(0.0, float(np.max(np.min(np.linalg.norm(cs[:, None, :] - self.exits[None], axis=2), axis=1))) - self.egress)
         return v
 
-    def score(self, state):
-        """(search cost, rects, ok) or None when the rows cannot hold the departments.
-        search cost = SOCP objective + penalty x shortfall; ok = no shortfall."""
-        if not self.capacity_ok(state): return None
+    def score(self, state, prefilter=False):
+        """(search cost, rects, ok, shortfall, row slack, objective without penalties), or None when the paint
+        department sits where it cannot touch an outer wall (or, with prefilter, when the rows cannot hold the
+        departments). search cost = SOCP objective (incl. slack price) + penalty x shortfall;
+        ok = no row slack and no shortfall."""
+        if prefilter and not self.capacity_ok(state): return None
         out = self.socp(state)
         if out is None: return None
         v = self.shortfall(out[1])
-        return out[0] + self.penalty * v, out[1], v <= 1e-6, v
+        return out[0] + self.penalty * v, out[1], v <= 1e-6 and out[2] <= 1e-6, v, out[2], out[3]
 
     # ---------- initial solution ----------
-    def initial(self, rng, tries=20000):
+    def initial(self, rng, deadline=None, tries=20000):
         R = self.rows; state = St([] for _ in R); state.inter = {}
         for i, s in self.dock.items(): state[s["row"]].append(i)
         def ctr(ri): return np.array([(R[ri]["x0"] + R[ri]["x1"]) / 2, R[ri]["ry"] + R[ri]["rh"] / 2])
@@ -424,15 +440,11 @@ class Model:
                 ri = min(range(len(R)), key=lambda q: used[q] / (R[q]["x1"] - R[q]["x0"]))
                 state[ri].insert(len(state[ri]) // 2, i); used[ri] += est(i, ri)
         self.normalize(state)
-        ov = self.overflow(state); out = self.score(state) if ov <= E else None
+        out = self.score(state)                    # elastic: only None if paint cannot reach a wall
         k = 0
-        while out is None and k < tries:           # repair: descend on row overflow, then need a SOCP solution
+        while out is None and k < tries and (deadline is None or time.time() < deadline):
             k += 1
-            cand = self.neighbor(state, rng)
-            o2 = self.overflow(cand)
-            if o2 <= ov + E:
-                state, ov = cand, o2
-                if ov <= E: out = self.score(state)
+            state = self.neighbor(state, rng); out = self.score(state)
         return state, out
 
     def neighbor(self, state, rng):
@@ -483,7 +495,7 @@ def solve(inst, seed=0, time_limit=60.0, log=None, trace=None, pairs=False, elit
     t0 = time.time()
     rng = np.random.default_rng(seed)
     M = Model(inst, pairs=bool(pairs))
-    state, out = M.initial(rng)
+    state, out = M.initial(rng, deadline=t0 + 0.3 * time_limit)
     if out is None: return None
     best = None                                  # best feasible under the search cost: (cost, state, rects)
     cands = []                                   # (true path cost, rects, state), cheapest first, at most 8
@@ -508,9 +520,12 @@ def solve(inst, seed=0, time_limit=60.0, log=None, trace=None, pairs=False, elit
     use_true = accept == "true"
 
     def scost(o, st):
-        if not use_true: return o[0]
-        return true_cost(o[1], st, record=o[2]) + M.penalty * o[3]
+        # accept=true prices feasible states by true path cost; states with row slack or shortfall have
+        # overlapping or illegal rectangles, so they keep the proxy price (where the penalties dominate)
+        if not use_true or not o[2]: return o[0]
+        return true_cost(o[1], st)
     cur_state, cur = state, scost(out, state)
+    cur_ok, cur_raw = out[2], out[5]
     pending = False
     if out[2]:
         best = (cur, state, out[1]); remember(cur, state, out[1])
@@ -519,9 +534,8 @@ def solve(inst, seed=0, time_limit=60.0, log=None, trace=None, pairs=False, elit
     for _ in range(30):
         nb = M.neighbor(cur_state, rng); o = M.score(nb)
         if o is None: continue
-        c = scost(o, nb)
-        if c > cur: ds.append(min(c - cur, 0.2 * cur))
-    T0 = (np.median(ds) if ds else 0.01 * cur) / -math.log(0.3); Tend = T0 * 1e-3
+        if o[5] > cur_raw: ds.append(min(o[5] - cur_raw, 0.2 * cur_raw))
+    T0 = (np.median(ds) if ds else 0.01 * cur_raw) / -math.log(0.3); Tend = T0 * 1e-3
     it = feas = acc = 0; last_true = time.time()
     t_start = time.time(); total = max(1.0, time_limit - (t_start - t0) - 1.0)
     budget = total * (1.0 - polish)
@@ -531,13 +545,13 @@ def solve(inst, seed=0, time_limit=60.0, log=None, trace=None, pairs=False, elit
         T = T0 * (Tend / T0) ** (el / budget)
         it += 1
         cand = M.neighbor(cur_state, rng)
-        o = M.score(cand)
+        o = M.score(cand, prefilter=cur_ok)
         if o is None: continue
         feas += 1
         c = scost(o, cand)
         dlt = c - cur
         if dlt <= 0 or rng.random() < math.exp(-dlt / T):
-            cur_state, cur = cand, c; acc += 1
+            cur_state, cur, cur_ok = cand, c, o[2]; acc += 1
             if trace: trace(o[0], o[1], o[2], time.time() - t0)
             if o[2]:
                 remember(cur, cand, o[1])
@@ -555,7 +569,7 @@ def solve(inst, seed=0, time_limit=60.0, log=None, trace=None, pairs=False, elit
         while time.time() - t_start < total:
             pol_it += 1
             cand = M.neighbor(st, rng)
-            o = M.score(cand)
+            o = M.score(cand, prefilter=True)
             if o is None or not o[2]: continue
             pc = true_cost(o[1], cand)
             if pc < tb - 1e-9: st, tb = cand, pc; pol_acc += 1
