@@ -1,0 +1,1 @@
+{"method": "rowsC_near5", "solver": "rows", "options": {"elite": 50, "polish": 0.25, "near": 0.5}, "budget": 60.0, "commit": "d779854", "instance": "LA-L-U-BF-s21", "seed": 0, "wall": 44.327839612960815, "rects": null, "eval": null, "stats": {}}

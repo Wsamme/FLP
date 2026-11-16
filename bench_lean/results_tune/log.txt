@@ -1,0 +1,222 @@
+# 2026-11-16 19:05:54 T=60s workers=12 set=tune seeds=0-9 cfg=['rows:rows', 'reft:ref:count_init=1'] host=DESKTOP-1KNNHJK
+rows LA-L-I-s17 0 wall=59.0 feasible=True viol=0 path=20539.0 centroid=24356.4
+reft LA-L-I-s17 0 wall=60.1 feasible=True viol=0 path=35736.9 centroid=37007.7
+rows LA-L-L-s19 0 wall=59.0 feasible=True viol=0 path=22977.4 centroid=25814.3
+reft LA-L-L-s19 0 wall=60.7 none
+rows LA-L-U-BF-s21 0 wall=59.0 feasible=True viol=0 path=34859.5 centroid=42985.7
+reft LA-L-U-BF-s21 0 wall=60.0 feasible=True viol=0 path=59979.6 centroid=58281.7
+rows LA-L-U-s18 0 wall=59.0 feasible=True viol=0 path=24160.7 centroid=28551.0
+reft LA-L-U-s18 0 wall=60.2 feasible=True viol=0 path=39176.4 centroid=38293.2
+rows LA-M-I-BF-s20 0 wall=59.0 feasible=True viol=0 path=14545.4 centroid=17897.1
+reft LA-M-I-BF-s20 0 wall=60.0 feasible=True viol=0 path=23096.2 centroid=25715.5
+rows LA-M-I-s14 0 wall=59.0 feasible=True viol=0 path=20039.3 centroid=23708.5
+reft LA-M-I-s14 0 wall=60.0 feasible=True viol=0 path=26905.2 centroid=30527.7
+rows LA-M-L-s16 0 wall=59.0 feasible=True viol=0 path=18554.2 centroid=23540.9
+reft LA-M-L-s16 0 wall=60.0 feasible=True viol=0 path=25865.9 centroid=29086.7
+rows LA-M-U-s15 0 wall=59.0 feasible=True viol=0 path=19280.9 centroid=24054.3
+reft LA-M-U-s15 0 wall=60.0 feasible=True viol=0 path=27405.7 centroid=30303.5
+rows LA-S-I-s11 0 wall=59.0 feasible=True viol=0 path=3996.3 centroid=5780.6
+reft LA-S-I-s11 0 wall=60.0 feasible=True viol=0 path=5914.0 centroid=7144.4
+rows LA-S-L-s13 0 wall=59.0 feasible=True viol=0 path=5582.8 centroid=7864.9
+reft LA-S-L-s13 0 wall=60.0 feasible=True viol=0 path=8331.9 centroid=10872.6
+rows LA-S-U-s12 0 wall=59.0 feasible=True viol=0 path=5439.7 centroid=7427.3
+reft LA-S-U-s12 0 wall=60.0 feasible=True viol=0 path=6359.3 centroid=8526.5
+rows LA-L-I-s17 1 wall=59.0 feasible=True viol=0 path=20677.7 centroid=23234.5
+reft LA-L-I-s17 1 wall=60.6 none
+rows LA-L-L-s19 1 wall=59.0 feasible=True viol=0 path=23119.2 centroid=28423.5
+reft LA-L-L-s19 1 wall=60.0 feasible=True viol=0 path=36695.2 centroid=37586.1
+rows LA-L-U-BF-s21 1 wall=58.3 none
+reft LA-L-U-BF-s21 1 wall=60.7 none
+rows LA-L-U-s18 1 wall=67.9 feasible=True viol=0 path=37946.5 centroid=38263.4
+reft LA-L-U-s18 1 wall=60.1 feasible=True viol=0 path=45619.2 centroid=45363.9
+rows LA-M-I-BF-s20 1 wall=59.0 feasible=True viol=0 path=12856.8 centroid=16313.5
+reft LA-M-I-BF-s20 1 wall=60.0 feasible=True viol=0 path=17991.5 centroid=18927.5
+rows LA-M-I-s14 1 wall=59.0 feasible=True viol=0 path=19141.6 centroid=24737.3
+reft LA-M-I-s14 1 wall=60.0 feasible=True viol=0 path=30799.6 centroid=34184.3
+rows LA-M-L-s16 1 wall=59.0 feasible=True viol=0 path=19243.7 centroid=23794.6
+reft LA-M-L-s16 1 wall=60.0 feasible=True viol=0 path=26580.5 centroid=29042.2
+rows LA-M-U-s15 1 wall=59.0 feasible=True viol=0 path=19599.6 centroid=24995.1
+reft LA-M-U-s15 1 wall=60.0 feasible=True viol=0 path=26033.5 centroid=30756.9
+rows LA-S-I-s11 1 wall=59.0 feasible=True viol=0 path=4156.4 centroid=5870.2
+reft LA-S-I-s11 1 wall=60.0 feasible=True viol=0 path=7533.6 centroid=9334.3
+rows LA-S-L-s13 1 wall=59.0 feasible=True viol=0 path=6596.6 centroid=9154.4
+reft LA-S-L-s13 1 wall=60.0 feasible=True viol=0 path=7603.8 centroid=10546.4
+rows LA-S-U-s12 1 wall=59.0 feasible=True viol=0 path=5340.5 centroid=7293.3
+reft LA-S-U-s12 1 wall=60.0 feasible=True viol=0 path=6948.8 centroid=8851.6
+rows LA-L-I-s17 2 wall=59.1 feasible=True viol=0 path=20189.0 centroid=23925.7
+reft LA-L-I-s17 2 wall=60.1 feasible=True viol=0 path=35565.4 centroid=35899.4
+rows LA-L-L-s19 2 wall=59.0 feasible=True viol=0 path=25766.6 centroid=30046.8
+reft LA-L-L-s19 2 wall=60.0 feasible=True viol=0 path=39325.5 centroid=40941.3
+rows LA-L-U-BF-s21 2 wall=59.8 none
+reft LA-L-U-BF-s21 2 wall=60.0 feasible=True viol=0 path=57915.0 centroid=59586.2
+rows LA-L-U-s18 2 wall=59.0 feasible=True viol=0 path=23354.5 centroid=26151.2
+reft LA-L-U-s18 2 wall=60.1 feasible=True viol=0 path=43318.7 centroid=47736.2
+rows LA-M-I-BF-s20 2 wall=59.0 feasible=True viol=0 path=12633.5 centroid=16290.7
+reft LA-M-I-BF-s20 2 wall=60.0 feasible=True viol=0 path=18367.6 centroid=20394.3
+rows LA-M-I-s14 2 wall=59.0 feasible=True viol=0 path=20068.6 centroid=23992.5
+reft LA-M-I-s14 2 wall=60.0 feasible=True viol=0 path=30975.5 centroid=35432.4
+rows LA-M-L-s16 2 wall=59.0 feasible=True viol=0 path=17718.8 centroid=23084.7
+reft LA-M-L-s16 2 wall=60.0 feasible=True viol=0 path=29505.4 centroid=34072.0
+rows LA-M-U-s15 2 wall=59.0 feasible=True viol=0 path=19682.2 centroid=24979.2
+reft LA-M-U-s15 2 wall=60.0 feasible=True viol=0 path=25980.8 centroid=29920.2
+rows LA-S-I-s11 2 wall=59.0 feasible=True viol=0 path=4253.9 centroid=5889.7
+reft LA-S-I-s11 2 wall=60.0 feasible=True viol=0 path=6143.3 centroid=8273.0
+rows LA-S-L-s13 2 wall=59.0 feasible=True viol=0 path=6046.8 centroid=7985.5
+reft LA-S-L-s13 2 wall=60.0 feasible=True viol=0 path=9063.6 centroid=10171.2
+rows LA-S-U-s12 2 wall=59.0 feasible=True viol=0 path=5198.6 centroid=7135.5
+reft LA-S-U-s12 2 wall=60.0 feasible=True viol=0 path=6969.7 centroid=8173.0
+rows LA-L-I-s17 3 wall=59.0 feasible=True viol=0 path=19779.2 centroid=23293.8
+reft LA-L-I-s17 3 wall=60.1 feasible=True viol=0 path=39224.1 centroid=39493.9
+rows LA-L-L-s19 3 wall=59.0 feasible=True viol=0 path=24136.8 centroid=27207.5
+reft LA-L-L-s19 3 wall=60.0 feasible=True viol=0 path=37020.9 centroid=38453.8
+rows LA-L-U-BF-s21 3 wall=52.9 none
+reft LA-L-U-BF-s21 3 wall=60.1 feasible=True viol=0 path=58082.5 centroid=59579.2
+rows LA-L-U-s18 3 wall=59.0 feasible=True viol=0 path=29762.6 centroid=34562.7
+reft LA-L-U-s18 3 wall=60.1 feasible=True viol=0 path=43684.4 centroid=46712.8
+rows LA-M-I-BF-s20 3 wall=59.0 feasible=True viol=0 path=14899.9 centroid=17647.7
+reft LA-M-I-BF-s20 3 wall=60.1 feasible=True viol=0 path=17664.6 centroid=19425.6
+rows LA-M-I-s14 3 wall=59.0 feasible=True viol=0 path=19263.2 centroid=24443.0
+reft LA-M-I-s14 3 wall=60.0 feasible=True viol=0 path=34789.4 centroid=40690.1
+rows LA-M-L-s16 3 wall=59.0 feasible=True viol=0 path=19285.5 centroid=23775.4
+reft LA-M-L-s16 3 wall=60.0 feasible=True viol=0 path=27162.4 centroid=33006.0
+rows LA-M-U-s15 3 wall=59.0 feasible=True viol=0 path=19615.2 centroid=25502.8
+reft LA-M-U-s15 3 wall=60.0 feasible=True viol=0 path=25422.4 centroid=29091.6
+rows LA-S-I-s11 3 wall=59.0 feasible=True viol=0 path=3911.0 centroid=6141.3
+reft LA-S-I-s11 3 wall=60.0 feasible=True viol=0 path=5958.2 centroid=7010.3
+rows LA-S-L-s13 3 wall=59.0 feasible=True viol=0 path=6111.0 centroid=9018.1
+reft LA-S-L-s13 3 wall=60.0 feasible=True viol=0 path=7807.8 centroid=9919.5
+rows LA-S-U-s12 3 wall=59.0 feasible=True viol=0 path=5349.3 centroid=7238.8
+reft LA-S-U-s12 3 wall=60.0 feasible=True viol=0 path=6684.2 centroid=9187.3
+rows LA-L-I-s17 4 wall=59.2 feasible=True viol=0 path=22392.2 centroid=25050.2
+reft LA-L-I-s17 4 wall=61.0 none
+rows LA-L-L-s19 4 wall=59.0 feasible=True viol=0 path=21852.4 centroid=26953.8
+reft LA-L-L-s19 4 wall=60.0 feasible=True viol=0 path=43861.2 centroid=43906.6
+rows LA-L-U-BF-s21 4 wall=59.0 feasible=True viol=0 path=33355.0 centroid=42803.9
+reft LA-L-U-BF-s21 4 wall=60.7 none
+rows LA-L-U-s18 4 wall=72.4 none
+reft LA-L-U-s18 4 wall=60.1 feasible=True viol=0 path=37747.3 centroid=42303.1
+rows LA-M-I-BF-s20 4 wall=59.0 feasible=True viol=0 path=12760.7 centroid=16536.9
+reft LA-M-I-BF-s20 4 wall=60.0 feasible=True viol=0 path=20023.7 centroid=22547.2
+rows LA-M-I-s14 4 wall=59.0 feasible=True viol=0 path=20449.8 centroid=25419.9
+reft LA-M-I-s14 4 wall=60.0 feasible=True viol=0 path=29105.2 centroid=32005.1
+rows LA-M-L-s16 4 wall=59.0 feasible=True viol=0 path=18567.0 centroid=23629.0
+reft LA-M-L-s16 4 wall=60.0 feasible=True viol=0 path=28204.7 centroid=33265.1
+rows LA-M-U-s15 4 wall=59.0 feasible=True viol=0 path=20760.8 centroid=25528.9
+reft LA-M-U-s15 4 wall=60.0 feasible=True viol=0 path=31926.5 centroid=34708.6
+rows LA-S-I-s11 4 wall=59.0 feasible=True viol=0 path=4335.2 centroid=5770.3
+reft LA-S-I-s11 4 wall=60.0 feasible=True viol=0 path=5944.8 centroid=7038.8
+rows LA-S-L-s13 4 wall=59.0 feasible=True viol=0 path=6766.5 centroid=8851.3
+reft LA-S-L-s13 4 wall=60.0 feasible=True viol=0 path=8139.5 centroid=9566.3
+rows LA-S-U-s12 4 wall=59.0 feasible=True viol=0 path=5186.7 centroid=6687.4
+reft LA-S-U-s12 4 wall=60.0 feasible=True viol=0 path=7306.5 centroid=8566.6
+rows LA-L-I-s17 5 wall=59.1 feasible=True viol=0 path=22459.7 centroid=25607.2
+reft LA-L-I-s17 5 wall=60.6 none
+rows LA-L-L-s19 5 wall=59.0 feasible=True viol=0 path=25579.2 centroid=27303.1
+reft LA-L-L-s19 5 wall=60.1 feasible=True viol=0 path=40266.2 centroid=44689.5
+rows LA-L-U-BF-s21 5 wall=57.4 none
+reft LA-L-U-BF-s21 5 wall=60.6 none
+rows LA-L-U-s18 5 wall=59.0 feasible=True viol=0 path=23718.1 centroid=27600.9
+reft LA-L-U-s18 5 wall=60.1 feasible=True viol=0 path=46683.7 centroid=44210.9
+rows LA-M-I-BF-s20 5 wall=59.0 feasible=True viol=0 path=13463.5 centroid=17824.1
+reft LA-M-I-BF-s20 5 wall=60.0 feasible=True viol=0 path=20983.5 centroid=23006.7
+rows LA-M-I-s14 5 wall=59.0 feasible=True viol=0 path=20409.0 centroid=26962.6
+reft LA-M-I-s14 5 wall=60.0 feasible=True viol=0 path=27829.7 centroid=31007.0
+rows LA-M-L-s16 5 wall=59.0 feasible=True viol=0 path=19199.1 centroid=24281.7
+reft LA-M-L-s16 5 wall=60.0 feasible=True viol=0 path=26538.3 centroid=29023.5
+rows LA-M-U-s15 5 wall=59.0 feasible=True viol=0 path=20672.2 centroid=26624.0
+reft LA-M-U-s15 5 wall=60.0 feasible=True viol=0 path=29522.7 centroid=33482.5
+rows LA-S-I-s11 5 wall=59.0 feasible=True viol=0 path=3584.3 centroid=5699.9
+reft LA-S-I-s11 5 wall=60.0 feasible=True viol=0 path=6934.1 centroid=8290.1
+rows LA-S-L-s13 5 wall=59.0 feasible=True viol=0 path=5454.6 centroid=8038.9
+reft LA-S-L-s13 5 wall=60.0 feasible=True viol=0 path=8042.1 centroid=9949.1
+rows LA-S-U-s12 5 wall=59.0 feasible=True viol=0 path=5820.7 centroid=8275.5
+reft LA-S-U-s12 5 wall=60.0 feasible=True viol=0 path=6804.3 centroid=9068.9
+rows LA-L-I-s17 6 wall=73.3 none
+reft LA-L-I-s17 6 wall=60.1 feasible=True viol=0 path=43723.7 centroid=45443.3
+rows LA-L-L-s19 6 wall=59.1 feasible=True viol=0 path=24108.9 centroid=27505.7
+reft LA-L-L-s19 6 wall=60.0 feasible=True viol=0 path=41423.3 centroid=41865.2
+rows LA-L-U-BF-s21 6 wall=51.5 none
+reft LA-L-U-BF-s21 6 wall=60.0 feasible=True viol=0 path=48008.6 centroid=50426.8
+rows LA-L-U-s18 6 wall=59.2 feasible=True viol=0 path=27342.3 centroid=30915.8
+reft LA-L-U-s18 6 wall=60.1 feasible=True viol=0 path=47617.5 centroid=50034.1
+rows LA-M-I-BF-s20 6 wall=59.1 feasible=True viol=0 path=13986.6 centroid=17172.9
+reft LA-M-I-BF-s20 6 wall=60.1 feasible=True viol=0 path=18981.7 centroid=20801.9
+rows LA-M-I-s14 6 wall=59.1 feasible=True viol=0 path=18659.9 centroid=26245.9
+reft LA-M-I-s14 6 wall=60.0 feasible=True viol=0 path=26760.4 centroid=31973.0
+rows LA-M-L-s16 6 wall=59.1 feasible=True viol=0 path=17231.2 centroid=22197.7
+reft LA-M-L-s16 6 wall=60.0 feasible=True viol=0 path=24783.8 centroid=30603.4
+rows LA-M-U-s15 6 wall=59.1 feasible=True viol=0 path=23445.1 centroid=30264.2
+reft LA-M-U-s15 6 wall=60.0 feasible=True viol=0 path=25798.2 centroid=29395.8
+rows LA-S-I-s11 6 wall=59.0 feasible=True viol=0 path=3919.6 centroid=6673.2
+reft LA-S-I-s11 6 wall=60.0 feasible=True viol=0 path=7028.5 centroid=8679.3
+rows LA-S-L-s13 6 wall=59.0 feasible=True viol=0 path=6403.7 centroid=9534.8
+reft LA-S-L-s13 6 wall=60.0 feasible=True viol=0 path=8564.7 centroid=10448.4
+rows LA-S-U-s12 6 wall=59.0 feasible=True viol=0 path=5094.3 centroid=7386.3
+reft LA-S-U-s12 6 wall=60.0 feasible=True viol=0 path=7145.7 centroid=8198.4
+rows LA-L-I-s17 7 wall=59.2 feasible=True viol=0 path=22123.1 centroid=25760.4
+reft LA-L-I-s17 7 wall=60.1 feasible=True viol=0 path=43757.0 centroid=42177.4
+rows LA-L-L-s19 7 wall=59.1 feasible=True viol=0 path=24116.2 centroid=28393.3
+reft LA-L-L-s19 7 wall=60.1 feasible=True viol=0 path=38899.6 centroid=37580.2
+rows LA-L-U-BF-s21 7 wall=56.3 none
+reft LA-L-U-BF-s21 7 wall=60.1 feasible=True viol=0 path=52770.8 centroid=58020.6
+rows LA-L-U-s18 7 wall=59.1 feasible=True viol=0 path=25676.5 centroid=30010.9
+reft LA-L-U-s18 7 wall=60.1 feasible=True viol=0 path=45169.3 centroid=47108.0
+rows LA-M-I-BF-s20 7 wall=59.1 feasible=True viol=0 path=13780.2 centroid=16887.8
+reft LA-M-I-BF-s20 7 wall=60.0 feasible=True viol=0 path=16346.1 centroid=19000.6
+rows LA-M-I-s14 7 wall=59.1 feasible=True viol=0 path=21069.3 centroid=25565.7
+reft LA-M-I-s14 7 wall=60.0 feasible=True viol=0 path=36738.0 centroid=39655.3
+rows LA-M-L-s16 7 wall=59.1 feasible=True viol=0 path=18975.0 centroid=22911.5
+reft LA-M-L-s16 7 wall=60.0 feasible=True viol=0 path=31811.5 centroid=36919.8
+rows LA-M-U-s15 7 wall=59.1 feasible=True viol=0 path=18123.0 centroid=23036.7
+reft LA-M-U-s15 7 wall=60.0 feasible=True viol=0 path=27182.1 centroid=31839.9
+rows LA-S-I-s11 7 wall=59.0 feasible=True viol=0 path=4566.9 centroid=6859.4
+reft LA-S-I-s11 7 wall=60.0 feasible=True viol=0 path=7124.2 centroid=8610.1
+rows LA-S-L-s13 7 wall=59.0 feasible=True viol=0 path=6156.2 centroid=8590.0
+reft LA-S-L-s13 7 wall=60.0 feasible=True viol=0 path=8257.5 centroid=10087.1
+rows LA-S-U-s12 7 wall=59.0 feasible=True viol=0 path=4827.2 centroid=7190.6
+reft LA-S-U-s12 7 wall=60.0 feasible=True viol=0 path=6304.9 centroid=8833.6
+rows LA-L-I-s17 8 wall=59.1 feasible=True viol=0 path=20690.9 centroid=23756.2
+reft LA-L-I-s17 8 wall=60.1 feasible=True viol=0 path=34416.8 centroid=33716.0
+rows LA-L-L-s19 8 wall=59.1 feasible=True viol=0 path=23750.5 centroid=27786.4
+reft LA-L-L-s19 8 wall=60.1 feasible=True viol=0 path=37344.7 centroid=39385.7
+rows LA-L-U-BF-s21 8 wall=51.4 none
+reft LA-L-U-BF-s21 8 wall=60.1 feasible=True viol=0 path=53610.0 centroid=57691.5
+rows LA-L-U-s18 8 wall=68.5 none
+reft LA-L-U-s18 8 wall=60.0 feasible=True viol=0 path=36251.6 centroid=36333.6
+rows LA-M-I-BF-s20 8 wall=59.1 feasible=True viol=0 path=15788.5 centroid=18153.6
+reft LA-M-I-BF-s20 8 wall=60.0 feasible=True viol=0 path=17710.9 centroid=18253.9
+rows LA-M-I-s14 8 wall=59.1 feasible=True viol=0 path=20339.3 centroid=27033.4
+reft LA-M-I-s14 8 wall=60.0 feasible=True viol=0 path=27833.2 centroid=30777.5
+rows LA-M-L-s16 8 wall=59.1 feasible=True viol=0 path=19985.7 centroid=26178.6
+reft LA-M-L-s16 8 wall=60.1 feasible=True viol=0 path=29710.7 centroid=32982.1
+rows LA-M-U-s15 8 wall=59.1 feasible=True viol=0 path=19538.7 centroid=23780.5
+reft LA-M-U-s15 8 wall=60.0 feasible=True viol=0 path=25590.6 centroid=27830.8
+rows LA-S-I-s11 8 wall=59.0 feasible=True viol=0 path=4277.4 centroid=5874.7
+reft LA-S-I-s11 8 wall=60.0 feasible=True viol=0 path=5631.7 centroid=7163.7
+rows LA-S-L-s13 8 wall=59.0 feasible=True viol=0 path=6644.2 centroid=8732.3
+reft LA-S-L-s13 8 wall=60.0 feasible=True viol=0 path=7372.3 centroid=10170.5
+rows LA-S-U-s12 8 wall=59.1 feasible=True viol=0 path=5007.9 centroid=6413.1
+reft LA-S-U-s12 8 wall=60.0 feasible=True viol=0 path=6295.3 centroid=8473.4
+rows LA-L-I-s17 9 wall=59.1 feasible=True viol=0 path=23661.3 centroid=28918.8
+reft LA-L-I-s17 9 wall=60.1 feasible=True viol=0 path=39024.1 centroid=38977.0
+rows LA-L-L-s19 9 wall=59.2 feasible=True viol=0 path=21773.8 centroid=27016.3
+reft LA-L-L-s19 9 wall=60.1 feasible=True viol=0 path=38246.6 centroid=39672.4
+rows LA-L-U-BF-s21 9 wall=48.0 none
+reft LA-L-U-BF-s21 9 wall=60.1 feasible=True viol=0 path=50845.3 centroid=55170.3
+rows LA-L-U-s18 9 wall=59.2 feasible=True viol=0 path=29797.3 centroid=34778.6
+reft LA-L-U-s18 9 wall=60.8 none
+rows LA-M-I-BF-s20 9 wall=59.1 feasible=True viol=0 path=12375.9 centroid=15895.3
+reft LA-M-I-BF-s20 9 wall=60.1 feasible=True viol=0 path=18613.4 centroid=20803.1
+rows LA-M-I-s14 9 wall=59.1 feasible=True viol=0 path=20583.1 centroid=25065.7
+reft LA-M-I-s14 9 wall=60.0 feasible=True viol=0 path=25645.2 centroid=31369.9
+rows LA-M-L-s16 9 wall=59.1 feasible=True viol=0 path=20264.6 centroid=24515.6
+reft LA-M-L-s16 9 wall=60.0 feasible=True viol=0 path=26066.5 centroid=29661.7
+rows LA-M-U-s15 9 wall=59.1 feasible=True viol=0 path=20030.1 centroid=24070.3
+reft LA-M-U-s15 9 wall=60.0 feasible=True viol=0 path=27688.4 centroid=31171.4
+rows LA-S-I-s11 9 wall=59.0 feasible=True viol=0 path=4282.2 centroid=5858.9
+reft LA-S-I-s11 9 wall=60.0 feasible=True viol=0 path=6641.4 centroid=8064.7
+rows LA-S-L-s13 9 wall=59.0 feasible=True viol=0 path=7128.3 centroid=8962.6
+reft LA-S-L-s13 9 wall=60.0 feasible=True viol=0 path=7394.0 centroid=10290.8
+rows LA-S-U-s12 9 wall=59.0 feasible=True viol=0 path=5579.1 centroid=7477.8
+reft LA-S-U-s12 9 wall=60.0 feasible=True viol=0 path=5945.0 centroid=8181.6
+# done in 1157 s

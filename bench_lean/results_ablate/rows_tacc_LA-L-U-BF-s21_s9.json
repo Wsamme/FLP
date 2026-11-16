@@ -1,0 +1,1 @@
+{"method": "rows_tacc", "solver": "rows", "options": {"accept": true}, "budget": 60.0, "commit": "ba4fce7", "instance": "LA-L-U-BF-s21", "seed": 9, "wall": 59.02880048751831, "rects": null, "eval": null, "stats": {}}

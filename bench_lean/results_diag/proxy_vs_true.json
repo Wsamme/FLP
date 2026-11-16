@@ -1,0 +1,46 @@
+[
+ {
+  "instance": "LA-S-U-s12",
+  "accepted_feasible": 1860,
+  "sampled": 300,
+  "spearman": 0.8521537555762677,
+  "spearman_best10": 0.9945205479452054,
+  "ratio_mean": 1.031001328414371,
+  "ratio_sd": 0.15027329097884076,
+  "best_proxy_true": 5340.532780464999,
+  "best_true": 5340.532780464999
+ },
+ {
+  "instance": "LA-M-I-s14",
+  "accepted_feasible": 792,
+  "sampled": 300,
+  "spearman": 0.6472237407609879,
+  "spearman_best10": 0.09657320872274144,
+  "ratio_mean": 1.0907743675547998,
+  "ratio_sd": 0.1613686813588886,
+  "best_proxy_true": 25516.843259255005,
+  "best_true": 21855.612913214998
+ },
+ {
+  "instance": "LA-L-L-s19",
+  "accepted_feasible": 531,
+  "sampled": 300,
+  "spearman": 0.47586523224084704,
+  "spearman_best10": 0.13020253728021372,
+  "ratio_mean": 1.177695923722751,
+  "ratio_sd": 0.28929937663518035,
+  "best_proxy_true": 27321.917729404995,
+  "best_true": 26690.551896915003
+ },
+ {
+  "instance": "LA-L-U-BF-s21",
+  "accepted_feasible": 297,
+  "sampled": 297,
+  "spearman": 0.34512379156507605,
+  "spearman_best10": 0.27308669867269136,
+  "ratio_mean": 1.1806721420350135,
+  "ratio_sd": 0.2540836002378515,
+  "best_proxy_true": 35212.7319175,
+  "best_true": 34553.35649361
+ }
+]

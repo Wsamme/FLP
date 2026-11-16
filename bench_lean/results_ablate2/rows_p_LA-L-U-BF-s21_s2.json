@@ -1,0 +1,1 @@
+{"method": "rows_p", "solver": "rows", "options": {"pairs": 1}, "budget": 60.0, "commit": "9e11c11", "instance": "LA-L-U-BF-s21", "seed": 2, "wall": 59.037806034088135, "rects": null, "eval": null, "stats": {}}

@@ -1,0 +1,2268 @@
+# 2026-11-16 19:34:31 T=60s workers=12 set=tune seeds=0-9 cfg=['rows0:rows', 'rows_e50:rows:elite=50', 'rows_c1:rows:elite=50,polish=0.25', 'rows_b1:rows:pairs=1', 'rows_tacc:rows:accept=true', 'rows_b1e50:rows:pairs=1,elite=50'] host=DESKTOP-1KNNHJK
+rows0 LA-L-I-s17 0 wall=59.2 feasible=True viol=0 path=19749.1 centroid=23853.9
+rows_e50 LA-L-I-s17 0 wall=59.2 feasible=True viol=0 path=19749.1 centroid=23853.9
+rows_c1 LA-L-I-s17 0 wall=59.2 feasible=True viol=0 path=18978.7 centroid=24274.5
+ERROR rows_b1 LA-L-I-s17 0 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-L-I-s17 0 wall=59.2 feasible=True viol=0 path=19749.1 centroid=23853.9
+ERROR rows_b1e50 LA-L-I-s17 0 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-L-L-s19 0 wall=59.1 feasible=True viol=0 path=24399.0 centroid=28867.3
+rows_e50 LA-L-L-s19 0 wall=59.1 feasible=True viol=0 path=24254.9 centroid=27974.3
+rows_c1 LA-L-L-s19 0 wall=59.1 feasible=True viol=0 path=22631.8 centroid=28535.3
+ERROR rows_b1 LA-L-L-s19 0 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-L-L-s19 0 wall=59.1 feasible=True viol=0 path=23565.3 centroid=27200.3
+ERROR rows_b1e50 LA-L-L-s19 0 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-L-U-BF-s21 0 wall=59.2 feasible=True viol=0 path=28917.9 centroid=36807.3
+rows_e50 LA-L-U-BF-s21 0 wall=59.2 feasible=True viol=0 path=31132.1 centroid=36757.8
+rows_c1 LA-L-U-BF-s21 0 wall=59.2 feasible=True viol=0 path=28119.4 centroid=35351.6
+ERROR rows_b1 LA-L-U-BF-s21 0 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-L-U-BF-s21 0 wall=59.2 feasible=True viol=0 path=28917.9 centroid=36807.3
+ERROR rows_b1e50 LA-L-U-BF-s21 0 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-L-U-s18 0 wall=59.2 feasible=True viol=0 path=22520.8 centroid=26466.0
+rows_e50 LA-L-U-s18 0 wall=59.1 feasible=True viol=0 path=26228.1 centroid=29139.3
+rows_c1 LA-L-U-s18 0 wall=59.2 feasible=True viol=0 path=24082.6 centroid=27997.6
+ERROR rows_b1 LA-L-U-s18 0 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-L-U-s18 0 wall=59.2 feasible=True viol=0 path=24158.6 centroid=29415.3
+ERROR rows_b1e50 LA-L-U-s18 0 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-M-I-BF-s20 0 wall=59.1 feasible=True viol=0 path=12257.6 centroid=15598.4
+rows_e50 LA-M-I-BF-s20 0 wall=59.1 feasible=True viol=0 path=11446.7 centroid=15944.1
+rows_c1 LA-M-I-BF-s20 0 wall=59.1 feasible=True viol=0 path=11667.3 centroid=14731.9
+ERROR rows_b1 LA-M-I-BF-s20 0 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-M-I-BF-s20 0 wall=59.1 feasible=True viol=0 path=11866.7 centroid=15698.8
+ERROR rows_b1e50 LA-M-I-BF-s20 0 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-M-I-s14 0 wall=59.1 feasible=True viol=0 path=20628.0 centroid=25364.4
+rows_e50 LA-M-I-s14 0 wall=59.1 feasible=True viol=0 path=20235.1 centroid=26591.5
+rows_c1 LA-M-I-s14 0 wall=59.1 feasible=True viol=0 path=19002.3 centroid=23856.3
+ERROR rows_b1 LA-M-I-s14 0 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-M-I-s14 0 wall=59.1 feasible=True viol=0 path=21071.6 centroid=27153.2
+ERROR rows_b1e50 LA-M-I-s14 0 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-M-L-s16 0 wall=59.1 feasible=True viol=0 path=18236.0 centroid=22067.3
+rows_e50 LA-M-L-s16 0 wall=59.1 feasible=True viol=0 path=18349.2 centroid=21372.1
+rows_c1 LA-M-L-s16 0 wall=59.1 feasible=True viol=0 path=17631.3 centroid=21882.7
+ERROR rows_b1 LA-M-L-s16 0 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-M-L-s16 0 wall=59.1 feasible=True viol=0 path=18236.0 centroid=22067.3
+ERROR rows_b1e50 LA-M-L-s16 0 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-M-U-s15 0 wall=59.1 feasible=True viol=0 path=19894.9 centroid=24575.1
+rows_e50 LA-M-U-s15 0 wall=59.1 feasible=True viol=0 path=19894.9 centroid=24575.1
+rows_c1 LA-M-U-s15 0 wall=59.1 feasible=True viol=0 path=19086.5 centroid=25667.7
+ERROR rows_b1 LA-M-U-s15 0 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-M-U-s15 0 wall=59.1 feasible=True viol=0 path=19573.8 centroid=24221.1
+ERROR rows_b1e50 LA-M-U-s15 0 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-S-I-s11 0 wall=59.1 feasible=True viol=0 path=4444.3 centroid=6496.1
+rows_e50 LA-S-I-s11 0 wall=59.1 feasible=True viol=0 path=3637.1 centroid=5911.3
+rows_c1 LA-S-I-s11 0 wall=59.1 feasible=True viol=0 path=4430.1 centroid=6380.1
+ERROR rows_b1 LA-S-I-s11 0 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-S-I-s11 0 wall=59.0 feasible=True viol=0 path=4027.7 centroid=6867.4
+ERROR rows_b1e50 LA-S-I-s11 0 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-S-L-s13 0 wall=59.0 feasible=True viol=0 path=6449.1 centroid=9050.6
+rows_e50 LA-S-L-s13 0 wall=59.1 feasible=True viol=0 path=5374.4 centroid=7624.6
+rows_c1 LA-S-L-s13 0 wall=59.1 feasible=True viol=0 path=6192.0 centroid=8217.8
+ERROR rows_b1 LA-S-L-s13 0 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-S-L-s13 0 wall=59.0 feasible=True viol=0 path=6645.8 centroid=9144.6
+ERROR rows_b1e50 LA-S-L-s13 0 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-S-U-s12 0 wall=59.0 feasible=True viol=0 path=5241.8 centroid=7025.6
+rows_e50 LA-S-U-s12 0 wall=59.1 feasible=True viol=0 path=5074.0 centroid=6787.6
+rows_c1 LA-S-U-s12 0 wall=59.1 feasible=True viol=0 path=4794.5 centroid=6466.9
+ERROR rows_b1 LA-S-U-s12 0 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-S-U-s12 0 wall=59.0 feasible=True viol=0 path=5133.7 centroid=7010.3
+ERROR rows_b1e50 LA-S-U-s12 0 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-L-I-s17 1 wall=59.2 feasible=True viol=0 path=22424.7 centroid=25529.5
+rows_e50 LA-L-I-s17 1 wall=59.1 feasible=True viol=0 path=21208.8 centroid=25487.8
+rows_c1 LA-L-I-s17 1 wall=59.2 feasible=True viol=0 path=21950.6 centroid=25467.4
+ERROR rows_b1 LA-L-I-s17 1 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-L-I-s17 1 wall=59.2 feasible=True viol=0 path=22424.7 centroid=25529.5
+ERROR rows_b1e50 LA-L-I-s17 1 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-L-L-s19 1 wall=59.1 feasible=True viol=0 path=22431.5 centroid=27425.5
+rows_e50 LA-L-L-s19 1 wall=59.2 feasible=True viol=0 path=22077.0 centroid=27643.4
+rows_c1 LA-L-L-s19 1 wall=59.1 feasible=True viol=0 path=23926.3 centroid=26844.5
+ERROR rows_b1 LA-L-L-s19 1 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-L-L-s19 1 wall=59.2 feasible=True viol=0 path=22077.0 centroid=27643.4
+ERROR rows_b1e50 LA-L-L-s19 1 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-L-U-BF-s21 1 wall=59.1 feasible=True viol=0 path=33023.3 centroid=37734.4
+rows_e50 LA-L-U-BF-s21 1 wall=59.1 feasible=True viol=0 path=33363.1 centroid=37922.0
+rows_c1 LA-L-U-BF-s21 1 wall=59.2 feasible=True viol=0 path=33950.9 centroid=41704.5
+ERROR rows_b1 LA-L-U-BF-s21 1 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-L-U-BF-s21 1 wall=59.1 feasible=True viol=0 path=33163.1 centroid=37736.2
+ERROR rows_b1e50 LA-L-U-BF-s21 1 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-L-U-s18 1 wall=59.1 feasible=True viol=0 path=26612.5 centroid=32368.2
+rows_e50 LA-L-U-s18 1 wall=59.1 feasible=True viol=0 path=26627.8 centroid=33329.2
+rows_c1 LA-L-U-s18 1 wall=59.2 feasible=True viol=0 path=26204.1 centroid=33214.0
+ERROR rows_b1 LA-L-U-s18 1 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-L-U-s18 1 wall=59.1 feasible=True viol=0 path=26495.0 centroid=32123.7
+ERROR rows_b1e50 LA-L-U-s18 1 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-M-I-BF-s20 1 wall=59.1 feasible=True viol=0 path=12539.0 centroid=15372.5
+rows_e50 LA-M-I-BF-s20 1 wall=59.1 feasible=True viol=0 path=12533.1 centroid=15909.5
+rows_c1 LA-M-I-BF-s20 1 wall=59.1 feasible=True viol=0 path=12071.8 centroid=15090.3
+ERROR rows_b1 LA-M-I-BF-s20 1 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-M-I-BF-s20 1 wall=59.1 feasible=True viol=0 path=12653.2 centroid=15305.4
+ERROR rows_b1e50 LA-M-I-BF-s20 1 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-M-I-s14 1 wall=59.1 feasible=True viol=0 path=19871.7 centroid=24032.5
+rows_e50 LA-M-I-s14 1 wall=59.1 feasible=True viol=0 path=20209.3 centroid=25304.6
+rows_c1 LA-M-I-s14 1 wall=59.1 feasible=True viol=0 path=20405.6 centroid=26350.4
+ERROR rows_b1 LA-M-I-s14 1 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-M-I-s14 1 wall=59.1 feasible=True viol=0 path=19966.7 centroid=24531.8
+ERROR rows_b1e50 LA-M-I-s14 1 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-M-L-s16 1 wall=59.1 feasible=True viol=0 path=17669.7 centroid=23640.1
+rows_e50 LA-M-L-s16 1 wall=59.1 feasible=True viol=0 path=17669.7 centroid=23640.1
+rows_c1 LA-M-L-s16 1 wall=59.1 feasible=True viol=0 path=17904.5 centroid=23551.9
+ERROR rows_b1 LA-M-L-s16 1 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-M-L-s16 1 wall=59.1 feasible=True viol=0 path=17669.7 centroid=23640.1
+ERROR rows_b1e50 LA-M-L-s16 1 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-M-U-s15 1 wall=59.1 feasible=True viol=0 path=21017.9 centroid=24801.4
+rows_e50 LA-M-U-s15 1 wall=59.1 feasible=True viol=0 path=19974.2 centroid=23961.0
+rows_c1 LA-M-U-s15 1 wall=59.1 feasible=True viol=0 path=19373.5 centroid=24168.9
+ERROR rows_b1 LA-M-U-s15 1 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-M-U-s15 1 wall=59.1 feasible=True viol=0 path=19974.2 centroid=23961.0
+ERROR rows_b1e50 LA-M-U-s15 1 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-S-I-s11 1 wall=59.1 feasible=True viol=0 path=3658.2 centroid=5969.3
+rows_e50 LA-S-I-s11 1 wall=59.1 feasible=True viol=0 path=3696.7 centroid=6406.3
+rows_c1 LA-S-I-s11 1 wall=59.1 feasible=True viol=0 path=4039.3 centroid=5587.6
+rows_b1 LA-S-I-s11 1 wall=59.0 feasible=True viol=0 path=3896.4 centroid=6087.5
+rows_tacc LA-S-I-s11 1 wall=59.1 feasible=True viol=0 path=3658.2 centroid=5969.3
+ERROR rows_b1e50 LA-S-I-s11 1 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-S-L-s13 1 wall=59.0 feasible=True viol=0 path=5675.7 centroid=8355.5
+rows_e50 LA-S-L-s13 1 wall=59.1 feasible=True viol=0 path=5741.2 centroid=8270.6
+rows_c1 LA-S-L-s13 1 wall=59.0 feasible=True viol=0 path=5626.1 centroid=8289.3
+ERROR rows_b1 LA-S-L-s13 1 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-S-L-s13 1 wall=59.1 feasible=True viol=0 path=5741.2 centroid=8270.6
+ERROR rows_b1e50 LA-S-L-s13 1 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-S-U-s12 1 wall=59.1 feasible=True viol=0 path=5117.6 centroid=6772.7
+rows_e50 LA-S-U-s12 1 wall=59.1 feasible=True viol=0 path=5117.6 centroid=6772.7
+rows_c1 LA-S-U-s12 1 wall=59.1 feasible=True viol=0 path=4929.1 centroid=6668.7
+ERROR rows_b1 LA-S-U-s12 1 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-S-U-s12 1 wall=59.1 feasible=True viol=0 path=5117.6 centroid=6772.7
+ERROR rows_b1e50 LA-S-U-s12 1 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-L-I-s17 2 wall=59.2 feasible=True viol=0 path=20807.9 centroid=24868.0
+rows_e50 LA-L-I-s17 2 wall=59.2 feasible=True viol=0 path=20828.7 centroid=24867.6
+rows_c1 LA-L-I-s17 2 wall=59.2 feasible=True viol=0 path=21456.8 centroid=26417.7
+ERROR rows_b1 LA-L-I-s17 2 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-L-I-s17 2 wall=59.2 feasible=True viol=0 path=20807.9 centroid=24868.0
+ERROR rows_b1e50 LA-L-I-s17 2 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-L-L-s19 2 wall=59.1 feasible=True viol=0 path=24424.2 centroid=28845.0
+rows_e50 LA-L-L-s19 2 wall=59.1 feasible=True viol=0 path=24424.2 centroid=28845.0
+rows_c1 LA-L-L-s19 2 wall=59.1 feasible=True viol=0 path=24009.4 centroid=29351.2
+ERROR rows_b1 LA-L-L-s19 2 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-L-L-s19 2 wall=59.2 feasible=True viol=0 path=24202.0 centroid=27773.9
+ERROR rows_b1e50 LA-L-L-s19 2 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-L-U-BF-s21 2 wall=59.1 feasible=True viol=0 path=31399.4 centroid=38357.6
+rows_e50 LA-L-U-BF-s21 2 wall=59.1 feasible=True viol=0 path=32300.9 centroid=38610.9
+rows_c1 LA-L-U-BF-s21 2 wall=59.2 feasible=True viol=0 path=33099.9 centroid=38242.0
+ERROR rows_b1 LA-L-U-BF-s21 2 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-L-U-BF-s21 2 wall=59.1 feasible=True viol=0 path=31650.9 centroid=39762.1
+ERROR rows_b1e50 LA-L-U-BF-s21 2 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-L-U-s18 2 wall=59.1 feasible=True viol=0 path=24309.0 centroid=28950.0
+rows_e50 LA-L-U-s18 2 wall=59.2 feasible=True viol=0 path=24158.1 centroid=28332.9
+rows_c1 LA-L-U-s18 2 wall=59.2 feasible=True viol=0 path=23523.1 centroid=28518.3
+ERROR rows_b1 LA-L-U-s18 2 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-L-U-s18 2 wall=59.2 feasible=True viol=0 path=24224.8 centroid=28331.5
+ERROR rows_b1e50 LA-L-U-s18 2 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-M-I-BF-s20 2 wall=59.1 feasible=True viol=0 path=12169.9 centroid=16910.3
+rows_e50 LA-M-I-BF-s20 2 wall=59.1 feasible=True viol=0 path=12169.9 centroid=16910.3
+rows_c1 LA-M-I-BF-s20 2 wall=59.1 feasible=True viol=0 path=10594.5 centroid=15502.9
+ERROR rows_b1 LA-M-I-BF-s20 2 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-M-I-BF-s20 2 wall=59.1 feasible=True viol=0 path=13591.0 centroid=17141.2
+ERROR rows_b1e50 LA-M-I-BF-s20 2 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-M-I-s14 2 wall=59.1 feasible=True viol=0 path=19195.5 centroid=24771.4
+rows_e50 LA-M-I-s14 2 wall=59.1 feasible=True viol=0 path=18266.6 centroid=24614.3
+rows_c1 LA-M-I-s14 2 wall=59.1 feasible=True viol=0 path=18839.2 centroid=24864.9
+ERROR rows_b1 LA-M-I-s14 2 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-M-I-s14 2 wall=59.1 feasible=True viol=0 path=19195.5 centroid=24771.4
+ERROR rows_b1e50 LA-M-I-s14 2 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-M-L-s16 2 wall=59.1 feasible=True viol=0 path=19560.4 centroid=23363.3
+rows_e50 LA-M-L-s16 2 wall=59.1 feasible=True viol=0 path=18328.8 centroid=21806.7
+rows_c1 LA-M-L-s16 2 wall=59.1 feasible=True viol=0 path=17261.0 centroid=22448.8
+ERROR rows_b1 LA-M-L-s16 2 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-M-L-s16 2 wall=59.1 feasible=True viol=0 path=19664.5 centroid=23798.0
+ERROR rows_b1e50 LA-M-L-s16 2 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-M-U-s15 2 wall=59.1 feasible=True viol=0 path=19046.4 centroid=24571.9
+rows_e50 LA-M-U-s15 2 wall=59.1 feasible=True viol=0 path=19119.6 centroid=24622.2
+rows_c1 LA-M-U-s15 2 wall=59.1 feasible=True viol=0 path=18986.9 centroid=24165.8
+ERROR rows_b1 LA-M-U-s15 2 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-M-U-s15 2 wall=59.1 feasible=True viol=0 path=21526.1 centroid=25689.8
+ERROR rows_b1e50 LA-M-U-s15 2 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-S-I-s11 2 wall=59.1 feasible=True viol=0 path=4399.8 centroid=6092.1
+rows_e50 LA-S-I-s11 2 wall=59.1 feasible=True viol=0 path=3637.1 centroid=5911.3
+rows_c1 LA-S-I-s11 2 wall=59.0 feasible=True viol=0 path=3849.3 centroid=6125.1
+ERROR rows_b1 LA-S-I-s11 2 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-S-I-s11 2 wall=59.1 feasible=True viol=0 path=3637.1 centroid=5911.3
+ERROR rows_b1e50 LA-S-I-s11 2 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-S-L-s13 2 wall=59.0 feasible=True viol=0 path=5662.6 centroid=8579.8
+rows_e50 LA-S-L-s13 2 wall=59.0 feasible=True viol=0 path=5662.6 centroid=8579.8
+rows_c1 LA-S-L-s13 2 wall=59.1 feasible=True viol=0 path=5348.5 centroid=7864.0
+ERROR rows_b1 LA-S-L-s13 2 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-S-L-s13 2 wall=59.0 feasible=True viol=0 path=5662.6 centroid=8579.8
+ERROR rows_b1e50 LA-S-L-s13 2 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-S-U-s12 2 wall=59.0 feasible=True viol=0 path=5334.3 centroid=7150.6
+rows_e50 LA-S-U-s12 2 wall=59.0 feasible=True viol=0 path=5365.3 centroid=7692.5
+rows_c1 LA-S-U-s12 2 wall=59.1 feasible=True viol=0 path=5066.5 centroid=6748.5
+ERROR rows_b1 LA-S-U-s12 2 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-S-U-s12 2 wall=59.0 feasible=True viol=0 path=5074.0 centroid=6787.6
+ERROR rows_b1e50 LA-S-U-s12 2 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-L-I-s17 3 wall=59.2 feasible=True viol=0 path=21158.1 centroid=26784.4
+rows_e50 LA-L-I-s17 3 wall=59.2 feasible=True viol=0 path=21158.1 centroid=26784.4
+rows_c1 LA-L-I-s17 3 wall=59.1 feasible=True viol=0 path=20089.6 centroid=24802.7
+ERROR rows_b1 LA-L-I-s17 3 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-L-I-s17 3 wall=59.2 feasible=True viol=0 path=21158.1 centroid=26784.4
+ERROR rows_b1e50 LA-L-I-s17 3 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-L-L-s19 3 wall=59.1 feasible=True viol=0 path=22124.3 centroid=26253.6
+rows_e50 LA-L-L-s19 3 wall=59.2 feasible=True viol=0 path=21916.0 centroid=25428.5
+rows_c1 LA-L-L-s19 3 wall=59.1 feasible=True viol=0 path=21200.3 centroid=27667.1
+ERROR rows_b1 LA-L-L-s19 3 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-L-L-s19 3 wall=59.1 feasible=True viol=0 path=22124.3 centroid=26253.6
+ERROR rows_b1e50 LA-L-L-s19 3 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-L-U-BF-s21 3 wall=59.2 feasible=True viol=0 path=34559.3 centroid=38699.4
+rows_e50 LA-L-U-BF-s21 3 wall=59.2 feasible=True viol=0 path=36000.3 centroid=39680.9
+rows_c1 LA-L-U-BF-s21 3 wall=59.2 feasible=True viol=0 path=34698.4 centroid=43269.7
+ERROR rows_b1 LA-L-U-BF-s21 3 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-L-U-BF-s21 3 wall=59.1 feasible=True viol=0 path=35226.5 centroid=37756.9
+ERROR rows_b1e50 LA-L-U-BF-s21 3 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-L-U-s18 3 wall=59.1 feasible=True viol=0 path=27257.2 centroid=31133.2
+rows_e50 LA-L-U-s18 3 wall=59.1 feasible=True viol=0 path=26874.1 centroid=31097.5
+rows_c1 LA-L-U-s18 3 wall=59.1 feasible=True viol=0 path=25937.0 centroid=31387.3
+ERROR rows_b1 LA-L-U-s18 3 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-L-U-s18 3 wall=59.1 feasible=True viol=0 path=27402.5 centroid=32990.7
+ERROR rows_b1e50 LA-L-U-s18 3 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-M-I-BF-s20 3 wall=59.1 feasible=True viol=0 path=14148.0 centroid=19096.3
+rows_e50 LA-M-I-BF-s20 3 wall=59.1 feasible=True viol=0 path=14026.8 centroid=16596.4
+rows_c1 LA-M-I-BF-s20 3 wall=59.1 feasible=True viol=0 path=13309.4 centroid=16600.6
+ERROR rows_b1 LA-M-I-BF-s20 3 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-M-I-BF-s20 3 wall=59.1 feasible=True viol=0 path=13720.5 centroid=17036.9
+ERROR rows_b1e50 LA-M-I-BF-s20 3 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-M-I-s14 3 wall=59.1 feasible=True viol=0 path=21498.4 centroid=26408.5
+rows_e50 LA-M-I-s14 3 wall=59.1 feasible=True viol=0 path=20416.8 centroid=25394.8
+rows_c1 LA-M-I-s14 3 wall=59.1 feasible=True viol=0 path=21413.9 centroid=24668.5
+ERROR rows_b1 LA-M-I-s14 3 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-M-I-s14 3 wall=59.1 feasible=True viol=0 path=20010.5 centroid=24802.5
+ERROR rows_b1e50 LA-M-I-s14 3 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-M-L-s16 3 wall=59.1 feasible=True viol=0 path=20374.2 centroid=24787.9
+rows_e50 LA-M-L-s16 3 wall=59.1 feasible=True viol=0 path=20652.8 centroid=24498.0
+rows_c1 LA-M-L-s16 3 wall=59.1 feasible=True viol=0 path=19043.1 centroid=27038.9
+ERROR rows_b1 LA-M-L-s16 3 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-M-L-s16 3 wall=59.1 feasible=True viol=0 path=20374.2 centroid=24787.9
+ERROR rows_b1e50 LA-M-L-s16 3 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-M-U-s15 3 wall=59.1 feasible=True viol=0 path=19692.6 centroid=24911.9
+rows_e50 LA-M-U-s15 3 wall=59.1 feasible=True viol=0 path=19692.6 centroid=24911.9
+rows_c1 LA-M-U-s15 3 wall=59.1 feasible=True viol=0 path=19072.2 centroid=22772.8
+ERROR rows_b1 LA-M-U-s15 3 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-M-U-s15 3 wall=59.1 feasible=True viol=0 path=19692.6 centroid=24911.9
+rows_b1e50 LA-M-U-s15 3 wall=59.1 feasible=True viol=0 path=21631.9 centroid=25953.2
+rows0 LA-S-I-s11 3 wall=59.1 feasible=True viol=0 path=4248.7 centroid=5920.6
+rows_e50 LA-S-I-s11 3 wall=59.1 feasible=True viol=0 path=4237.9 centroid=6015.1
+rows_c1 LA-S-I-s11 3 wall=59.1 feasible=True viol=0 path=4209.8 centroid=6463.7
+ERROR rows_b1 LA-S-I-s11 3 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-S-I-s11 3 wall=59.1 feasible=True viol=0 path=3696.7 centroid=6406.3
+ERROR rows_b1e50 LA-S-I-s11 3 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-S-L-s13 3 wall=59.1 feasible=True viol=0 path=5498.5 centroid=8099.4
+rows_e50 LA-S-L-s13 3 wall=59.0 feasible=True viol=0 path=5407.3 centroid=7984.9
+rows_c1 LA-S-L-s13 3 wall=59.1 feasible=True viol=0 path=6325.4 centroid=9146.1
+ERROR rows_b1 LA-S-L-s13 3 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-S-L-s13 3 wall=59.1 feasible=True viol=0 path=5498.5 centroid=8099.4
+ERROR rows_b1e50 LA-S-L-s13 3 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-S-U-s12 3 wall=59.0 feasible=True viol=0 path=5674.3 centroid=7989.8
+rows_e50 LA-S-U-s12 3 wall=59.0 feasible=True viol=0 path=5674.3 centroid=7989.8
+rows_c1 LA-S-U-s12 3 wall=59.1 feasible=True viol=0 path=5323.9 centroid=7035.0
+ERROR rows_b1 LA-S-U-s12 3 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-S-U-s12 3 wall=59.1 feasible=True viol=0 path=5457.4 centroid=7294.2
+ERROR rows_b1e50 LA-S-U-s12 3 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-L-I-s17 4 wall=59.1 feasible=True viol=0 path=21460.0 centroid=24182.8
+rows_e50 LA-L-I-s17 4 wall=59.2 feasible=True viol=0 path=20740.5 centroid=25737.2
+rows_c1 LA-L-I-s17 4 wall=59.2 feasible=True viol=0 path=22124.1 centroid=24864.0
+ERROR rows_b1 LA-L-I-s17 4 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-L-I-s17 4 wall=59.1 feasible=True viol=0 path=21460.0 centroid=24182.8
+ERROR rows_b1e50 LA-L-I-s17 4 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-L-L-s19 4 wall=59.2 feasible=True viol=0 path=24501.1 centroid=28349.2
+rows_e50 LA-L-L-s19 4 wall=59.1 feasible=True viol=0 path=23674.1 centroid=27914.9
+rows_c1 LA-L-L-s19 4 wall=59.2 feasible=True viol=0 path=23775.1 centroid=27653.5
+ERROR rows_b1 LA-L-L-s19 4 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-L-L-s19 4 wall=59.1 feasible=True viol=0 path=23674.1 centroid=27914.9
+ERROR rows_b1e50 LA-L-L-s19 4 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-L-U-BF-s21 4 wall=59.2 feasible=True viol=0 path=29598.1 centroid=36922.1
+rows_e50 LA-L-U-BF-s21 4 wall=59.1 feasible=True viol=0 path=32811.7 centroid=35872.3
+rows_c1 LA-L-U-BF-s21 4 wall=59.2 feasible=True viol=0 path=29587.5 centroid=35291.1
+ERROR rows_b1 LA-L-U-BF-s21 4 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-L-U-BF-s21 4 wall=59.2 feasible=True viol=0 path=36580.0 centroid=40682.2
+ERROR rows_b1e50 LA-L-U-BF-s21 4 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-L-U-s18 4 wall=59.2 feasible=True viol=0 path=24380.8 centroid=29478.0
+rows_e50 LA-L-U-s18 4 wall=59.2 feasible=True viol=0 path=24380.8 centroid=29478.0
+rows_c1 LA-L-U-s18 4 wall=59.1 feasible=True viol=0 path=23683.9 centroid=27231.6
+ERROR rows_b1 LA-L-U-s18 4 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-L-U-s18 4 wall=59.2 feasible=True viol=0 path=24036.1 centroid=27229.7
+ERROR rows_b1e50 LA-L-U-s18 4 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-M-I-BF-s20 4 wall=59.1 feasible=True viol=0 path=12352.6 centroid=15484.0
+rows_e50 LA-M-I-BF-s20 4 wall=59.1 feasible=True viol=0 path=13711.6 centroid=17359.5
+rows_c1 LA-M-I-BF-s20 4 wall=59.1 feasible=True viol=0 path=13012.0 centroid=15740.8
+ERROR rows_b1 LA-M-I-BF-s20 4 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-M-I-BF-s20 4 wall=59.1 feasible=True viol=0 path=13711.6 centroid=17359.5
+ERROR rows_b1e50 LA-M-I-BF-s20 4 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-M-I-s14 4 wall=59.1 feasible=True viol=0 path=20112.5 centroid=26309.6
+rows_e50 LA-M-I-s14 4 wall=59.1 feasible=True viol=0 path=20035.1 centroid=26516.7
+rows_c1 LA-M-I-s14 4 wall=59.1 feasible=True viol=0 path=20249.9 centroid=23914.4
+ERROR rows_b1 LA-M-I-s14 4 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-M-I-s14 4 wall=59.1 feasible=True viol=0 path=20035.1 centroid=26516.7
+ERROR rows_b1e50 LA-M-I-s14 4 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-M-L-s16 4 wall=59.1 feasible=True viol=0 path=18927.8 centroid=23572.7
+rows_e50 LA-M-L-s16 4 wall=59.1 feasible=True viol=0 path=18768.0 centroid=23235.7
+rows_c1 LA-M-L-s16 4 wall=59.1 feasible=True viol=0 path=19583.7 centroid=23401.0
+ERROR rows_b1 LA-M-L-s16 4 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-M-L-s16 4 wall=59.1 feasible=True viol=0 path=19319.4 centroid=23695.2
+ERROR rows_b1e50 LA-M-L-s16 4 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-M-U-s15 4 wall=59.1 feasible=True viol=0 path=19234.8 centroid=26995.7
+rows_e50 LA-M-U-s15 4 wall=59.1 feasible=True viol=0 path=20216.8 centroid=23696.2
+rows_c1 LA-M-U-s15 4 wall=59.1 feasible=True viol=0 path=19086.6 centroid=22853.9
+ERROR rows_b1 LA-M-U-s15 4 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-M-U-s15 4 wall=59.1 feasible=True viol=0 path=19030.0 centroid=23904.9
+ERROR rows_b1e50 LA-M-U-s15 4 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-S-I-s11 4 wall=59.0 feasible=True viol=0 path=3864.6 centroid=5834.8
+rows_e50 LA-S-I-s11 4 wall=59.1 feasible=True viol=0 path=3864.6 centroid=5834.8
+rows_c1 LA-S-I-s11 4 wall=59.1 feasible=True viol=0 path=4037.3 centroid=5990.5
+ERROR rows_b1 LA-S-I-s11 4 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-S-I-s11 4 wall=59.1 feasible=True viol=0 path=4232.9 centroid=5884.3
+ERROR rows_b1e50 LA-S-I-s11 4 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-S-L-s13 4 wall=59.0 feasible=True viol=0 path=5627.9 centroid=7743.4
+rows_e50 LA-S-L-s13 4 wall=59.1 feasible=True viol=0 path=5638.4 centroid=7753.4
+rows_c1 LA-S-L-s13 4 wall=59.0 feasible=True viol=0 path=5522.4 centroid=8371.9
+ERROR rows_b1 LA-S-L-s13 4 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-S-L-s13 4 wall=59.0 feasible=True viol=0 path=5635.2 centroid=7991.1
+ERROR rows_b1e50 LA-S-L-s13 4 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-S-U-s12 4 wall=59.1 feasible=True viol=0 path=5497.3 centroid=7549.8
+rows_e50 LA-S-U-s12 4 wall=59.1 feasible=True viol=0 path=5497.3 centroid=7549.8
+rows_c1 LA-S-U-s12 4 wall=59.0 feasible=True viol=0 path=5114.1 centroid=7116.3
+ERROR rows_b1 LA-S-U-s12 4 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-S-U-s12 4 wall=59.1 feasible=True viol=0 path=5497.3 centroid=7549.8
+ERROR rows_b1e50 LA-S-U-s12 4 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-L-I-s17 5 wall=59.2 feasible=True viol=0 path=19025.7 centroid=24904.9
+rows_e50 LA-L-I-s17 5 wall=59.2 feasible=True viol=0 path=19025.7 centroid=24904.9
+rows_c1 LA-L-I-s17 5 wall=59.2 feasible=True viol=0 path=20830.2 centroid=26426.6
+ERROR rows_b1 LA-L-I-s17 5 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-L-I-s17 5 wall=59.1 feasible=True viol=0 path=19025.7 centroid=24904.9
+ERROR rows_b1e50 LA-L-I-s17 5 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-L-L-s19 5 wall=59.1 feasible=True viol=0 path=22788.0 centroid=26909.2
+rows_e50 LA-L-L-s19 5 wall=59.1 feasible=True viol=0 path=23262.1 centroid=27430.5
+rows_c1 LA-L-L-s19 5 wall=59.1 feasible=True viol=0 path=24614.6 centroid=29357.0
+ERROR rows_b1 LA-L-L-s19 5 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-L-L-s19 5 wall=59.1 feasible=True viol=0 path=24208.1 centroid=28674.4
+ERROR rows_b1e50 LA-L-L-s19 5 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-L-U-BF-s21 5 wall=59.2 feasible=True viol=0 path=30169.4 centroid=36583.7
+rows_e50 LA-L-U-BF-s21 5 wall=59.2 feasible=True viol=0 path=29685.8 centroid=37048.9
+rows_c1 LA-L-U-BF-s21 5 wall=59.2 feasible=True viol=0 path=31820.1 centroid=39262.8
+ERROR rows_b1 LA-L-U-BF-s21 5 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-L-U-BF-s21 5 wall=59.2 feasible=True viol=0 path=28802.1 centroid=36609.0
+ERROR rows_b1e50 LA-L-U-BF-s21 5 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-L-U-s18 5 wall=59.2 feasible=True viol=0 path=23275.3 centroid=26533.7
+rows_e50 LA-L-U-s18 5 wall=59.2 feasible=True viol=0 path=23275.3 centroid=26533.7
+rows_c1 LA-L-U-s18 5 wall=59.1 feasible=True viol=0 path=23272.4 centroid=28089.6
+ERROR rows_b1 LA-L-U-s18 5 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-L-U-s18 5 wall=59.2 feasible=True viol=0 path=23275.3 centroid=26533.7
+ERROR rows_b1e50 LA-L-U-s18 5 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-M-I-BF-s20 5 wall=59.1 feasible=True viol=0 path=12249.0 centroid=15293.8
+rows_e50 LA-M-I-BF-s20 5 wall=59.1 feasible=True viol=0 path=12707.4 centroid=16894.2
+rows_c1 LA-M-I-BF-s20 5 wall=59.1 feasible=True viol=0 path=12124.3 centroid=16604.1
+ERROR rows_b1 LA-M-I-BF-s20 5 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-M-I-BF-s20 5 wall=59.1 feasible=True viol=0 path=12432.0 centroid=15705.9
+ERROR rows_b1e50 LA-M-I-BF-s20 5 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-M-I-s14 5 wall=59.1 feasible=True viol=0 path=20924.6 centroid=25580.8
+rows_e50 LA-M-I-s14 5 wall=59.1 feasible=True viol=0 path=20140.5 centroid=24457.5
+rows_c1 LA-M-I-s14 5 wall=59.1 feasible=True viol=0 path=20808.0 centroid=25892.5
+ERROR rows_b1 LA-M-I-s14 5 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-M-I-s14 5 wall=59.1 feasible=True viol=0 path=21277.1 centroid=26497.8
+ERROR rows_b1e50 LA-M-I-s14 5 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-M-L-s16 5 wall=59.1 feasible=True viol=0 path=18242.6 centroid=22741.9
+rows_e50 LA-M-L-s16 5 wall=59.1 feasible=True viol=0 path=16094.3 centroid=22122.5
+rows_c1 LA-M-L-s16 5 wall=59.1 feasible=True viol=0 path=17566.3 centroid=23374.5
+ERROR rows_b1 LA-M-L-s16 5 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-M-L-s16 5 wall=59.1 feasible=True viol=0 path=16094.3 centroid=22122.5
+ERROR rows_b1e50 LA-M-L-s16 5 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-M-U-s15 5 wall=59.1 feasible=True viol=0 path=21258.7 centroid=27568.5
+rows_e50 LA-M-U-s15 5 wall=59.1 feasible=True viol=0 path=21258.7 centroid=27568.5
+rows_c1 LA-M-U-s15 5 wall=59.1 feasible=True viol=0 path=20103.8 centroid=25276.7
+ERROR rows_b1 LA-M-U-s15 5 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-M-U-s15 5 wall=59.1 feasible=True viol=0 path=20653.7 centroid=26233.5
+ERROR rows_b1e50 LA-M-U-s15 5 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-S-I-s11 5 wall=59.0 feasible=True viol=0 path=4368.1 centroid=6170.5
+rows_e50 LA-S-I-s11 5 wall=59.0 feasible=True viol=0 path=4229.4 centroid=5981.9
+rows_c1 LA-S-I-s11 5 wall=59.0 feasible=True viol=0 path=4146.2 centroid=6154.2
+ERROR rows_b1 LA-S-I-s11 5 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-S-I-s11 5 wall=59.0 feasible=True viol=0 path=4190.1 centroid=5885.3
+ERROR rows_b1e50 LA-S-I-s11 5 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-S-L-s13 5 wall=59.0 feasible=True viol=0 path=6630.2 centroid=8653.9
+rows_e50 LA-S-L-s13 5 wall=59.0 feasible=True viol=0 path=6630.2 centroid=8653.9
+rows_c1 LA-S-L-s13 5 wall=59.0 feasible=True viol=0 path=5307.9 centroid=7814.5
+ERROR rows_b1 LA-S-L-s13 5 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-S-L-s13 5 wall=59.1 feasible=True viol=0 path=6534.5 centroid=8597.0
+rows_b1e50 LA-S-L-s13 5 wall=59.0 feasible=True viol=0 path=5738.8 centroid=7732.5
+rows0 LA-S-U-s12 5 wall=59.0 feasible=True viol=0 path=5610.5 centroid=8322.2
+rows_e50 LA-S-U-s12 5 wall=59.0 feasible=True viol=0 path=5610.5 centroid=8322.2
+rows_c1 LA-S-U-s12 5 wall=59.1 feasible=True viol=0 path=4993.6 centroid=7556.1
+ERROR rows_b1 LA-S-U-s12 5 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-S-U-s12 5 wall=59.0 feasible=True viol=0 path=5610.5 centroid=8322.2
+ERROR rows_b1e50 LA-S-U-s12 5 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-L-I-s17 6 wall=59.1 feasible=True viol=0 path=21066.7 centroid=24260.4
+rows_e50 LA-L-I-s17 6 wall=59.1 feasible=True viol=0 path=20686.3 centroid=24195.4
+rows_c1 LA-L-I-s17 6 wall=59.1 feasible=True viol=0 path=21575.2 centroid=26384.2
+ERROR rows_b1 LA-L-I-s17 6 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-L-I-s17 6 wall=59.1 feasible=True viol=0 path=20935.9 centroid=23798.5
+ERROR rows_b1e50 LA-L-I-s17 6 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-L-L-s19 6 wall=59.1 feasible=True viol=0 path=22549.0 centroid=26837.9
+rows_e50 LA-L-L-s19 6 wall=59.1 feasible=True viol=0 path=22549.0 centroid=26837.9
+rows_c1 LA-L-L-s19 6 wall=59.2 feasible=True viol=0 path=23455.7 centroid=28587.2
+ERROR rows_b1 LA-L-L-s19 6 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-L-L-s19 6 wall=59.1 feasible=True viol=0 path=21750.7 centroid=25960.6
+ERROR rows_b1e50 LA-L-L-s19 6 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-L-U-BF-s21 6 wall=59.1 feasible=True viol=0 path=31167.0 centroid=36279.0
+rows_e50 LA-L-U-BF-s21 6 wall=59.2 feasible=True viol=0 path=31167.0 centroid=36279.0
+rows_c1 LA-L-U-BF-s21 6 wall=59.2 feasible=True viol=0 path=32475.2 centroid=39881.5
+ERROR rows_b1 LA-L-U-BF-s21 6 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-L-U-BF-s21 6 wall=59.1 feasible=True viol=0 path=31894.6 centroid=38441.9
+ERROR rows_b1e50 LA-L-U-BF-s21 6 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-L-U-s18 6 wall=59.2 feasible=True viol=0 path=23572.7 centroid=26050.5
+rows_e50 LA-L-U-s18 6 wall=59.1 feasible=True viol=0 path=23466.5 centroid=28206.6
+rows_c1 LA-L-U-s18 6 wall=59.2 feasible=True viol=0 path=23360.8 centroid=27563.3
+ERROR rows_b1 LA-L-U-s18 6 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-L-U-s18 6 wall=59.2 feasible=True viol=0 path=24222.5 centroid=32509.5
+ERROR rows_b1e50 LA-L-U-s18 6 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-M-I-BF-s20 6 wall=59.1 feasible=True viol=0 path=13050.7 centroid=16389.9
+rows_e50 LA-M-I-BF-s20 6 wall=59.1 feasible=True viol=0 path=12211.0 centroid=15477.1
+rows_c1 LA-M-I-BF-s20 6 wall=59.1 feasible=True viol=0 path=11537.5 centroid=15450.0
+ERROR rows_b1 LA-M-I-BF-s20 6 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-M-I-BF-s20 6 wall=59.1 feasible=True viol=0 path=12211.0 centroid=15477.1
+ERROR rows_b1e50 LA-M-I-BF-s20 6 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-M-I-s14 6 wall=59.1 feasible=True viol=0 path=18732.9 centroid=24452.0
+rows_e50 LA-M-I-s14 6 wall=59.1 feasible=True viol=0 path=18720.7 centroid=24744.8
+rows_c1 LA-M-I-s14 6 wall=59.1 feasible=True viol=0 path=18297.9 centroid=24450.7
+ERROR rows_b1 LA-M-I-s14 6 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-M-I-s14 6 wall=59.1 feasible=True viol=0 path=19945.4 centroid=26388.5
+ERROR rows_b1e50 LA-M-I-s14 6 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-M-L-s16 6 wall=59.1 feasible=True viol=0 path=18864.6 centroid=22573.6
+rows_e50 LA-M-L-s16 6 wall=59.1 feasible=True viol=0 path=19834.0 centroid=22663.9
+rows_c1 LA-M-L-s16 6 wall=59.1 feasible=True viol=0 path=17842.8 centroid=24283.6
+ERROR rows_b1 LA-M-L-s16 6 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-M-L-s16 6 wall=59.1 feasible=True viol=0 path=17699.5 centroid=21763.6
+ERROR rows_b1e50 LA-M-L-s16 6 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-M-U-s15 6 wall=59.1 feasible=True viol=0 path=21372.2 centroid=26182.3
+rows_e50 LA-M-U-s15 6 wall=59.1 feasible=True viol=0 path=19082.9 centroid=23532.4
+rows_c1 LA-M-U-s15 6 wall=59.1 feasible=True viol=0 path=20354.5 centroid=25589.1
+ERROR rows_b1 LA-M-U-s15 6 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-M-U-s15 6 wall=59.1 feasible=True viol=0 path=19269.8 centroid=23990.2
+ERROR rows_b1e50 LA-M-U-s15 6 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-S-I-s11 6 wall=59.0 feasible=True viol=0 path=4226.5 centroid=5833.0
+rows_e50 LA-S-I-s11 6 wall=59.1 feasible=True viol=0 path=4250.3 centroid=5771.4
+rows_c1 LA-S-I-s11 6 wall=59.0 feasible=True viol=0 path=4361.5 centroid=6563.0
+ERROR rows_b1 LA-S-I-s11 6 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-S-I-s11 6 wall=59.1 feasible=True viol=0 path=4365.3 centroid=5940.3
+ERROR rows_b1e50 LA-S-I-s11 6 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-S-L-s13 6 wall=59.0 feasible=True viol=0 path=5945.2 centroid=7914.4
+rows_e50 LA-S-L-s13 6 wall=59.0 feasible=True viol=0 path=5863.3 centroid=8151.5
+rows_c1 LA-S-L-s13 6 wall=59.0 feasible=True viol=0 path=5503.5 centroid=9020.3
+ERROR rows_b1 LA-S-L-s13 6 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-S-L-s13 6 wall=59.0 feasible=True viol=0 path=5780.1 centroid=7965.4
+ERROR rows_b1e50 LA-S-L-s13 6 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-S-U-s12 6 wall=59.0 feasible=True viol=0 path=5231.5 centroid=7735.5
+rows_e50 LA-S-U-s12 6 wall=59.0 feasible=True viol=0 path=5231.5 centroid=7735.5
+rows_c1 LA-S-U-s12 6 wall=59.0 feasible=True viol=0 path=5565.0 centroid=7652.6
+ERROR rows_b1 LA-S-U-s12 6 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-S-U-s12 6 wall=59.0 feasible=True viol=0 path=5231.5 centroid=7735.5
+ERROR rows_b1e50 LA-S-U-s12 6 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-L-I-s17 7 wall=59.1 feasible=True viol=0 path=20833.4 centroid=25058.6
+rows_e50 LA-L-I-s17 7 wall=59.2 feasible=True viol=0 path=20833.4 centroid=25058.6
+rows_c1 LA-L-I-s17 7 wall=59.2 feasible=True viol=0 path=20551.0 centroid=25467.4
+ERROR rows_b1 LA-L-I-s17 7 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-L-I-s17 7 wall=59.1 feasible=True viol=0 path=20608.7 centroid=24688.8
+ERROR rows_b1e50 LA-L-I-s17 7 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-L-L-s19 7 wall=59.1 feasible=True viol=0 path=21398.5 centroid=25877.1
+rows_e50 LA-L-L-s19 7 wall=59.2 feasible=True viol=0 path=21513.4 centroid=26072.2
+rows_c1 LA-L-L-s19 7 wall=59.1 feasible=True viol=0 path=21764.2 centroid=28066.8
+ERROR rows_b1 LA-L-L-s19 7 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-L-L-s19 7 wall=59.1 feasible=True viol=0 path=21398.5 centroid=25877.1
+ERROR rows_b1e50 LA-L-L-s19 7 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-L-U-BF-s21 7 wall=59.0 none
+rows_e50 LA-L-U-BF-s21 7 wall=59.1 feasible=True viol=0 path=31728.5 centroid=38179.1
+rows_c1 LA-L-U-BF-s21 7 wall=59.2 feasible=True viol=0 path=32754.9 centroid=37637.1
+rows_b1 LA-L-U-BF-s21 7 wall=59.0 none
+rows_tacc LA-L-U-BF-s21 7 wall=59.0 none
+ERROR rows_b1e50 LA-L-U-BF-s21 7 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-L-U-s18 7 wall=59.1 feasible=True viol=0 path=24059.3 centroid=28362.2
+rows_e50 LA-L-U-s18 7 wall=59.1 feasible=True viol=0 path=24059.3 centroid=28362.2
+rows_c1 LA-L-U-s18 7 wall=59.2 feasible=True viol=0 path=23033.9 centroid=28314.2
+ERROR rows_b1 LA-L-U-s18 7 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-L-U-s18 7 wall=59.1 feasible=True viol=0 path=23601.9 centroid=27101.4
+ERROR rows_b1e50 LA-L-U-s18 7 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-M-I-BF-s20 7 wall=59.1 feasible=True viol=0 path=11818.2 centroid=16379.9
+rows_e50 LA-M-I-BF-s20 7 wall=59.1 feasible=True viol=0 path=11850.0 centroid=16204.2
+rows_c1 LA-M-I-BF-s20 7 wall=59.1 feasible=True viol=0 path=12963.6 centroid=16936.0
+ERROR rows_b1 LA-M-I-BF-s20 7 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-M-I-BF-s20 7 wall=59.1 feasible=True viol=0 path=10758.6 centroid=15248.4
+ERROR rows_b1e50 LA-M-I-BF-s20 7 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-M-I-s14 7 wall=59.1 feasible=True viol=0 path=21928.9 centroid=26152.9
+rows_e50 LA-M-I-s14 7 wall=59.1 feasible=True viol=0 path=21928.9 centroid=26152.9
+rows_c1 LA-M-I-s14 7 wall=59.1 feasible=True viol=0 path=19824.8 centroid=25837.7
+ERROR rows_b1 LA-M-I-s14 7 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-M-I-s14 7 wall=59.1 feasible=True viol=0 path=21928.9 centroid=26152.9
+ERROR rows_b1e50 LA-M-I-s14 7 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-M-L-s16 7 wall=59.1 feasible=True viol=0 path=18896.0 centroid=22247.6
+rows_e50 LA-M-L-s16 7 wall=59.1 feasible=True viol=0 path=18896.0 centroid=22247.6
+rows_c1 LA-M-L-s16 7 wall=59.1 feasible=True viol=0 path=17936.6 centroid=20791.7
+ERROR rows_b1 LA-M-L-s16 7 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-M-L-s16 7 wall=59.1 feasible=True viol=0 path=18896.0 centroid=22247.6
+ERROR rows_b1e50 LA-M-L-s16 7 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-M-U-s15 7 wall=59.1 feasible=True viol=0 path=19039.9 centroid=24241.9
+rows_e50 LA-M-U-s15 7 wall=59.1 feasible=True viol=0 path=19039.9 centroid=24241.9
+rows_c1 LA-M-U-s15 7 wall=59.1 feasible=True viol=0 path=18167.8 centroid=24544.6
+ERROR rows_b1 LA-M-U-s15 7 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-M-U-s15 7 wall=59.1 feasible=True viol=0 path=19039.9 centroid=24241.9
+ERROR rows_b1e50 LA-M-U-s15 7 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-S-I-s11 7 wall=59.1 feasible=True viol=0 path=3819.4 centroid=6166.1
+rows_e50 LA-S-I-s11 7 wall=59.1 feasible=True viol=0 path=3687.2 centroid=6223.3
+rows_c1 LA-S-I-s11 7 wall=59.1 feasible=True viol=0 path=4197.7 centroid=5859.3
+ERROR rows_b1 LA-S-I-s11 7 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-S-I-s11 7 wall=59.0 feasible=True viol=0 path=4399.8 centroid=6960.4
+ERROR rows_b1e50 LA-S-I-s11 7 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-S-L-s13 7 wall=59.0 feasible=True viol=0 path=5609.0 centroid=7965.6
+rows_e50 LA-S-L-s13 7 wall=59.0 feasible=True viol=0 path=5627.9 centroid=7743.4
+rows_c1 LA-S-L-s13 7 wall=59.0 feasible=True viol=0 path=5315.4 centroid=8072.3
+rows_b1 LA-S-L-s13 7 wall=59.0 feasible=True viol=0 path=5609.0 centroid=7965.6
+rows_tacc LA-S-L-s13 7 wall=59.0 feasible=True viol=0 path=5609.0 centroid=7965.6
+rows_b1e50 LA-S-L-s13 7 wall=59.0 feasible=True viol=0 path=5609.0 centroid=7965.6
+rows0 LA-S-U-s12 7 wall=59.1 feasible=True viol=0 path=5267.5 centroid=7389.9
+rows_e50 LA-S-U-s12 7 wall=59.0 feasible=True viol=0 path=5267.5 centroid=7389.9
+rows_c1 LA-S-U-s12 7 wall=59.0 feasible=True viol=0 path=5530.5 centroid=7728.4
+ERROR rows_b1 LA-S-U-s12 7 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-S-U-s12 7 wall=59.0 feasible=True viol=0 path=5409.0 centroid=7606.4
+ERROR rows_b1e50 LA-S-U-s12 7 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-L-I-s17 8 wall=59.2 feasible=True viol=0 path=19501.0 centroid=25232.5
+rows_e50 LA-L-I-s17 8 wall=59.2 feasible=True viol=0 path=21223.2 centroid=25785.6
+rows_c1 LA-L-I-s17 8 wall=59.2 feasible=True viol=0 path=21890.6 centroid=27535.1
+ERROR rows_b1 LA-L-I-s17 8 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-L-I-s17 8 wall=59.2 feasible=True viol=0 path=21223.2 centroid=25785.6
+ERROR rows_b1e50 LA-L-I-s17 8 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-L-L-s19 8 wall=59.2 feasible=True viol=0 path=25640.7 centroid=30834.2
+rows_e50 LA-L-L-s19 8 wall=59.2 feasible=True viol=0 path=24718.4 centroid=29696.1
+rows_c1 LA-L-L-s19 8 wall=59.1 feasible=True viol=0 path=23876.6 centroid=28280.2
+ERROR rows_b1 LA-L-L-s19 8 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-L-L-s19 8 wall=59.2 feasible=True viol=0 path=24718.4 centroid=29696.1
+ERROR rows_b1e50 LA-L-L-s19 8 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-L-U-BF-s21 8 wall=59.1 feasible=True viol=0 path=31798.5 centroid=37832.2
+rows_e50 LA-L-U-BF-s21 8 wall=59.1 feasible=True viol=0 path=32529.2 centroid=37668.7
+rows_c1 LA-L-U-BF-s21 8 wall=59.1 feasible=True viol=0 path=33309.3 centroid=37464.9
+ERROR rows_b1 LA-L-U-BF-s21 8 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-L-U-BF-s21 8 wall=59.2 feasible=True viol=0 path=31077.8 centroid=36945.6
+ERROR rows_b1e50 LA-L-U-BF-s21 8 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-L-U-s18 8 wall=59.2 feasible=True viol=0 path=29491.9 centroid=32612.3
+rows_e50 LA-L-U-s18 8 wall=59.2 feasible=True viol=0 path=29491.9 centroid=32612.3
+rows_c1 LA-L-U-s18 8 wall=59.2 feasible=True viol=0 path=25471.7 centroid=30648.3
+ERROR rows_b1 LA-L-U-s18 8 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-L-U-s18 8 wall=59.2 feasible=True viol=0 path=29491.9 centroid=32612.3
+ERROR rows_b1e50 LA-L-U-s18 8 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-M-I-BF-s20 8 wall=59.1 feasible=True viol=0 path=12134.7 centroid=15807.9
+rows_e50 LA-M-I-BF-s20 8 wall=59.1 feasible=True viol=0 path=12174.9 centroid=16523.6
+rows_c1 LA-M-I-BF-s20 8 wall=59.1 feasible=True viol=0 path=12736.8 centroid=16469.2
+ERROR rows_b1 LA-M-I-BF-s20 8 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-M-I-BF-s20 8 wall=59.1 feasible=True viol=0 path=12417.3 centroid=16233.8
+ERROR rows_b1e50 LA-M-I-BF-s20 8 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-M-I-s14 8 wall=59.1 feasible=True viol=0 path=18629.3 centroid=23234.9
+rows_e50 LA-M-I-s14 8 wall=59.1 feasible=True viol=0 path=19337.4 centroid=23999.8
+rows_c1 LA-M-I-s14 8 wall=59.1 feasible=True viol=0 path=19871.6 centroid=24059.7
+ERROR rows_b1 LA-M-I-s14 8 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-M-I-s14 8 wall=59.1 feasible=True viol=0 path=17997.7 centroid=24906.0
+ERROR rows_b1e50 LA-M-I-s14 8 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-M-L-s16 8 wall=59.1 feasible=True viol=0 path=18965.8 centroid=23415.2
+rows_e50 LA-M-L-s16 8 wall=59.1 feasible=True viol=0 path=18965.8 centroid=23415.2
+rows_c1 LA-M-L-s16 8 wall=59.1 feasible=True viol=0 path=18303.9 centroid=22303.5
+ERROR rows_b1 LA-M-L-s16 8 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-M-L-s16 8 wall=59.1 feasible=True viol=0 path=18965.8 centroid=23415.2
+ERROR rows_b1e50 LA-M-L-s16 8 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-M-U-s15 8 wall=59.1 feasible=True viol=0 path=19791.5 centroid=25012.9
+rows_e50 LA-M-U-s15 8 wall=59.1 feasible=True viol=0 path=19857.4 centroid=25291.2
+rows_c1 LA-M-U-s15 8 wall=59.1 feasible=True viol=0 path=18420.6 centroid=24681.4
+ERROR rows_b1 LA-M-U-s15 8 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-M-U-s15 8 wall=59.1 feasible=True viol=0 path=19381.7 centroid=24928.0
+ERROR rows_b1e50 LA-M-U-s15 8 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-S-I-s11 8 wall=59.0 feasible=True viol=0 path=4337.7 centroid=5788.4
+rows_e50 LA-S-I-s11 8 wall=59.0 feasible=True viol=0 path=4273.2 centroid=6162.4
+rows_c1 LA-S-I-s11 8 wall=59.0 feasible=True viol=0 path=4332.8 centroid=5770.9
+ERROR rows_b1 LA-S-I-s11 8 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-S-I-s11 8 wall=59.0 feasible=True viol=0 path=4204.9 centroid=5858.6
+ERROR rows_b1e50 LA-S-I-s11 8 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-S-L-s13 8 wall=59.0 feasible=True viol=0 path=6264.5 centroid=8691.7
+rows_e50 LA-S-L-s13 8 wall=59.0 feasible=True viol=0 path=6592.5 centroid=9231.5
+rows_c1 LA-S-L-s13 8 wall=59.0 feasible=True viol=0 path=5993.0 centroid=8323.6
+ERROR rows_b1 LA-S-L-s13 8 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-S-L-s13 8 wall=59.0 feasible=True viol=0 path=6569.3 centroid=8761.5
+ERROR rows_b1e50 LA-S-L-s13 8 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-S-U-s12 8 wall=59.0 feasible=True viol=0 path=5355.5 centroid=6483.1
+rows_e50 LA-S-U-s12 8 wall=59.1 feasible=True viol=0 path=5355.5 centroid=6483.1
+rows_c1 LA-S-U-s12 8 wall=59.1 feasible=True viol=0 path=4668.5 centroid=7600.5
+ERROR rows_b1 LA-S-U-s12 8 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-S-U-s12 8 wall=59.0 feasible=True viol=0 path=5355.5 centroid=6483.1
+ERROR rows_b1e50 LA-S-U-s12 8 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-L-I-s17 9 wall=59.2 feasible=True viol=0 path=21382.4 centroid=25001.1
+rows_e50 LA-L-I-s17 9 wall=59.2 feasible=True viol=0 path=20257.2 centroid=25132.9
+rows_c1 LA-L-I-s17 9 wall=59.1 feasible=True viol=0 path=23734.9 centroid=26771.6
+ERROR rows_b1 LA-L-I-s17 9 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-L-I-s17 9 wall=59.2 feasible=True viol=0 path=22637.8 centroid=26326.0
+ERROR rows_b1e50 LA-L-I-s17 9 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-L-L-s19 9 wall=59.1 feasible=True viol=0 path=21926.1 centroid=26584.3
+rows_e50 LA-L-L-s19 9 wall=59.2 feasible=True viol=0 path=21540.0 centroid=26609.2
+rows_c1 LA-L-L-s19 9 wall=59.2 feasible=True viol=0 path=22780.3 centroid=28021.1
+ERROR rows_b1 LA-L-L-s19 9 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-L-L-s19 9 wall=59.2 feasible=True viol=0 path=20907.6 centroid=25739.6
+ERROR rows_b1e50 LA-L-L-s19 9 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-L-U-BF-s21 9 wall=59.0 none
+rows_e50 LA-L-U-BF-s21 9 wall=59.0 none
+rows_c1 LA-L-U-BF-s21 9 wall=59.1 feasible=True viol=0 path=31479.2 centroid=37929.8
+rows_b1 LA-L-U-BF-s21 9 wall=59.0 none
+rows_tacc LA-L-U-BF-s21 9 wall=59.0 none
+rows_b1e50 LA-L-U-BF-s21 9 wall=59.0 none
+rows0 LA-L-U-s18 9 wall=59.2 feasible=True viol=0 path=28960.5 centroid=32018.5
+rows_e50 LA-L-U-s18 9 wall=59.1 feasible=True viol=0 path=25396.7 centroid=29199.2
+rows_c1 LA-L-U-s18 9 wall=59.1 feasible=True viol=0 path=28510.8 centroid=34055.1
+ERROR rows_b1 LA-L-U-s18 9 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-L-U-s18 9 wall=59.2 feasible=True viol=0 path=28960.5 centroid=32018.5
+ERROR rows_b1e50 LA-L-U-s18 9 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-M-I-BF-s20 9 wall=59.1 feasible=True viol=0 path=12385.3 centroid=15502.9
+rows_e50 LA-M-I-BF-s20 9 wall=59.1 feasible=True viol=0 path=11981.4 centroid=15273.0
+rows_c1 LA-M-I-BF-s20 9 wall=59.1 feasible=True viol=0 path=12172.4 centroid=15661.0
+ERROR rows_b1 LA-M-I-BF-s20 9 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-M-I-BF-s20 9 wall=59.1 feasible=True viol=0 path=11659.7 centroid=15349.5
+ERROR rows_b1e50 LA-M-I-BF-s20 9 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-M-I-s14 9 wall=59.1 feasible=True viol=0 path=19958.3 centroid=26474.7
+rows_e50 LA-M-I-s14 9 wall=59.1 feasible=True viol=0 path=21030.5 centroid=25416.2
+rows_c1 LA-M-I-s14 9 wall=59.1 feasible=True viol=0 path=20864.6 centroid=26668.4
+ERROR rows_b1 LA-M-I-s14 9 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-M-I-s14 9 wall=59.1 feasible=True viol=0 path=19958.3 centroid=26474.7
+ERROR rows_b1e50 LA-M-I-s14 9 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-M-L-s16 9 wall=59.1 feasible=True viol=0 path=19943.6 centroid=26005.4
+rows_e50 LA-M-L-s16 9 wall=59.1 feasible=True viol=0 path=18980.6 centroid=24411.3
+rows_c1 LA-M-L-s16 9 wall=59.1 feasible=True viol=0 path=17218.5 centroid=25730.7
+ERROR rows_b1 LA-M-L-s16 9 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-M-L-s16 9 wall=59.1 feasible=True viol=0 path=19136.7 centroid=24954.7
+ERROR rows_b1e50 LA-M-L-s16 9 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-M-U-s15 9 wall=59.1 feasible=True viol=0 path=19335.6 centroid=23910.6
+rows_e50 LA-M-U-s15 9 wall=59.1 feasible=True viol=0 path=19994.6 centroid=25092.9
+rows_c1 LA-M-U-s15 9 wall=59.1 feasible=True viol=0 path=20665.4 centroid=27583.2
+ERROR rows_b1 LA-M-U-s15 9 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-M-U-s15 9 wall=59.1 feasible=True viol=0 path=19339.1 centroid=24233.1
+ERROR rows_b1e50 LA-M-U-s15 9 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-S-I-s11 9 wall=59.1 feasible=True viol=0 path=3651.3 centroid=5942.0
+rows_e50 LA-S-I-s11 9 wall=59.1 feasible=True viol=0 path=3651.3 centroid=5942.0
+rows_c1 LA-S-I-s11 9 wall=59.0 feasible=True viol=0 path=3873.9 centroid=5777.2
+ERROR rows_b1 LA-S-I-s11 9 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-S-I-s11 9 wall=59.1 feasible=True viol=0 path=3993.5 centroid=6838.7
+ERROR rows_b1e50 LA-S-I-s11 9 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-S-L-s13 9 wall=59.1 feasible=True viol=0 path=5354.7 centroid=7864.4
+rows_e50 LA-S-L-s13 9 wall=59.1 feasible=True viol=0 path=5552.7 centroid=7836.7
+rows_c1 LA-S-L-s13 9 wall=59.1 feasible=True viol=0 path=5540.0 centroid=7839.0
+ERROR rows_b1 LA-S-L-s13 9 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-S-L-s13 9 wall=59.1 feasible=True viol=0 path=5552.7 centroid=7836.5
+ERROR rows_b1e50 LA-S-L-s13 9 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows0 LA-S-U-s12 9 wall=59.0 feasible=True viol=0 path=5458.1 centroid=7031.3
+rows_e50 LA-S-U-s12 9 wall=59.0 feasible=True viol=0 path=5179.5 centroid=7160.8
+rows_c1 LA-S-U-s12 9 wall=59.0 feasible=True viol=0 path=5228.1 centroid=8329.0
+ERROR rows_b1 LA-S-U-s12 9 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+rows_tacc LA-S-U-s12 9 wall=59.0 feasible=True viol=0 path=5458.1 centroid=7031.3
+ERROR rows_b1e50 LA-S-U-s12 9 ist
+    yield from chunks
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Aster\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+# done in 3333 s
+# 2026-11-16 20:31:50 T=60s workers=12 set=tune seeds=0-9 cfg=['rows_b1:rows:pairs=1', 'rows_b1e50:rows:pairs=1,elite=50'] host=DESKTOP-1KNNHJK
+rows_b1 LA-L-I-s17 0 wall=59.2 feasible=True viol=0 path=20599.4 centroid=23991.2
+rows_b1e50 LA-L-I-s17 0 wall=59.1 feasible=True viol=0 path=21744.7 centroid=24967.8
+rows_b1 LA-L-L-s19 0 wall=59.1 feasible=True viol=0 path=20694.5 centroid=26957.6
+rows_b1e50 LA-L-L-s19 0 wall=59.1 feasible=True viol=0 path=22172.7 centroid=26277.0
+rows_b1 LA-L-U-BF-s21 0 wall=59.2 feasible=True viol=0 path=28921.4 centroid=36785.8
+rows_b1e50 LA-L-U-BF-s21 0 wall=59.2 feasible=True viol=0 path=28905.4 centroid=36474.8
+rows_b1 LA-L-U-s18 0 wall=59.1 feasible=True viol=0 path=24438.5 centroid=27330.3
+rows_b1e50 LA-L-U-s18 0 wall=59.1 feasible=True viol=0 path=24913.8 centroid=27893.7
+rows_b1 LA-M-I-BF-s20 0 wall=59.1 feasible=True viol=0 path=12257.6 centroid=15598.4
+rows_b1e50 LA-M-I-BF-s20 0 wall=59.1 feasible=True viol=0 path=12215.0 centroid=15718.8
+rows_b1 LA-M-I-s14 0 wall=59.1 feasible=True viol=0 path=19474.9 centroid=24154.8
+rows_b1e50 LA-M-I-s14 0 wall=59.1 feasible=True viol=0 path=20265.7 centroid=26144.8
+rows_b1 LA-M-L-s16 0 wall=59.1 feasible=True viol=0 path=17042.7 centroid=21607.9
+rows_b1e50 LA-M-L-s16 0 wall=59.1 feasible=True viol=0 path=18387.7 centroid=20926.7
+rows_b1 LA-M-U-s15 0 wall=59.1 feasible=True viol=0 path=20114.5 centroid=24578.5
+rows_b1e50 LA-M-U-s15 0 wall=59.1 feasible=True viol=0 path=19136.8 centroid=23903.8
+rows_b1 LA-S-I-s11 0 wall=59.0 feasible=True viol=0 path=4328.3 centroid=5956.0
+rows_b1e50 LA-S-I-s11 0 wall=59.1 feasible=True viol=0 path=3658.2 centroid=5969.3
+rows_b1 LA-S-L-s13 0 wall=59.0 feasible=True viol=0 path=6503.1 centroid=8284.3
+rows_b1e50 LA-S-L-s13 0 wall=59.1 feasible=True viol=0 path=5374.4 centroid=7624.6
+rows_b1 LA-S-U-s12 0 wall=59.0 feasible=True viol=0 path=5167.6 centroid=7543.0
+rows_b1e50 LA-S-U-s12 0 wall=59.1 feasible=True viol=0 path=5204.6 centroid=6786.8
+rows_b1 LA-L-I-s17 1 wall=59.2 feasible=True viol=0 path=21208.8 centroid=25487.8
+rows_b1e50 LA-L-I-s17 1 wall=59.1 feasible=True viol=0 path=21208.8 centroid=25487.8
+rows_b1 LA-L-L-s19 1 wall=59.1 feasible=True viol=0 path=22431.5 centroid=27425.5
+rows_b1e50 LA-L-L-s19 1 wall=59.1 feasible=True viol=0 path=22431.5 centroid=27425.5
+rows_b1 LA-L-U-BF-s21 1 wall=59.2 feasible=True viol=0 path=34543.6 centroid=38725.4
+rows_b1e50 LA-L-U-BF-s21 1 wall=59.1 feasible=True viol=0 path=32953.9 centroid=38632.5
+rows_b1 LA-L-U-s18 1 wall=59.1 feasible=True viol=0 path=26823.3 centroid=32305.5
+rows_b1e50 LA-L-U-s18 1 wall=59.1 feasible=True viol=0 path=26823.3 centroid=32305.5
+rows_b1 LA-M-I-BF-s20 1 wall=59.1 feasible=True viol=0 path=11834.9 centroid=16182.0
+rows_b1e50 LA-M-I-BF-s20 1 wall=59.1 feasible=True viol=0 path=11672.9 centroid=16948.8
+rows_b1 LA-M-I-s14 1 wall=59.1 feasible=True viol=0 path=20131.9 centroid=25201.5
+rows_b1e50 LA-M-I-s14 1 wall=59.1 feasible=True viol=0 path=19806.6 centroid=24511.7
+rows_b1 LA-M-L-s16 1 wall=59.1 feasible=True viol=0 path=18452.3 centroid=23296.7
+rows_b1e50 LA-M-L-s16 1 wall=59.1 feasible=True viol=0 path=18452.3 centroid=23296.7
+rows_b1 LA-M-U-s15 1 wall=59.1 feasible=True viol=0 path=21017.9 centroid=24801.4
+rows_b1e50 LA-M-U-s15 1 wall=59.1 feasible=True viol=0 path=19974.2 centroid=23961.0
+rows_b1 LA-S-I-s11 1 wall=59.0 feasible=True viol=0 path=4378.5 centroid=6093.4
+rows_b1e50 LA-S-I-s11 1 wall=59.1 feasible=True viol=0 path=4386.6 centroid=6503.8
+rows_b1 LA-S-L-s13 1 wall=59.0 feasible=True viol=0 path=5630.1 centroid=8433.4
+rows_b1e50 LA-S-L-s13 1 wall=59.0 feasible=True viol=0 path=5630.1 centroid=8433.4
+rows_b1 LA-S-U-s12 1 wall=59.1 feasible=True viol=0 path=5117.6 centroid=6772.7
+rows_b1e50 LA-S-U-s12 1 wall=59.1 feasible=True viol=0 path=5117.6 centroid=6772.7
+rows_b1 LA-L-I-s17 2 wall=59.2 feasible=True viol=0 path=20828.7 centroid=24867.6
+rows_b1e50 LA-L-I-s17 2 wall=59.2 feasible=True viol=0 path=20807.9 centroid=24868.0
+rows_b1 LA-L-L-s19 2 wall=59.2 feasible=True viol=0 path=24561.0 centroid=30048.0
+rows_b1e50 LA-L-L-s19 2 wall=59.1 feasible=True viol=0 path=24561.0 centroid=30048.0
+rows_b1 LA-L-U-BF-s21 2 wall=59.1 feasible=True viol=0 path=30635.6 centroid=37299.2
+rows_b1e50 LA-L-U-BF-s21 2 wall=59.1 feasible=True viol=0 path=30635.6 centroid=37299.2
+rows_b1 LA-L-U-s18 2 wall=59.2 feasible=True viol=0 path=24303.1 centroid=28738.4
+rows_b1e50 LA-L-U-s18 2 wall=59.2 feasible=True viol=0 path=24158.1 centroid=28332.9
+rows_b1 LA-M-I-BF-s20 2 wall=59.1 feasible=True viol=0 path=12885.9 centroid=17045.9
+rows_b1e50 LA-M-I-BF-s20 2 wall=59.1 feasible=True viol=0 path=11562.9 centroid=15103.1
+rows_b1 LA-M-I-s14 2 wall=59.1 feasible=True viol=0 path=18813.3 centroid=24835.9
+rows_b1e50 LA-M-I-s14 2 wall=59.1 feasible=True viol=0 path=18813.3 centroid=24835.9
+rows_b1 LA-M-L-s16 2 wall=59.1 feasible=True viol=0 path=18233.2 centroid=22904.3
+rows_b1e50 LA-M-L-s16 2 wall=59.1 feasible=True viol=0 path=19664.5 centroid=23798.0
+rows_b1 LA-M-U-s15 2 wall=59.1 feasible=True viol=0 path=19046.4 centroid=24571.9
+rows_b1e50 LA-M-U-s15 2 wall=59.1 feasible=True viol=0 path=19046.4 centroid=24571.9
+rows_b1 LA-S-I-s11 2 wall=59.0 feasible=True viol=0 path=4228.5 centroid=5816.7
+rows_b1e50 LA-S-I-s11 2 wall=59.0 feasible=True viol=0 path=4488.2 centroid=5607.6
+rows_b1 LA-S-L-s13 2 wall=59.0 feasible=True viol=0 path=5662.6 centroid=8579.8
+rows_b1e50 LA-S-L-s13 2 wall=59.1 feasible=True viol=0 path=5662.6 centroid=8579.8
+rows_b1 LA-S-U-s12 2 wall=59.1 feasible=True viol=0 path=5045.6 centroid=7378.0
+rows_b1e50 LA-S-U-s12 2 wall=59.0 feasible=True viol=0 path=5365.3 centroid=7692.5
+rows_b1 LA-L-I-s17 3 wall=59.1 feasible=True viol=0 path=21275.6 centroid=25013.8
+rows_b1e50 LA-L-I-s17 3 wall=59.2 feasible=True viol=0 path=21158.1 centroid=26784.4
+rows_b1 LA-L-L-s19 3 wall=59.2 feasible=True viol=0 path=22849.3 centroid=26124.3
+rows_b1e50 LA-L-L-s19 3 wall=59.2 feasible=True viol=0 path=23335.5 centroid=27157.2
+rows_b1 LA-L-U-BF-s21 3 wall=59.2 feasible=True viol=0 path=34559.3 centroid=38699.4
+rows_b1e50 LA-L-U-BF-s21 3 wall=59.2 feasible=True viol=0 path=36621.3 centroid=39212.7
+rows_b1 LA-L-U-s18 3 wall=59.1 feasible=True viol=0 path=27454.5 centroid=31276.3
+rows_b1e50 LA-L-U-s18 3 wall=59.1 feasible=True viol=0 path=27557.6 centroid=32105.7
+rows_b1 LA-M-I-BF-s20 3 wall=59.1 feasible=True viol=0 path=13389.6 centroid=15979.6
+rows_b1e50 LA-M-I-BF-s20 3 wall=59.1 feasible=True viol=0 path=13551.8 centroid=16918.1
+rows_b1 LA-M-I-s14 3 wall=59.1 feasible=True viol=0 path=21041.8 centroid=26533.6
+rows_b1e50 LA-M-I-s14 3 wall=59.1 feasible=True viol=0 path=22337.6 centroid=27183.6
+rows_b1 LA-M-L-s16 3 wall=59.1 feasible=True viol=0 path=20715.8 centroid=24964.7
+rows_b1e50 LA-M-L-s16 3 wall=59.1 feasible=True viol=0 path=20317.3 centroid=25386.6
+rows_b1 LA-M-U-s15 3 wall=59.1 feasible=True viol=0 path=19072.9 centroid=24176.1
+rows_b1e50 LA-M-U-s15 3 wall=59.1 feasible=True viol=0 path=18810.9 centroid=23801.4
+rows_b1 LA-S-I-s11 3 wall=59.1 feasible=True viol=0 path=4341.4 centroid=5928.1
+rows_b1e50 LA-S-I-s11 3 wall=59.1 feasible=True viol=0 path=4384.5 centroid=6554.4
+rows_b1 LA-S-L-s13 3 wall=59.1 feasible=True viol=0 path=5388.9 centroid=7993.7
+rows_b1e50 LA-S-L-s13 3 wall=59.1 feasible=True viol=0 path=6043.1 centroid=8877.1
+rows_b1 LA-S-U-s12 3 wall=59.1 feasible=True viol=0 path=5509.5 centroid=8148.3
+rows_b1e50 LA-S-U-s12 3 wall=59.0 feasible=True viol=0 path=5509.5 centroid=8148.3
+rows_b1 LA-L-I-s17 4 wall=59.1 feasible=True viol=0 path=22301.0 centroid=25743.3
+rows_b1e50 LA-L-I-s17 4 wall=59.1 feasible=True viol=0 path=21867.2 centroid=26085.6
+rows_b1 LA-L-L-s19 4 wall=59.1 feasible=True viol=0 path=24214.0 centroid=28478.2
+rows_b1e50 LA-L-L-s19 4 wall=59.1 feasible=True viol=0 path=24214.0 centroid=28478.2
+rows_b1 LA-L-U-BF-s21 4 wall=59.1 feasible=True viol=0 path=32811.7 centroid=35872.3
+rows_b1e50 LA-L-U-BF-s21 4 wall=59.1 feasible=True viol=0 path=30748.9 centroid=35497.2
+rows_b1 LA-L-U-s18 4 wall=59.2 feasible=True viol=0 path=23644.2 centroid=27443.7
+rows_b1e50 LA-L-U-s18 4 wall=59.2 feasible=True viol=0 path=24380.8 centroid=29478.0
+rows_b1 LA-M-I-BF-s20 4 wall=59.1 feasible=True viol=0 path=11682.8 centroid=15351.5
+rows_b1e50 LA-M-I-BF-s20 4 wall=59.1 feasible=True viol=0 path=11455.6 centroid=15311.0
+rows_b1 LA-M-I-s14 4 wall=59.1 feasible=True viol=0 path=19839.4 centroid=25905.9
+rows_b1e50 LA-M-I-s14 4 wall=59.1 feasible=True viol=0 path=20035.1 centroid=26516.7
+rows_b1 LA-M-L-s16 4 wall=59.1 feasible=True viol=0 path=18853.8 centroid=23355.3
+rows_b1e50 LA-M-L-s16 4 wall=59.1 feasible=True viol=0 path=18924.5 centroid=22849.7
+rows_b1 LA-M-U-s15 4 wall=59.1 feasible=True viol=0 path=19234.8 centroid=26995.7
+rows_b1e50 LA-M-U-s15 4 wall=59.1 feasible=True viol=0 path=20963.5 centroid=26051.8
+rows_b1 LA-S-I-s11 4 wall=59.1 feasible=True viol=0 path=3819.4 centroid=6166.1
+rows_b1e50 LA-S-I-s11 4 wall=59.1 feasible=True viol=0 path=3819.4 centroid=6166.1
+rows_b1 LA-S-L-s13 4 wall=59.0 feasible=True viol=0 path=5787.7 centroid=8197.3
+rows_b1e50 LA-S-L-s13 4 wall=59.1 feasible=True viol=0 path=5627.9 centroid=7743.4
+rows_b1 LA-S-U-s12 4 wall=59.1 feasible=True viol=0 path=5162.2 centroid=6869.6
+rows_b1e50 LA-S-U-s12 4 wall=59.1 feasible=True viol=0 path=5497.3 centroid=7549.8
+rows_b1 LA-L-I-s17 5 wall=59.1 feasible=True viol=0 path=20659.5 centroid=27539.0
+rows_b1e50 LA-L-I-s17 5 wall=59.2 feasible=True viol=0 path=19025.7 centroid=24904.9
+rows_b1 LA-L-L-s19 5 wall=59.1 feasible=True viol=0 path=23262.1 centroid=27430.5
+rows_b1e50 LA-L-L-s19 5 wall=59.1 feasible=True viol=0 path=23262.1 centroid=27430.5
+rows_b1 LA-L-U-BF-s21 5 wall=59.2 feasible=True viol=0 path=29685.8 centroid=37048.9
+rows_b1e50 LA-L-U-BF-s21 5 wall=59.2 feasible=True viol=0 path=29685.8 centroid=37048.9
+rows_b1 LA-L-U-s18 5 wall=59.2 feasible=True viol=0 path=24071.4 centroid=28465.7
+rows_b1e50 LA-L-U-s18 5 wall=59.2 feasible=True viol=0 path=23275.3 centroid=26533.7
+rows_b1 LA-M-I-BF-s20 5 wall=59.1 feasible=True viol=0 path=12658.0 centroid=15692.4
+rows_b1e50 LA-M-I-BF-s20 5 wall=59.1 feasible=True viol=0 path=12504.7 centroid=15116.1
+ERROR rows_b1 LA-M-I-s14 5 

@@ -1,0 +1,1 @@
+{"method": "rows_e50", "solver": "rows", "options": {"elite": 50}, "budget": 60.0, "commit": "ba4fce7", "instance": "LA-L-U-BF-s21", "seed": 9, "wall": 59.03060722351074, "rects": null, "eval": null, "stats": {}}
