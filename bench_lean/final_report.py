@@ -12,7 +12,7 @@ from scipy.stats import mannwhitneyu, wilcoxon
 from .evaluate import load as load_inst
 from .clearance import clear_cost
 
-TAGS = ["rowsC2", "reft", "legal", "classic", "rowsC2_300", "reft_300", "rowsC"]
+TAGS = ["rowsF", "reft", "legal", "classic", "rowsF_300", "reft_300", "rowsC", "rowsC2"]
 
 
 def read(d):
@@ -138,13 +138,13 @@ def main():
                         if v: cnt[kk] += 1
         md += ["", "经典求解器（忽略通道和规则）各类违规出现的运行次数：" + "，".join(f"{k} {v}" for k, v in cnt.most_common())]
         res["classic_violations"] = dict(cnt)
-    for A, B, title in [("rowsC2", "reft", "60 秒：rows（最终配置）与参考解法"), ("rowsC2_300", "reft_300", "300 秒：rows 与参考解法"),
-                        ("rowsC2", "legal", "60 秒：rows 与“经典解 + 合法化”"), ("rowsC2_300", "rowsC2", "rows：300 秒与 60 秒")]:
+    for A, B, title in [("rowsF", "reft", "60 秒：rows（最终配置）与参考解法"), ("rowsF_300", "reft_300", "300 秒：rows 与参考解法"),
+                        ("rowsF", "legal", "60 秒：rows 与“经典解 + 合法化”"), ("rowsF_300", "rowsF", "rows：300 秒与 60 秒")]:
         if A in runs and B in runs:
             c = compare(runs, A, B); res[f"{A}_vs_{B}"] = c
             md += ["", f"## {title}", "", md_table(c, A, B)]
     # robustness: 1.4 m walkway
-    if "rowsC2" in runs and "reft" in runs:
+    if "rowsF" in runs and "reft" in runs:
         cache = {}
         def ccost(r):
             if feas_cost(r) is None: return None
@@ -153,14 +153,14 @@ def main():
                 c = clear_cost(load_inst(r["instance"]), r["rects"])
                 cache[key] = c["path_total"] if c["unreachable_pairs"] == 0 else None
             return cache[key]
-        c = compare(runs, "rowsC2", "reft", cost=ccost); res["clear_rowsC2_vs_reft"] = c
+        c = compare(runs, "rowsF", "reft", cost=ccost); res["clear_rowsF_vs_reft"] = c
         md += ["", "## 稳健性：通道净宽至少 1.4 m 时的路径成本（60 秒）", "",
-               "`evaluate` 允许路径沿两个紧挨部门之间的零宽缝走；这里用 `clearance.py` 重算。", "", md_table(c, "rowsC2", "reft")]
+               "`evaluate` 允许路径沿两个紧挨部门之间的零宽缝走；这里用 `clearance.py` 重算。", "", md_table(c, "rowsF", "reft")]
     # drawings
-    if "rowsC2" in runs and "reft" in runs:
-        for n in sorted(runs["rowsC2"]):
+    if "rowsF" in runs and "reft" in runs:
+        for n in sorted(runs["rowsF"]):
             inst = load_inst(n); parts = []; x0 = 0; hmax = 0
-            for t in ("rowsC2", "reft"):
+            for t in ("rowsF", "reft"):
                 rs = [r for r in runs[t].get(n, {}).values() if feas_cost(r) is not None]
                 if not rs: continue
                 r = min(rs, key=feas_cost)
