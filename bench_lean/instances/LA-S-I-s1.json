@@ -1,0 +1,1101 @@
+{
+ "name": "LA-S-I-s1",
+ "version": "0.1",
+ "kind": "assembly-plant",
+ "tier": "S",
+ "flow_pattern": "I",
+ "brownfield": false,
+ "seed": 1,
+ "units": "m",
+ "time_basis": "trips per working day",
+ "building": {
+  "W": 63.0,
+  "H": 48.0,
+  "span": 24.0,
+  "bay": 9.0,
+  "nspan": 2,
+  "columns": [
+   [
+    9.0,
+    24.0
+   ],
+   [
+    18.0,
+    24.0
+   ],
+   [
+    27.0,
+    24.0
+   ],
+   [
+    36.0,
+    24.0
+   ],
+   [
+    45.0,
+    24.0
+   ],
+   [
+    54.0,
+    24.0
+   ]
+  ],
+  "column_size": 0.6,
+  "hazard_class": "丙",
+  "fire_grade": "二级",
+  "sprinklers": true
+ },
+ "aisles": [
+  {
+   "id": "A0",
+   "type": "main",
+   "traffic": [
+    "forklift",
+    "pedestrian"
+   ],
+   "rect": [
+    0.0,
+    24.3,
+    63.0,
+    5.1
+   ]
+  },
+  {
+   "id": "A1",
+   "type": "cross",
+   "traffic": [
+    "forklift",
+    "pedestrian"
+   ],
+   "rect": [
+    29.65,
+    0.0,
+    3.7,
+    48.0
+   ]
+  },
+  {
+   "id": "B0",
+   "type": "secondary",
+   "traffic": [
+    "cart",
+    "pedestrian"
+   ],
+   "rect": [
+    0.0,
+    10.9,
+    63.0,
+    2.5
+   ]
+  }
+ ],
+ "docks": [
+  {
+   "kind": "receiving",
+   "doors": [
+    {
+     "wall": "W",
+     "center": 32.9,
+     "width": 3.0
+    },
+    {
+     "wall": "W",
+     "center": 37.2,
+     "width": 3.0
+    }
+   ]
+  },
+  {
+   "kind": "shipping",
+   "doors": [
+    {
+     "wall": "E",
+     "center": 32.9,
+     "width": 3.0
+    },
+    {
+     "wall": "E",
+     "center": 37.2,
+     "width": 3.0
+    }
+   ]
+  }
+ ],
+ "exits": [
+  {
+   "wall": "S",
+   "x": 15.75,
+   "y": 0.0,
+   "width": 1.2
+  },
+  {
+   "wall": "S",
+   "x": 47.25,
+   "y": 0.0,
+   "width": 1.2
+  },
+  {
+   "wall": "N",
+   "x": 15.75,
+   "y": 48.0,
+   "width": 1.2
+  },
+  {
+   "wall": "N",
+   "x": 47.25,
+   "y": 48.0,
+   "width": 1.2
+  },
+  {
+   "wall": "W",
+   "x": 0.0,
+   "y": 12.0,
+   "width": 1.2
+  },
+  {
+   "wall": "E",
+   "x": 63.0,
+   "y": 12.0,
+   "width": 1.2
+  }
+ ],
+ "fixed": [],
+ "rules": {
+  "egress_max": 80.0,
+  "exit_min_spacing": 5.0,
+  "compartment_max": 16000,
+  "forklift_aisle": 3.7,
+  "pedestrian_aisle": 1.4,
+  "io": "edge-midpoint, must open to free floor or aisle"
+ },
+ "calendar": {
+  "days": 250,
+  "shifts": 2,
+  "hours": 8.0,
+  "oee": 0.85
+ },
+ "handling": {
+  "forklift": 1.0,
+  "tugger": 0.35,
+  "cart": 0.6,
+  "conveyor": 0.05
+ },
+ "people_rate": 0.15,
+ "products": [
+  {
+   "id": 0,
+   "name": "产品族 A",
+   "annual_volume": 30200,
+   "frame": false,
+   "machined_parts": {
+    "housing": 2,
+    "shaft": 2
+   },
+   "purchased_parts_per_unit": 12
+  },
+  {
+   "id": 1,
+   "name": "产品族 B",
+   "annual_volume": 39000,
+   "frame": false,
+   "machined_parts": {
+    "housing": 1,
+    "shaft": 1
+   },
+   "purchased_parts_per_unit": 17
+  }
+ ],
+ "unit_loads": {
+  "parts": {
+   "housing": {
+    "pallet": 14,
+    "bin": 5
+   },
+   "shaft": {
+    "pallet": 50,
+    "bin": 36
+   }
+  },
+  "units_per_pallet": 8
+ },
+ "departments": [
+  {
+   "id": 0,
+   "key": "cell_housing_0",
+   "name": "壳体加工单元 1",
+   "type": "cell",
+   "area": 82.4,
+   "aspect_max": 4.0,
+   "min_side": 4.0,
+   "headcount_shift": 3,
+   "machines": {
+    "车": 2,
+    "铣": 3,
+    "钻": 1
+   }
+  },
+  {
+   "id": 1,
+   "key": "cell_shaft_0",
+   "name": "轴加工单元 1",
+   "type": "cell",
+   "area": 50.6,
+   "aspect_max": 4.0,
+   "min_side": 4.0,
+   "headcount_shift": 2,
+   "machines": {
+    "车": 2,
+    "磨": 2
+   }
+  },
+  {
+   "id": 2,
+   "key": "heat",
+   "name": "热处理",
+   "type": "monument",
+   "area": 54.0,
+   "aspect_max": 4.0,
+   "min_side": 4.0,
+   "headcount_shift": 2,
+   "hazard": "热源"
+  },
+  {
+   "id": 3,
+   "key": "wash_0",
+   "name": "清洗 1",
+   "type": "monument",
+   "area": 24.3,
+   "aspect_max": 4.0,
+   "min_side": 4.0,
+   "headcount_shift": 1
+  },
+  {
+   "id": 4,
+   "key": "sub_0",
+   "name": "部装线 1",
+   "type": "line",
+   "area": 105.0,
+   "aspect_max": 4.0,
+   "min_side": 6.0,
+   "headcount_shift": 5,
+   "stations": 5
+  },
+  {
+   "id": 5,
+   "key": "sub_1",
+   "name": "部装线 2",
+   "type": "line",
+   "area": 63.0,
+   "aspect_max": 4.0,
+   "min_side": 6.0,
+   "headcount_shift": 3,
+   "stations": 3
+  },
+  {
+   "id": 6,
+   "key": "final_0",
+   "name": "总装线 1",
+   "type": "line",
+   "area": 189.0,
+   "aspect_max": 5.8,
+   "min_side": 6.0,
+   "headcount_shift": 9,
+   "stations": 9
+  },
+  {
+   "id": 7,
+   "key": "test_0",
+   "name": "下线测试 1",
+   "type": "line",
+   "area": 90.0,
+   "aspect_max": 4.0,
+   "min_side": 4.0,
+   "headcount_shift": 3,
+   "stations": 3
+  },
+  {
+   "id": 8,
+   "key": "pack_0",
+   "name": "包装 1",
+   "type": "area",
+   "area": 286.1,
+   "aspect_max": 4.0,
+   "min_side": 4.0,
+   "headcount_shift": 3
+  },
+  {
+   "id": 9,
+   "key": "recv",
+   "name": "收货区",
+   "type": "dock",
+   "area": 129.0,
+   "aspect_max": 6.0,
+   "min_side": 4.0,
+   "headcount_shift": 3,
+   "dock": "receiving",
+   "doors": 2
+  },
+  {
+   "id": 10,
+   "key": "rm",
+   "name": "原材料库",
+   "type": "store",
+   "area": 145.4,
+   "aspect_max": 4.0,
+   "min_side": 4.0,
+   "headcount_shift": 3
+  },
+  {
+   "id": 11,
+   "key": "pp",
+   "name": "外购件库",
+   "type": "store",
+   "area": 60.0,
+   "aspect_max": 4.0,
+   "min_side": 4.0,
+   "headcount_shift": 3
+  },
+  {
+   "id": 12,
+   "key": "sm_0",
+   "name": "线边超市 1",
+   "type": "store",
+   "area": 40.0,
+   "aspect_max": 4.0,
+   "min_side": 4.0,
+   "headcount_shift": 1
+  },
+  {
+   "id": 13,
+   "key": "fg",
+   "name": "成品库",
+   "type": "store",
+   "area": 83.0,
+   "aspect_max": 4.0,
+   "min_side": 4.0,
+   "headcount_shift": 2
+  },
+  {
+   "id": 14,
+   "key": "ship",
+   "name": "发货区",
+   "type": "dock",
+   "area": 129.0,
+   "aspect_max": 6.0,
+   "min_side": 4.0,
+   "headcount_shift": 3,
+   "dock": "shipping",
+   "doors": 2
+  },
+  {
+   "id": 15,
+   "key": "tool",
+   "name": "刀具室",
+   "type": "support",
+   "area": 60.0,
+   "aspect_max": 4.0,
+   "min_side": 4.0,
+   "headcount_shift": 1
+  },
+  {
+   "id": 16,
+   "key": "qc",
+   "name": "质检室",
+   "type": "support",
+   "area": 80.0,
+   "aspect_max": 4.0,
+   "min_side": 4.0,
+   "headcount_shift": 2
+  },
+  {
+   "id": 17,
+   "key": "office",
+   "name": "办公室",
+   "type": "support",
+   "area": 128.0,
+   "aspect_max": 4.0,
+   "min_side": 4.0,
+   "headcount_shift": 0,
+   "staff": 16
+  },
+  {
+   "id": 18,
+   "key": "amenity",
+   "name": "更衣室/食堂",
+   "type": "support",
+   "area": 80.0,
+   "aspect_max": 4.0,
+   "min_side": 4.0,
+   "headcount_shift": 0
+  }
+ ],
+ "material_flows": [
+  [
+   9,
+   10,
+   17.257,
+   "forklift",
+   "产品族 A 壳体毛坯入库"
+  ],
+  [
+   10,
+   0,
+   17.257,
+   "forklift",
+   "壳体毛坯"
+  ],
+  [
+   0,
+   3,
+   48.32,
+   "cart",
+   "壳体去清洗"
+  ],
+  [
+   3,
+   12,
+   48.32,
+   "tugger",
+   "壳体入线边超市"
+  ],
+  [
+   12,
+   5,
+   48.32,
+   "tugger",
+   "壳体上部装线"
+  ],
+  [
+   9,
+   10,
+   4.832,
+   "forklift",
+   "产品族 A 轴毛坯入库"
+  ],
+  [
+   10,
+   1,
+   4.832,
+   "forklift",
+   "轴毛坯"
+  ],
+  [
+   1,
+   2,
+   6.711,
+   "cart",
+   "轴去热处理"
+  ],
+  [
+   2,
+   1,
+   6.711,
+   "cart",
+   "轴热处理后回磨削"
+  ],
+  [
+   1,
+   3,
+   6.711,
+   "cart",
+   "轴去清洗"
+  ],
+  [
+   3,
+   12,
+   6.711,
+   "tugger",
+   "轴入线边超市"
+  ],
+  [
+   12,
+   4,
+   6.711,
+   "tugger",
+   "轴上部装线"
+  ],
+  [
+   9,
+   11,
+   1.208,
+   "forklift",
+   "产品族 A 外购件入库"
+  ],
+  [
+   11,
+   12,
+   28.992,
+   "tugger",
+   "产品族 A 外购件补超市"
+  ],
+  [
+   12,
+   6,
+   17.395,
+   "tugger",
+   "产品族 A 外购件上总装"
+  ],
+  [
+   12,
+   4,
+   5.798,
+   "tugger",
+   "产品族 A 外购件上部装"
+  ],
+  [
+   4,
+   6,
+   20.133,
+   "cart",
+   "产品族 A 部件上总装"
+  ],
+  [
+   12,
+   5,
+   5.798,
+   "tugger",
+   "产品族 A 外购件上部装"
+  ],
+  [
+   5,
+   6,
+   20.133,
+   "cart",
+   "产品族 A 部件上总装"
+  ],
+  [
+   6,
+   7,
+   120.8,
+   "conveyor",
+   "产品族 A 下线测试"
+  ],
+  [
+   7,
+   8,
+   120.8,
+   "conveyor",
+   "产品族 A 去包装"
+  ],
+  [
+   8,
+   13,
+   15.1,
+   "forklift",
+   "产品族 A 成品入库"
+  ],
+  [
+   13,
+   14,
+   15.1,
+   "forklift",
+   "产品族 A 发货"
+  ],
+  [
+   9,
+   10,
+   11.143,
+   "forklift",
+   "产品族 B 壳体毛坯入库"
+  ],
+  [
+   10,
+   0,
+   11.143,
+   "forklift",
+   "壳体毛坯"
+  ],
+  [
+   0,
+   3,
+   31.2,
+   "cart",
+   "壳体去清洗"
+  ],
+  [
+   3,
+   12,
+   31.2,
+   "tugger",
+   "壳体入线边超市"
+  ],
+  [
+   12,
+   5,
+   31.2,
+   "tugger",
+   "壳体上部装线"
+  ],
+  [
+   9,
+   10,
+   3.12,
+   "forklift",
+   "产品族 B 轴毛坯入库"
+  ],
+  [
+   10,
+   1,
+   3.12,
+   "forklift",
+   "轴毛坯"
+  ],
+  [
+   1,
+   2,
+   4.333,
+   "cart",
+   "轴去热处理"
+  ],
+  [
+   2,
+   1,
+   4.333,
+   "cart",
+   "轴热处理后回磨削"
+  ],
+  [
+   1,
+   3,
+   4.333,
+   "cart",
+   "轴去清洗"
+  ],
+  [
+   3,
+   12,
+   4.333,
+   "tugger",
+   "轴入线边超市"
+  ],
+  [
+   12,
+   4,
+   4.333,
+   "tugger",
+   "轴上部装线"
+  ],
+  [
+   9,
+   11,
+   2.21,
+   "forklift",
+   "产品族 B 外购件入库"
+  ],
+  [
+   11,
+   12,
+   53.04,
+   "tugger",
+   "产品族 B 外购件补超市"
+  ],
+  [
+   12,
+   6,
+   31.824,
+   "tugger",
+   "产品族 B 外购件上总装"
+  ],
+  [
+   12,
+   4,
+   10.608,
+   "tugger",
+   "产品族 B 外购件上部装"
+  ],
+  [
+   4,
+   6,
+   26.0,
+   "cart",
+   "产品族 B 部件上总装"
+  ],
+  [
+   12,
+   5,
+   10.608,
+   "tugger",
+   "产品族 B 外购件上部装"
+  ],
+  [
+   5,
+   6,
+   26.0,
+   "cart",
+   "产品族 B 部件上总装"
+  ],
+  [
+   6,
+   7,
+   156.0,
+   "conveyor",
+   "产品族 B 下线测试"
+  ],
+  [
+   7,
+   8,
+   156.0,
+   "conveyor",
+   "产品族 B 去包装"
+  ],
+  [
+   8,
+   13,
+   19.5,
+   "forklift",
+   "产品族 B 成品入库"
+  ],
+  [
+   13,
+   14,
+   19.5,
+   "forklift",
+   "产品族 B 发货"
+  ],
+  [
+   15,
+   0,
+   8.0,
+   "cart",
+   "换刀具"
+  ],
+  [
+   15,
+   1,
+   8.0,
+   "cart",
+   "换刀具"
+  ]
+ ],
+ "people_flows": [
+  [
+   0,
+   18,
+   24.0,
+   "更衣、用餐"
+  ],
+  [
+   16,
+   0,
+   6.0,
+   "首件与巡检"
+  ],
+  [
+   1,
+   18,
+   16.0,
+   "更衣、用餐"
+  ],
+  [
+   16,
+   1,
+   6.0,
+   "首件与巡检"
+  ],
+  [
+   2,
+   18,
+   16.0,
+   "更衣、用餐"
+  ],
+  [
+   3,
+   18,
+   8.0,
+   "更衣、用餐"
+  ],
+  [
+   4,
+   18,
+   40.0,
+   "更衣、用餐"
+  ],
+  [
+   16,
+   4,
+   6.0,
+   "首件与巡检"
+  ],
+  [
+   17,
+   4,
+   4.0,
+   "班组长、工艺员"
+  ],
+  [
+   5,
+   18,
+   24.0,
+   "更衣、用餐"
+  ],
+  [
+   16,
+   5,
+   6.0,
+   "首件与巡检"
+  ],
+  [
+   17,
+   5,
+   4.0,
+   "班组长、工艺员"
+  ],
+  [
+   6,
+   18,
+   72.0,
+   "更衣、用餐"
+  ],
+  [
+   16,
+   6,
+   6.0,
+   "首件与巡检"
+  ],
+  [
+   17,
+   6,
+   4.0,
+   "班组长、工艺员"
+  ],
+  [
+   7,
+   18,
+   24.0,
+   "更衣、用餐"
+  ],
+  [
+   16,
+   7,
+   6.0,
+   "首件与巡检"
+  ],
+  [
+   17,
+   7,
+   4.0,
+   "班组长、工艺员"
+  ],
+  [
+   8,
+   18,
+   24.0,
+   "更衣、用餐"
+  ],
+  [
+   9,
+   18,
+   24.0,
+   "更衣、用餐"
+  ],
+  [
+   10,
+   18,
+   24.0,
+   "更衣、用餐"
+  ],
+  [
+   11,
+   18,
+   24.0,
+   "更衣、用餐"
+  ],
+  [
+   12,
+   18,
+   8.0,
+   "更衣、用餐"
+  ],
+  [
+   13,
+   18,
+   16.0,
+   "更衣、用餐"
+  ],
+  [
+   14,
+   18,
+   24.0,
+   "更衣、用餐"
+  ],
+  [
+   15,
+   18,
+   8.0,
+   "更衣、用餐"
+  ],
+  [
+   16,
+   18,
+   16.0,
+   "更衣、用餐"
+  ],
+  [
+   17,
+   18,
+   32.0,
+   "办公人员用餐"
+  ]
+ ],
+ "relations": [
+  [
+   0,
+   3,
+   "A",
+   "物流/人流强度排序"
+  ],
+  [
+   0,
+   10,
+   "E",
+   "物流/人流强度排序"
+  ],
+  [
+   0,
+   15,
+   "O",
+   "物流/人流强度排序"
+  ],
+  [
+   0,
+   18,
+   "O",
+   "物流/人流强度排序"
+  ],
+  [
+   1,
+   2,
+   "I",
+   "物流/人流强度排序"
+  ],
+  [
+   1,
+   3,
+   "O",
+   "物流/人流强度排序"
+  ],
+  [
+   1,
+   10,
+   "O",
+   "物流/人流强度排序"
+  ],
+  [
+   1,
+   15,
+   "O",
+   "物流/人流强度排序"
+  ],
+  [
+   2,
+   16,
+   "X",
+   "质检室远离热处理的热和振动",
+   10.0
+  ],
+  [
+   3,
+   12,
+   "E",
+   "物流/人流强度排序"
+  ],
+  [
+   4,
+   6,
+   "I",
+   "物流/人流强度排序"
+  ],
+  [
+   4,
+   12,
+   "O",
+   "物流/人流强度排序"
+  ],
+  [
+   4,
+   18,
+   "O",
+   "物流/人流强度排序"
+  ],
+  [
+   5,
+   6,
+   "I",
+   "物流/人流强度排序"
+  ],
+  [
+   5,
+   12,
+   "E",
+   "物流/人流强度排序"
+  ],
+  [
+   6,
+   7,
+   "I",
+   "物流/人流强度排序"
+  ],
+  [
+   6,
+   12,
+   "I",
+   "物流/人流强度排序"
+  ],
+  [
+   6,
+   18,
+   "I",
+   "物流/人流强度排序"
+  ],
+  [
+   7,
+   8,
+   "I",
+   "物流/人流强度排序"
+  ],
+  [
+   7,
+   18,
+   "O",
+   "物流/人流强度排序"
+  ],
+  [
+   8,
+   13,
+   "A",
+   "物流/人流强度排序"
+  ],
+  [
+   9,
+   10,
+   "A",
+   "物流/人流强度排序"
+  ],
+  [
+   11,
+   12,
+   "E",
+   "物流/人流强度排序"
+  ],
+  [
+   13,
+   14,
+   "E",
+   "物流/人流强度排序"
+  ],
+  [
+   17,
+   18,
+   "O",
+   "物流/人流强度排序"
+  ]
+ ],
+ "summary": {
+  "n": 19,
+  "dept_area": 1878.8,
+  "building_area": 3024.0,
+  "utilization": 0.621,
+  "workers_per_shift": 49,
+  "office_staff": 16
+ }
+}

@@ -1,0 +1,249 @@
+[
+ {
+  "key": "building_hazard_class",
+  "value": "丙",
+  "tag": "ASM",
+  "note": "整栋厂房按丙类（机械装配常见）；喷漆间按 GB 50016 第 3.1.2 条的例外规定不改变整栋类别——该例外的适用条件未逐条核实"
+ },
+ {
+  "key": "fire_resistance_grade",
+  "value": "二级",
+  "tag": "ASM",
+  "note": "钢结构单层厂房常见取二级"
+ },
+ {
+  "key": "sprinklers",
+  "value": true,
+  "tag": "ASM",
+  "note": "设自动喷水灭火系统"
+ },
+ {
+  "key": "fire_compartment_max_m2",
+  "value": 16000,
+  "tag": "SRC",
+  "note": "GB 50016-2014 表 3.3.1：丙类、二级、单层 8000 m²；第 3.3.3 条设自动灭火系统可增加 1.0 倍 → 16000 m²"
+ },
+ {
+  "key": "egress_max_m",
+  "value": 80.0,
+  "tag": "SRC",
+  "note": "GB 50016-2014 表 3.7.4：丙类、一二级、单层厂房任一点到最近安全出口直线距离 80 m"
+ },
+ {
+  "key": "exit_min_spacing_m",
+  "value": 5.0,
+  "tag": "SRC",
+  "note": "GB 50016-2014 第 3.7.1 条：相邻两个安全出口最近边缘水平距离不应小于 5 m"
+ },
+ {
+  "key": "exit_door_width_m",
+  "value": 1.2,
+  "tag": "SRC",
+  "note": "GB 50016-2014 第 3.7.5 条：首层外门净宽不小于 1.20 m"
+ },
+ {
+  "key": "pedestrian_aisle_m",
+  "value": 1.4,
+  "tag": "SRC",
+  "note": "GB 50016-2014 第 3.7.5 条：疏散走道净宽不小于 1.40 m"
+ },
+ {
+  "key": "span_m",
+  "value": 24.0,
+  "tag": "ASM",
+  "note": "跨度 24 m：单层钢结构厂房常用跨度（GB/T 50006 对跨度和柱距有模数规定，原文未核实）"
+ },
+ {
+  "key": "bay_m",
+  "value": 9.0,
+  "tag": "ASM",
+  "note": "柱距 9 m：常用柱距（同上，未核实原文）"
+ },
+ {
+  "key": "column_size_m",
+  "value": 0.6,
+  "tag": "ASM",
+  "note": "柱截面按 0.6 m × 0.6 m 计"
+ },
+ {
+  "key": "forklift_aisle_m",
+  "value": 3.7,
+  "tag": "SRC",
+  "note": "Toyota Forklift 计算方法示例：直角堆垛宽 86 in + 货长 48 in + 间隙 12 in = 146 in ≈ 3.71 m（单台平衡重叉车）"
+ },
+ {
+  "key": "main_aisle_m",
+  "value": 5.1,
+  "tag": "ASM",
+  "note": "主通道 = 叉车道 3.7 m + 并行人行道 1.4 m（人车分道，参照 HSE HSG136 的分离原则）"
+ },
+ {
+  "key": "secondary_aisle_m",
+  "value": 2.5,
+  "tag": "ASM",
+  "note": "次通道 2.5 m（手推车和人行；不小于 GB 50016 疏散走道 1.4 m），把超过 20 m 进深的区带一分为二，使每个部门都临通道"
+ },
+ {
+  "key": "dock_door_width_m",
+  "value": 3.0,
+  "tag": "SRC",
+  "note": "MHI Dock Planning 101：9 ft 门适合 8 ft 6 in 挂车，10 ft 用于超宽货物；取约 10 ft ≈ 3.0 m"
+ },
+ {
+  "key": "dock_center_m",
+  "value": 4.3,
+  "tag": "SRC",
+  "note": "MHI Dock Planning 101：门中心距最小 12 ft，带门封时常用 14 ft 或更大；取 14 ft ≈ 4.3 m"
+ },
+ {
+  "key": "dock_staging_depth_m",
+  "value": 15.0,
+  "tag": "ASM",
+  "note": "收发货暂存区进深 15 m（MHI 指南未给固定值）"
+ },
+ {
+  "key": "working_days",
+  "value": 250,
+  "tag": "ASM",
+  "note": "每年 250 个工作日"
+ },
+ {
+  "key": "shifts",
+  "value": 2,
+  "tag": "ASM",
+  "note": "两班"
+ },
+ {
+  "key": "hours_per_shift",
+  "value": 8.0,
+  "tag": "ASM",
+  "note": "每班 8 小时（不扣休息）"
+ },
+ {
+  "key": "oee",
+  "value": 0.85,
+  "tag": "ASM",
+  "note": "设备综合效率 85%"
+ },
+ {
+  "key": "line_efficiency",
+  "value": 0.9,
+  "tag": "ASM",
+  "note": "装配线平衡效率 90%"
+ },
+ {
+  "key": "station_pitch_m",
+  "value": 3.5,
+  "tag": "ASM",
+  "note": "装配工位节距 3.5 m"
+ },
+ {
+  "key": "line_width_m",
+  "value": 6.0,
+  "tag": "ASM",
+  "note": "装配线宽 6 m（含两侧物料摆放）"
+ },
+ {
+  "key": "machine_area_allowance",
+  "value": 0.35,
+  "tag": "ASM",
+  "note": "设备占地之外再加 35% 作操作与维修空间"
+ },
+ {
+  "key": "store_aisle_factor",
+  "value": 2.0,
+  "tag": "ASM",
+  "note": "仓储区面积 = 货位占地 × 2.0（含巷道）"
+ },
+ {
+  "key": "pallet_stack_levels",
+  "value": 3,
+  "tag": "ASM",
+  "note": "货架 3 层"
+ },
+ {
+  "key": "pallet_footprint_m2",
+  "value": 1.2,
+  "tag": "SRC",
+  "note": "ISO 6780 托盘 1200 mm × 1000 mm"
+ },
+ {
+  "key": "bin_footprint_m2",
+  "value": 0.24,
+  "tag": "ASM",
+  "note": "周转箱 600 mm × 400 mm"
+ },
+ {
+  "key": "bin_stack_levels",
+  "value": 4,
+  "tag": "ASM",
+  "note": "流利架 4 层"
+ },
+ {
+  "key": "inventory_days",
+  "value": {
+   "rm": 5.0,
+   "pp": 3.0,
+   "sm": 0.5,
+   "fg": 3.0
+  },
+  "tag": "ASM",
+  "note": "库存天数：原材料 5 天，外购件 3 天，线边超市 0.5 天，成品 3 天"
+ },
+ {
+  "key": "handling_cost_per_trip_m",
+  "value": {
+   "forklift": 1.0,
+   "tugger": 0.35,
+   "cart": 0.6,
+   "conveyor": 0.05
+  },
+  "tag": "ASM",
+  "note": "相对单价（每趟每米）：叉车 1.0；牵引车牛奶车 0.35（一趟拖多箱，按每箱分摊）；手推车 0.6；输送线 0.05。没有可靠公开数据，必须用项目数据替换"
+ },
+ {
+  "key": "people_cost_per_trip_m",
+  "value": 0.15,
+  "tag": "ASM",
+  "note": "人员每趟每米的相对成本 0.15（相对叉车）"
+ },
+ {
+  "key": "people_trips_per_worker_shift",
+  "value": {
+   "locker": 2,
+   "canteen": 2
+  },
+  "tag": "ASM",
+  "note": "每人每班去更衣室 2 趟、食堂 2 趟（来回各算 1 趟）"
+ },
+ {
+  "key": "aspect_max_default",
+  "value": 4.0,
+  "tag": "ASM",
+  "note": "普通部门最大长宽比 4"
+ },
+ {
+  "key": "min_side_m",
+  "value": 4.0,
+  "tag": "ASM",
+  "note": "部门最短边 4 m"
+ },
+ {
+  "key": "x_separation_m",
+  "value": 10.0,
+  "tag": "ASM",
+  "note": "X 级（喷漆 vs 焊接/热处理）最小净距 10 m"
+ },
+ {
+  "key": "office_m2_per_person",
+  "value": 8.0,
+  "tag": "ASM",
+  "note": "办公人均 8 m²"
+ },
+ {
+  "key": "amenity_m2_per_worker",
+  "value": 1.2,
+  "tag": "ASM",
+  "note": "更衣室和食堂按每名一线员工 1.2 m²（按一个班的人数）"
+ }
+]
