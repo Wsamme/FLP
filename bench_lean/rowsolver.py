@@ -62,7 +62,9 @@ class St(list):
 
 
 class Model:
-    def __init__(self, inst, pairs=False, near=0.0):
+    def __init__(self, inst, pairs=False, near=0.0, eject=0.0, slack_step=True):
+        self.eject = float(eject)            # probability of a relocation with ejection (big departments)
+        self.slack_step = bool(slack_step)   # 2 % step also for row slack (a923d53); False = only for shortfall
         self.near = float(near)              # D3: probability that a move puts a department next to a flow partner
         self.pairmode = bool(pairs)          # option B1 (not the list of flow pairs below)
         self.inst = inst
@@ -207,11 +209,16 @@ class Model:
 
     def overflow(self, state):
         """Necessary-condition check of the rows: excess width (m) + 10 x missing depth (m); 0 = may be feasible."""
+        return float(sum(max(0.0, e) for e in self.row_excess(state)))
+
+    def row_excess(self, state):
+        """Per row: estimated width needed minus row length (negative = free length), + 10 x missing depth."""
         R = self.rows
         need = [max((self.mindepth[i] for i in seq), default=0.0) for seq in state]
-        ov = 0.0
+        out = []
         for ri, seq in enumerate(state):
-            if not seq: continue
+            ov = 0.0
+            if not seq: out.append(-(R[ri]["x1"] - R[ri]["x0"])); continue
             r = R[ri]; cap = r["rh"]
             if r["group"] is not None and not self.pairmode:
                 other = self.mate[ri]
@@ -224,8 +231,8 @@ class Model:
                     tot += max(self.A[i] / r["rh"], self.dock[i]["hi"] - self.dock[i]["lo"], self.ms[i])
                 else:
                     tot += max(self.ms[i], self.A[i] / cap, math.sqrt(self.A[i] / self.am[i]))
-            ov += max(0.0, tot - (r["x1"] - r["x0"]))
-        return ov
+            out.append(ov + tot - (r["x1"] - r["x0"]))
+        return out
 
     def capacity_ok(self, state):
         return self.overflow(state) <= E
@@ -432,7 +439,7 @@ class Model:
         slack = out[2] > 1e-6
         # the 2 % step applies to row slack as well: without it the search can rest at a few cm of slack
         # (LA-M-I-s1: 0.043 m for a whole 60 s run), which the per-metre price alone makes almost free
-        cost = out[0] + self.penalty * v + (self.step * out[3] if short or slack else 0.0)
+        cost = out[0] + self.penalty * v + (self.step * out[3] if short or (slack and self.slack_step) else 0.0)
         return cost, out[1], not short and not slack, v, out[2], out[3]
 
     # ---------- initial solution ----------
@@ -552,6 +559,8 @@ class Model:
                 if ks:
                     k = ks[rng.integers(len(ks))]; seq[k], seq[k + 1] = seq[k + 1], seq[k]
                     return s
+        if self.eject > 0 and rng.random() < self.eject:
+            return self.eject_move(s, rng)
         u = rng.random()
         mv = self.movers
         if u < 0.4 and len(mv) > 1:
@@ -576,6 +585,32 @@ class Model:
                 s[ri][k], s[ri][k + 1] = s[ri][k + 1], s[ri][k]
         return self.normalize(s)
 
+    def eject_move(self, s, rng):
+        """Move one department (chosen by area) to another row; while that row is over-full, move its smallest
+        free department to the row with the most free length. Lets large departments change rows."""
+        R = self.rows; mv = self.movers
+        a = np.array([self.A[i] for i in mv]); i = mv[int(rng.choice(len(mv), p=a / a.sum()))]
+        ri, ki = self._find(s, i); s[ri].pop(ki)
+        if i in self.paint:
+            ok = [q for q in range(len(R)) if q != ri and (R[q]["far_wall"] or R[q]["wallW"] or R[q]["wallE"])]
+            if not ok: s[ri].insert(ki, i); return self.normalize(s)
+            rj = ok[rng.integers(len(ok))]
+            k = int(rng.integers(len(s[rj]) + 1)) if R[rj]["far_wall"] else (0 if R[rj]["wallW"] else len(s[rj]))
+        else:
+            rj = int(rng.integers(len(R) - 1)); rj += rj >= ri
+            k = int(rng.integers(len(s[rj]) + 1))
+        s[rj].insert(k, i); self.normalize(s)
+        for _ in range(6):
+            ex = self.row_excess(s)
+            if ex[rj] <= 0: break
+            cand = [j for j in s[rj] if j in mv and j != i and j not in self.paint]
+            if not cand: break
+            j = min(cand, key=lambda j: self.A[j]); s[rj].remove(j)
+            free = [(-ex[q], q) for q in range(len(R)) if q != rj]
+            tq = max(free)[1]; s[tq].insert(int(rng.integers(len(s[tq]) + 1)), j)
+            self.normalize(s)
+        return self.normalize(s)
+
     @staticmethod
     def _find(s, i):
         for ri, seq in enumerate(s):
@@ -584,7 +619,7 @@ class Model:
 
 
 def solve(inst, seed=0, time_limit=60.0, log=None, trace=None, pairs=False, elite=0, polish=0.0, accept="proxy",
-          check_every=0.5, init_rects=None, stop_feasible=False, near=0.0):
+          check_every=0.5, init_rects=None, stop_feasible=False, near=0.0, eject=0.0, slack_step=True):
     """trace: optional callable(proxy_cost, rects, ok, elapsed) called on every accepted move (diagnostics).
     pairs: pairwise coupling of two-row regions (B1).
     elite: keep the K best distinct layouts under the search cost and re-score them by true path cost at the end.
@@ -595,11 +630,13 @@ def solve(inst, seed=0, time_limit=60.0, log=None, trace=None, pairs=False, elit
     init_rects: start from this layout (Model.from_rects) instead of the greedy start.
     stop_feasible: return the first feasible layout found (used to legalise a classic solution).
     near: probability that a relocation puts the department next to a flow partner (chosen by weight).
+    eject: probability of a relocation with ejection (Model.eject_move).
+    slack_step: whether row slack also gets the 2 % step penalty.
     True path costs come from fastpath.path_cost (same numbers as evaluate, about 5x faster); the returned layout
     is the cheapest candidate that evaluate confirms as feasible."""
     t0 = time.time()
     rng = np.random.default_rng(seed)
-    M = Model(inst, pairs=bool(pairs), near=near)
+    M = Model(inst, pairs=bool(pairs), near=near, eject=eject, slack_step=slack_step)
     if init_rects is not None:
         state = M.from_rects(init_rects); out = M.score(state)
         if out is None: state, out = M.initial(rng, deadline=t0 + 0.3 * time_limit)
